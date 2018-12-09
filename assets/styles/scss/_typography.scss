@@ -1,0 +1,206 @@
+/* --------------------------------------------------
+	1.0 Typography
+-------------------------------------------------- */
+
+
+
+mark {
+	background: #cafe48;
+}
+
+::-moz-selection {
+  
+  color: $white;
+  background: $highlight-text-bg;
+}
+
+::selection {
+  color: $white;
+  background: $highlight-text-bg;
+}
+
+
+
+/* ---- 1.1 Text ---- */
+body {
+	font-family: $body-font;
+	font-size: $body-text-size;
+	font-weight: $body-weight;
+	letter-spacing: $letter-spacing;
+	line-height: $line-hight;
+	color: $body-text-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $heading-font;
+	color: $heading-text-color;
+	text-transform: uppercase;
+}
+
+
+.dropcaps {
+	&:first-child {
+
+		&:first-letter {
+			padding: 6px 13px;
+			margin-right: 3px;
+			background: #ececec;
+			color: #111;
+			font-weight: 700;
+			font-size: 23px;
+		}
+	}
+}
+
+
+
+/* ---- 1.2 Headings ---- */
+h1 {
+	font-size: $heading-base-size;
+	letter-spacing: 5px;
+}
+
+h2 {
+	font-size: $heading-base-size - .2em;
+	letter-spacing: 4px;
+}
+
+h3 {
+	font-size: $heading-base-size - .4em;
+	letter-spacing: 3.5px;
+}
+
+h4 {
+	font-size: $heading-base-size - .63em; // 1.17em;
+	letter-spacing: 3px;
+}
+
+h5 {
+	font-size: $heading-base-size - .7em;
+	letter-spacing: 2px;
+}
+
+h6 {
+	font-size: $heading-base-size - .85em;   //.85em;
+	letter-spacing: 2px;
+}
+
+.h-alt {
+	font-family: $alt-heading-font;
+	font-weight: 300;
+}
+
+
+
+/* ---- 1.3 Links ---- */
+a {
+	transition: all .5s;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+p > a {
+	border-bottom: 1px solid rgba(44,170,223, 0);
+
+	&:visited {
+		color: darken($link-color, 10%);
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			color: $link-color;
+			text-decoration: none;
+		}
+	}
+
+	&:hover,
+	&:focus {
+		color: darken($link-color, 10%);
+		text-decoration: none;
+		border-bottom: 1px solid rgba(44,170,223, 1);
+	}
+}
+
+
+
+/* ---- 1.4 Blockquotes ---- */
+blockquote {
+	border: none;
+	padding: 0;
+	font-size: 1.3em;
+	letter-spacing: .5px;
+
+	footer {
+		padding-top: 25px;
+
+		&:before {
+			content: '-';
+		}
+
+		cite {
+			text-transform: uppercase;
+			color: $gray-light;
+			font-style: normal;
+			font-size: .85em;
+			letter-spacing: 2px;
+		}
+	}
+}
+
+.alt-blockquote {
+	padding: 50px;
+	background: $light-bg;
+}
+
+
+
+/* ---- 1.5 Lists ---- */
+.flat-list {
+	list-style: none;
+
+	li {
+		margin-bottom: 10px;
+
+		i {
+			&:before {
+				padding-right: 15px;
+			}
+		}
+	}
+}
+
+
+
+
+/* ---- 1.6 PAGE - Typography ---- */
+.headings-example {
+
+	ul {
+		list-style: none;
+
+		li {
+			padding-bottom: 30px;
+
+			&:last-child {
+				padding-bottom: 0;
+			}
+
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				margin: 0;
+			}
+		}
+	}
+}
+

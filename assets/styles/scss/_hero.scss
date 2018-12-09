@@ -1,0 +1,951 @@
+/* --------------------------------------------------
+	20.0 Hero
+-------------------------------------------------- */
+
+
+
+/* ---- 20.01 Preloader ---- */
+.preloader {
+	position: fixed;
+	top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $dark;
+  z-index: 9999;
+
+  img {
+  	display: block;
+  	position: absolute;
+  	left: 0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	width: 50px;
+  	height: 50px;
+  	margin: auto;
+  }
+}
+
+
+
+/* ---- 20.02 Scroller ---- */
+.scroller {
+	display: inline-block;
+	position: absolute;
+	bottom: 15px;
+	left: 0;
+	right: 0;
+	width: 120px;
+	margin: 0 auto;
+	font-size: 40px;
+	text-align: center;
+	color: rgba(235,235,235, .5);
+
+	&:focus {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	&:hover {
+		color: rgba(235,235,235, 1);
+
+		.scroller-text {
+			transform: translateY(-10px);
+			opacity: 1;
+		}
+	}
+
+	.scroller-text {
+		display: block;
+		font-family: $heading-font;
+		font-size: 10px;
+		letter-spacing: 2.5px;
+		text-transform: uppercase;
+		color: $light;
+		transform: translateY(5px);
+		opacity: 0;
+		transition: all .3s;
+	}
+}
+
+.scroller-dark {
+	color: rgba(17,17,17, .5);
+
+	&:hover {
+		color: rgba(17,17,17, 1);
+	}
+
+	.scroller-text {
+		color: $dark;
+	}
+}
+
+
+
+/* ---- 20.03 Hero Sliders Navigation ---- */
+.fs-slider,
+.fw-slider,
+.text-slider {
+
+	&:hover {
+
+		.slick-prev,
+		.slick-next {
+			opacity: 1;
+		}
+	}
+
+	.slick-prev,
+	.slick-next {
+		display: inline-block;
+		position: absolute;
+		top: 45%;
+		width: 60px;
+		height: 60px;
+		border: none;
+		font-size: 30px;
+		color: $dark;
+		background: $light;
+		opacity: 0;
+		transition: all .5s;
+
+		span {
+			line-height: 65px;
+		}
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover {
+			background: $dark;
+			color: $light;
+		}
+	}
+
+	.slick-prev {
+		top: 50%;
+		right: 0;
+	}
+
+	.slick-next {
+		margin-top: -62px;
+		right: 0;
+		top: 50%;
+	}
+}
+
+
+
+/* ---- 20.1 Main Onepage ---- */
+.main-demo-hero {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		position: absolute;
+		width: 100%;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		background: rgba(236,236,236, .6);
+	}
+
+	.hero-content-wrapper {
+		display: table;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		padding-left: 10%;
+
+		.hero-content {
+			display: table-cell;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+
+			.hero-lead {
+				font-size: 6em;
+				font-weight: 700;
+				letter-spacing: 2px;
+			}
+
+			.hero-subheading {
+				margin-top: $ws-m;
+				margin-bottom: 20px;
+				color: $gray-light;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.2 Full Screen Slider ---- */
+.fs-slider-hero {
+
+	.fs-slider {
+
+		.fs-slider-item {
+			position: relative;
+			width: 100%;
+			height: 100vh;			
+
+			.bg-overlay {
+				position: absolute;
+				width: 100%;
+				height: 100vh;
+				top: 0;
+				left: 0;
+			}
+
+			.hero-content-wrapper {
+				display: table;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100vh;
+
+				.hero-content {
+					display: table-cell;
+					width: 100%;
+					height: 100vh;
+					vertical-align: middle;
+					// text-align: center;
+				}
+			}
+		} // .fs-slider-item
+	} // .fs-slider
+} // .fs-slider-hero
+
+
+.fs-slide-1 {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .7);
+	}
+
+	.hero-content {
+		text-align: center;
+
+		.hero-lead {
+			font-family: $alt-heading-font;
+			font-size: 6em;
+			font-weight: 800;
+			letter-spacing: 5px;
+			color: $light;
+		}
+
+		.hero-subheading {
+			margin-top: $ws-m;
+			margin-bottom: 20px;
+			color: $gray-light;
+		}
+	}
+}
+
+.fs-slide-2 {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .7);
+	}
+
+	.hero-content {
+		padding-left: 10%;
+		text-align: left;
+
+		.hero-lead {
+			font-size: 6.5em;
+			font-weight: 700;
+			letter-spacing: 5px;
+			color: $light;
+
+			span {
+				font-weight: 300;
+			}
+		}
+
+		.hero-subheading {
+			margin-top: $ws-s;
+			margin-bottom: 30px;
+			color: $gray-light;
+		}
+	}
+}
+
+.fs-slide-3 {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .7);
+	}
+
+	.hero-content {
+		text-align: center;
+
+		.hero-lead {
+			margin-bottom: 35px;
+			font-family: $alt-heading-font;
+			font-size: 4em;
+			font-weight: 800;
+			letter-spacing: 15px;
+			color: $light;
+
+			span {
+				font-weight: 300;
+			}
+		}
+
+		.hero-subheading {
+			margin-top: $ws-m;
+			margin-bottom: 20px;
+			color: $gray-light;
+		}
+	}
+}
+
+
+
+/* ---- 20.3 Full Width Slider ---- */
+.fw-slider-hero {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	
+	.fw-slider {
+
+		.fw-slider-item {
+			position: relative;
+			width: 100%;
+			height: 600px;			
+
+			.bg-overlay {
+				position: absolute;
+				width: 100%;
+				height: 600px;
+				top: 0;
+				left: 0;
+			}
+
+			.hero-content-wrapper {
+				display: table;
+				width: 100%;
+				height: 600px;
+
+				.hero-content {
+					display: table-cell;
+					width: 100%;
+					height: 600px;
+					vertical-align: middle;
+					text-align: center;
+				}
+			}
+		}
+	}
+
+	.fw-slide-1 {
+		background: url(http://placehold.it/2440x1578);
+		background-size: cover;
+		background-position: 50%;
+
+		.bg-overlay {
+			background: rgba(17,17,17, .7);
+		}
+
+		.hero-content-wrapper {
+
+			.hero-content {
+
+				.hero-lead {
+					margin-bottom: 20px;
+					font-size: 4em;
+					font-weight: 700;
+					letter-spacing: 20px;
+					color: $light;
+				}
+
+				.hero-subheading {
+					margin-top: 0;
+					margin-bottom: $ws-s;
+					color: $gray-light;
+				}
+			}
+		}
+	} // .fw-slide-1
+
+	.fw-slide-2 {
+		background: url(http://placehold.it/2440x1578);
+		background-size: cover;
+		background-position: 50%;
+
+		.bg-overlay {
+			background: rgba(17,17,17, .75);
+		}
+
+		.hero-content-wrapper {
+			padding-left: 10%;
+
+			.hero-content {
+				text-align: left !important;
+
+				.hero-lead {
+					margin-bottom: $ws-s;
+					font-size: 5em;
+					font-weight: 700;
+					letter-spacing: 5px;
+					color: $light;
+				}
+
+				.hero-subheading {
+					margin-top: 0;
+					margin-bottom: 30px;
+					color: $gray-light;
+				}
+			}
+		}
+	} // .fw-slide-2
+
+	.fw-slide-3 {
+		@extend .fw-slide-1;
+		background: url(http://placehold.it/2440x1578);
+		background-size: cover;
+		background-position: 50%;
+
+		.hero-content-wrapper {
+
+			.hero-content {
+
+				.hero-lead {
+					margin-top: 40px;
+					margin-bottom: $ws-s;
+				}
+
+				.hero-subheading {
+					margin: 0;
+				}
+			}
+		}
+	} // .fw-slide-3
+} // .fw-slider-hero
+
+
+
+/* ---- 20.4 Full Screen Video ---- */
+.fs-video-hero {
+	@extend .main-demo-hero;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .4);
+	}
+
+	.hero-content-wrapper {
+
+		.hero-content {
+
+			.hero-lead {
+				color: $light;
+			}
+
+			.hero-subheading {
+				margin-top: $ws-m;
+				margin-bottom: 20px;
+				color: $gray-light;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.5 Full Width Video ---- */
+.fw-video-hero {
+	@extend .fs-video-hero;
+	height: 600px;
+
+	.bg-overlay {
+		height: 600px;
+		background: rgba(17,17,17, .5);
+	}
+
+	.hero-content-wrapper {
+		height: 600px;
+
+		.hero-content {
+			height: 600px;
+
+			.hero-lead {
+				font-size: 5em;
+				color: $light;
+			}
+
+			.hero-subheading {
+				margin-top: $ws-s;
+				margin-bottom: 30px;
+				color: $gray-light;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.6 Text Slider ---- */
+.text-slider-hero {
+	@extend .main-demo-hero;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .6);
+	}
+
+	.hero-content-wrapper {
+		left: 0;
+		right: 0;
+		padding-left: 0;
+
+		.hero-content {
+			text-align: center;
+
+			.hero-lead {
+				font-family: $alt-heading-font;
+				font-size: 9em;
+				font-weight: 800;
+				letter-spacing: 20px;
+				color: $light;
+			}
+
+			.hero-subheading {
+				margin-top: $ws-s;
+				margin-bottom: 20px;
+				color: $gray-light;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.7 Freelancer ---- */
+.freelancer-hero {
+	@extend .main-demo-hero;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 40%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .6);
+	}
+
+	.hero-content-wrapper {
+		left: 0;
+		right: 0;
+		padding-left: 0;
+
+		.hero-content {
+			text-align: center;
+
+			.hero-lead {
+				margin-bottom: $ws-s;
+				font-size: 5em;
+				font-weight: 700;
+				letter-spacing: 15px;
+				color: $light;
+			}
+
+			.hero-subheading {
+				margin-bottom: 20px;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.8 Agency ---- */ 
+.agency-hero {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	background: #eee;
+
+	.hero-wrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		.hero-content {
+			position: relative;
+		  top: 50%;
+		  transform: translateY(-50%);
+
+			.lead-img {
+				max-width: 100%;
+				height: auto;
+			}
+
+			.text-wrapper {
+				display: block;
+				padding-top: $ws-l;
+				text-align: center;
+
+				h4 {
+					color: $gray;
+				}
+
+				p {
+					color: $gray-light;
+				}
+			}
+		}
+	}
+}
+
+.agency2-hero {
+	@extend .main-demo-hero;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .5);
+	}
+
+	.large-header {
+
+		.demo-canvas {
+			max-width: 100%;
+		}
+	}
+
+	.hero-content-wrapper {
+		padding-left: 0;
+
+		.hero-content {
+			text-align: center;
+
+			h1,
+			h2,
+			h3,
+			h4,
+			h6 {
+				color: $light;
+			}
+
+			.hero-lead {
+				margin-top: 0;
+				font-family: $heading-font;
+				font-size: 4em;
+				font-weight: 400;
+				letter-spacing: 10px;
+				color: $light;
+			}
+
+			.hero-secondary {
+				letter-spacing: 10px;
+			}
+
+			.btn {
+				margin-top: $ws-s;
+			}
+
+			img {
+				margin-bottom: $ws-s;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.9 Animated Heading ---- */
+.animated-hero {
+	@extend .main-demo-hero;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .4);
+	}
+
+	.hero-content-wrapper {
+		left: 0;
+		right: 0;
+		padding-left: 0;
+
+		.hero-content {
+			text-align: center;
+
+			.hero-lead {
+				font-size: 6.5em;
+				font-weight: 700;
+				letter-spacing: 20px;
+				color: $light;
+
+				span {
+					text-align: center;
+				}
+			}
+
+			.hero-subheading {
+				margin-top: $ws-s;
+				margin-bottom: 20px;
+				color: $gray-light;
+			}
+		}
+	}
+}
+
+
+
+/* ---- 20.10 Kenburn Slider ---- */
+.kenburn-hero {
+	
+	.kenburn-slider {
+		overflow: hidden;
+
+		.slick-dots {
+			display: block;
+			position: absolute;
+			bottom: 50px;
+			left: 10%;
+
+			li {
+
+				&:hover {
+					border-color: rgba(0,0,0, 0);
+					background: $light;
+				}
+			}
+		}
+
+		canvas {
+			position: relative;
+			top: 0;
+			width: 100vw;
+			height: 100vh;
+		}
+
+		.hero-wrapper {
+			display: table;
+			position: absolute;
+			padding-left: 10%;
+			padding-right: 10%;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			text-align: center;
+			background: rgba(17,17,17, .4);
+			z-index: 2;
+
+			.hero-content {
+				display: table-cell;
+				text-align: left;
+				vertical-align: middle;
+
+				h4 {
+					color: $light;
+					margin-bottom: $ws-s;
+				}
+
+				.lead-white-bg {
+					display: inline-block;
+					font-family: $alt-heading-font;
+					font-weight: 300;
+					font-size: 6em;
+					color: $dark;
+
+					span {
+						display: inline-block;
+						padding: 5px 17px;
+						margin-bottom: 10px;
+						background: #fff;
+					}
+				}
+			}
+		} // .hero-wrapper
+	} // .kenburn-slider
+
+	.scroller {
+		z-index: 3;
+	}
+} // .kenbrun-hero 
+
+
+
+/* ---- 20.11 Landing Page ---- */
+.landing-hero {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 40%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		height: 100vh;
+		width: 100%;
+		background: rgba(17,17,17, .6);
+	}
+
+	.hero-wrapper {
+		display: table;
+		width: 100%;
+		height: 100vh;
+
+		.hero-content {
+			display: table-cell;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+		}
+	}
+
+	.heading-wrapper {
+		text-align: left;
+
+		.lead {
+			font-size: 2.5em;
+			letter-spacing: 5px;
+			color: $light;
+		}
+
+		.subheading {
+			margin-bottom: $ws-s;
+			letter-spacing: 4px;
+			color: $gray-light;
+		}
+
+		.cta-btn {
+			@extend h6;
+			display: block;
+			margin-top: 75px;
+			color: $gray-light;
+
+			&:hover {
+				color: #fff;
+			}
+
+			&:focus,
+			&:visited {
+				text-decoration: none;
+			}
+		}
+	} // .heading-wrapper 
+
+	.form-wrapper {
+		padding: 75px;
+		background: rgba(17,17,17, .2);
+
+		input {
+			margin-bottom: 30px;
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+	} // .form-wrapper
+} // .landing-hero
+
+
+
+/* ---- 20.12 App Landing Page ---- */
+.app-hero {
+	height: 100vh;
+	
+	.row {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.hero-text {
+		padding-top: 50px;
+
+		.hero-lead {
+			margin-bottom: 50px;
+			font-size: 3.4em;
+			font-weight: 700;
+			letter-spacing: 10px;
+		}
+
+		p {
+			margin-bottom: 30px;
+			color: $gray-light;
+		}
+		
+		.btn-light {
+			margin-left: 10px;
+		}
+	} // .hero-text
+
+	.hero-img-container {
+		// transform: translateY(50%);
+
+		img {
+			height: 475px;
+		}
+	}
+} // .app-hero
+
+
+.web-app-hero {
+	@extend .main-demo-hero;
+
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: none;
+	}
+
+	.hero-content-wrapper {
+		padding-left: 0;
+
+		.hero-content {
+			text-align: center;
+			
+			.hero-lead {
+				margin-top: 0;
+				font-family: $heading-font;
+				font-size: 70px;
+				letter-spacing: 10px;
+			}
+
+			.hero-subheading {
+				margin-top: 0;
+			}
+
+			.btn {
+				margin-top: $ws-s;
+			}
+		}
+	}
+} // .web-app-demo-hero 

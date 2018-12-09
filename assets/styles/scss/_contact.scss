@@ -1,0 +1,315 @@
+/* --------------------------------------------------
+	19.0 Contact Layouts
+-------------------------------------------------- */
+
+
+
+.map-boxed {
+	display: block;
+	position: relative;
+	height: 500px;
+	width: 100%;
+}
+
+.map-wide {
+	display: block;
+	position: relative;
+	height: 300px;
+	width: 100%;
+}
+
+
+.social-wrapper {
+	padding-top: $ws-s;
+	padding-bottom: $ws-s;
+	background: $footer-bg;
+
+	.social-links {
+		margin-bottom: 0;
+		padding: 0;
+		list-style: none;
+		text-align: center;
+
+		li {
+			display: inline-block;
+			font-size: 30px;
+			margin: 0 20px;
+
+			a {
+				vertical-align: bottom;
+				color: $dark;
+
+				&:hover {
+					color: $gray-light;
+				}
+			}
+		}
+	}
+}
+
+
+form {
+
+	.alert-error {
+		color: $error-red;
+		font-size: .85em;
+	}
+
+	.input-error,
+	.input-error-2 {
+		border-color: $error-red;
+		transition: border-color .4s;
+
+		&:hover,
+		&:focus {
+			border-color: $error-red;
+		}
+	}
+} // form
+
+
+
+/* ---- 19.1 Contact Layout 1 ---- */
+.contact-1 {
+	padding-left: 0;
+	padding-right: 0;
+	
+	.contact-wrapper {
+		position: relative;
+
+		.contact-info-wrapper {
+			position: absolute;
+			padding: 70px 110px 40px 110px;
+			top: 75px;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			background: #fff;
+			transition: opacity .5s, visibility .6s, margin-top .5s;
+
+			address {
+
+				.address-group {
+					margin-bottom: 40px;
+
+					span {
+						@extend h6;
+						display: block;
+						margin-top: 0;
+						margin-bottom: 10px;
+					}
+
+					a,
+					p {
+						@extend h6;
+						display: block;
+						margin-bottom: 3px;
+						font-family: $alt-heading-font;
+						font-weight: 300;
+						color: $gray-light;
+					}
+				} // .address-group
+
+				.show-map-link {
+
+					a {
+						@extend h6;
+						display: block;
+						margin-top: -20px;
+
+						&:hover,
+						&:focus,
+						&:visited {
+							text-decoration: none;
+						}
+
+						&:hover {
+							color: $gray-light;
+						}
+
+						span {
+							padding-left: 15px;
+							font-size: 24px;
+						}
+					}
+				}
+			} // address
+		} // .contact-info-wrapper
+
+		.map-open {
+			margin-top: 30px;
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		.show-info-link {
+			position: absolute;
+			height: 50px;
+			width: 200px;
+			top: -20px;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			text-align: center;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity .5s, visibility .6s, top .5s;
+
+			a {
+				display: block;
+				padding-top: 8px;
+				width: 100%;
+				height: 100%;
+				background: #fff;
+				color: $dark;
+
+				&:hover {
+					background: $light;
+				}
+
+				i {
+					display: inline-block;
+					padding-right: 15px;
+				}
+
+				h6 {
+					display: inline-block;
+				}
+			}
+		} // .show-info-link
+
+		.info-open {
+			top: 0;
+			opacity: 1;
+			visibility: visible;
+		}
+
+		form {
+
+			.alert {
+				margin-top: 30px;
+			}
+		}
+	} // .contact-wrapper
+} // .contact-1
+
+
+
+/* ---- 19.2 Contact Layout 2 ---- */
+.contact-2 {
+
+	.gmap {
+		height: 400px;
+	}
+
+	.address-info {
+		padding: 35px 0 25px 0;
+		border-top: 1px solid $hr-color;
+		border-bottom: 1px solid $hr-color;
+
+		.address-info-item {
+
+			span {
+				display: inline-block;
+				padding-right: 20px;
+				height: 50px;
+				font-size: 32px;
+				color: $gray;
+				float: left;
+			}
+
+			h6 {
+				margin: 0;
+			}
+
+			a,
+			p {
+				display: block;
+				margin: 7px 0;
+				text-transform: uppercase;
+				font-size: .8em;
+				line-height: 1;
+				letter-spacing: 1px;
+				color: $body-text-color;
+			}
+		}
+	}
+
+	form {
+
+		.alert {
+			margin-top: 30px;
+		}
+	}
+} // .contact-2
+
+
+
+/* ---- 19.3 Contact Layout 3 ---- */
+.contact-3 {
+	background: $light-bg;
+
+	.form-wrapper {
+		margin-top: $ws-l;
+		margin-bottom: $ws-l;
+		padding: $ws-l $ws-m $ws-m $ws-m;
+		border-top: 1px solid $lighter;
+		background: #fff;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+
+		.from-header {
+			text-align: center;
+			margin-bottom: $ws-m;
+
+			h2 {
+				margin-top: 0;
+				margin-bottom: 30px;
+			}
+		}
+
+		p {
+			color: $gray-light;
+		}
+
+		.form-group {
+			padding-right: 45px;
+			padding-left: 45px;
+		}
+
+		input[type="submit"] {
+			display: block;
+			margin: auto;
+			margin-top: 30px;
+		}
+
+		.form-minimal {
+
+			input[type="text"],
+			input[type="email"],
+			input[type="tel"],
+			textarea {
+				border: none;
+				border-bottom: 1px solid $gray-light;
+
+				&:focus {
+					border-color: $dark;
+				}
+			}
+
+			.alert {
+				margin-top: 20px;
+			}
+
+			.input-error,
+			.input-error-2 {
+				border-color: $error-red !important;
+				transition: border-color .4s;
+
+				&:hover,
+				&:focus {
+					border-color: $error-red;
+				}
+			}
+		}
+	}
+} // .contact-3

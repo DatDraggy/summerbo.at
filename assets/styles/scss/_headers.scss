@@ -1,0 +1,196 @@
+/* --------------------------------------------------
+	4.0 Headers/Page Titles
+-------------------------------------------------- */
+
+
+
+/* ---- 4.1 Breadcrumbs ---- */
+.breadcrumb {
+	bottom: 7px;
+	margin-bottom: 0;
+	background: none;
+	text-transform: uppercase;
+	font-size: .85em;
+	letter-spacing: 2px;
+
+	li {
+
+		a {
+			color: $gray-light;
+
+			&:focus {
+				text-decoration: none;
+			}
+
+			&:hover {
+				color: $light;
+			}
+		}
+	}
+
+	li + li {
+		&:before {
+			color: $gray;
+		}
+	}
+
+	.active {
+		color: $gray;
+	}
+}
+
+
+
+/* ---- 4.2 Header/Page Title ---- */
+.page-title {
+	position: relative;
+	background: $light-bg;
+	padding-top: 80px;
+	padding-bottom: 80px;
+
+	h1 {
+		margin: 0;
+	}
+	
+	.subheading {
+		@extend h3;
+		display: block;
+		margin: 20px 0 0 0;
+		font-family: $alt-heading-font;
+		font-weight: 300;
+		color: $gray;
+	}
+
+	.breadcrumb {
+
+		li {
+
+			a {
+				color: $gray;
+
+				&:hover {
+					color: $dark;
+				}
+			}
+		}
+
+		.active {
+			color: $gray-light;
+		}
+	}
+} // .page-title
+
+
+
+/* ---- 4.3 Header/Page Title Styles ---- */
+.pt-dark {
+	background: $dark;
+
+	h1 {
+		color: $light;
+	}
+
+	.breadcrumb {
+
+		li {
+
+			a {
+				color: $gray-light;
+
+				&:hover {
+					color: $light;
+				}
+			}
+		}
+
+		.active {
+			color: $gray;
+		}
+	}
+} // .pt-dark
+
+
+
+/* ---- 4.4 Header/Page Title Sizes ---- */
+.pt-small {
+	padding-top: $ws-s;
+	padding-bottom: $ws-s;
+
+	h1 {
+		margin: 0;
+		padding: 0;
+	}
+
+	.breadcrumb {
+		padding: 0;
+	}
+}
+
+.pt-large {
+	padding-top: 140px;
+	padding-bottom: 140px;
+}
+
+
+
+/* ---- 4.5 Header/Page Title Parallax ---- */
+.pt-plax-md-dark {
+	background: url(http://placehold.it/2440x1280);
+	background-size: cover;
+	background-position: 50%;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(17,17,17, .55);
+	}
+}
+
+.pt-plax-md-light {
+	background: url(http://placehold.it/2440x1280);
+	background-size: cover;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(244,244,244, .85);
+	}
+}
+
+.pt-plax-lg-dark {
+	background: url(http://placehold.it/2440x1280);
+	background-size: cover;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(17,17,17, .83);
+	}
+}
+
+.pt-plax-lg-light {
+	background: url(http://placehold.it/2440x1280);
+	background-size: cover;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(244,244,244, .83);
+	}
+}

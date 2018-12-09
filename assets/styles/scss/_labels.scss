@@ -1,0 +1,46 @@
+/* --------------------------------------------------
+	25.0 Labels
+-------------------------------------------------- */
+
+
+
+.label {
+	border-radius: 0;
+}
+
+
+.label-dark {
+	background-color: $dark;
+}
+
+.label-red {
+	background-color: $label-red;
+}
+
+.label-green {
+	background-color: $label-green;
+}
+
+.label-yellow {
+	background-color: $label-yellow;
+}
+
+.label-gray {
+	background-color: $label-gray;
+}
+
+.label-outline {
+	padding: .1em .5em .2em;
+	border: 2px solid $dark;
+	background-color: none;
+	color: $dark;
+}
+
+
+.label-lg {
+	padding: 0.55em 0.9em;
+}
+
+.label-sm {
+	padding: 0.1em 0.5em;
+}
