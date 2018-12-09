@@ -1,0 +1,137 @@
+/* --------------------------------------------------
+	0.1 Settigns
+-------------------------------------------------- */
+
+
+
+/* ---- Colors ---- */
+$dark: #111;
+$gray: #777;
+$gray-light: #999;
+$light: #ececec;
+$lighter: #f8f8f8;
+$light-bg: #f4f4f4;
+$white: #fff;
+$error-red: #e80000;
+$success-green: #0F9D58;
+$highlight-text-bg: #17DA5B;
+
+
+
+/* ---- Label Colors ---- */
+$label-red: #DB211E;
+$label-green: #0BBE30;
+$label-gray: #7E8C95;
+$label-yellow: #FCD741;
+
+
+/* ---- Text ---- */
+
+// Font Family
+$body-font: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$heading-font: 'Montserrat', 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$alt-heading-font: 'Open Sans', 'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+
+// Text Sizes
+$body-text-size: 14px;
+$body-weight: 300;
+$line-hight: 1.8em;
+$letter-spacing: .2px;
+
+// Heading Sizes
+$heading-base-size: 1.7em;
+
+// Text Color
+$body-text-color: #777;
+$heading-text-color: #111;
+$link-color: rgba(44,170,223, 1);
+
+
+
+/* ---- White Space ---- */
+
+$ws-s: 50px;
+$ws-m: 100px;
+$ws-l: 160px;
+
+
+
+/* ---- Buttons ---- */
+$btn-padding: 8px 38px;
+$btn-font: $heading-font;
+$btn-font-size: .9em;
+$btn-letter-spaceing: 2.5px;
+$btn-line-height: 1.8em;
+$btn-color: $light;
+$btn-bg: $dark;
+$btn-rounded: 0;
+$btn-trans-time: .5s;
+
+
+
+/* ---- Forms ---- */
+$input-height: 40px;
+$input-border-color: #ddd;
+$input-border-color-focused: $gray;
+
+
+
+/* ---- Navigation ---- */
+$navbar-higth: 75px;
+$navbar-background: #fff;
+$navbar-border-color: $light;
+$nav-links-font-size: .8em;
+$nav-links-font-weight: 400;
+$nav-links-letter-spacing: 2px;
+$nav-links-color: $gray-light;
+$nav-links-color-hover: $dark;
+$nav-link-active-color: $dark;
+// Dropdown
+$dropdown-padding: 20px 0 10px 0;
+$dropdown-background: rgba(255,255,255, .93);
+$dropdown-link-padding: 11px 40px 11px 25px;
+$dropdown-link-letter-spacing: .5px;
+$dropdown-link-line-height: .8em;
+$dropdown-link-left-border: 3px solid $dark; // don`t change the 3px;
+$dropdown-link-background: rgba(17,17,17, .05);
+$dropdown-link-shift: 35px; // no shift on 25px;
+$dropdown-header-padding: 0 25px;
+$dropdown-header-font-size: .8em;
+$dropdown-header-font: $heading-font;
+$dropdown-header-color: $dark;
+$dropdown-divider-color: #ddd;
+$bg-solid-white: #fff;
+$bg-solid-black: #111;
+// Navbar Inverse
+$navbar-inverse-background: $dark;
+$navbar-inverse-border-color: #222;
+$nav-inverse-links-color: $gray;
+$nav-inverse-links-color-hover: $light;
+$nav-inverse-link-active-color: $light;
+$dropdown-inverse-background: rgba(17,17,17, .95);
+$dropdown-inverse-link-background: rgba(255,255,255, .1);
+$dropdown-inverse-link-left-border: 3px solid $light;
+$dropdown-inverse-header-color: $light;
+$dropdown-inverse-divider-color: #444;
+$nav-inverse-searh-border-color: $light;
+
+
+
+/* ---- Footer ---- */
+$footer-bg: #e3e3e3;
+$footer-copyright-bg: #222;
+$footer-hr-color: #999;
+
+
+
+/* ---- Other ---- */
+$hr-color: #ccc;
+
+
+
+/* ---- Media Queries Breakpoints ---- */
+$screen-xs: 600px;
+$screen-sm: 770px;
+$screen-md: 992px;
+$screen-lg: 1260px;
+$screen-xlg: 1440px;

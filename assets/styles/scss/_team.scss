@@ -1,0 +1,278 @@
+/* --------------------------------------------------
+	14.0 Team Blocks
+-------------------------------------------------- */
+
+
+
+/* ---- 14.1 Team - 3 Columns ---- */
+.team-3col {
+	
+	.t-item {
+		display: block;
+		border-top: 1px solid $lighter;
+		background: #fff;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		transition: all .3s;
+
+		&:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+
+			.t-image {
+
+				.t-description {
+					bottom: 0;
+
+					.content-wrapper {
+						padding-top: 0;
+						border-bottom: 1px solid rgba(235,235,236, 1);
+						opacity: 1;
+					}
+				}
+			}
+		} // &:hover
+
+		.t-image {
+			position: relative;
+			height: 375px;
+			overflow: hidden;
+
+			.t-description {
+				display: block;
+				position: absolute;
+				padding: 100px 30px 30px 30px;
+				bottom: -100%;
+				left: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba(255,255,255, 1);
+				transition: bottom .4s;
+
+				.content-wrapper {
+					opacity: 0;
+					padding-top: 100px;
+					padding-bottom: 73px;
+					border-bottom: 1px solid rgba(235,235,236, 0);
+					transition: opacity 1s, padding-top .8s, border 1.5s ease-out;
+
+					h4 {
+						margin: 0;
+						padding-bottom: 25px;
+					}
+				}
+			}
+		} // .t-image
+
+		.t-info {
+			padding: 25px 30px;
+
+			h4 {
+				margin: 0;
+			}
+
+			.t-name {
+				font-size: 16px;
+			}
+
+			.t-role {
+				@extend h4;
+				display: block;
+				font-family: $alt-heading-font;
+				font-size: 13px;
+				letter-spacing: 3.5px;
+				color: $gray-light;
+			}
+
+			.social-links {
+				margin: 0;
+				padding: 15px 0 0 0;
+				list-style: none;
+
+				li {
+					display: inline-block;
+
+					a {
+						display: block;
+						padding-right: 12px;
+						font-size: 21px;
+						color: $dark;
+
+						&:hover {
+							color: $gray-light;
+						}
+					}
+				}
+			} // .social-links
+		} // .t-info
+	} // .t-item
+} // .team-3col
+
+
+
+/* ---- 14.2 Team - 4 Columns ---- */
+.team-4col {
+	@extend .team-3col;
+
+	.t-item {
+
+		.t-image {
+			height: 325px;
+
+			.t-description {
+				padding: 50px 30px 30px 30px;
+				bottom: -100%;
+			}
+		}
+
+		.t-info {
+			padding: 15px 30px;
+
+			.t-name {
+				font-size: 14px;
+			}
+
+			.t-role {
+				font-size: 12px;
+			}
+
+			.social-links {
+				padding-top: 7px;
+
+				li {
+
+					a {
+						padding-right: 10px;
+						font-size: 19px;
+					}
+				}
+			} // .social-links
+		} // .t-info
+	}
+} // .team-4col
+
+.t-join {
+	display: block;
+	background: #fff;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	transition: all .3s;
+
+	&:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+	}
+
+	.t-image {
+		position: relative;
+		height: 315px;
+		background: $dark;
+		overflow: hidden;
+
+		.bg-icon {
+			position: absolute;
+			right: -27%;
+			top: 60px;
+			font-size: 320px;
+			color: rgba(204,204,204, .15);
+		}
+
+		.t-description {
+			padding: 40px 30px;
+
+			h4 {
+				margin: 0;
+				padding-bottom: 30px;
+				color: $light;
+			}
+
+			p {
+				margin: 0;
+				color: $gray-light;
+			}
+		}
+	}
+
+	.t-info {
+		padding: 15px 30px;
+
+		.t-name {
+			margin: 0;
+			font-size: 14px;
+		}
+
+		.t-role {
+			@extend h4;
+			display: block;
+			padding-bottom: 12px;
+			font-family: $alt-heading-font;
+			font-size: 12px;
+			letter-spacing: 3.5px;
+			color: $gray-light;
+		}
+	}
+} // .t-join
+
+
+
+/* ---- 14.3 Freelancer ---- */
+.freelancer-about {
+	@extend .team-3col;
+
+	.t-item {
+		height: 530px;
+		overflow: hidden;
+
+		&:hover {
+
+			.t-image {
+				height: 390px;
+			}
+
+			.social-links {
+
+				li {
+					transform: translateY(-50px);
+				}
+			}
+		} // &:hover
+
+		.t-image {
+			height: 440px;
+			transition: height .3s;
+		}
+
+		.social-links {
+			transform: translateY(50px);
+
+			li {
+				
+				&:first-child {
+					transition: transform .5s;
+				}
+
+				&:nth-child(2) {
+					transition: transform .65s;
+				}
+
+				&:nth-child(3) {
+					transition: transform .8s;
+				}
+
+				&:nth-child(4) {
+					transition: transform .95s;
+				}
+			}
+		}
+	} // .t-item
+
+	.freelancer-about-content {
+		margin-top: 25px;
+
+		.t1-heading {
+			margin-bottom: 35px;
+		}
+
+		img {
+			margin-top: 30px;
+		}
+	}
+} // .freelancer-about

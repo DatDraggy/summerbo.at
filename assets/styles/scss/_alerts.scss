@@ -1,0 +1,38 @@
+/* --------------------------------------------------
+	5.0 Alerts
+-------------------------------------------------- */
+
+
+
+.alert {
+	padding-left: 25px;
+	border-radius: 0;
+	border: none;
+	border-left: 3px solid #ccc;
+
+	h4,
+	h5,
+	h6 {
+		color: inherit !important;
+	}
+}
+
+.alert-success {
+	border-color: #3c763d;
+	background: rgba(93,235,49, .25);
+}
+
+.alert-info {
+	border-color: #31708f;
+	background: rgba(49,215,235, .25);
+}
+
+.alert-warning {
+	border-color: #ba8f45;
+	background: rgba(246,221,51, .25);
+}
+
+.alert-danger {
+	border-color: #a94442;
+	background: rgba(235,84,49, .25);
+}

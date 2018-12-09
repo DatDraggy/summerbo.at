@@ -1,0 +1,128 @@
+/* --------------------------------------------------
+	16.0 Pricing Tables
+-------------------------------------------------- */
+
+
+
+.pricing-tables {
+
+	.p-table {
+		position: relative;
+		padding: 75px 25px 50px 25px;
+		text-align: center;
+		border-top: 1px solid $lighter;
+		background: #fff;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+
+		h5 {
+			margin: 0;
+		}
+
+		hr {
+			width: 150px;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+		}
+
+		.banner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		  width: 60px;
+		  height: 58px;
+		  padding-top: 15px;
+		  background: $dark;
+		  color: white;
+		  font-size: 11px;
+		  letter-spacing: 0.2em;
+		  text-align: center;
+		  text-transform: uppercase;
+		}
+
+		.banner:after {
+		  content: "";
+		  position: absolute;
+		  left: 0;
+		  bottom: 0;
+		  width: 0;
+		  height: 0;
+		  border-bottom: 10px solid #fff;
+		  border-left: 29px solid transparent;
+		  border-right: 30px solid transparent;
+		}
+
+		.star {
+			position: absolute;
+			top: 12px;
+			left: 19px;
+			margin: 0 auto;
+			font-size: 23px;
+			color: #fff;
+		}
+
+		.price {
+			display: block;
+			margin-top: 40px;
+
+			.currency {
+				display: inline-block;
+				margin-left: -10px;
+				vertical-align: bottom;
+				font-size: 15px;
+				font-weight: 300;
+				color: $gray-light;
+			}
+
+			.value {
+				display: inline-block;
+				font-family: $heading-font;
+				font-size: 70px;
+				color: $dark;
+			}
+
+			.type {
+				@extend .currency;
+				vertical-align: top;
+				margin-top: -19px;
+				margin-right: -20px;
+				padding-left: 10px;
+			}
+		} // .price
+
+		.desc {
+			@extend h6;
+			margin-top: 20px;
+			margin-bottom: 0;
+			padding-bottom: 20px;
+			font-family: $alt-heading-font;
+			color: $gray;
+		}
+
+		.p-items {
+			list-style: none;
+			padding: 0;
+			margin-top: 25px;
+
+			li {
+				padding-bottom: 15px;
+
+				b {
+					font-weight: 400;
+				}
+			}
+		}
+
+		.btn,
+		.btn-ghost {
+			margin-top: 30px;
+		}
+	} // .p-table
+
+	.pt-featured {
+		transform: translateY(-10px);
+		box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+	}
+} // .pricing-tables
