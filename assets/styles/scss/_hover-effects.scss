@@ -1,0 +1,392 @@
+/* --------------------------------------------------
+	26.0 Hover Effects
+-------------------------------------------------- */
+
+
+
+/* ---- 26.1 Hover Default - Effect ---- */
+.hover-default {
+
+	.p-hover {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(17,17,17, .8);
+		overflow: hidden;
+		opacity: 0;
+		transition: opacity .5s;
+
+		.p-content {
+			position: absolute;
+			left: 40px;
+			right: 40px;
+			bottom: 25px;
+			transition: bottom .5s;
+
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p,
+			span {
+
+				&:first-child {
+					margin-top: 0;
+					margin-bottom: 0;
+					color: $light;
+				}
+
+				&:last-child {
+					margin-top: 10px;
+					margin-bottom: 0;
+					font-family: $alt-heading-font;
+					letter-spacing: 2.5px;
+					color: $gray-light;
+				}
+			}
+		}
+
+
+		&:hover {
+			opacity: 1;
+
+			.p-content {
+				bottom: 45px;
+			}
+
+			.open-btn {
+				top: 0;
+			}
+		}
+	}
+
+	.open-btn {
+		position: absolute;
+		padding-top: 22px;
+		width: 60px;
+		height: 60px;
+		right: 0;
+		top: -60px;
+		font-size: 15px;
+		text-align: center;
+		line-height: 0;
+		color: $dark;
+		background: $light;
+		transition: top .5;
+
+		&:focus,
+		&:visited {
+			outline: none;
+		}
+
+		&:hover {
+			color: $light;
+			background: $dark;
+		}
+	} // .open-btn
+} // .hover-default
+
+
+.hover-light {
+	@extend .hover-default;
+
+	.p-hover {
+		background: rgba(236,236,236, .9);
+
+		.p-content {
+
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p,
+			span {
+
+				&:first-child {
+					color: $dark;
+				}
+
+				&:last-child {
+					color: $gray-light;
+				}
+			}
+		}
+	}
+
+	.open-btn {
+		color: $light;
+		background: $dark;
+
+		&:hover {
+			color: $dark;
+			background: $light;
+		}
+	} // .open-btn
+}
+
+
+
+/* ---- 26.2 Hover Bottom - Effect ---- */
+.portfolio-item.hover-bottom {
+
+	figure {
+
+		img {
+			transition: transform .4s;
+		}
+		
+		&:hover,
+		&:active {
+
+			img {
+				transform: scale(1);
+				transform: translateY(-60px);
+			}
+
+			figcaption {
+				top: initial;
+				bottom: 0;
+			}
+		}
+
+
+		figcaption {
+			height: 60px;
+			top: initial;
+			bottom: -60px;
+			background: $dark;
+			opacity: 1;
+			transition: bottom .4s;
+
+			a {
+
+				&:focus {
+					otline: none;
+				}
+			}
+
+			.hover-heading {
+				display: inline-block;
+				padding-left: 40px;
+				line-height: 2.6;
+				letter-spacing: 2.8px;
+				color: $light;
+			}
+
+			.hover-btns {
+				display: inline-block;
+				margin: 0;
+				list-style: none;
+				float: right;
+
+				li {
+					display: inline-block;
+					margin-left: 1px;
+					float: right;
+					background: lighten($dark, 10%);
+					transition: background .4s;
+
+					&:hover {
+						cursor: pointer;
+						background: $light;
+
+						a {
+							color: $dark;
+						}
+					}
+
+					a {
+						display: block;
+						padding: 22px;
+						font-size: 17px;
+						line-height: 0;
+						color: $light;
+
+						&:focus,
+						&:active {
+							outline: none;
+						}
+					}
+				}
+			}
+		} // figcaption
+	} // figure
+} // .hover-bottom
+
+
+.hover-bottom.hover-light {
+
+	figure {
+
+		figcaption {
+			background: $light-bg;
+
+			.hover-heading {
+				color: $dark;
+			}
+
+			.hover-btns {
+
+				li {
+					background: lighten($dark, 85%);
+
+					&:hover {
+						background: lighten($dark, 70%);
+					}
+
+					a {
+						color: $dark;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* ---- 26.3 Hover Side Panel - Effect ---- */
+.portfolio-item.hover-side {
+
+	figure {
+
+		img {
+			transition: transform .4s;
+		}
+
+		&:hover,
+		&:active {
+
+			img {
+				transform: scale(1);
+				transform: translateX(38.2%);
+			}
+
+			figcaption {
+				transform: translateX(0);
+
+				.hover-heading,
+				.hover-text,
+				.hover-more-btn,
+				.hover-btns {
+					opacity: 1;
+				}
+			}
+		} // &:hover
+
+		figcaption {
+			padding: 40px 30px;
+			width: 38.2%;
+			background: $dark;
+			opacity: 1;
+			transform: translateX(-100%);
+			transition: transform .4s;
+
+			.hover-heading {
+				margin: 0;
+				padding-bottom: 20px;
+				font-size: .95em;
+				line-height: 1.7;
+				color: $light;
+				opacity: 0;
+				transition: opacity .6s;
+			}
+			
+			.hover-text {
+				margin: 0;
+				font-size: .9em;
+				line-height: 1.6;
+				color: $gray-light;
+				opacity: 0;
+				transition: opacity .6s;
+			}
+
+			.hover-more-btn {
+				display: block;
+				padding-top: 5px;
+				font-size: 25px;
+				color: $gray-light;
+				opacity: 0;
+				transition: opacity .6s, color .4s;
+
+				&:hover {
+					color: $light;
+				}
+			}
+
+			.hover-btns {
+				display: inline-block;
+				position: absolute;
+				bottom: 30px;
+				right: 20px;
+				margin: 0;
+				list-style: none;
+				opacity: 0;
+				transition: opacity .7s;
+
+				li {
+					display: inline-block;
+					margin-left: 15px;
+					float: right;
+
+					&:hover {
+
+						a {
+							color: $light;
+						}
+					}
+
+					a {
+						display: block;
+						font-size: 24px;
+						line-height: 0;
+						color: $gray-light;
+
+						&:focus {
+							outline: none;
+							text-decoration: none;
+						}
+					}
+				}
+			}
+		} // figcaption
+	} // figure
+} // .hover-side
+
+.hover-side.hover-light {
+
+	figure {
+
+		figcaption {
+			background: $light-bg;
+
+			.hover-heading {
+				color: $dark;
+			}
+
+			.hover-more-btn {
+
+				&:hover {
+					color: $dark;
+				}
+			}
+
+			.hover-btns {
+
+				li {
+					
+					&:hover {
+
+						a {
+							color: $dark;
+						}
+					}
+				}
+			}
+		}
+	}
+} // .hover-light

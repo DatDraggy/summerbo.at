@@ -1,0 +1,80 @@
+/* --------------------------------------------------
+	11.0 Sliders
+-------------------------------------------------- */
+
+
+
+.box {
+	width: 60px;
+	height: 60px;
+	background: $light;
+	text-align: center;
+}
+
+.slick-dots {
+	list-style: none;
+	padding: 0;
+	margin-top: 25px;
+
+	li {
+		display: inline-block;
+		margin-right: 10px;
+		height: 12px;
+		width: 12px;
+		vertical-align: middle;
+		border: 2px solid $light;
+		border-radius: 100px;
+		transition: all .3s;
+
+		button {
+			display: none;
+		}
+
+		&:hover {
+			background: $light;
+			cursor: pointer;
+		}
+	}
+
+	.slick-active {
+		border: 2px solid rgba(17,17,17, 0);
+		background: $light;
+		height: 12px;
+		width: 12px;
+	}
+}
+
+// Slider Nav
+.slider-nav {
+	display: inline-block;
+	position: absolute;
+	margin-top: -50px;
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	border: none;
+	background: $dark;
+	line-height: 0;
+	color: $light;
+	transition: background .3s;
+
+	i {
+		font-size: 15px;
+	}
+
+	&:hover {
+		background: lighten($dark, 15%);
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.sl-next {
+	right: 20px;
+}
+
+.sl-prev {
+	left: 20px;
+}

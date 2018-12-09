@@ -1,0 +1,354 @@
+/* --------------------------------------------------
+	0.2 Utility
+-------------------------------------------------- */
+
+
+hr {
+	margin-top: 0;
+	margin-bottom: 0;
+	border-color: $hr-color;
+}
+
+.no-gap {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.no-gap-left {
+	padding-left: 0;
+}
+
+.no-gap-right {
+	padding-right: 0;
+}
+
+.center-block {
+	margin: 0 auto;
+	display: block !important;
+}
+
+.no-style-link {
+	color: inherit;
+
+	&:focus,
+	&:visited {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	&:hover {
+		color: lighten($dark, 50%);
+	}
+}
+
+.clear {
+	clear: both;
+}
+
+
+
+/* ---- Backgrounds ---- */
+.dark-bg {
+	background: $dark;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: $light;
+	}
+
+	.subheading {
+		color: $gray !important;
+		font-weight: 400;
+	}
+}
+
+.gray-bg {
+	background: $lighter;
+}
+
+.bg-white {
+	background: #fff;
+}
+
+
+
+/* ---- White Space ---- */
+.ws-s {
+	padding-bottom: $ws-s;
+}
+
+.ws-m {
+	padding-bottom: $ws-m;
+}
+
+.ws-l {
+	padding-bottom: $ws-l;
+}
+
+.mb-30 {
+	margin-bottom: 30px;
+}
+
+.mb-50 {
+	margin-bottom: 50px;
+}
+
+.mb-75 {
+	margin-bottom: 75px;
+}
+
+.mb-100 {
+	margin-bottom: 100px;
+}
+
+.section {
+	padding-top: $ws-l;
+	padding-bottom: $ws-m;
+}
+
+.section-heading {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	span {
+		margin: 0;
+
+		&:first-child {
+			margin-top: $ws-l;
+		}
+
+		&:nth-child(2) {
+			margin-top: 30px;
+		}
+
+		&:last-child {
+			margin-bottom: $ws-m;
+		}
+	}
+}
+
+
+/* ---- Section Headings ---- */
+.sec-heading {
+	margin-bottom: $ws-m;
+	text-align: center;
+
+	.subheading {
+		display: block;
+		text-transform: uppercase;
+		font-family: $alt-heading-font;
+		font-weight: 300;
+		color: $gray-light;
+		letter-spacing: 2.5px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	span {
+		
+		&:first-child {
+			margin: 0;
+		}
+
+		&:last-child {
+			margin-top: 25px;
+		}
+
+		&:only-child {
+			margin-top: 0;
+		}
+	}
+}
+
+
+.sec-heading-2 {
+	text-align: center;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	span {
+		margin: 0;
+
+		&:first-child {
+			margin-top: $ws-l;
+			padding-bottom: $ws-s;
+		}
+
+		&:nth-child(2) {
+			margin-top: 30px;
+		}
+
+		&:last-child {
+			margin-bottom: $ws-m;
+		}
+	}
+
+	.subheading {
+		font-size: 1.3em;
+		color: $gray-light;
+	}
+}
+
+
+.sec-heading-top-m {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	span {
+
+		&:first-child {
+			margin-top: $ws-m;
+		}
+	}
+}
+
+
+
+/* ---- Info Blocks ---- */
+.info-base {
+	position: relative;
+	width: 100%;
+	
+
+	.info-overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+
+		.info-wrapper {
+			padding-top: 70px;
+			padding-bottom: 70px;
+			top: 75px;
+			bottom: 75px;
+			background: rgba(17,17,17, .9);
+		}
+	}
+} // .info-base
+
+.info-slider {
+	padding-left: 100px;
+	padding-right: 100px;
+	text-align: center;
+
+	&:hover {
+
+		.slick-prev,
+		.slick-next {
+			opacity: 1;
+		}
+	}
+
+	.slick-prev,
+	.slick-next {
+		display: inline-block;
+		position: absolute;
+		top: 30%;
+		background: none;				
+		border: 2px solid #444;
+		color: #444;
+		height: 42px;
+		width: 42px;
+		font-size: 15px;
+		opacity: 0;
+		transition: all .5s;
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover {
+			color: $light;
+			border-color: $light;
+		}
+	}
+
+	.slick-prev {
+		left: -75px;
+	}
+
+	.slick-next {
+		right: -75px;
+	}
+}
+
+
+
+/* ---- DEMO ONLY: Side Buttons - Qick Links ---- */
+.quick-link-btns {
+	
+	.quick-btn {
+		display: block;
+		position: fixed;
+		padding: 12px 15px;
+		top: 100px;
+		right: -108px;
+		color: $light;
+		background: $dark;
+		font-size: 11px;
+		letter-spacing: 1.8px;
+		font-family: $heading-font;
+		text-transform: uppercase;
+		opacity: .5;
+		z-index: 800;
+		transition: all .45s;
+
+		&:hover {
+			right: 0;
+			opacity: 1;
+
+			span {
+				right: 0;
+			}
+		}
+
+		i {
+			padding-left: 5px;
+			padding-right: 15px;
+			font-size: 18px;
+			vertical-align: middle;
+			border-right: 1px solid $light;
+		}
+
+		span {
+			display: inline-block;
+			position: relative;
+			padding-left: 11px;
+			right: -35px;
+			transition: right .7s;
+		}
+	}
+
+	.buy-btn {
+		right: -102px;
+	}
+
+	.feedback-btn {
+		margin-top: 50px;
+	}
+} // .quick-link-btns
