@@ -65,13 +65,12 @@
           <div id="navbar" class="navbar-collapse collapse page-scroll navbar-right">
             <ul class="nav navbar-nav">
               <li><a href="#home">Home<span class="sr-only"></span></a></li>
-              <li><a href="#services">Services<span class="sr-only"></span></a></li>
               <li><a href="#about">About<span class="sr-only"></span></a></li>
-              <li><a href="#portfolio">Portfolio<span class="sr-only"></span></a></li>
-              <li><a href="#testimonials">Testimonials<span class="sr-only"></span></a></li>
-              <li><a href="#blog">Blog<span class="sr-only"></span></a></li>
+              <li><a href="#prices">Prices<span class="sr-only"></span></a></li>
+              <li><a href="#gallery">Gallery<span class="sr-only"></span></a></li>
+              <li><a href="#faq">FAQ<span class="sr-only"></span></a></li>
+              <li><a href="#team">Team<span class="sr-only"></span></a></li>
               <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
-              <li><a href="index.html">All Demos<span class="sr-only"></span></a></li>
               <?php if(isset($_SESSION['rank']) && $_SESSION['rank'] < 0){echo '<li><a href="admin.html">Admin<span class="sr-only"></span></a></li>';}?>
             </ul><!-- / .nav .navbar-nav -->              
           </div><!--/.navbar-collapse -->
@@ -85,7 +84,7 @@
 
           <!-- Video Background -->
           <div id="fs-video-one-bg" class="player" 
-               data-property="{videoURL:'https://youtu.be/X4UyBxH7jHg',containment:'.fs-video-hero',autoPlay:true, mute:true, startAt:05, stopAt:300, opacity:1}">
+               data-property="{videoURL:'https://youtu.be/8Yv6nfv_4Lg',containment:'.fs-video-hero',autoPlay:true, mute:true, startAt:46, stopAt:128, opacity:1}">
           </div>
 
           <div class="bg-overlay">
@@ -149,7 +148,7 @@
 
 		
 		<!-- ========== Basic information ========== -->
-		<section class="container section">
+		<section id="about" class="container section">
           <div class="row ws-m">
             
             <header class="sec-heading">
@@ -191,7 +190,7 @@
 		
 		
 		<!-- ========== Gallery ========== -->
-		  <section class="container-fluid portfolio-layout portfolio-columns-fw">
+		  <section id="gallery" class="container-fluid portfolio-layout portfolio-columns-fw">
           <div class="row">
             <header class="sec-heading">
               <h2>Hover Effects</h2>
@@ -287,7 +286,7 @@
 		
 		<!-- ========== Team ========== -->
 		<div class="gray-bg">
-          <section class="container section pricing-tables">
+          <section id="team" class="container section pricing-tables">
             <div class="row">
 
               <!-- Table 1 -->
