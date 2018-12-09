@@ -1,6 +1,9 @@
 <?php
 if (isset($_SESSION['userId'])){
+  require_once('files/funcs.php');
+  $userId = $_SESSION['userId'];
   //Do SQL, Get Rank and Perms
+  $rank = getUserRank($userId);
 }
 else{
   header('Location: login.html');
