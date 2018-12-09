@@ -8123,7 +8123,7 @@ form .input-error-2:focus {
 
 /* ---- 20.4 Full Screen Video ---- */
 .fs-video-hero, .fw-video-hero {
-  background: url(../assets/images/hero/boathome.jpp);
+  background: url(../images/hero/boathome.jpp);
   background-size: cover;
 }
 
