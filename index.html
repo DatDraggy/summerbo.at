@@ -72,6 +72,7 @@
               <li><a href="#blog">Blog<span class="sr-only"></span></a></li>
               <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
               <li><a href="index.html">All Demos<span class="sr-only"></span></a></li>
+              <?php if(isset($_SESSION['rank']) && $_SESSION['rank'] < 0){echo '<li><a href="admin.html">Admin<span class="sr-only"></span></a></li>';}?>
             </ul><!-- / .nav .navbar-nav -->              
           </div><!--/.navbar-collapse -->
         </nav><!-- / .navbar -->
