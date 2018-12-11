@@ -1,0 +1,9 @@
+<?php
+require_once (__DIR__ . '../files/funcs.php');
+if(isset($_SESSION['userid']) && checkPermissions($_SESSION['userid'])){
+    //Show Admin Area Overview
+}else {
+    header('Location: ../login.html');
+    die();
+}
+?>
