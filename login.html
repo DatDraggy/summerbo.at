@@ -1,43 +1,64 @@
 <?php
 require_once(__DIR__ . '/files/session.php');
-require_once (__DIR__.'/files/config.php');
-if(isset($_SESSION['userid'])){
-    //Select From DB, if reg is valid, if not destroy session
-    /*
-    if(valid){
-        header('Location: userarea.html');
-    }
-    else{
-        //display login
-    }
-    */
-}
-if(isset($_POST['id']) && isset($_POST['password'])) {
-    $dbConnection = buildDatabaseConnection($config);
+require_once(__DIR__ . '/files/config.php');
+if (!empty($_SESSION['userid'])) {
+  $userId = $_SESSION['userid'];
+  $dbConnection = buildDatabaseConnection($config);
 
-    $sql = "SELECT hash, id, rank FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT hash, id, rank FROM users WHERE id = :id');
-    $stmt->bindParam(':id', $userId);
-    $stmt->execute();
-    $row = $stmt->fetch();
-    if ($row->numRows() === 1) {
-        $dbHash = $row['hash'];
-        $userId = $row['id'];
-        $rank = $row['rank'];
-        if (password_verify($_POST['password'], $dbHash)) {
-            //Logged in
-            $_SESSION['userid'] = $userId;
-            $_SESSION['rank'] = $rank;
-            header('Location: userarea.html?text=login');
-            die();
-        } else {
-            echo 'Login Details didn\'t match';
-            //ToDo: use session to save status and msg
-        }
+  //Check for Valid Regnummer from Session
+  $sql = "SELECT id FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
+  $stmt->bindParam(':userId', $userId);
+  $stmt->execute();
+  $row = $stmt->fetch();
+  if ($row->numRows() === 1) {
+    //Already logged in, redirect to userarea
+    header('Location: userarea.html');
+    die();
+  }
+  else {
+    //Clear Session and Cookies
+    if (isset($_COOKIE[session_name()])) {
+      setcookie(session_name(), '', time() - 3600, '/');
     }
+    session_destroy();
+  }
 }
-else{
-    echo 'Missing details';
+else if (!empty($_POST['id']) && !empty($_POST['password'])) {
+  $userId = $_POST['id'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  //Check for existing Reg
+  $sql = "SELECT hash, `rank` FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT hash, `rank` FROM users WHERE id = :userId');
+  $stmt->bindParam(':userId', $userId);
+  $stmt->execute();
+  $row = $stmt->fetch();
+  if ($row->numRows() === 1) {
+    $dbHash = $row['hash'];
+    $userId = $row['id'];
+    $rank = $row['rank'];
+    if (password_verify($_POST['password'], $dbHash)) {
+      $_POST['password'] = '';
+      //Logged in
+      //Password Correct, set Session
+      $_SESSION['userid'] = $userId;
+      $_SESSION['rank'] = $rank;
+      header('Location: userarea.html?from=login');
+      die();
+    }
+    else {
+      echo 'Login Details didn\'t match';
+      //ToDo: use session to save status and msg
+    }
+  }
+  else {
+    echo 'No user found';
+    //ToDo: use session to save status and msg
+  }
+}
+else {
+  echo 'Missing details';
 }
 
 ?>
