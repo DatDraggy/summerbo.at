@@ -20,6 +20,46 @@ function notifyOnException($subject, $config, $sql = '', $e = '') {
   die();
 }
 
+function checkRegValid($userId){
+  global $dbConnection, $config;
+  try {
+    $sql = "SELECT id FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  }catch (PDOException $e){
+    notifyOnException('Database Select', $config, $sql, $e);}
+  if ($row->numRows() === 1) {
+    //Already logged in, redirect to userarea
+    return true;
+  }
+  else {
+    //Clear Session and Cookies
+    return false;
+  }
+}
+
+function getRegDetails($userId, $columns = '*'){
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT $columns FROM users WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT $columns FROM users WHERE id = :userId");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if (!empty($row)) {
+    return $row;
+  }
+  else {
+    return 'Not found';
+  }
+}
+
 function getUserRank($userId) {
   global $dbConnection, $config;
 
@@ -86,16 +126,17 @@ function confirmRegistration($token) {
   }
   else {
     try {
-      $sql = "SELECT email, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-      $stmt = $dbConnection->prepare('SELECT email, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+      $sql = "SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
       $stmt->bindParam(':token', $token);
       $stmt->execute();
       $row = $stmt->fetch();
       if ($stmt->rowCount() === 1) {
         $email = $row['email'];
         $nickname = $row['nickname'];
+        $userId = $row['id'];
         sendEmail($email, 'Subject', " Hello $nickname your email was confirmed, Staff is approving it. Status 1");
-        sendStaffNotification();
+        sendStaffNotification($userId);
       }
     } catch (PDOException $e) {
       notifyOnException('Database Select', $config, $sql, $e);
@@ -105,12 +146,70 @@ function confirmRegistration($token) {
   return true;
 }
 
-function sendStaffNotification() {
+function approveRegistration($userId) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "UPDATE users SET status = 2 WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2 WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+function rejectRegistration($userId){  global $dbConnection, $config;
+
+  try {
+    $sql = "DELETE FROM users WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare('DELETE FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function sendStaffNotification($userId) {
   global $config;
 
-  foreach($config['telegramAdmins'] as $admin) {
-    $replyMarkup = array('inline_keyboard' => array(array(array("text" => "Summerbo.at Admin Area", "url" => "https://summerbo.at/admin/"))));
-    telegramSendMessage($admin, 'New Registration on <a href="https://summerbo.at">summerbo.at</a>!', json_encode($replyMarkup));
+  foreach ($config['telegramAdmins'] as $admin) {
+    $replyMarkup = array(
+      'inline_keyboard' => array(
+        array(
+          array(
+            'text' => 'View',
+            'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
+          )
+        ),
+        array(
+          array(
+            'text'          => 'Approve',
+            'callback_data' => $userId . '|approve|0'
+          ),
+          array(
+            'text'          => 'Reject',
+            'callback_data' => $userId . '|reject|0'
+          )
+        )
+      )
+    );
+    sendMessage($admin, "<b>New Registration on summerbo.at!</b>
+Regnumber: $userId", json_encode($replyMarkup));
   }
 }
 
@@ -153,7 +252,7 @@ function getRandomString($Length) {
   return substr(str_shuffle($Chars), 0, $Length);
 }
 
-function telegramSendMessage($chatId, $text, $replyMarkup = '') {
+function sendMessage($chatId, $text, $replyMarkup = '') {
   global $config;
   $response = file_get_contents($config['url'] . "sendMessage?disable_web_page_preview=true&parse_mode=html&chat_id=$chatId&text=" . urlencode($text) . "&reply_markup=$replyMarkup");
   //Might use http_build_query in the future
