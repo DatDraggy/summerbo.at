@@ -1,7 +1,0 @@
-<?php
-require_once (__DIR__ . '/../files/funcs.php');
-if(empty($_SESSION['userid']) || !isAdmin($_SESSION['userid'])) {
-  header('Location: ../login.html');
-  die();
-}
-?>
