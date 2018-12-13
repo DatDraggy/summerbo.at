@@ -1,5 +1,8 @@
 <!doctype html>
 <html class="no-js" lang="en">
+    <!--
+    Hi :3 <3
+    -->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,7 +74,7 @@
               <li><a href="#faq">FAQ<span class="sr-only"></span></a></li>
               <li><a href="#team">Team<span class="sr-only"></span></a></li>
               <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
-              <?php if(isset($_SESSION['rank']) && $_SESSION['rank'] > 0){echo '<li><a href="admin/index.html">Admin<span class="sr-only"></span></a></li>';}?>
+              <?php if(!empty($_SESSION['rank'])){echo '<li><a href="admin/index.html">Admin<span class="sr-only"></span></a></li>';}?>
             </ul><!-- / .nav .navbar-nav -->              
           </div><!--/.navbar-collapse -->
         </nav><!-- / .navbar -->
