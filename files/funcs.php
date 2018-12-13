@@ -106,7 +106,12 @@ function confirmRegistration($token) {
 }
 
 function sendStaffNotification() {
+  global $config;
 
+  foreach($config['telegramAdmins'] as $admin) {
+    $replyMarkup = array('inline_keyboard' => array(array(array("text" => "Summerbo.at Admin Area", "url" => "https://summerbo.at/admin/"))));
+    telegramSendMessage($admin, 'New Registration on <a href="https://summerbo.at">summerbo.at</a>!', json_encode($replyMarkup));
+  }
 }
 
 function sendEmail($address, $subject, $text) {
@@ -146,4 +151,11 @@ function sendEmail($address, $subject, $text) {
 function getRandomString($Length) {
   $Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   return substr(str_shuffle($Chars), 0, $Length);
+}
+
+function telegramSendMessage($chatId, $text, $replyMarkup = '') {
+  global $config;
+  $response = file_get_contents($config['url'] . "sendMessage?disable_web_page_preview=true&parse_mode=html&chat_id=$chatId&text=" . urlencode($text) . "&reply_markup=$replyMarkup");
+  //Might use http_build_query in the future
+  return json_decode($response, true)['result'];
 }
