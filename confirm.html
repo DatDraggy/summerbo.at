@@ -1,0 +1,18 @@
+<?php
+require_once('files/config.php');
+if (!empty($_GET['token'])) {
+  $token = $_GET['token'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  if (confirmRegistration($token)) {
+    header('Location: login.html');
+    die();
+  }
+  else {
+    echo 'Something went wrong.';
+  }
+}
+else {
+  header('Location: register.html');
+  die();
+}

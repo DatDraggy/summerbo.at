@@ -21,8 +21,7 @@ function notifyOnException($subject, $config, $sql = '', $e = '') {
 }
 
 function getUserRank($userId) {
-  global $config;
-  $dbConnection = buildDatabaseConnection($config);
+  global $dbConnection, $config;
 
   try {
     $sql = "SELECT `rank` FROM users WHERE id = '$userId'";
@@ -49,22 +48,65 @@ function requestRegistrationConfirm($userId, $email) {
     die();
   }
   $token = getRandomString(40);
-
-  $sql = 'INSERT INTO email_tokens(id, token) VALUES ($userId, $token)';
-  $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
-  $stmt->bindParam(':userId', $userId);
-  $stmt->bindParam(':token', $token);
-  $stmt->execute();
+  try {
+    $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
+    $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+  }
 
   $confirmationLink = 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 
   sendEmail($email, 'Subject', "Email Text $confirmationLink");
 }
 
-function confirmRegistration($userId) {
-  //ToDo: Set Status to 1
-  //ToDo: Send Confirmation to Attendee
-  //ToDo: Send Notification to Staff
+function confirmRegistration($token) {
+  global $dbConnection, $config;
+  try {
+    $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id SET status = 1 WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id SET status = 1 WHERE token = :token');
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() !== 1) {
+    $data = array(
+      'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+      'token'   => $token,
+      'server'  => $_SERVER,
+      'headers' => $http_response_header
+    );
+    mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
+    return false;
+  }
+  else {
+    try {
+      $sql = "SELECT email, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('SELECT email, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+      $row = $stmt->fetch();
+      if ($stmt->rowCount() === 1) {
+        $email = $row['email'];
+        $nickname = $row['nickname'];
+        sendEmail($email, 'Subject', " Hello $nickname your email was confirmed, Staff is approving it. Status 1");
+        sendStaffNotification();
+      }
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+      return false;
+    }
+  }
+  return true;
+}
+
+function sendStaffNotification() {
+
 }
 
 function sendEmail($address, $subject, $text) {
