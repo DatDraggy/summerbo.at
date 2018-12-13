@@ -1,0 +1,28 @@
+<?php
+session_start();
+require_once(__DIR__ . '/../files/funcs.php');
+require_once(__DIR__ . '/../files/config.php');
+if (!empty($_SESSION['userid'])) {
+  $requesterUserId = $_SESSION['userid'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  if (checkRegValid($requesterUserId)) {
+    $rank = getUserRank($_SESSION['userid']);
+    if ($rank > 0) {
+      $userId = $_GET['id'];
+      if ($_GET['type'] === 'reg') {
+        $details = getRegDetails($userId);
+        print_r($details);
+      }
+    }
+  }
+  die();
+}
+else {
+  if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();
+  header('Location: ../login.php');
+}
+?>

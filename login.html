@@ -1,23 +1,16 @@
 <?php
-require_once(__DIR__ . '/files/session.php');
+session_start();
+require_once(__DIR__ . '/files/funcs.php');
 require_once(__DIR__ . '/files/config.php');
 if (!empty($_SESSION['userid'])) {
   $userId = $_SESSION['userid'];
   $dbConnection = buildDatabaseConnection($config);
 
-  //Check for Valid Regnummer from Session
-  $sql = "SELECT id FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
-  $stmt->bindParam(':userId', $userId);
-  $stmt->execute();
-  $row = $stmt->fetch();
-  if ($row->numRows() === 1) {
-    //Already logged in, redirect to userarea
+  if (checkRegValid($userId)) {
     header('Location: userarea.html');
     die();
   }
   else {
-    //Clear Session and Cookies
     if (isset($_COOKIE[session_name()])) {
       setcookie(session_name(), '', time() - 3600, '/');
     }
