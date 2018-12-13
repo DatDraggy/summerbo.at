@@ -1,9 +1,7 @@
 <?php
 require_once (__DIR__ . '../files/funcs.php');
-if(isset($_SESSION['userid']) && checkPermissions($_SESSION['userid'])){
-    //Show Admin Area Overview
-}else {
-    header('Location: ../login.html');
-    die();
+if(empty($_SESSION['userid']) || !isAdmin($_SESSION['userid'])) {
+  header('Location: ../login.html');
+  die();
 }
 ?>
