@@ -177,11 +177,9 @@ To pay: {$details['topay']}");
         else {
           sendMessage($chatId, 'The given amount is not numeric.');
         }
-      }
-
-      if (!isset($messageArr[1])) {
+      }else {
         sendMessage($chatId, 'Usage:
-<code>/payment</code> <b>amount</b> <');
+<code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }
       break;
     default:
