@@ -1,6 +1,6 @@
-<?php
-$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
-?>
+  <?php
+  $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+  ?>
 <!doctype html>
 <html class="no-js" lang="en">
     <!--
@@ -12,7 +12,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         <title>Summerbo.at - The furry boat party in Berlin</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <!-- Favicon -->
         <link rel="shortcut icon" href="favicon.ico">
         <!-- Bootstrap -->
@@ -36,10 +36,10 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         <link rel="stylesheet" href="assets/styles/responsive.css">
 
         <!-- JS -->
-        <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+        <!--<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>-->
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar">
-        
+
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -55,7 +55,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
 
         <!-- ========== Navigation ========== -->
 
-        <nav class="navbar navbar-default navbar-fixed-top mega navbar-trans navbar-fw">
+        <nav class="navbar navbar-default navbar-fixed-top mega navbar-fw">
           <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
               <span class="sr-only">Toggle navigation</span>
@@ -64,7 +64,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
               <span class="icon-bar"></span>
             </button>
             <!-- Logo -->
-            <a class="navbar-brand" href="index.html"><img class="navbar-logo" src="assets/images/logo.png" alt="Definity - Logo"></a>
+            <a class="navbar-brand" href="index.html"><img class="navbar-logo" width="46" src="assets/images/logo@2x.png" alt="Hot Summer Nights - Logo"></a>
           </div>
 
           <!-- Navbar Links -->
@@ -78,7 +78,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
               <li><a href="#team">Team<span class="sr-only"></span></a></li>
               <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
               <?php if(!empty($_SESSION['userid'])){echo '<li><a href="userarea.html">User Area<span class="sr-only"></span></a></li>';}?>
-            </ul><!-- / .nav .navbar-nav -->              
+            </ul><!-- / .nav .navbar-nav -->
           </div><!--/.navbar-collapse -->
         </nav><!-- / .navbar -->
 
@@ -89,18 +89,20 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         <div id="home" class="fs-video-hero">
 
           <!-- Video Background -->
-          <div id="fs-video-one-bg" class="player" 
-               data-property="{videoURL:'https://youtu.be/YpJzqSuddKI',containment:'.fs-video-hero',autoPlay:true, mute:true, startAt:30, stopAt:300, opacity:10}">
+          <div id="fs-video-one-bg" class="player"
+               data-property="{videoURL:'https://youtu.be/HvRHO_fUfpk?',containment:'.fs-video-hero',autoPlay:true, mute:true, startAt:453, stopAt:300, opacity:10}">
           </div>
 
           <div class="bg-overlay">
-                            
+
             <!-- Hero Content -->
             <div class="hero-content-wrapper">
               <div class="hero-content">
-                
-                <h1 class="hero-lead wow fadeInLeft" data-wow-duration="1.5s">Summer boat party<br> Berlin</h1>
-                <h4 class="h-alt hero-subheading wow fadeIn" data-wow-duration="2s" data-wow-delay=".7s">The boat party for furries. Berlin - 13 August 2018 8pm CET</h4>
+
+                <h1 class="hero-lead wow fadeIn" data-wow-duration="1.5s">
+                  <img style="margin-top: -24px; margin-left: -49px;" src="/assets/images/headerLarge@2x.png" width="524" alt="Hot Summer Nights—Furry Boat Party">
+                </h1>
+                <h4 class="h-alt hero-subheading wow fadeIn" data-wow-duration="2s" data-wow-delay=".7s">Furry Boat Party <br>Berlin&mdash;13 August 2018 8pm CET</h4>
                 <a href="#prices" class="btn btn-light wow fadeIn" data-wow-duration="2s" data-wow-delay="1s">Register Now</a>
 
               </div>
@@ -116,14 +118,14 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         </div><!-- / .fs-video-hero -->
 
         <!-- ========== Main page ========= -->
-		
+
 		<!-- ========== Number Counters - Dark bg ========== -->
 		<!-- ========== Countdown to the party ========== -->
 
         <div class="number-counters-dark-bg">
           <div class="container">
             <div id="counters-min" class="row count-wrapper">
-              
+
               <!-- Item 1 -->
               <div class="col-md-3 mb-sm-100 count-item wow fadeIn" data-wow-duration="1s" data-wow-delay=".3s">
                 <span id="count-min-1" class="count-nbr">675</span>
@@ -152,11 +154,11 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
           </div><!-- / .container -->
         </div><!-- / .number-counters -->
 
-		
+
 		<!-- ========== Basic information ========== -->
 		<section id="about" class="container section">
           <div class="row ws-m">
-            
+
             <header class="sec-heading">
               <h2>Welcome</h2>
               <span class="subheading">Party with us in the heart of Berlin</span>
@@ -171,7 +173,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
               <p>Location of the boat party is the Mark Brandenburg. The biggest ship of the Stern und Kreis company that has many ships for cruises in Berlin. With a very big open deck and 4 saloons inside there is enough space for everyone.</p>
             </div>
           </div><!-- / .row -->
-		  
+
 		  <div class="row ws-m">
             <div class="col-md-3 mb-sm-50">
               <h5 class="mb-30">Music</h5>
@@ -191,15 +193,15 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
             </div>
           </div><!-- / .row -->
         </section><!-- / .container -->
-		
+
 		<!-- ========== Prices ========== -->
-		
+
 		<div id="prices" class="gray-bg">
           <section class="container section pricing-tables">
 
             <div class="row">
-              
-			 
+
+
               <!-- Table 1 -->
               <div class="col-md-4">
                 <div class="p-table pt-featured">
@@ -207,8 +209,8 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
 				<!-- Star -->
                <div class="banner">
                  <span class="star"><i class="fa fa-star"></i></span>
-               </div> 
-				
+               </div>
+
                   <!-- Heading -->
                   <h4>Early Bird</h4>
                   <div class="price">
@@ -229,13 +231,13 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                   <button class="btn-ghost">Register</button>
                 </div><!-- / .p-table -->
               </div><!-- / .col-md-4 -->
-              
+
 
               <!-- Table 2 (featured) -->
               <div class="col-md-4">
                 <div class="p-table">
 
-                                    
+
                   <!-- Header -->
                   <h4>Standard</h4>
                   <div class="price">
@@ -287,12 +289,12 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
             </div><!-- / .row -->
           </section><!-- / .container -->
         </div><!-- / .gray-bg -->
-		
+
 		<!-- ========== Gallery ========== -->
-		
+
 		  <section id="gallery" class="container-fluid portfolio-layout portfolio-columns-fw">
           <div class="row">
-		  
+
             <header class="sec-heading">
               <h2>Gallery</h2>
               <span class="subheading">A few impressions from the location</span>
@@ -300,8 +302,8 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
           </div><!-- / .row -->
 
           <div class="row">
-            <div id="pfolio">   
-			 
+            <div id="pfolio">
+
 			 <!-- Default (Dark) -->
               <div class="col-md-4 portfolio-item">
                 <div class="p-wrapper hover-default">
@@ -341,11 +343,11 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                   <a href="../assets/images/project-1.7.jpg" class="open-btn open-gallery"><i class="fa fa-expand"></i></a>
                 </div>
               </div><!-- / .portfolio-item -->
-			  
+
 		   </div><!-- / #pfolio -->
           </div><!-- / .row -->
         </section><!-- / .portfolio-columns-fw -->
-		
+
 		<!-- ========== Frequently Asked Questions ========== -->
 		<section class="container section">
           <header class="sec-heading">
@@ -361,7 +363,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <h4 class="mb-30">General</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore facilis voluptas ipsam iure vero similique consectetur error quas aliquid nemo nisi.</p>
               </div>
-              
+
               <!-- FAQ Accordion -->
               <div class="panel-group accordions-1 ws-s" id="faq-accordion-1" role="tablist" aria-multiselectable="true">
 
@@ -441,7 +443,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <h4 class="mb-30">Registration</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, blanditiis corrupti ea optio veniam, reiciendis, quidem iste quae.</p>
               </div>
-              
+
               <!-- FAQ Accordion -->
               <div class="panel-group ws-s accordions-1" id="faq-accordion-2" role="tablist" aria-multiselectable="true">
 
@@ -524,7 +526,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <h4 class="mb-30">Location</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore facilis voluptas ipsam iure vero similique consectetur error quas aliquid nemo nisi.</p>
               </div>
-              
+
               <!-- FAQ Accordion -->
               <div class="panel-group accordions-1 ws-s" id="faq-accordion-3" role="tablist" aria-multiselectable="true">
 
@@ -602,7 +604,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <h4 class="mb-30">Questions Group 4</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, blanditiis corrupti ea optio veniam, reiciendis, quidem iste quae.</p>
               </div>
-              
+
               <!-- FAQ Accordion -->
               <div class="panel-group accordions-1" id="faq-accordion-4" role="tablist" aria-multiselectable="true">
 
@@ -669,20 +671,19 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                     </div>
                   </div>
                 </div><!-- / .panel -->
-                
+
               </div><!-- / .panel-group .accordion-1 -->
             </div><!-- / .col-md-6 -->
           </div><!-- / .row -->
         </section><!-- / .container -->
-		
+
 		<!-- ========== Team Details ========== -->
 
           <section id="team" class="container section team-4col">
             <div class="row">
-              
+
               <header class="sec-heading">
-                <h2>The Team</h2>
-                <span class="subheading">No party without this team</span>
+                <h2>Your Boat Party Team</h2>
               </header>
 
               <!-- Member 1 -->
@@ -765,7 +766,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                   <!-- Info -->
                   <div class="t-info">
                     <h4 class="t-name">Hausken</h4>
-                    <span class="t-role">Lead<br>Designer</span>
+                    <span class="t-role">Design &amp;<br>Creative</span>
                     <ul class="social-links">
                       <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                       <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -804,11 +805,11 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
 
             </div><!-- / .row -->
           </section><!-- / .contianer -->
-		
+
         <!-- ========== Footer Contact ========== -->
-        
+
         <!-- ========== Footer Widgets ========== -->
-        
+
         <footer id="contact" class="footer-widgets">
           <div class="container">
             <div class="row section">
@@ -856,7 +857,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <div class="widget twitter-widget">
                   <h5 class="header-widget">Twitter Feed</h5>
                   <ul>
-                    
+
                     <li>
                       <a href="#"><i class="fa fa-twitter"></i></a>
                       <p>5 Reasons You Should Take a Sabbatical from Creative Work <a href="#">http://enva.to/NTa6F</a> by <a href="#">@envato</a> <span>- AUG 10</span></p>
@@ -875,7 +876,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
               <div class="col-md-3 col-sm-6" hidden>
                 <div class="widget newsletter-widget">
                   <h5 class="header-widget">Newsletter</h5>
-                  
+
                   <form action="post">
                     <div class="form-group">
                       <input type="email" name="w-newssletter" placeholder="Join our newsletter">
@@ -894,9 +895,9 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
           <div class="copyright">
             <div class="container">
               <div class="row">
-                
+
                 <div class="col-sm-6">
-                  <small>&copy; 2018 Made by <a class="no-style-link" href="#" target="_blank">Hunter</a> & <a class="no-style-link" href="https://kieran.de" target="_blank">Kieran</a></small>
+                  <small>&copy; 2018 Made by <a class="no-style-link" href="#" target="_blank">Hunter</a>, Hausken & <a class="no-style-link" href="https://kieran.de" target="_blank">Kieran</a></small>
                 </div>
 
                 <div class="col-sm-6">
@@ -909,7 +910,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
 
         </footer><!-- / .footer-widgets -->
 
-    
+
 
         <!-- ========== Scripts ========== -->
 
