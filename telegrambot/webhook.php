@@ -88,7 +88,7 @@ if(isset($text)) {
   $command = strtolower($command);
 
   if ($command === '/apply') {
-    if (!empty($messageArr[1]) && $messageArr[1] !== '/apply') {
+    if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
       $dbConnection = buildDatabaseConnection($config);
       $application = explode(' ', $text, 2)[1];
       $saveName = $senderName;
