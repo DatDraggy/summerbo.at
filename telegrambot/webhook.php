@@ -88,7 +88,6 @@ if(isset($text)) {
   $command = strtolower($command);
 
   if ($command === '/apply') {
-    mail($config['mail'], 'wtf', $dump);
     if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
       $dbConnection = buildDatabaseConnection($config);
       $application = explode(' ', $text, 2)[1];
@@ -96,9 +95,11 @@ if(isset($text)) {
       if ($senderUsername !== NULL) {
         $saveName = $senderUsername;
       }
-      saveApplication($chatId, $saveName, $application);
-      sendStaffNotification($chatId, "<b>New application from $saveName</b>:
+      if(saveApplication($chatId, $saveName, $application)) {
+        sendStaffNotification($chatId, "<b>New application from $saveName</b>:
 $application");
+      }
+      else{sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');}
     }
     else {
       sendMessage($chatId, '<b>How to apply as a volunteer:</b>
