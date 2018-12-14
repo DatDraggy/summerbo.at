@@ -1,58 +1,223 @@
 <?php
-//Test
-session_start();
-require_once(__DIR__ . '/files/funcs.php');
-require_once(__DIR__ . '/files/config.php');
-if (!empty($_SESSION['userid'])) {
-  $userId = $_SESSION['userid'];
-  $dbConnection = buildDatabaseConnection($config);
-
-  if (checkRegValid($userId)) {
-    header('Location: userarea.html');
-    die();
-  }
-  else {
-    if (isset($_COOKIE[session_name()])) {
-      setcookie(session_name(), '', time() - 3600, '/');
-    }
-    session_destroy();
-  }
-}
-else if (!empty($_POST['id']) && !empty($_POST['password'])) {
-  $userId = $_POST['id'];
-  $dbConnection = buildDatabaseConnection($config);
-
-  //Check for existing Reg
-  $sql = "SELECT hash, `rank` FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT hash, `rank` FROM users WHERE id = :userId');
-  $stmt->bindParam(':userId', $userId);
-  $stmt->execute();
-  $row = $stmt->fetch();
-  if ($row->numRows() === 1) {
-    $dbHash = $row['hash'];
-    $userId = $row['id'];
-    $rank = $row['rank'];
-    if (password_verify($_POST['password'], $dbHash)) {
-      $_POST['password'] = '';
-      //Logged in
-      //Password Correct, set Session
-      $_SESSION['userid'] = $userId;
-      $_SESSION['rank'] = $rank;
-      header('Location: userarea.html?from=login');
-      die();
-    }
-    else {
-      echo 'Login Details didn\'t match';
-      //ToDo: use session to save status and msg
-    }
-  }
-  else {
-    echo 'No user found';
-    //ToDo: use session to save status and msg
-  }
-}
-else {
-  echo 'Missing details, displaying form or redirecting';
-}
-
+require_once('files/things.php');
 ?>
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Definity - Login Page 1</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="assets/styles/vendor/bootstrap.min.css">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="assets/fonts/et-lineicons/css/style.css">
+  <link rel="stylesheet" href="assets/fonts/linea-font/css/linea-font.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+  <!-- Slider -->
+  <link rel="stylesheet" href="assets/styles/vendor/slick.css">
+  <!-- Lightbox -->
+  <link rel="stylesheet" href="assets/styles/vendor/magnific-popup.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="assets/styles/vendor/animate.css">
+  <!-- Picker -->
+  <link href="assets/styles/bootstrap-datepicker.min.css" rel="stylesheet"/>
+
+
+  <!-- Definity CSS -->
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <link rel="stylesheet" href="assets/styles/responsive.css">
+
+  <!-- JS -->
+  <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body id="page-top">
+
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<!-- ========== Preloader ========== -->
+
+<div class="preloader">
+  <img src="assets/images/loader.svg" alt="Loading...">
+</div>
+
+
+<!-- ========== Navigation ========== -->
+
+<?php echo $nav; ?>
+
+<!-- ========== Page Title ========== -->
+
+<header class="page-title pt-small pt-dark">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">Login Page</h1>
+      <ol class="col-sm-6 text-right breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Elements</a></li>
+        <li class="active">login</li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+
+<!-- ========== Login From ========== -->
+
+<div class="login-1">
+  <div class="bg-overlay">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+
+          <!-- Log in -->
+          <div class="panel-group" id="login-accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel top-panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#login-accordion" href="#collapseOne"
+                     aria-expanded="true" aria-controls="collapseOne">
+                    Login to your account
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+
+                  <div class="form-login">
+                    <form method="post">
+                      <!-- Username -->
+                      <div class="form-group">
+                        <label for="regnumber">Registration Number</label>
+                        <input type="text" id="regnumber" name="regnumber" class="form-control" placeholder="Enter your Reg Nr">
+                      </div>
+                      <!-- Password -->
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                        <span class="pull-right"><a href="#forgot-password" class="forget-pass-link">Forget password?</a></span>
+                      </div>
+                      <!-- Submit -->
+                      <input type="submit" value="Login" class="btn">
+                    </form>
+                  </div><!-- / .form-wrapper -->
+
+                </div><!-- / .panel-body -->
+              </div><!-- / .panel-collapse -->
+            </div><!-- / .panel -->
+            <hr>
+            <!-- Register Account -->
+            <?php if(strtotime('12-01-2019') < date('d-m-Y')){ ?>
+            <div class="panel bottom-panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#login-accordion"
+                     href="#register-login-page-2" aria-expanded="false" aria-controls="register-login-page-2">
+                    Register account
+                  </a>
+                </h4>
+              </div>
+              <div id="register-login-page-2" class="panel-collapse collapse" role="tabpanel"
+                   aria-labelledby="headingTwo">
+                <div class="panel-body">
+
+                  <div class="form-register">
+                    <form method="post">
+                      <!-- First Name -->
+                      <div class="form-group col-md-6 no-gap-left">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" required>
+                      </div>
+                      <!-- Last name -->
+                      <div class="form-group col-md-6 no-gap-right">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required>
+                      </div>
+                      <!-- Nick name -->
+                      <div class="form-group col-md-6 no-gap-left">
+                        <label for="nickname">Nickname</label>
+                        <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Last Name" required>
+                      </div>
+                      <!-- Date of Birth -->
+                      <div class="form-group">
+                        <label for="dateofbirth">Date of Birth</label>
+                        <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="YYYY-MM-DD" required>
+                      </div>
+                      <!-- Fursuiter -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="fursuiter" name="fursuiter"> Fursuiter
+                        </label>
+                      </div>
+                      <!-- Sponsor -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="sponsor" name="sponsor"> Become a sponsor for €15.- extra.
+                        </label>
+                      </div>
+                      <!-- Email -->
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                      </div>
+                      <!-- Password -->
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter a password" required>
+                      </div>
+                      <!-- Re-Enter Password -->
+                      <div class="form-group">
+                        <label for="passwordconfirm">Re-enter password</label>
+                        <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"
+                        placeholder="Re-enter your password" required>
+                      </div>
+                      <!-- Newsletter check -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" name="tos" id="tos" required> I accept the <a href="tos.html">Terms and
+                            Conditions</a> that apply.
+                        </label>
+                      </div>
+                      <!-- Submit -->
+                      <input type="submit" value="Register" class="btn">
+                    </form>
+                  </div><!-- / .form-wrapper -->
+
+                </div><!-- / .panel-body -->
+              </div><!-- / #register-login-page-2 .panel-colapse -->
+            </div><!-- / .panel -->
+            <?php } ?>
+          </div><!-- / #login-accordion .panel-group -->
+
+
+        </div><!-- / .col-md-6 -->
+      </div><!-- / .row -->
+    </div><!-- / .container -->
+
+  </div><!-- / .bg-overlay -->
+</div><!-- / .bg-login -->
+
+
+<!-- ========== Footer Widgets ========== -->
+
+<?php echo $footer; ?>
+
+<!-- Definity JS -->
+<script src="/assets/js/main.js"></script>
+<script src="assets/js/bootstrap-datepicker.min.js"></script>
+<script>$('#dateofbirth').datepicker({
+    format: "yyyy-mm-dd",
+    startView: 2,
+    language: "en"
+  });</script>
+</body>
+</html>
