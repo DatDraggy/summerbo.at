@@ -88,12 +88,7 @@ if(isset($text)) {
   $command = strtolower($command);
 
   if ($command === '/apply') {
-    if (!empty($messageArr[1]) && $messageArr[1] === '/apply') {
-      sendMessage($chatId, '<b>How to apply as a volunteer:</b>
-Write <code>/apply</code> with a little bit about yourself and experiences behind it.
-Example: <code>/apply Hello, I\'m Dragon!</code>');
-    }
-    else {
+    if (!empty($messageArr[1]) && $messageArr[1] !== '/apply') {
       $dbConnection = buildDatabaseConnection($config);
       $application = explode(' ', $text, 2)[1];
       $saveName = $senderName;
@@ -104,7 +99,12 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
       sendStaffNotification($chatId, "<b>New application from $saveName</b>:
 $application");
     }
-      die();
+    else {
+      sendMessage($chatId, '<b>How to apply as a volunteer:</b>
+Write <code>/apply</code> with a little bit about yourself and experiences behind it.
+Example: <code>/apply Hello, I\'m Dragon!</code>');
+    }
+    die();
   }
 
   if (!in_array($chatId, $config['telegramAdmins'])) {
