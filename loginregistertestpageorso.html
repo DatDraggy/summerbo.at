@@ -146,7 +146,7 @@
                               </div>
 							  <!-- Date of Birth -->
 							  <div class="form-group">
-							    <input type="text" id="dateofbirth" class="form-control" placeholder="DD-MM-YYYY">
+							    <input type="text" id="dateofbirth" class="form-control" placeholder="YYYY-MM-DD">
 								<label for="dateofbirth">Date of Birth</label>
 							  </div>
 							  <!-- Fursuiter -->
@@ -209,11 +209,10 @@
         <!-- Definity JS -->
         <script src="/assets/js/main.js"></script>
         <script src="assets/js/bootstrap-datepicker.min.js"></script>
-    <script>$("#dateofbirth").datepicker({
-        dateFormat:"dd-mm-yy",
-        altFormat:"yy-mm-dd",
-        changeMonth:true,
-        changeYear:true
+    <script>$('#dateofbirth').datepicker({
+        format: "yyyy-mm-dd",
+        startView: 2,
+        language: "en"
       });</script>
     </body>
 </html>
