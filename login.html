@@ -116,7 +116,7 @@ require_once('files/things.php');
             </div><!-- / .panel -->
             <hr>
             <!-- Register Account -->
-            <?php if(strtotime('12-01-2018') < date('d-m-Y')){ ?>
+            <?php if(date('d-m-Y', strtotime('12-01-2018')) < date('d-m-Y')){ ?>
             <div class="panel bottom-panel panel-default">
               <div class="panel-heading" role="tab" id="headingTwo">
                 <h4 class="panel-title">
