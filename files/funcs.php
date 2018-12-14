@@ -61,6 +61,25 @@ function getRegDetails($userId, $columns = '*'){
     return 'Not found';
   }
 }
+function getPaymentDetails($userId, $columns = '*'){
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = :userId");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if (!empty($row)) {
+    return $row;
+  }
+  else {
+    return 'Not found';
+  }
+}
 
 function getUserRank($userId) {
   global $dbConnection, $config;
@@ -152,8 +171,8 @@ function approveRegistration($userId) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2 WHERE id = '$userId'";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2 WHERE id = :userId');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
@@ -208,28 +227,7 @@ function sendStaffNotification($userId, $text = '') {
 
   foreach ($config['telegramAdmins'] as $admin) {
     if (empty($text)) {
-      $replyMarkup = array(
-        'inline_keyboard' => array(
-          array(
-            array(
-              'text' => 'View',
-              'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
-            )
-          ),
-          array(
-            array(
-              'text'          => 'Approve',
-              'callback_data' => $userId . '|approve|0'
-            ),
-            array(
-              'text'          => 'Reject',
-              'callback_data' => $userId . '|reject|0'
-            )
-          )
-        )
-      );
-      sendMessage($admin, "<b>New Registration on summerbo.at!</b>
-Regnumber: $userId", json_encode($replyMarkup));
+      requestApproveMessage($admin, $userId);
     }
     else {
       sendMessage($admin, $text);
@@ -237,6 +235,102 @@ Regnumber: $userId", json_encode($replyMarkup));
   }
 }
 
+function buildApproveMarkup($userId){
+  return array(
+    'inline_keyboard' => array(
+      array(
+        array(
+          'text' => 'View',
+          'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
+        )
+      ),
+      array(
+        array(
+          'text'          => 'Approve',
+          'callback_data' => $userId . '|approve|0'
+        ),
+        array(
+          'text'          => 'Reject',
+          'callback_data' => $userId . '|reject|0'
+        )
+      )
+    )
+  );
+}
+
+function requestApproveMessage($chatId, $userId){
+  $replyMarkup = buildApproveMarkup($userId);
+  sendMessage($chatId, "<b>New Registration on summerbo.at!</b>
+Regnumber: $userId", json_encode($replyMarkup));
+}
+
+function approvePayment($userId, $approver, $amount) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT topay, (SELECT COUNT(1) FROM payments WHERE user_id = '$userId') as paid FROM users WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT topay, (SELECT COUNT(1) FROM payments WHERE user_id = :userId) as paid FROM users WHERE id = :userIdB");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':userIdB', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() === 1) {
+    if ($row['topay'] <= $amount) {
+      $status = 3;
+    }
+    else {
+      $status = 2;
+    }
+    if ($row['paid'] == 1) {
+      try {
+        $sql = "UPDATE payments INNER JOIN users on payments.user_id = users.id SET status = '$status', amount = $amount WHERE user_id = '$userId'";
+        $stmt = $dbConnection->prepare("UPDATE payments INNER JOIN users on payments.user_id = users.id SET status = :status, amount = :amount WHERE user_id = :userId");
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':amount', $amount);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+      } catch (PDOException $e) {
+        notifyOnException('Database Select', $config, $sql, $e);
+      }
+    }
+    else {
+      try {
+        $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
+        $stmt = $dbConnection->prepare("INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)");
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':approver', $approver);
+        $stmt->bindParam(':amount', $amount);
+        $stmt->execute();
+      } catch (PDOException $e) {
+        notifyOnException('Database Select', $config, $sql, $e);
+      }
+    }
+    if ($stmt->rowCount() > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function requestUnapproved($chatId){
+  global $dbConnection, $config;
+  try {
+    $sql = "SELECT id FROM users WHERE status = 1";
+    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1");
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  foreach ($rows as $row) {
+    requestApproveMessage($chatId, $row['id']);
+    sleep(1);
+  }
+  sendMessage($chatId, 'Done.');
+}
 
 function sendEmail($address, $subject, $text) {
 

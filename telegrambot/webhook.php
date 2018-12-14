@@ -120,8 +120,69 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
 //Admin Commands locked down
   switch ($command) {
     case '/start':
+      sendMessage($chatId, '/help');
       break;
     case '/help':
+      sendMessage($chatId, 'Approving a payment: /payment
+');
+      break;
+    case '/getunconfirmed':
+      $dbConnection = buildDatabaseConnection($config);
+      requestUnapproved($chatId);
+      break;
+    case '/reg':
+      if (isset($messageArr[1])) {
+        if ($messageArr[1] === 'status') {
+          if (isset($messageArr[2])) {
+            $details = getRegDetails($messageArr[2], 'id, nickname, status, approvedate');
+            $approvedate = strtotime($details['approvedate']);
+            sendMessage($chatId, "
+Regnumber: {$details['id']}
+Nickname: {$details['nickname']}
+Status: {$details['status']}
+Approved: $approvedate");
+          }
+          else {
+            sendMessage($chatId, 'Please supply a regnumber.');
+          }
+        }
+      }
+      break;
+    case '/payment':
+      if (isset($messageArr[1])) {
+        if ($messageArr[1] === 'status') {
+          if (isset($messageArr[2])) {
+            $details = getPaymentDetails($messageArr[2], 'id, approvedate, amount, topay');
+            $payByDate = date('m/d/Y', strtotime('+2 weeks', $details['approvedate']));
+            sendMessage($chatId, "
+Regnumber: {$details['id']}
+Until: $payByDate
+Paid: {$details['amount']}
+To pay: {$details['topay']}");
+          }
+          else {
+            sendMessage($chatId, 'Please supply a regnumber.');
+          }
+        }
+        else if (is_numeric($messageArr[1])) {
+          if (isset($messageArr[2])) {
+            $dbConnection = buildDatabaseConnection($config);
+            $status = approvePayment($messageArr[2], $senderUserId, $messageArr[1]);
+            sendMessage($chatId, 'Updated. Payment completed: '.$status);
+          }
+          else {
+            sendMessage($chatId, 'Please supply a regnumber.');
+          }
+        }
+        else {
+          sendMessage($chatId, 'The given amount is not numeric.');
+        }
+      }
+
+      if (!isset($messageArr[1])) {
+        sendMessage($chatId, 'Usage:
+<code>/payment</code> <b>amount</b> <');
+      }
       break;
     default:
       sendMessage($chatId, 'Unknown Command. Please try again or use /help');
