@@ -60,8 +60,44 @@ $chatId = $data['message']['chat']['id'];
 $chatType = $data['message']['chat']['type'];
 $senderUserId = preg_replace("/[^0-9]/", "", $data['message']['from']['id']);
 $chatId = $data['callback_query']['message']['chat']['id'];
+if(isset($data['message']['text'])){
+  $text = $data['message']['text'];
+}
 
 if (!in_array($chatId, $config['telegramAdmins'])) {
   die();
 }
 
+if(isset($text)) {
+  if (substr($text, '0', '1') == '/') {
+    $messageArr = explode(' ', $text);
+    $command = explode('@', $messageArr[0])[0];
+    if ($messageArr[0] == '/start' && isset($messageArr[1])) {
+      $command = '/' . $messageArr[1];
+    }
+  }
+  else {
+    die();
+  }
+
+  $command = strtolower($command);
+
+  switch ($command) {
+    case '/start':
+      break;
+    case '/help':
+      break;
+    case '/apply':
+      if (!empty($messageArr[1]) && $messageArr[1] !== '/apply') {
+        sendMessage($chatId, '<b>How to apply as a volunteer:</b>
+Write <code>/apply</code> with a little bit about yourself and experiences behind it.
+Example: <code>/apply Hello, I\'m Dragon!</code>');
+      }
+      else {
+        noti
+      }
+      break;
+    default:
+      sendMessage($chatId, 'Unknown Command. Please try again or use /help');
+  }
+}
