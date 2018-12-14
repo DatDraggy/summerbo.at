@@ -56,7 +56,9 @@ if (isset($data['callback_query'])) {
   }
   die();
 }
-if(!isset($data['message'])){die();}
+if (!isset($data['message'])) {
+  die();
+}
 $chatId = $data['message']['chat']['id'];
 $chatType = $data['message']['chat']['type'];
 $senderUserId = preg_replace("/[^0-9]/", "", $data['message']['from']['id']);
@@ -68,12 +70,12 @@ $senderName = $data['message']['from']['first_name'];
 if (isset($data['message']['from']['last_name'])) {
   $senderName .= ' ' . $data['message']['from']['last_name'];
 }
-if(isset($data['message']['text'])){
+if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
 }
 
 
-if(isset($text)) {
+if (isset($text)) {
   if (substr($text, '0', '1') == '/') {
     $messageArr = explode(' ', $text);
     $command = explode('@', $messageArr[0])[0];
@@ -95,11 +97,14 @@ if(isset($text)) {
       if ($senderUsername !== NULL) {
         $saveName = $senderUsername;
       }
-      if(saveApplication($chatId, $saveName, $application)) {
+      if (saveApplication($chatId, $saveName, $application)) {
         sendStaffNotification($chatId, "<b>New application from $saveName</b>:
 $application");
+        sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
       }
-      else{sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');}
+      else {
+        sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
+      }
     }
     else {
       sendMessage($chatId, '<b>How to apply as a volunteer:</b>
