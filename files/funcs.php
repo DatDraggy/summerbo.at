@@ -184,34 +184,40 @@ function rejectRegistration($userId){  global $dbConnection, $config;
   }
 }
 
-function sendStaffNotification($userId) {
+function sendStaffNotification($userId, $text = '') {
   global $config;
 
   foreach ($config['telegramAdmins'] as $admin) {
-    $replyMarkup = array(
-      'inline_keyboard' => array(
-        array(
+    if (empty($text)) {
+      $replyMarkup = array(
+        'inline_keyboard' => array(
           array(
-            'text' => 'View',
-            'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
-          )
-        ),
-        array(
-          array(
-            'text'          => 'Approve',
-            'callback_data' => $userId . '|approve|0'
+            array(
+              'text' => 'View',
+              'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
+            )
           ),
           array(
-            'text'          => 'Reject',
-            'callback_data' => $userId . '|reject|0'
+            array(
+              'text'          => 'Approve',
+              'callback_data' => $userId . '|approve|0'
+            ),
+            array(
+              'text'          => 'Reject',
+              'callback_data' => $userId . '|reject|0'
+            )
           )
         )
-      )
-    );
-    sendMessage($admin, "<b>New Registration on summerbo.at!</b>
+      );
+      sendMessage($admin, "<b>New Registration on summerbo.at!</b>
 Regnumber: $userId", json_encode($replyMarkup));
+    }
+    else {
+      sendMessage($admin, $text);
+    }
   }
 }
+
 
 function sendEmail($address, $subject, $text) {
 
