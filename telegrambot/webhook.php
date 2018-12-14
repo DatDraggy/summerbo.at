@@ -60,7 +60,6 @@ if (isset($data['callback_query'])) {
 $chatId = $data['message']['chat']['id'];
 $chatType = $data['message']['chat']['type'];
 $senderUserId = preg_replace("/[^0-9]/", "", $data['message']['from']['id']);
-$chatId = $data['callback_query']['message']['chat']['id'];
 $senderUsername = NULL;
 if (isset($data['message']['from']['username'])) {
   $senderUsername = $data['message']['from']['username'];
