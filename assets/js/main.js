@@ -912,6 +912,5 @@ function CountDownTimer(dt, id) {
 		document.getElementById('count-min-4').innerHTML = seconds;
 	}
 	showRemaining();
-	document.getElementById('content').removeAttribute('style');
 	timer = setInterval(showRemaining, 1000);
 }
