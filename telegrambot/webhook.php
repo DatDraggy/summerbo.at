@@ -88,7 +88,7 @@ if(isset($text)) {
   $command = strtolower($command);
 
   if ($command === '/apply') {
-    if (!empty($messageArr[1]) && $messageArr[1] !== '/apply') {
+    if (!empty($messageArr[1]) && $messageArr[1] === '/apply') {
       sendMessage($chatId, '<b>How to apply as a volunteer:</b>
 Write <code>/apply</code> with a little bit about yourself and experiences behind it.
 Example: <code>/apply Hello, I\'m Dragon!</code>');
@@ -103,6 +103,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
       saveApplication($chatId, $saveName, $application);
       sendStaffNotification($chatId, "<b>New application from $saveName</b>:
 $application");
+      die();
     }
   }
 
