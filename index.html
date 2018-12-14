@@ -1,3 +1,6 @@
+<?php
+$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+?>
 <!doctype html>
 <html class="no-js" lang="en">
     <!--
@@ -97,7 +100,7 @@
               <div class="hero-content">
                 
                 <h1 class="hero-lead wow fadeInLeft" data-wow-duration="1.5s">Summer boat party<br> Berlin</h1>
-                <h4 class="h-alt hero-subheading wow fadeIn" data-wow-duration="2s" data-wow-delay=".7s">The boatparty for furries. Berlin - 13 August 2018 8pm CET</h4>
+                <h4 class="h-alt hero-subheading wow fadeIn" data-wow-duration="2s" data-wow-delay=".7s">The boat party for furries. Berlin - 13 August 2018 8pm CET</h4>
                 <a href="#prices" class="btn btn-light wow fadeIn" data-wow-duration="2s" data-wow-delay="1s">Register Now</a>
 
               </div>
@@ -165,7 +168,7 @@
             </div>
             <div class="col-md-8">
               <h5 class="mb-30">Location</h5>
-              <p>Location of the boat party is the Mark Brandenburg. The biggest ship of the Stern und Kreis company that has many ships for cruises in Berlin. With a very big open deck and 4 saloons inside is there enough space for everyone.</p>
+              <p>Location of the boat party is the Mark Brandenburg. The biggest ship of the Stern und Kreis company that has many ships for cruises in Berlin. With a very big open deck and 4 saloons inside there is enough space for everyone.</p>
             </div>
           </div><!-- / .row -->
 		  
@@ -933,5 +936,8 @@
 
         <!-- Definity JS -->
         <script src="assets/js/main.js"></script>
+        <script>
+          CountDownTimer("<?php echo $startDate; ?>T18:00:00", 'countdown');
+        </script>
     </body>
 </html>
