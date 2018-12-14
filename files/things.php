@@ -66,7 +66,7 @@ $footer = '<footer id="contact" class="footer-widgets">
                 <div class="widget newsletter-widget">
                   <h5 class="header-widget">Newsletter</h5>
 
-                  <form action="post">
+                  <form method="post">
                     <div class="form-group">
                       <input type="email" name="w-newssletter" placeholder="Join our newsletter">
                       <button type="submit"><i class="fa fa-send-o"></i></button>
