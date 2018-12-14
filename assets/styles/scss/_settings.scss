@@ -5,7 +5,7 @@
 
 
 /* ---- Colors ---- */
-$dark: #111;
+$dark: #3b3f9e;
 $gray: #777;
 $gray-light: #999;
 $light: #ececec;
@@ -14,7 +14,7 @@ $light-bg: #f4f4f4;
 $white: #fff;
 $error-red: #e80000;
 $success-green: #0F9D58;
-$highlight-text-bg: #17DA5B;
+$highlight-text-bg: #eb4274;
 
 
 
@@ -28,23 +28,29 @@ $label-yellow: #FCD741;
 /* ---- Text ---- */
 
 // Font Family
-$body-font: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
-$heading-font: 'Montserrat', 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
-$alt-heading-font: 'Open Sans', 'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
+
+@import url("//hello.myfonts.net/count/38454e");
+@font-face {font-family: 'Tide Sans'; font-weight: 400; font-style: normal; src: url('../fonts/typography/38454E_0_0.eot');src: url('../fonts/typography/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_0_0.woff2') format('woff2'),url('../fonts/typography/38454E_0_0.woff') format('woff'),url('../fonts/typography/38454E_0_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-weight: 400; font-style: italic; src: url('../fonts/typography/38454E_1_0.eot');src: url('../fonts/typography/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_1_0.woff2') format('woff2'),url('../fonts/typography/38454E_1_0.woff') format('woff'),url('../fonts/typography/38454E_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-weight: 700; font-style: normal; src: url('../fonts/typography/38454E_2_0.eot');src: url('../fonts/typography/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_2_0.woff2') format('woff2'),url('../fonts/typography/38454E_2_0.woff') format('woff'),url('../fonts/typography/38454E_2_0.ttf') format('truetype');}
+body, html {-webkit-font-smoothing: antialiased;}
+$body-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$heading-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$alt-heading-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
 
 // Text Sizes
-$body-text-size: 14px;
-$body-weight: 300;
+$body-text-size: 16px;
+$body-weight: 400;
 $line-hight: 1.8em;
-$letter-spacing: .2px;
+$letter-spacing: 0;
 
 // Heading Sizes
 $heading-base-size: 1.7em;
 
 // Text Color
-$body-text-color: #777;
-$heading-text-color: #111;
-$link-color: rgba(44,170,223, 1);
+$body-text-color: #000;
+$heading-text-color: #eb4274;
+$link-color: rgba(59,63,158, 1);
 
 
 
@@ -60,7 +66,7 @@ $ws-l: 160px;
 $btn-padding: 8px 38px;
 $btn-font: $heading-font;
 $btn-font-size: .9em;
-$btn-letter-spaceing: 2.5px;
+$btn-letter-spaceing: 0;
 $btn-line-height: 1.8em;
 $btn-color: $light;
 $btn-bg: $dark;
@@ -82,7 +88,7 @@ $navbar-background: #fff;
 $navbar-border-color: $light;
 $nav-links-font-size: .8em;
 $nav-links-font-weight: 400;
-$nav-links-letter-spacing: 2px;
+$nav-links-letter-spacing: 0;
 $nav-links-color: $gray-light;
 $nav-links-color-hover: $dark;
 $nav-link-active-color: $dark;
@@ -90,7 +96,7 @@ $nav-link-active-color: $dark;
 $dropdown-padding: 20px 0 10px 0;
 $dropdown-background: rgba(255,255,255, .93);
 $dropdown-link-padding: 11px 40px 11px 25px;
-$dropdown-link-letter-spacing: .5px;
+$dropdown-link-letter-spacing: 0;
 $dropdown-link-line-height: .8em;
 $dropdown-link-left-border: 3px solid $dark; // don`t change the 3px;
 $dropdown-link-background: rgba(17,17,17, .05);

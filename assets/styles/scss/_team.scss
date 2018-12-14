@@ -6,7 +6,7 @@
 
 /* ---- 14.1 Team - 3 Columns ---- */
 .team-3col {
-	
+
 	.t-item {
 		display: block;
 		border-top: 1px solid $lighter;
@@ -79,7 +79,7 @@
 				display: block;
 				font-family: $alt-heading-font;
 				font-size: 13px;
-				letter-spacing: 3.5px;
+				line-height: 1;
 				color: $gray-light;
 			}
 
@@ -132,6 +132,7 @@
 			}
 
 			.t-role {
+				line-height: 1;
 				font-size: 12px;
 			}
 
@@ -202,10 +203,10 @@
 		.t-role {
 			@extend h4;
 			display: block;
+			line-height: 1;
 			padding-bottom: 12px;
 			font-family: $alt-heading-font;
 			font-size: 12px;
-			letter-spacing: 3.5px;
 			color: $gray-light;
 		}
 	}
@@ -244,7 +245,7 @@
 			transform: translateY(50px);
 
 			li {
-				
+
 				&:first-child {
 					transition: transform .5s;
 				}
