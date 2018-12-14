@@ -178,9 +178,9 @@
 			}
 
 			.hero-subheading {
-				margin-top: $ws-m;
+				margin-top: $ws-s;
 				margin-bottom: 20px;
-				color: $gray-light;
+				color: $heading-text-color;
 			}
 		}
 	}
@@ -196,7 +196,7 @@
 		.fs-slider-item {
 			position: relative;
 			width: 100%;
-			height: 100vh;			
+			height: 100vh;
 
 			.bg-overlay {
 				position: absolute;
@@ -247,7 +247,7 @@
 		}
 
 		.hero-subheading {
-			margin-top: $ws-m;
+			margin-top: $ws-s;
 			margin-bottom: 20px;
 			color: $gray-light;
 		}
@@ -310,7 +310,7 @@
 		}
 
 		.hero-subheading {
-			margin-top: $ws-m;
+			margin-top: $ws-s;
 			margin-bottom: 20px;
 			color: $gray-light;
 		}
@@ -324,13 +324,13 @@
 	position: relative;
 	width: 100%;
 	height: 600px;
-	
+
 	.fw-slider {
 
 		.fw-slider-item {
 			position: relative;
 			width: 100%;
-			height: 600px;			
+			height: 600px;
 
 			.bg-overlay {
 				position: absolute;
@@ -462,9 +462,8 @@
 			}
 
 			.hero-subheading {
-				margin-top: $ws-m;
+				margin-top: $ws-s;
 				margin-bottom: 20px;
-				color: $gray-light;
 			}
 		}
 	}
@@ -579,7 +578,7 @@
 
 
 
-/* ---- 20.8 Agency ---- */ 
+/* ---- 20.8 Agency ---- */
 .agency-hero {
 	position: relative;
 	width: 100%;
@@ -723,7 +722,7 @@
 
 /* ---- 20.10 Kenburn Slider ---- */
 .kenburn-hero {
-	
+
 	.kenburn-slider {
 		overflow: hidden;
 
@@ -793,7 +792,7 @@
 	.scroller {
 		z-index: 3;
 	}
-} // .kenbrun-hero 
+} // .kenbrun-hero
 
 
 
@@ -856,7 +855,7 @@
 				text-decoration: none;
 			}
 		}
-	} // .heading-wrapper 
+	} // .heading-wrapper
 
 	.form-wrapper {
 		padding: 75px;
@@ -877,7 +876,7 @@
 /* ---- 20.12 App Landing Page ---- */
 .app-hero {
 	height: 100vh;
-	
+
 	.row {
 		position: relative;
 		top: 50%;
@@ -898,7 +897,7 @@
 			margin-bottom: 30px;
 			color: $gray-light;
 		}
-		
+
 		.btn-light {
 			margin-left: 10px;
 		}
@@ -931,7 +930,7 @@
 
 		.hero-content {
 			text-align: center;
-			
+
 			.hero-lead {
 				margin-top: 0;
 				font-family: $heading-font;
@@ -948,4 +947,4 @@
 			}
 		}
 	}
-} // .web-app-demo-hero 
+} // .web-app-demo-hero

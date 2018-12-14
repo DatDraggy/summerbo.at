@@ -10,7 +10,7 @@
 	border-bottom: 1px solid $navbar-border-color;
 	border-radius: 0;
 	background: $navbar-background;
-	
+
 	.navbar-header {
 		width: 27%;
 		margin-top: 6px;
@@ -23,7 +23,7 @@
 
 	.navbar-nav {
 		margin-top: 12px;
-		
+
 		li {
 
 			a {
@@ -42,7 +42,7 @@
 					background: none;
 					color: $nav-links-color-hover;
 				}
-				
+
 				// for bag icon in the nav.
 				i[class*="linea-"] {
 					font-size: 18px;
@@ -411,7 +411,7 @@
 	background: $navbar-inverse-background;
 
 	.navbar-nav {
-		
+
 		li {
 
 			a {
@@ -465,7 +465,7 @@
 				.cart-item {
 
 					.cart-remove-btn {
-						
+
 						&:hover {
 							color: $light;
 						}
@@ -474,7 +474,7 @@
 
 				.item-totals {
 					color: $light;
-				}				 
+				}
 			}
 
 			.search-dropdown {
@@ -493,7 +493,7 @@
 				}
 			} // .search-dropdown
 		} // .dropdown
-	} // .navbar-nav	
+	} // .navbar-nav
 } // .navbar-inverse
 
 
@@ -501,12 +501,12 @@
 /* ---- Mega Menu ---- */
 .mega {
 
-  .nav, 
-  .collapse, 
-  .dropup, 
+  .nav,
+  .collapse,
+  .dropup,
   .dropdown {
     position: static;
-  }  
+  }
 
   .container {
     position: relative;
@@ -515,7 +515,7 @@
   .dropdown-menu {
     left: auto;
   }
-  
+
   .mega-content {
     padding: 20px 30px;
   }
@@ -535,11 +535,11 @@
 	transition: background .3s;
 
 	.navbar-logo {
-		content: url(../images/logo-light.png);
+		content: url(../images/logo@2x.png);
 	}
 
 	.navbar-logo-dark {
-		content: url(../images/logo.png);
+		content: url(../images/logo@2x.png);
 	}
 }
 
