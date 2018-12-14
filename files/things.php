@@ -120,9 +120,9 @@ $footer = '<footer id="contact" class="footer-widgets">
         <script src="assets/js/vendor/jquery.mb.YTPlayer.min.js"></script>
         <script src="assets/js/vendor/jquery.ajaxchimp.js"></script>';
 
-$userarea = '';
+$userarea = '<li><a href="https://summerbo.at/login.html">Login/Registration<span class="sr-only"></span></a></li>';
 if(!empty($_SESSION['userid'])) {
-  $userarea = '<li><a href="userarea.html">User Area<span class="sr-only"></span></a></li>';
+  $userarea = '<li><a href="https://summerbo.at/userarea.html">User Area<span class="sr-only"></span></a></li>';
 }
 
 $nav = '<nav class="navbar navbar-default navbar-fixed-top mega navbar-fw">
@@ -140,13 +140,13 @@ $nav = '<nav class="navbar navbar-default navbar-fixed-top mega navbar-fw">
           <!-- Navbar Links -->
           <div id="navbar" class="navbar-collapse collapse page-scroll navbar-right">
             <ul class="nav navbar-nav">
-              <li><a href="#home">Home<span class="sr-only"></span></a></li>
-              <li><a href="#about">About<span class="sr-only"></span></a></li>
-              <li><a href="#prices">Prices<span class="sr-only"></span></a></li>
-              <li><a href="#gallery">Gallery<span class="sr-only"></span></a></li>
-              <li><a href="#faq">FAQ<span class="sr-only"></span></a></li>
-              <li><a href="#team">Team<span class="sr-only"></span></a></li>
-              <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#home">Home<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#about">About<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#prices">Prices<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#gallery">Gallery<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#faq">FAQ<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#team">Team<span class="sr-only"></span></a></li>
+              <li><a href="https://summerbo.at/#contact">Contact<span class="sr-only"></span></a></li>
               '. $userarea .'
             </ul><!-- / .nav .navbar-nav -->
           </div><!--/.navbar-collapse -->
