@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="assets/styles/vendor/magnific-popup.css">
         <!-- Animate.css -->
         <link rel="stylesheet" href="assets/styles/vendor/animate.css">
+      <!-- Picker -->
+      <link href="assets/styles/bootstrap-datepicker.min.css" rel="stylesheet" />
 
 
         <!-- Definity CSS -->
@@ -144,7 +146,7 @@
                               </div>
 							  <!-- Date of Birth -->
 							  <div class="form-group">
-							    <input type="date" id="dateofbirth" class="form-control" value="01-Jan-2000" placeholder="DD-MM-YYYY">
+							    <input type="text" id="dateofbirth" class="form-control" placeholder="DD-MM-YYYY">
 								<label for="dateofbirth">Date of Birth</label>
 							  </div>
 							  <!-- Fursuiter -->
@@ -205,6 +207,13 @@
         <?php echo $footer; ?>
 
         <!-- Definity JS -->
-        <script src="../assets/js/main.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="assets/js/bootstrap-datepicker.min.js"></script>
+    <script>$("#dateofbirth").datepicker({
+        dateFormat:"dd-mm-yy",
+        altFormat:"yy-mm-dd",
+        changeMonth:true,
+        changeYear:true
+      });</script>
     </body>
 </html>
