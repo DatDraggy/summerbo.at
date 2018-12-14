@@ -1,4 +1,4 @@
-WebFontConfig = {
+/*WebFontConfig = {
     google: { families: [ 'Open+Sans:300italic,800italic,400,300,600,700,800:latin', 'Montserrat:500,700:latin' ] }
   };
   (function() {
@@ -9,4 +9,4 @@ WebFontConfig = {
     wf.async = 'true';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(wf, s);
-  })();
+  })();*/
