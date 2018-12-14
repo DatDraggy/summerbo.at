@@ -103,8 +103,8 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
       saveApplication($chatId, $saveName, $application);
       sendStaffNotification($chatId, "<b>New application from $saveName</b>:
 $application");
-      die();
     }
+      die();
   }
 
   if (!in_array($chatId, $config['telegramAdmins'])) {
