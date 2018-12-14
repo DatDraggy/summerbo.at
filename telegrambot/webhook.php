@@ -56,7 +56,7 @@ if (isset($data['callback_query'])) {
   }
   die();
 }
-
+if(!isset($data['message'])){die();}
 $chatId = $data['message']['chat']['id'];
 $chatType = $data['message']['chat']['type'];
 $senderUserId = preg_replace("/[^0-9]/", "", $data['message']['from']['id']);
@@ -88,6 +88,7 @@ if(isset($text)) {
   $command = strtolower($command);
 
   if ($command === '/apply') {
+    mail($config['mail'], 'wtf', $dump);
     if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
       $dbConnection = buildDatabaseConnection($config);
       $application = explode(' ', $text, 2)[1];
