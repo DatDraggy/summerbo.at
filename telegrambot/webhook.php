@@ -167,7 +167,7 @@ To pay: {$details['topay']}");
         else if (is_numeric($messageArr[1])) {
           if (isset($messageArr[2])) {
             $dbConnection = buildDatabaseConnection($config);
-            $status = approvePayment($messageArr[2], $senderUserId, $messageArr[1]);
+            $status = (approvePayment($messageArr[2], $senderUserId, $messageArr[1])) ? 'yes' : 'no';
             sendMessage($chatId, 'Updated. Payment completed: '.$status);
           }
           else {
