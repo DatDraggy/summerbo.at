@@ -120,7 +120,7 @@ $footer = '<footer id="contact" class="footer-widgets">
         <script src="assets/js/vendor/jquery.mb.YTPlayer.min.js"></script>
         <script src="assets/js/vendor/jquery.ajaxchimp.js"></script>';
 
-$userarea = '<li><a href="https://summerbo.at/login.html">User Area<span class="sr-only"></span></a></li>';
+$userarea = '<li><a href="https://summerbo.at/login.html">Login/Registration<span class="sr-only"></span></a></li>';
 if(!empty($_SESSION['userid'])) {
   $userarea = '<li><a href="https://summerbo.at/userarea.html">User Area<span class="sr-only"></span></a></li>';
 }
