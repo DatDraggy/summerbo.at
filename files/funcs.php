@@ -184,6 +184,23 @@ function rejectRegistration($userId){  global $dbConnection, $config;
   }
 }
 
+function saveApplication($chatId, $name, $message) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "INSERT INTO applications(chatId, name, message) VALUES ('$chatId', '$name', '$message')";
+    $stmt = $dbConnection->prepare('INSERT INTO applications(chatId, name, message) VALUES (:chatId, :name, :message)');
+    $stmt->bindParam(':chatId', $chatId);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':message', $message);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+    return false;
+  }
+  return true;
+}
+
 function sendStaffNotification($userId, $text = '') {
   global $config;
 
