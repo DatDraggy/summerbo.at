@@ -51,14 +51,11 @@
 	h1 {
 		margin: 0;
 	}
-	
+
 	.subheading {
 		@extend h3;
 		display: block;
 		margin: 20px 0 0 0;
-		font-family: $alt-heading-font;
-		font-weight: 300;
-		color: $gray;
 	}
 
 	.breadcrumb {

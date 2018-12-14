@@ -189,19 +189,16 @@ _____________________________________________________
 @font-face {
   font-family: 'Tide Sans';
   font-weight: 400;
-  font-style: normal;
   src: url("../fonts/typography/38454E_0_0.eot");
   src: url("../fonts/typography/38454E_0_0.eot?#iefix") format("embedded-opentype"), url("../fonts/typography/38454E_0_0.woff2") format("woff2"), url("../fonts/typography/38454E_0_0.woff") format("woff"), url("../fonts/typography/38454E_0_0.ttf") format("truetype"); }
 @font-face {
   font-family: 'Tide Sans';
-  font-weight: 400;
   font-style: italic;
   src: url("../fonts/typography/38454E_1_0.eot");
   src: url("../fonts/typography/38454E_1_0.eot?#iefix") format("embedded-opentype"), url("../fonts/typography/38454E_1_0.woff2") format("woff2"), url("../fonts/typography/38454E_1_0.woff") format("woff"), url("../fonts/typography/38454E_1_0.ttf") format("truetype"); }
 @font-face {
   font-family: 'Tide Sans';
-  font-weight: 700;
-  font-style: normal;
+  font-weight: 600, bold;
   src: url("../fonts/typography/38454E_2_0.eot");
   src: url("../fonts/typography/38454E_2_0.eot?#iefix") format("embedded-opentype"), url("../fonts/typography/38454E_2_0.woff2") format("woff2"), url("../fonts/typography/38454E_2_0.woff") format("woff"), url("../fonts/typography/38454E_2_0.ttf") format("truetype"); }
 body, .testimonials-3col .t-item blockquote, .testimonials-3col .t-item .wrapper-404 .content-wrapper .info-wrapper .info-404, .wrapper-404 .content-wrapper .info-wrapper .testimonials-3col .t-item .info-404, .testimonials-3col .t-item .bg-maintenance .content-wrapper .content-inner p, .bg-maintenance .content-wrapper .content-inner .testimonials-3col .t-item p, html {
@@ -829,7 +826,8 @@ hr {
     text-transform: uppercase;
     font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 300;
-    color: #999; }
+    color: #999;
+    letter-spacing: 2.5px; }
   .sec-heading h1:first-child, .sec-heading .comingsoon .content-wrapper .content-inner .cs-timer .item .nbr-timer:first-child, .comingsoon .content-wrapper .content-inner .cs-timer .item .sec-heading .nbr-timer:first-child,
   .sec-heading h2:first-child,
   .sec-heading h3:first-child,
@@ -1790,20 +1788,20 @@ mark {
 
 ::-moz-selection {
   color: #fff;
-  background: #eb4274; }
+  background: #17DA5B; }
 
 ::selection {
   color: #fff;
-  background: #eb4274; }
+  background: #17DA5B; }
 
 /* ---- 1.1 Text ---- */
 body, .testimonials-3col .t-item blockquote, .testimonials-3col .t-item .wrapper-404 .content-wrapper .info-wrapper .info-404, .wrapper-404 .content-wrapper .info-wrapper .testimonials-3col .t-item .info-404, .testimonials-3col .t-item .bg-maintenance .content-wrapper .content-inner p, .bg-maintenance .content-wrapper .content-inner .testimonials-3col .t-item p {
   font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
   line-height: 1.8em;
-  color: #000; }
+  color: #777; }
 
 h1, .comingsoon .content-wrapper .content-inner .cs-timer .item .nbr-timer,
 h2,
@@ -1862,7 +1860,6 @@ h6,
 .prod-reviews .tp-review .tpr-name {
   font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
   color: #eb4274;
-  font-weight: 700;
   text-transform: uppercase; }
 
 .dropcaps:first-child:first-letter {
@@ -1875,29 +1872,35 @@ h6,
 
 /* ---- 1.2 Headings ---- */
 h1, .comingsoon .content-wrapper .content-inner .cs-timer .item .nbr-timer {
-  font-size: 1.7em; }
+  font-size: 1.7em;
+  letter-spacing: 5px; }
 
 h2 {
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  letter-spacing: 4px; }
 
 h3, .page-title .subheading {
-  font-size: 1.3em; }
+  font-size: 1.3em;
+  letter-spacing: 3.5px; }
 
 h4, .ft-tabs .tabs-list li a .tab-group .tab-heading, .testimonials-3col .t-item blockquote footer cite, .testimonials-3col .t-item .wrapper-404 .content-wrapper .info-wrapper .info-404 footer cite, .wrapper-404 .content-wrapper .info-wrapper .testimonials-3col .t-item .info-404 footer cite, .testimonials-3col .t-item .bg-maintenance .content-wrapper .content-inner p footer cite, .bg-maintenance .content-wrapper .content-inner .testimonials-3col .t-item p footer cite, .team-3col .t-item .t-info .t-role, .team-4col .t-item .t-info .t-role, .freelancer-about .t-item .t-info .t-role, .t-join .t-info .t-role, .login-2 .bg-overlay .form-wrapper .form-content .cards-header, .login-2 .bg-overlay .form-wrapper .social-signup .social-card .sc-lead {
-  font-size: 1.07em; }
+  font-size: 1.07em;
+  letter-spacing: 3px; }
 
 h5, .ft-boxed-hover ul li .hover-content .ft-heading, .ft-tabs .tabs-list li a .tab-group .tab-info, .sidebar .comments-widget .widget-item span .widget-comm-title, .comingsoon .content-wrapper .content-inner .cs-timer .item .title-timer, .shop-layout-options span {
-  font-size: 1em; }
+  font-size: 1em;
+  letter-spacing: 2px; }
 
 h6, .progress-group .progress-title,
 .progress-group .progress-value, .accordions-1 .panel .panel-heading .panel-title, .footer-social-links ul li, .footer-contact .contact-info .show-info-link, .footer-contact .contact-info address ul li .adr-heading, .footer-contact .contact-info address .show-map, .footer-litle address ul li .adr-group .adr-heading, .ft-cards .ft-item a, .ft-cards-2 .ft-card-item .ft-content .link-btn, .ft-boxed-hover ul li .hover-content a, .circles-counters .circle-item .circle-text, .circles-counters-dark-bg .circle-item .circle-text, .number-counters .count-wrapper .count-item .count-text, .number-counters-dark-bg .count-wrapper .count-item .count-text, .project-nav nav .nav-btns li a, .pricing-tables .p-table .desc, .blog-post-nav .prev-btn,
 .blog-post-nav .next-btn, .sidebar .tags-widget .tag-list li a, .contact-1 .contact-wrapper .contact-info-wrapper address .address-group span, .contact-1 .contact-wrapper .contact-info-wrapper address .address-group a,
 .contact-1 .contact-wrapper .contact-info-wrapper address .address-group p, .contact-1 .contact-wrapper .contact-info-wrapper address .show-map-link a, .landing-hero .heading-wrapper .cta-btn, .shop-sidebar .filter-widget label, .shop-sidebar-vertical .filter-widget label, .shop-sidebar .tags-widget .tag-list li a, .shop-sidebar-vertical .tags-widget .tag-list li a, .checkout-table tbody tr td:first-child, .prod-reviews .tp-review .tpr-name {
-  font-size: 0.85em; }
+  font-size: 0.85em;
+  letter-spacing: 2px; }
 
 .h-alt {
   font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700; }
+  font-weight: 300; }
 
 /* ---- 1.3 Links ---- */
 a {
@@ -1922,7 +1925,8 @@ p > a {
 blockquote, .wrapper-404 .content-wrapper .info-wrapper .info-404, .bg-maintenance .content-wrapper .content-inner p {
   border: none;
   padding: 0;
-  font-size: 1.3em; }
+  font-size: 1.3em;
+  letter-spacing: .5px; }
   blockquote footer, .wrapper-404 .content-wrapper .info-wrapper .info-404 footer, .bg-maintenance .content-wrapper .content-inner p footer {
     padding-top: 25px; }
     blockquote footer:before, .wrapper-404 .content-wrapper .info-wrapper .info-404 footer:before, .bg-maintenance .content-wrapper .content-inner p footer:before {
@@ -1931,7 +1935,8 @@ blockquote, .wrapper-404 .content-wrapper .info-wrapper .info-404, .bg-maintenan
       text-transform: uppercase;
       color: #999;
       font-style: normal;
-      font-size: .85em; }
+      font-size: .85em;
+      letter-spacing: 2px; }
 
 .alt-blockquote {
   padding: 50px;
@@ -2070,7 +2075,7 @@ blockquote, .wrapper-404 .content-wrapper .info-wrapper .info-404, .bg-maintenan
   color: #ececec;
   font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: 2.5px;
   font-size: 0.9em;
   line-height: 1.8em;
   border-radius: 0;
@@ -2479,7 +2484,10 @@ fieldset[disabled] .form-control {
     margin: 0; }
   .page-title .subheading {
     display: block;
-    margin: 20px 0 0 0; }
+    margin: 20px 0 0 0;
+    font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 300;
+    color: #777; }
   .page-title .breadcrumb li a {
     color: #777; }
     .page-title .breadcrumb li a:hover {
@@ -2890,7 +2898,7 @@ fieldset[disabled] .form-control {
       text-transform: uppercase;
       font-size: 0.8em;
       font-weight: 400;
-      letter-spacing: 0;
+      letter-spacing: 2px;
       color: #999;
       transition: color .5s; }
       .navbar .navbar-nav li a:focus {
@@ -2939,7 +2947,7 @@ fieldset[disabled] .form-control {
         .navbar .navbar-nav .dropdown .dropdown-menu li a {
           display: block;
           padding: 11px 40px 11px 25px;
-          letter-spacing: 0;
+          letter-spacing: 0.5px;
           line-height: 0.8em;
           border-left: 3px solid rgba(17, 17, 17, 0);
           transition: all .3s; }
@@ -3043,7 +3051,7 @@ fieldset[disabled] .form-control {
           color: #ececec;
           font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
           text-transform: uppercase;
-          letter-spacing: 0;
+          letter-spacing: 2.5px;
           font-size: 0.9em;
           line-height: 1.8em;
           border-radius: 0;
@@ -4627,7 +4635,7 @@ fieldset[disabled] .form-control {
       display: block;
       font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
       font-size: 13px;
-      line-height: 1;
+      letter-spacing: 3.5px;
       color: #999; }
     .team-3col .t-item .t-info .social-links, .team-4col .t-item .t-info .social-links, .freelancer-about .t-item .t-info .social-links {
       margin: 0;
@@ -4654,7 +4662,6 @@ fieldset[disabled] .form-control {
   .team-4col .t-item .t-info .t-name {
     font-size: 14px; }
   .team-4col .t-item .t-info .t-role {
-    line-height: 1;
     font-size: 12px; }
   .team-4col .t-item .t-info .social-links {
     padding-top: 7px; }
@@ -4697,10 +4704,10 @@ fieldset[disabled] .form-control {
       font-size: 14px; }
     .t-join .t-info .t-role {
       display: block;
-      line-height: 1;
       padding-bottom: 12px;
       font-family: "Tide Sans", "Helvetica Neue", Helvetica, sans-serif;
       font-size: 12px;
+      letter-spacing: 3.5px;
       color: #999; }
 
 /* ---- 14.3 Freelancer ---- */
@@ -6729,7 +6736,7 @@ fieldset[disabled] .form-control {
   margin-bottom: 5px;
   font-size: .9em;
   letter-spacing: .3px;
-  color: #000;
+  color: #777;
   border-bottom: 1px solid rgba(17, 17, 17, 0);
   transition: all .3s; }
   .sidebar .categories-widget .widget-item a span {
@@ -7009,7 +7016,7 @@ form .input-error-2 {
     font-size: .8em;
     line-height: 1;
     letter-spacing: 1px;
-    color: #000; }
+    color: #777; }
 .contact-2 form .alert {
   margin-top: 30px; }
 
@@ -7559,9 +7566,9 @@ form .input-error-2 {
         font-weight: 700;
         letter-spacing: 2px; }
       .main-demo-hero .hero-content-wrapper .hero-content .hero-subheading, .fs-video-hero .hero-content-wrapper .hero-content .hero-subheading, .fw-video-hero .hero-content-wrapper .hero-content .hero-subheading, .text-slider-hero .hero-content-wrapper .hero-content .hero-subheading, .freelancer-hero .hero-content-wrapper .hero-content .hero-subheading, .agency2-hero .hero-content-wrapper .hero-content .hero-subheading, .animated-hero .hero-content-wrapper .hero-content .hero-subheading, .web-app-hero .hero-content-wrapper .hero-content .hero-subheading {
-        margin-top: 50px;
+        margin-top: 100px;
         margin-bottom: 20px;
-        color: #eb4274; }
+        color: #999; }
 
 /* ---- 20.2 Full Screen Slider ---- */
 .fs-slider-hero .fs-slider .fs-slider-item {
@@ -7601,7 +7608,7 @@ form .input-error-2 {
       letter-spacing: 5px;
       color: #ececec; }
     .fs-slide-1 .hero-content .hero-subheading {
-      margin-top: 50px;
+      margin-top: 100px;
       margin-bottom: 20px;
       color: #999; }
 
@@ -7642,7 +7649,7 @@ form .input-error-2 {
       .fs-slide-3 .hero-content .hero-lead span {
         font-weight: 300; }
     .fs-slide-3 .hero-content .hero-subheading {
-      margin-top: 50px;
+      margin-top: 100px;
       margin-bottom: 20px;
       color: #999; }
 
@@ -7726,8 +7733,9 @@ form .input-error-2 {
   .fs-video-hero .hero-content-wrapper .hero-content .hero-lead, .fw-video-hero .hero-content-wrapper .hero-content .hero-lead {
     color: #ececec; }
   .fs-video-hero .hero-content-wrapper .hero-content .hero-subheading, .fw-video-hero .hero-content-wrapper .hero-content .hero-subheading {
-    margin-top: 50px;
-    margin-bottom: 20px; }
+    margin-top: 100px;
+    margin-bottom: 20px;
+    color: #999; }
 
 /* ---- 20.5 Full Width Video ---- */
 .fw-video-hero {
@@ -9125,7 +9133,7 @@ form .input-error-2 {
     .shop-sidebar .shop-widget .cart-item .cp-name, .shop-sidebar-vertical .shop-widget .cart-item .cp-name {
       padding-top: 8px;
       letter-spacing: 1px;
-      color: #000; }
+      color: #777; }
       .shop-sidebar .shop-widget .cart-item .cp-name:hover, .shop-sidebar-vertical .shop-widget .cart-item .cp-name:hover {
         color: #3b3f9e; }
     .shop-sidebar .shop-widget .cart-item .cp-price, .shop-sidebar-vertical .shop-widget .cart-item .cp-price {
@@ -9189,7 +9197,7 @@ form .input-error-2 {
     margin-bottom: 5px;
     font-size: .9em;
     letter-spacing: .3px;
-    color: #000;
+    color: #777;
     border-bottom: 1px solid rgba(17, 17, 17, 0);
     transition: all .3s; }
     .shop-sidebar .categories-widget .widget-item a span, .shop-sidebar-vertical .categories-widget .widget-item a span {
@@ -9524,7 +9532,7 @@ form .input-error-2 {
   font-size: 12px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #000; }
+  color: #777; }
 
 .prod-name {
   margin-top: 5px;
@@ -9550,7 +9558,7 @@ form .input-error-2 {
     .prod-rating li:last-child {
       padding-left: 10px;
       font-size: 12px;
-      color: #000; }
+      color: #777; }
     .prod-rating li a {
       color: #3b3f9e; }
       .prod-rating li a:focus {
