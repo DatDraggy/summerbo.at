@@ -120,6 +120,11 @@ $footer = '<footer id="contact" class="footer-widgets">
         <script src="assets/js/vendor/jquery.mb.YTPlayer.min.js"></script>
         <script src="assets/js/vendor/jquery.ajaxchimp.js"></script>';
 
+$userarea = '';
+if(!empty($_SESSION['userid'])) {
+  $userarea = '<li><a href="userarea.html">User Area<span class="sr-only"></span></a></li>';
+}
+
 $nav = '<nav class="navbar navbar-default navbar-fixed-top mega navbar-fw">
           <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -142,7 +147,7 @@ $nav = '<nav class="navbar navbar-default navbar-fixed-top mega navbar-fw">
               <li><a href="#faq">FAQ<span class="sr-only"></span></a></li>
               <li><a href="#team">Team<span class="sr-only"></span></a></li>
               <li><a href="#contact">Contact<span class="sr-only"></span></a></li>
-              <?php if(!empty($_SESSION[\'userid\'])){echo \'<li><a href="userarea.html">User Area<span class="sr-only"></span></a></li>\';}?>
+              '. $userarea .'
             </ul><!-- / .nav .navbar-nav -->
           </div><!--/.navbar-collapse -->
         </nav><!-- / .navbar -->';
