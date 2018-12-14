@@ -1,5 +1,4 @@
 <?php
 //Only here for now so that my IDE doesn't complain about dbConnection
-require_once ('files/config.php');
 $dbConnection = buildDatabaseConnection($config);
 requestRegistrationConfirm(1);
