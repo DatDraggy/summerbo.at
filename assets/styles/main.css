@@ -7719,7 +7719,7 @@ form .input-error-2 {
 
 /* ---- 20.4 Full Screen Video ---- */
 .fs-video-hero, .fw-video-hero {
-  background: url(http://placehold.it/2440x1578);
+  background: url(../images/hero/indexbg.png);
   background-size: cover; }
   .fs-video-hero .bg-overlay, .fw-video-hero .bg-overlay {
     background: rgba(17, 17, 17, 0.4); }
