@@ -11,13 +11,15 @@ function buildDatabaseConnection($config) {
   return $dbConnection;
 }
 
-function notifyOnException($subject, $config, $sql = '', $e = '') {
+function notifyOnException($subject, $config, $sql = '', $e = '', $fail = true) {
   $to = $config['mail'];
   $txt = __FILE__ . ' ' . $sql . ' Error: ' . $e;
   $headers = 'From: ' . $config['mail'];
   mail($to, $subject, $txt, $headers);
   http_response_code(200);
-  die();
+  if($fail) {
+    die();
+  }
 }
 
 function checkRegValid($userId){
@@ -195,7 +197,7 @@ function saveApplication($chatId, $name, $message) {
     $stmt->bindParam(':message', $message);
     $stmt->execute();
   } catch (PDOException $e) {
-    notifyOnException('Database Insert', $config, $sql, $e);
+    notifyOnException('Database Insert', $config, $sql, $e, false);
     return false;
   }
   return true;
