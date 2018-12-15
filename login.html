@@ -211,6 +211,39 @@ require_once('files/things.php');
               </div><!-- / #register-login-page-2 .panel-colapse -->
             </div><!-- / .panel -->
             <?php } ?>
+			<div class="panel top-panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#login-accordion" href="#collapseOne"
+                     aria-expanded="true" aria-controls="collapseOne">
+                    Login to your account
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+
+                  <div class="form-login">
+                    <form method="post">
+                      <!-- Username -->
+                      <div class="form-group">
+                        <label for="regnumber">Registration Number</label>
+                        <input type="text" id="regnumber" name="regnumber" class="form-control" placeholder="Enter your Reg Nr">
+                      </div>
+                      <!-- Password -->
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                        <span class="pull-right"><a href="#forgot-password" class="forget-pass-link">Forget password?</a></span>
+                      </div>
+                      <!-- Submit -->
+                      <input type="submit" value="Login" class="btn">
+                    </form>
+                  </div><!-- / .form-wrapper -->
+
+                </div><!-- / .panel-body -->
+              </div><!-- / .panel-collapse -->
+            </div><!-- / .panel -->
           </div><!-- / #login-accordion .panel-group -->
 
 
