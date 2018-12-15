@@ -19,26 +19,7 @@ $footer = '<footer id="contact" class="footer-widgets">
                 </div><!-- / .widget -->
               </div><!-- / .col-md-3 -->
 
-              <!-- Twitter Feed -->
-              <div class="col-md-3 col-sm-6 mb-sm-100" >
-                <div class="widget twitter-widget">
-                  <h5 class="header-widget">Twitter Feed</h5>
-                  <ul>
-
-                    <li>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <p>5 Reasons You Should Take a Sabbatical from Creative Work <a href="#">http://enva.to/NTa6F</a> by <a href="#">@envato</a> <span>- AUG 10</span></p>
-                    </li>
-
-                    <li>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <p>What is the enemy of <a href="#">#creativity</a>? <a href="#">http://enva.to/hVl5G</a>  [VIDEO] <br>by <a href="#">@envato</a> <span>- AUG 5</span></p>
-                    </li>
-
-                  </ul>
-                </div><!-- / .widget -->
-              </div><!-- / .col-md-3 -->
-
+              
               <div class="container">
             
             <!-- Contact Form -->
