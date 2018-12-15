@@ -19,28 +19,6 @@ $footer = '<footer id="contact" class="footer-widgets">
                 </div><!-- / .widget -->
               </div><!-- / .col-md-3 -->
 
-              <!-- Instagram Feed -->
-              <div class="col-md-3 col-sm-6 mb-sm-100" hidden>
-                <div class="widget gallery-widget">
-                  <h5 class="header-widget">Instagram Feed</h5>
-                  <ul>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                    <li><a href="http://placehold.it/650x450" class="gallery-widget-lightbox"><img src="" alt="Instagram Image"><div class="hover-link"><span class="linea-arrows-plus"></span></div></a></li>
-
-                  </ul>
-                </div><!-- / .widget -->
-              </div><!-- / .col-md-3 -->
-
               <!-- Twitter Feed -->
               <div class="col-md-3 col-sm-6 mb-sm-100" >
                 <div class="widget twitter-widget">
@@ -61,20 +39,41 @@ $footer = '<footer id="contact" class="footer-widgets">
                 </div><!-- / .widget -->
               </div><!-- / .col-md-3 -->
 
-              <!-- Newsletter -->
-              <div class="col-md-3 col-sm-6" hidden>
-                <div class="widget newsletter-widget">
-                  <h5 class="header-widget">Newsletter</h5>
+              <!-- Contact Form -->
+              <div class="col-lg-6 no-gap section contact-form">
+                <header class="sec-heading">
+                  <h2>Contact</h2>
+                  <span class="subheading">Lorem ipsum dolor sit amet</span>
+                </header>
 
-                  <form method="post">
-                    <div class="form-group">
-                      <input type="email" name="w-newssletter" placeholder="Join our newsletter">
-                      <button type="submit"><i class="fa fa-send-o"></i></button>
-                    </div>
-                  </form>
+                <form action="../assets/contact-form/contact-form.php" method="POST" class="form-ajax wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
 
-                </div><!-- / .widget -->
-              </div><!-- / .col-md-3 -->
+                  <!-- Name -->
+                  <div class="form-group">
+                    <input type="text" name="name" id="name-contact-1" class="form-control validate-locally" placeholder="Enter your name">
+                    <label for="name-contact-1">Name</label>
+                    <span class="pull-right alert-error"></span>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <input type="email" name="email" id="email-contact-1" class="form-control validate-locally" placeholder="Enter your email">
+                    <label for="email-contact-1">Email</label>
+                    <span class="pull-right alert-error"></span>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="form-group">
+                    <textarea class="form-control" name="message" id="message-contact-1" rows="5" placeholder="Your Message"></textarea>
+                    <label for="message-contact-1">Message</label>
+                  </div>
+                  <input type="submit" class="btn pull-right" value="Send Message">
+
+                  <!-- Ajax Message -->
+                  <div class="ajax-message col-md-12 no-gap"></div>
+
+                </form>
+              </div><!-- / .col-lg-6 -->
 
             </div><!-- / .row -->
           </div><!-- / .container -->
