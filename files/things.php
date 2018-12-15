@@ -42,7 +42,7 @@ $footer = '<footer id="contact" class="footer-widgets">
               </div><!-- / .col-md-3 -->
 
               <!-- Twitter Feed -->
-              <div class="col-md-3 col-sm-6 mb-sm-100" hidden>
+              <div class="col-md-3 col-sm-6 mb-sm-100" >
                 <div class="widget twitter-widget">
                   <h5 class="header-widget">Twitter Feed</h5>
                   <ul>
