@@ -72,6 +72,10 @@ a, a:link, a:visited {
   max-width: 1120px;
   margin: 0 auto;
 }
+.wrapperPadding {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 .pageWrapper {
   margin-top: 4rem;
 }
@@ -119,19 +123,22 @@ a, a:link, a:visited {
   flex-direction: row;
   justify-content: flex-start;
   padding: 0rem 2rem;
-
 }
-.navItem {
+.navItem a {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: baseline;
   padding: 2rem;
-  flex: none;
   max-height: 2.5rem;
 }
-.navItemLogo{
-  padding-left:0 ;
+.navItem a:hover {
+  background-color: var(--colorToneHigh);
 }
+
+.navItem:nth-child(5){
+  margin-left:auto;
+}
+
 
 
 @media screen and (min-width: 640px) {
@@ -139,9 +146,13 @@ a, a:link, a:visited {
     padding: 0rem 4rem;
   }
   .navContent {
-    padding: 0rem 4rem;
+    padding: 0rem 2rem;
   }
   .content {
     flex: 1;
+  }
+  .wrapperPadding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 }
