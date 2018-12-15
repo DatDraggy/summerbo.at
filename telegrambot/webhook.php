@@ -23,16 +23,34 @@ if (isset($data['callback_query'])) {
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
         sendMessage($chatId, 'Registration has been approved.');
-        $email = getRegDetails($targetUserId, 'email')['email'];
-        sendEmail($email, 'Subject', 'Reg approved. Status 2');
+        list($email, $nickname) = getRegDetails($targetUserId, 'email, nickname');
+        sendEmail($email, 'Subject', "Dear $nickname,
+
+Your registration is confirmed by our registration team. Below you will find the bank details for sending us the payment.
+
+Bank details:
+Name:
+Bank:
+IBAN:
+BIC:
+
+Please add your Regnumber and Nickname in the Comment field of the transfer.
+
+Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on the website with your details.
+
+Alternatively, you can contact us if you would like to pay via PayPal.
+But, keep in mind that there will be an additional handling fee for the extra work.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
       }
     }
     else if ($status === 'reject') {
       if ($confirm == 1) {
         if (rejectRegistration($targetUserId)) {
           sendMessage($chatId, 'Registration has been rejected.');
-          $email = getRegDetails($targetUserId, 'email')['email'];
-          sendEmail($email, 'Subject', 'Reg rejected. Status Deleted');
         }
       }
       else {
@@ -98,7 +116,7 @@ if (isset($text)) {
         $saveName = $senderUsername;
       }
       if (saveApplication($chatId, $saveName, $application)) {
-        sendStaffNotification($chatId, "<b>New application from $saveName</b>:
+        sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
 $application");
         sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
       }
