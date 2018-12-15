@@ -40,7 +40,7 @@ $footer = '<footer id="contact" class="footer-widgets">
               </div><!-- / .col-md-3 -->
 
               <!-- Contact Form -->
-              <div class="col-lg-6 no-gap section contact-form">
+              <div class="col-md-3 col-sm-6 mb-sm-100">
                 <header class="sec-heading">
                   <h2>Contact</h2>
                   <span class="subheading">Lorem ipsum dolor sit amet</span>
