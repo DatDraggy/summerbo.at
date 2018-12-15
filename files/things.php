@@ -39,41 +39,48 @@ $footer = '<footer id="contact" class="footer-widgets">
                 </div><!-- / .widget -->
               </div><!-- / .col-md-3 -->
 
-              <!-- Contact Form -->
-              <div class="col-md-3 col-sm-6 mb-sm-100">
-                <header class="sec-heading">
-                  <h2>Contact</h2>
-                  <span class="subheading">Lorem ipsum dolor sit amet</span>
-                </header>
+              <div class="container">
+            
+            <!-- Contact Form -->
+            <div class="row">
+              <form action="../assets/contact-form/contact-form.php" method="POST" id="contact-form-1" class="form-ajax">
+                  <div class="col-md-offset-2 col-md-4 wow fadeInUp" data-wow-duration="1s">
 
-                <form action="../assets/contact-form/contact-form.php" method="POST" class="form-ajax wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                    <!-- Name -->
+                    <div class="form-group">
+                      <input type="text" name="name" id="name-contact-1" class="form-control validate-locally" placeholder="Enter your name">
+                      <label for="name-contact-1">Name</label>
+                      <span class="pull-right alert-error"></span>
+                    </div>
 
-                  <!-- Name -->
-                  <div class="form-group">
-                    <input type="text" name="name" id="name-contact-1" class="form-control validate-locally" placeholder="Enter your name">
-                    <label for="name-contact-1">Name</label>
-                    <span class="pull-right alert-error"></span>
+                    <!-- Email -->
+                    <div class="form-group">
+                      <input type="email" name="email" id="email-contact-1" class="form-control validate-locally" placeholder="Enter your email">
+                      <label for="email-contact-1">Email</label>
+                      <span class="pull-right alert-error"></span>
+                    </div>
+
                   </div>
 
-                  <!-- Email -->
-                  <div class="form-group">
-                    <input type="email" name="email" id="email-contact-1" class="form-control validate-locally" placeholder="Enter your email">
-                    <label for="email-contact-1">Email</label>
-                    <span class="pull-right alert-error"></span>
-                  </div>
+                  <div class="col-md-4 wow fadeInUp" data-wow-duration="1s">
 
-                  <!-- Message -->
-                  <div class="form-group">
-                    <textarea class="form-control" name="message" id="message-contact-1" rows="5" placeholder="Your Message"></textarea>
-                    <label for="message-contact-1">Message</label>
-                  </div>
-                  <input type="submit" class="btn pull-right" value="Send Message">
+                    <!-- Message -->
+                    <div class="form-group">
+                      <textarea name="message" id="message-contact-1" class="form-control" rows="5" placeholder="Your Message"></textarea>
+                      <label for="message-contact-1">Message</label>
+                    </div>
+                    <div>
+                      <input type="submit" class="btn pull-right" value="Send Message">
+                    </div>
 
-                  <!-- Ajax Message -->
-                  <div class="ajax-message col-md-12 no-gap"></div>
+                    <!-- Ajax Message -->
+                    <div class="ajax-message col-md-12 no-gap"></div>
+
+                  </div><!-- / .col-md-4 -->
 
                 </form>
-              </div><!-- / .col-lg-6 -->
+            </div><!-- / .row -->
+          </div><!-- / .container -->
 
             </div><!-- / .row -->
           </div><!-- / .container -->
