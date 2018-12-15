@@ -195,7 +195,7 @@ require_once('files/things.php');
                         <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"
                         placeholder="Re-enter your password" required>
                       </div>
-                      <!-- Newsletter check -->
+                      <!-- TOS check -->
                       <div class="form-group">
                         <label class="checkbox-inline">
                           <input type="checkbox" name="tos" id="tos" required> I accept the <a href="tos.html">Terms and
@@ -211,38 +211,83 @@ require_once('files/things.php');
               </div><!-- / #register-login-page-2 .panel-colapse -->
             </div><!-- / .panel -->
             <?php } ?>
-			<div class="panel top-panel panel-default">
-              <div class="panel-heading" role="tab" id="headingOne">
+			<div class="panel bottom-panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
                 <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#login-accordion" href="#collapseOne"
-                     aria-expanded="true" aria-controls="collapseOne">
-                    Login to your account
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#login-accordion"
+                     href="#register-login-page-2" aria-expanded="false" aria-controls="register-login-page-2">
+                    Register account
                   </a>
                 </h4>
               </div>
-              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div id="register-login-page-2" class="panel-collapse collapse" role="tabpanel"
+                   aria-labelledby="headingTwo">
                 <div class="panel-body">
 
-                  <div class="form-login">
+                  <div class="form-register">
                     <form method="post">
-                      <!-- Username -->
+                      <!-- First Name -->
+                      <div class="form-group col-md-6 no-gap-left">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" required>
+                      </div>
+                      <!-- Last name -->
+                      <div class="form-group col-md-6 no-gap-right">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required>
+                      </div>
+                      <!-- Nick name -->
+                      <div class="form-group col-md-6 no-gap-left">
+                        <label for="nickname">Nickname</label>
+                        <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Last Name" required>
+                      </div>
+                      <!-- Date of Birth -->
                       <div class="form-group">
-                        <label for="regnumber">Registration Number</label>
-                        <input type="text" id="regnumber" name="regnumber" class="form-control" placeholder="Enter your Reg Nr">
+                        <label for="dateofbirth">Date of Birth</label>
+                        <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="YYYY-MM-DD" required>
+                      </div>
+                      <!-- Fursuiter -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="fursuiter" name="fursuiter"> Fursuiter
+                        </label>
+                      </div>
+                      <!-- Sponsor -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="sponsor" name="sponsor"> Become a sponsor for €15.- extra.
+                        </label>
+                      </div>
+                      <!-- Email -->
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
                       </div>
                       <!-- Password -->
                       <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
-                        <span class="pull-right"><a href="#forgot-password" class="forget-pass-link">Forget password?</a></span>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter a password" required>
+                      </div>
+                      <!-- Re-Enter Password -->
+                      <div class="form-group">
+                        <label for="passwordconfirm">Re-enter password</label>
+                        <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"
+                        placeholder="Re-enter your password" required>
+                      </div>
+                      <!-- TOS check -->
+                      <div class="form-group">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" name="tos" id="tos" required> I accept the <a href="tos.html">Terms and
+                            Conditions</a> that apply.
+                        </label>
                       </div>
                       <!-- Submit -->
-                      <input type="submit" value="Login" class="btn">
+                      <input type="submit" value="Register" class="btn">
                     </form>
                   </div><!-- / .form-wrapper -->
 
                 </div><!-- / .panel-body -->
-              </div><!-- / .panel-collapse -->
+              </div><!-- / #register-login-page-2 .panel-colapse -->
             </div><!-- / .panel -->
           </div><!-- / #login-accordion .panel-group -->
 
