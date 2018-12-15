@@ -1,0 +1,147 @@
+@import url("//hello.myfonts.net/count/38454e");
+@font-face {font-family: 'Tide Sans'; font-style:normal; font-weight: 400; src: url('webfonts/38454E_0_0.eot');src: url('webfonts/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_0_0.woff2') format('woff2'),url('webfonts/38454E_0_0.woff') format('woff'),url('webfonts/38454E_0_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: italic; font-weight: 400; src: url('webfonts/38454E_1_0.eot');src: url('webfonts/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_1_0.woff2') format('woff2'),url('webfonts/38454E_1_0.woff') format('woff'),url('webfonts/38454E_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: normal; font-weight: 700; src: url('webfonts/38454E_2_0.eot');src: url('webfonts/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_2_0.woff2') format('woff2'),url('webfonts/38454E_2_0.woff') format('woff'),url('webfonts/38454E_2_0.ttf') format('truetype');}
+
+:root {
+  /* Sizing */
+  --sizeBase: 16px;
+  --pageBig: 70rem;
+  /* Colors */
+  --colorPink: #eb4274;
+  --colorPurple: #3b3f9e;
+  --colorToneLow: #3ab6a9;
+  --colorToneHigh: #1afbc4;
+  --colorWhite: #fff;
+  --colorBlack: #000;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Tide Sans';
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin:0;
+  margin-bottom: 2rem;
+  letter-spacing: .04em;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--sizeBase);
+  background-color: var(--colorWhite);
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+p {
+  margin:0;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: var(--colorPurple);
+
+}
+.nomargin {
+  margin: 0;
+}
+.wrapper {
+  flex-basis: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.pageWrapper {
+  margin-top: 4rem;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0rem 2rem;
+}
+.content {
+  flex-basis: 100%;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  background-image: url('images/hotsummerBG.jpg');
+  background-size: cover;
+  height: calc(100vh - 4rem);
+  color: white;
+}
+.highlightimg {
+  margin-left:-44px;
+  max-width: 480px;
+}
+.box {
+  padding: 2rem;
+}
+.box *:last-child{
+  margin-bottom: 0;
+}
+.schemePurple {
+  background-color: var(--colorPurple);
+  color:white;
+}
+
+.nav {
+  top: 0;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  flex-direction: row;
+}
+.navContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0rem 2rem;
+
+}
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  flex: none;
+  max-height: 2.5rem;
+}
+.navItemLogo{
+  padding-left:0 ;
+}
+
+
+@media screen and (min-width: 640px) {
+  .row {
+    padding: 0rem 4rem;
+  }
+  .navContent {
+    padding: 0rem 4rem;
+  }
+  .content {
+    flex: 1;
+  }
+}
