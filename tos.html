@@ -1,3 +1,71 @@
+<?php
+require_once('files/things.php');
+?>
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Definity - Login Page 1</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="assets/styles/vendor/bootstrap.min.css">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="assets/fonts/et-lineicons/css/style.css">
+  <link rel="stylesheet" href="assets/fonts/linea-font/css/linea-font.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
+  <!-- Slider -->
+  <link rel="stylesheet" href="assets/styles/vendor/slick.css">
+  <!-- Lightbox -->
+  <link rel="stylesheet" href="assets/styles/vendor/magnific-popup.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="assets/styles/vendor/animate.css">
+  <!-- Picker -->
+  <link href="assets/styles/bootstrap-datepicker.min.css" rel="stylesheet"/>
+
+
+  <!-- Definity CSS -->
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <link rel="stylesheet" href="assets/styles/responsive.css">
+
+  <!-- JS -->
+  <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body id="page-top">
+
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<!-- ========== Preloader ========== -->
+
+<div class="preloader">
+  <img src="assets/images/loader.svg" alt="Loading...">
+</div>
+
+
+<!-- ========== Navigation ========== -->
+
+<?php echo $nav; ?>
+
+<!-- ========== Page Title ========== -->
+
+<header class="page-title pt-small pt-dark">
+  <div class="container">
+    <div class="row">
+      <h1 class="col-sm-6">Login Page</h1>
+    </div>
+  </div>
+</header>
+
+<!-- ========== Info text ========== -->
+
 <h1>Terms and Conditions ("Terms")</h1>
 
 
@@ -59,3 +127,18 @@
 <h2>Contact Us</h2>
 
 <p>If you have any questions about these Terms, please contact us.</p>
+
+<!-- ========== Footer Widgets ========== -->
+
+<?php echo $footer; ?>
+
+<!-- Definity JS -->
+<script src="/assets/js/main.js"></script>
+<script src="assets/js/bootstrap-datepicker.min.js"></script>
+<script>$('#dateofbirth').datepicker({
+    format: "yyyy-mm-dd",
+    startView: 2,
+    language: "en"
+  });</script>
+</body>
+</html>
