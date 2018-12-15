@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css.css">
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <div id="app">
+      <nav class="nav">
+        <div class="wrapper">
+          <div class="navContent">
+            <div class="navItem navItemLogo">
+              <router-link to="/"><img src="images/logo@2x.png" width="48"></router-link>
+            </div>
+            <div class="navItem">
+              <router-link to="/about">About</router-link>
+            </div>
+            <div class="navItem">
+              <router-link to="/registration">Registration</router-link>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="pageWrapper">
+        <div class="hero">
+          <div class="wrapper">
+            <div class="row">
+              <div class="content">
+                <h1><img alt="Hot Summer Nights" src="images/header@2x.png" class="highlightimg"></h1>
+                <h2 class="nomargin">The Furry Boat Party</h2>
+                <p>Berlin&mdash;13 August 2018 8pm CET</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="row">
+              <div class="content">Hi</div>
+              <div class="content">Hi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
