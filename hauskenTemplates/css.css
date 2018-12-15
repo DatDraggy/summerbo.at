@@ -14,6 +14,9 @@
   --colorToneHigh: #1afbc4;
   --colorWhite: #fff;
   --colorBlack: #000;
+  /* Text */
+  --colorHeadline: var(--colorPink);
+  --colorSubheadline: var(--colorToneLow);
 }
 
 img {
@@ -32,19 +35,35 @@ html, body {
   padding: 0;
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--sizeBase);
+  background-color: var(--colorWhite);
+}
+
 h1,h2,h3,h4,h5,h6 {
   color: inherit;
   font-weight: 700;
   text-transform: uppercase;
   margin:0;
   margin-bottom: 2rem;
-  letter-spacing: .04em;
 }
 
-html {
-  -webkit-font-smoothing: antialiased;
-  font-size: var(--sizeBase);
-  background-color: var(--colorWhite);
+h1 {
+  font-size: 4rem;
+  line-height: 4rem;
+}
+h2 {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+h4 {
+  font-size:1.0rem;
+  line-height: 1rem;
 }
 
 body {
@@ -52,17 +71,31 @@ body {
   line-height: 1;
 }
 
-p {
+p, ul, ol, blockquote {
   margin:0;
   margin-bottom: 2rem;
   font-weight: 500;
   line-height: 1.5rem;
 }
 
+ul, ol {
+  padding-left: 2rem;
+  list-style: square;
+}
+ul li, ol li {
+  padding-left: 1rem;
+}
+
 a, a:link, a:visited {
   text-decoration: none;
   color: var(--colorPurple);
+}
 
+.headline {
+  color: var(--colorHeadline);
+}
+.subheadline {
+  color: var(--colorSubheadline)
 }
 .nomargin {
   margin: 0;
@@ -125,6 +158,8 @@ a, a:link, a:visited {
   padding: 0rem 2rem;
 }
 .navItem a {
+  font-size: .875rem;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: baseline;
@@ -138,8 +173,6 @@ a, a:link, a:visited {
 .navItem:nth-child(5){
   margin-left:auto;
 }
-
-
 
 @media screen and (min-width: 640px) {
   .row {
