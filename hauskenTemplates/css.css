@@ -21,7 +21,12 @@
   --colorHeadline: var(--colorPink);
   --colorSubheadline: var(--colorToneLow);
 }
-
+::-moz-selection {
+  background-color: var(--colorPink);
+}
+::selection {
+  background-color: var(--colorPink);
+}
 img {
   display: block;
   max-width: 100%;
@@ -251,12 +256,26 @@ a, a:link, a:visited {
   opacity: .5;
   top: 0;
 }
+
+/* Forms */
 .formWrapper {
   display: flex;
   flex-direction: column;
 }
+.formRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.formRow .inputWrapper {
+  flex: 1;
+  margin-right: 2rem;
+}
+.formRow .inputWrapper:last-child{
+  margin-right: 0;
+}
 .inputWrapper {
-  transition: background-color 500ms ease-out;
+  transition: background-color 250ms cubic-bezier(.17,.67,.31,1);
   background-color: transparent;
   display: flex;
   flex-direction: column;
@@ -268,11 +287,9 @@ a, a:link, a:visited {
 .inputWrapper.inputFocussed {
   background-color: var(--colorPurple);
 }
-.inputWrapper.inputFocussed input {
-  transform: translateY(-.75rem);
-}
+
 .inputWrapper input {
-  transition: transform 500ms ease-out;
+  transition: all 250ms cubic-bezier(.17,.67,.31,1);
   width: 100%;
   padding-left: 1rem;
   margin:0;
@@ -283,13 +300,18 @@ a, a:link, a:visited {
   height: 3rem;
   background-color: transparent;
 }
-.inputWrapper input:focus {
+.inputWrapper.inputFocussed input {
+  transform: translateY(-.5rem);
+  width: calc(100% - 1rem);
+  background-color: white;
+  border-radius: .5rem;
   box-shadow: none;
   outline: none;
-  color: white;
+  border: 2px solid #494ec4;
 }
+
 .inputWrapper label {
-  height: 3rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   color: var(--colorWhite);
@@ -302,10 +324,10 @@ a, a:link, a:visited {
   width: 100%;
 }
 .inputWrapper span {
-  transition: transform 500ms ease-out;
+  transition: all 250ms cubic-bezier(.17,.67,.31,1);
 }
 .inputFocussed span {
-  transform: translateY(.75rem);
+  transform: translateY(-.125rem);
 }
 @media screen and (min-width: 728px) {
   .nav {

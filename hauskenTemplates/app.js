@@ -33,7 +33,8 @@ var theForm = document.getElementById("GoodForm")
 
 theForm.addEventListener('focus', function(event){
   theirParent = event.target.parentNode
-  theirParent.classList = "inputWrapper inputFocussed"
+  classes = theirParent.classList
+  theirParent.classList = classes + " inputFocussed"
 }, true)
 
 theForm.addEventListener("blur", function( event ) {

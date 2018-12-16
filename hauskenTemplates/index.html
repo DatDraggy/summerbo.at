@@ -92,42 +92,40 @@
             </div>
           </div>
         </div>
-        <div class="wrapper">
-          <div class="row wsLarge">
-            <div class="ticket ticketPrimary content">
-              <h3>Early Bird Ticket</h3>
-              <h2 class="heading2">€25</h2>
-              <ul class="ticketItems">
-                <li><strong>Limited to 100 Spaces</strong></li>
-                <li>Ticket to the party</li>
-                <li>1 (One) Awesome Badge</b></li>
-                <li>Full Access to the Party</li>
-                <li>Includes Limited Edition Wristband</li>
-              </ul>
-              <button class="button buttonPrimary">Register</button>
-            </div>
-            <div class="ticket ticketTertiary content">
-              <h3>Sponsor Upgrade</h3>
-              <p class="heading2">+€15</p>
-              <ul class="ticketItems">
-                <li><strong>Upgrade your experience</strong></li>
-                <li>Exclusive Sponsor Badge</li>
-                <li>Special Gift</li>
-                <li>Undying Love</li>
-              </ul>
-              <button class="button buttonUpgrade">Upgrade Now</button>
-            </div>
-            <div class="ticket ticketSecondary content">
-              <h3>Standard Ticket</h3>
-              <p class="heading2">€35</p>
-              <ul class="ticketItems">
-                <li>Ticket to the party</li>
-                <li>1 (One) Awesome Badge</b></li>
-                <li>Full Access to the Party</li>
-                <li class="strike">Includes Limited Edition Wristband</li>
-              </ul>
-              <button title="Not available yet. Get an early bird ticket!" disabled class="button disabled buttonPrimary">Register</button>
-            </div>
+        <div class="row wsLarge">
+          <div class="ticket ticketPrimary content">
+            <h3>Early Bird Ticket</h3>
+            <h2 class="heading2">€25</h2>
+            <ul class="ticketItems">
+              <li><strong>Limited to 100 Spaces</strong></li>
+              <li>Ticket to the party</li>
+              <li>1 (One) Awesome Badge</b></li>
+              <li>Full Access to the Party</li>
+              <li>Includes Limited Edition Wristband</li>
+            </ul>
+            <button class="button buttonPrimary">Register</button>
+          </div>
+          <div class="ticket ticketTertiary content">
+            <h3>Sponsor Upgrade</h3>
+            <p class="heading2">+€15</p>
+            <ul class="ticketItems">
+              <li><strong>Upgrade your experience</strong></li>
+              <li>Exclusive Sponsor Badge</li>
+              <li>Special Gift</li>
+              <li>Undying Love</li>
+            </ul>
+            <button class="button buttonUpgrade">Upgrade Now</button>
+          </div>
+          <div class="ticket ticketSecondary content">
+            <h3>Standard Ticket</h3>
+            <p class="heading2">€35</p>
+            <ul class="ticketItems">
+              <li>Ticket to the party</li>
+              <li>1 (One) Awesome Badge</b></li>
+              <li>Full Access to the Party</li>
+              <li class="strike">Includes Limited Edition Wristband</li>
+            </ul>
+            <button title="Not available yet. Get an early bird ticket!" disabled class="button disabled buttonPrimary">Register</button>
           </div>
         </div>
         <div class="wrapper">
@@ -155,21 +153,28 @@
                 </ul>
               </div>
           </div>
-          <div class="row wsLarge">
+          <div class="row">
             <div class="content">
               <form class="formWrapper" id="GoodForm" action="SUBMIT">
                 <div class="inputWrapper">
                   <label for="inputNickname"><span>Nickname</span></label>
                   <input id="inputNickname" class="input"/>
                 </div>
-                <div class="inputWrapper">
-                  <label for="inputName"><span>Real Name</span></label>
-                  <input id="inputName" class="input"/>
+                <div class="formRow">
+                  <div class="inputWrapper">
+                    <label for="inputFName"><span>First Name</span></label>
+                    <input id="inputFName" class="input"/>
+                  </div>
+                  <div class="inputWrapper">
+                    <label for="inputLName"><span>Last Name</span></label>
+                    <input id="inputLName" class="input"/>
+                  </div>
                 </div>
                 <div class="inputWrapper">
                   <label for="inputDOB"><span>Birthdate</span></label>
                   <input id="inputDOB" type="date" class="input"/>
                 </div>
+                <button class="button buttonPrimary">Submit</button>
               </form>
             </div>
           </div>
