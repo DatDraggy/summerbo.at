@@ -132,6 +132,9 @@ a, a:link, a:visited {
 .centered {
   text-align: center;
 }
+.flexStickyEnd {
+  flex:none; margin-top: auto;
+}
 /* Grid */
 .wrapper {
   flex-basis: 100%;
@@ -139,7 +142,7 @@ a, a:link, a:visited {
   margin: 0 auto;
 }
 .pageWrapper {
-  margin-top: 2rem;
+  margin-top: 8rem;
 }
 .row {
   display: flex;
@@ -151,6 +154,8 @@ a, a:link, a:visited {
   padding: 0 2rem;
   flex-basis: 100%;
 }
+
+/*hero */
 
 .hero {
   display: flex;
@@ -167,19 +172,12 @@ a, a:link, a:visited {
   margin-bottom: -4rem;
   max-width: 480px;
 }
-.box {
-  padding: 2rem;
-}
-.box *:last-child{
-  margin-bottom: 0;
-}
-.schemePurple {
-  background-color: var(--colorPurple);
-  color:white;
-}
+/* Nav */
+
 .ticket {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 }
 .ticket *:last-child{
   position: relative;
@@ -194,9 +192,8 @@ a, a:link, a:visited {
 .ticketTertiary {
   color: var(--colorGoldSecondary);
 }
-.ticket .button {
-  flex:none; margin-top: auto;
-}
+
+
 /* Buttons */
 .button {
   transition: border 500ms ease-out;
@@ -272,6 +269,7 @@ a, a:link, a:visited {
 .formWrapper {
   display: flex;
   flex-direction: column;
+  margin-top: 4rem;
 }
 .formRow {
   display: flex;
@@ -339,49 +337,22 @@ a, a:link, a:visited {
 .inputFocussed span {
   transform: translateY(-.125rem);
 }
+
+/* Spacing */
+.pageWrapper {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.wsLarge {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+@media screen and (max-width: 576px) {
+
+}
 @media screen and (min-width: 728px) {
-  .nav {
-    top: 0;
-    background-color: white;
-    position: fixed;
-    z-index: 200;
-    width: 100%;
-    flex-direction: row;
-  }
-  .navContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0rem 2rem;
-  }
-  .navItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .navItem a {
-    flex: none;
-    font-size: .875rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: baseline;
-    padding: 2rem;
-    max-height: 2.5rem;
-  }
-  .navItem a:hover {
-    background-color: var(--colorToneHigh);
-  }
-  .navItem.navItemButton a {
-    padding: 1.25rem;
-    max-height: 1rem;
-    background-color: var(--colorToneHigh);
-    border-radius: 1.5rem;
-    margin-left: 1rem;
-  }
-  .navItem:nth-child(5){
-    margin-left:auto;
-  }
+
   .row {
     padding: 0rem 2rem;
   }
@@ -392,6 +363,7 @@ a, a:link, a:visited {
   .navContent {
     padding: 0rem 2rem;
   }
+
   .content {
     flex: 1;
   }
@@ -406,5 +378,68 @@ a, a:link, a:visited {
   }
   .content66 {
     flex: 66;
+  }
+  .nav {
+    top: 0;
+    background-color: white;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .navContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .navItem a {
+    flex: none;
+    font-size: .875rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    padding: 2rem;
+    max-height: 2.5rem;
+  }
+
+  .navItem a:hover {
+    background-color: var(--colorToneHigh);
+  }
+
+  .navItemButton a {
+    color: black;
+    padding: 1.25rem;
+    max-height: 1rem;
+    background-color: var(--colorToneHigh);
+    border-radius: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .navItemButton a:hover {
+    background-color: var(--colorToneLow);
+  }
+
+  .navItemButtonGold a {
+    color: black;
+    background-color: var(--colorGold);
+  }
+
+  .navItemButtonGold a:hover {
+    color: black;
+    background-color: var(--colorGoldSecondary);
+  }
+
+  .navItem:nth-child(5){
+    margin-left:auto;
   }
 }
