@@ -26,3 +26,21 @@ const router = new VueRouter({
 const app = new Vue({
   router
 }).$mount('#app')
+
+
+var inputs = document.querySelectorAll('input')
+var theForm = document.getElementById("GoodForm")
+
+theForm.addEventListener('focus', function(event){
+  theirParent = event.target.parentNode
+  theirParent.classList = "inputWrapper inputFocussed"
+}, true)
+
+theForm.addEventListener("blur", function( event ) {
+  theirParent = event.target.parentNode
+  theirParent.classList = "inputWrapper"
+}, true);
+
+inputs.forEach(function(item){
+
+})
