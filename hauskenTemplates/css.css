@@ -348,6 +348,11 @@ a, a:link, a:visited {
     justify-content: flex-start;
     padding: 0rem 2rem;
   }
+  .navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .navItem a {
     flex: none;
     font-size: .875rem;
@@ -361,7 +366,13 @@ a, a:link, a:visited {
   .navItem a:hover {
     background-color: var(--colorToneHigh);
   }
-
+  .navItem.navItemButton a {
+    padding: 1.25rem;
+    max-height: 1rem;
+    background-color: var(--colorToneHigh);
+    border-radius: 1.5rem;
+    margin-left: 1rem;
+  }
   .navItem:nth-child(5){
     margin-left:auto;
   }
@@ -369,8 +380,8 @@ a, a:link, a:visited {
     padding: 0rem 2rem;
   }
   .wsLarge {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
   .navContent {
     padding: 0rem 2rem;
