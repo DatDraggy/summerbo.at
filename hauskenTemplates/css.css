@@ -241,7 +241,6 @@ a, a:link, a:visited {
   z-index: 100;
 }
 .videoBackground {
-  background-blend-mode: lighten;
   position: absolute;
   min-width: 100%;
   min-height: 100%;
@@ -252,11 +251,68 @@ a, a:link, a:visited {
   opacity: .5;
   top: 0;
 }
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.inputWrapper {
+  transition: background-color 500ms ease-out;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--colorPurple);
+  border-radius: 8px;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.inputWrapper.inputFocussed {
+  background-color: var(--colorPurple);
+}
+.inputWrapper.inputFocussed input {
+  transform: translateY(-.75rem);
+}
+.inputWrapper input {
+  transition: transform 500ms ease-out;
+  width: 100%;
+  padding-left: 1rem;
+  margin:0;
+  font-size: .875rem;
+  line-height: 1rem;
+  font-family: var(--fontStack);
+  border: 0;
+  height: 3rem;
+  background-color: transparent;
+}
+.inputWrapper input:focus {
+  box-shadow: none;
+  outline: none;
+  color: white;
+}
+.inputWrapper label {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  color: var(--colorWhite);
+  margin:0;
+  padding-left: 1rem;
+  background-color: var(--colorPurple);
+  font-size: .75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+.inputWrapper span {
+  transition: transform 500ms ease-out;
+}
+.inputFocussed span {
+  transform: translateY(.75rem);
+}
 @media screen and (min-width: 728px) {
   .nav {
     top: 0;
     background-color: white;
     position: fixed;
+    z-index: 200;
     width: 100%;
     flex-direction: row;
   }
