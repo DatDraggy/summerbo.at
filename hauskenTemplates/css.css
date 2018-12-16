@@ -388,8 +388,8 @@ a.buttonSecondary {
   margin-bottom: 4rem;
 }
 .wsLarge {
-  margin-top: 4rem;
-  margin-bottom: 4rem !important;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 @media screen and (min-width: 768px) {
   .teamMember img {
@@ -406,7 +406,7 @@ a.buttonSecondary {
     margin-bottom: 3rem;
   }
   .wsLarge {
-    margin-top: 6rem;
+    margin-top: 4rem;
     margin-bottom: 6rem;
   }
   .navContent {
@@ -421,9 +421,7 @@ a.buttonSecondary {
   .content:last-child {
     margin-right: 0;
   }
-  .content33 {
-    flex: 0 1 calc(33% - 2rem);
-  }
+
   .nav {
     top: 0;
     background-color: white;
