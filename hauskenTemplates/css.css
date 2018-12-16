@@ -62,6 +62,20 @@ h1,h2,h3,h4,h5,h6 {
   text-transform: uppercase;
   margin:0;
   margin-bottom: 2rem;
+
+}
+
+h1 {
+  margin-bottom: 4rem;
+}
+
+p, ul, ol, blockquote {
+  font-size: .875rem;
+  margin:0;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  max-width: 70ch;
 }
 
 h1, .heading1 {
@@ -87,13 +101,6 @@ h4, .heading4 {
 }
 
 
-p, ul, ol, blockquote {
-  font-size: .875rem;
-  margin:0;
-  margin-bottom: 2rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-}
 
 ul, ol {
   padding-left: 2rem;
@@ -141,8 +148,8 @@ a, a:link, a:visited {
 }
 
 .content {
+  padding: 0 2rem;
   flex-basis: 100%;
-  padding: 2rem;
 }
 
 .hero {
@@ -311,7 +318,6 @@ a, a:link, a:visited {
   border-radius: .5rem;
   box-shadow: none;
   outline: none;
-  border: 2px solid #494ec4;
 }
 
 .inputWrapper label {
@@ -380,15 +386,14 @@ a, a:link, a:visited {
     padding: 0rem 2rem;
   }
   .wsLarge {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
   }
   .navContent {
     padding: 0rem 2rem;
   }
   .content {
     flex: 1;
-    padding: 2rem;
   }
   .content:last-child {
     margin-right: 0;
