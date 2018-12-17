@@ -5,6 +5,7 @@ const app = new Vue({
 
 var inputs = document.querySelectorAll('input')
 var theForm = document.getElementById("GoodForm")
+var question = document.querySelectorAll('.faqQuestion')
 
 theForm.addEventListener('focus', function(event){
   theirParent = event.target.parentNode
@@ -17,6 +18,26 @@ theForm.addEventListener("blur", function( event ) {
   theirParent.classList = "inputWrapper"
 }, true);
 
-inputs.forEach(function(item){
 
-})
+new BadgerAccordion('.js-badger-accordion', {
+});
+// const faqQuestions = document.querySelectorAll('.faqQuestion')
+// const faqAnswerContent = document.querySelectorAll('.faqAnswerContent')
+//
+//
+// function addClass(el, klass) {
+//   el.classList.add(klass);
+// }
+//
+// function removeClass(el, klass) {
+//   el.classList.remove(klass);
+// }
+//
+// faqQuestions.forEach(function(faq){
+//   faq.classList.add('hidden')
+//   var faqQuestion = faq.children[0]
+//   faqQuestion.addEventListener('click', showFaq)
+//   function showFaq(event) {
+//     event.target.parentElement
+//   }
+// })
