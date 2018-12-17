@@ -49,6 +49,7 @@ body.hasHero {
   margin-top: 4rem;
 }
 html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   font-size: var(--sizeBase);
   background-color: var(--colorWhite);
@@ -63,12 +64,16 @@ h1,h2,h3,h4,h5,h6, .heading1, .heading2, .heading3, .heading4, .heading5, .headi
   color: inherit;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 0rem;
+  margin-top: 0rem;
   margin-bottom: 2rem;
 }
 
 h1 {
+  position: relative;
   margin-bottom: 2rem;
+}
+h1:before {
+
 }
 
 p, ul, ol, blockquote {
@@ -158,9 +163,6 @@ a, a:link, a:visited {
   flex-basis: 100%;
   max-width: 1120px;
   margin: 0 auto;
-}
-.pageWrapper {
-  margin-top: 8rem;
 }
 /* Grid */
 
@@ -323,7 +325,7 @@ a.buttonSecondary {
 /* Forms */
 .formWrapper {
   display: flex;
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 4rem;
   flex-direction: column;
   border-radius: 4px;
@@ -443,8 +445,8 @@ a.buttonSecondary {
 }
 /* Spacing */
 .pageWrapper {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 .wsLarge {
   margin-top: 2rem;
@@ -543,7 +545,7 @@ a.buttonSecondary {
     background-color: var(--colorPurpleLight);
   }
 
-  .navItem:nth-child(5){
+  .navItem:nth-child(6){
     margin-left:auto;
   }
   .ticket {
