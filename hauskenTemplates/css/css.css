@@ -1,7 +1,7 @@
 @import url("//hello.myfonts.net/count/38454e");
-@font-face {font-family: 'Tide Sans'; font-style:normal; font-weight: 400; src: url('webfonts/38454E_0_0.eot');src: url('webfonts/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_0_0.woff2') format('woff2'),url('webfonts/38454E_0_0.woff') format('woff'),url('webfonts/38454E_0_0.ttf') format('truetype');}
-@font-face {font-family: 'Tide Sans'; font-style: italic; font-weight: 400; src: url('webfonts/38454E_1_0.eot');src: url('webfonts/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_1_0.woff2') format('woff2'),url('webfonts/38454E_1_0.woff') format('woff'),url('webfonts/38454E_1_0.ttf') format('truetype');}
-@font-face {font-family: 'Tide Sans'; font-style: normal; font-weight: 700; src: url('webfonts/38454E_2_0.eot');src: url('webfonts/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_2_0.woff2') format('woff2'),url('webfonts/38454E_2_0.woff') format('woff'),url('webfonts/38454E_2_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: normal; font-weight: 400; src: url('../webfonts/38454E_0_0.eot');src: url('../webfonts/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/38454E_0_0.woff2') format('woff2'),url('../webfonts/38454E_0_0.woff') format('woff'),url('../webfonts/38454E_0_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: italic; font-weight: 400; src: url('../webfonts/38454E_1_0.eot');src: url('../webfonts/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/38454E_1_0.woff2') format('woff2'),url('../webfonts/38454E_1_0.woff') format('woff'),url('../webfonts/38454E_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: normal; font-weight: 700; src: url('../webfonts/38454E_2_0.eot');src: url('../webfonts/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/38454E_2_0.woff2') format('woff2'),url('../webfonts/38454E_2_0.woff') format('woff'),url('../webfonts/38454E_2_0.ttf') format('truetype');}
 
 :root {
   /* Sizing */
@@ -59,17 +59,16 @@ body {
   line-height: 1;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6, .heading1, .heading2, .heading3, .heading4, .heading5, .heading6 {
   color: inherit;
   font-weight: 700;
   text-transform: uppercase;
-  margin:0;
+  margin-bottom: 0rem;
   margin-bottom: 2rem;
-
 }
 
 h1 {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 p, ul, ol, blockquote {
@@ -91,12 +90,14 @@ h2, .heading2 {
   line-height: 3rem;
 }
 h3, .heading3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 2rem;
+  margin-bottom: 1rem;
 }
 h4, .heading4 {
-  font-size:1.0rem;
-  line-height: 1rem;
+  font-size:1.5rem;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
 }
 .textBig {
   font-size: 1.25rem;
@@ -113,6 +114,20 @@ ul li, ol li {
   padding-left: 1rem;
 }
 
+dl, dt, dd {
+  margin: 0;
+}
+dl {
+}
+dt {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+dd {
+  line-height: 1.5;
+  max-width: 60ch;
+}
 a, a:link, a:visited {
   text-decoration: none;
   color: var(--colorPurple);
@@ -167,7 +182,7 @@ a, a:link, a:visited {
   overflow: hidden;
   position: relative;
   align-items: center;
-  background-image: url('images/hotsummerBG.jpg');
+  background-image: url('../images/hotsummerBG.jpg');
   background-size: cover;
   height: calc(100vh - 4rem);
   color: white;
@@ -198,24 +213,51 @@ a, a:link, a:visited {
   color: var(--colorGoldSecondary);
 }
 
+.ticketName {
+  min-height: 4rem;
+}
+
 
 /* Buttons */
-.button {
-  transition: border 500ms ease-out;
+.buttonGroup {
+
+}
+.buttonGroup > * {
+  display: block;
+  margin-right: 1rem;
+}
+
+.buttonClr {
   font-family: var(--textStack);
   display: block;
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
+  padding:1rem 0;
+  margin:0;
+  line-height: 1.5;
+}
+.buttonClr:focus {
+  outline: none;
+}
+
+.button {
+  transition: background-color 500ms ease-out;
+  font-family: var(--textStack);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: .875rem;
+  padding-top:1rem;
   text-align: center;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-size: .875rem;
+  line-height: .875rem;
   border-radius: calc(4rem - 8px);
-  border: 4px solid transparent;
   max-width: 288px;
   cursor: pointer;
+  border: 0;
 }
 a.buttonPrimary {
   color: var(--colorPurple);
@@ -237,7 +279,7 @@ a.buttonSecondary {
 .buttonSecondary:hover {
   background-color: var(--colorPurpleLight);
 }
-.buttonUpgrade {
+.button.buttonUpgrade {
   color: black;
   background-color: var(--colorGold);
 }
@@ -281,7 +323,7 @@ a.buttonSecondary {
 /* Forms */
 .formWrapper {
   display: flex;
-  padding-top: 4rem;
+  padding-top: 2rem;
   padding-bottom: 4rem;
   flex-direction: column;
   border-radius: 4px;
@@ -382,6 +424,23 @@ a.buttonSecondary {
 .teamMember .button {
   margin-top: auto;
 }
+
+.faqQuestion{
+}
+.faqQuestionText {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 0;
+}
+.faqAnswerText {
+
+}
+.footer {
+  padding: 2rem 0;
+}
+.footer .content > * {
+  margin-bottom: 1rem;
+}
 /* Spacing */
 .pageWrapper {
   margin-top: 4rem;
@@ -407,7 +466,7 @@ a.buttonSecondary {
   }
   .wsLarge {
     margin-top: 4rem;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem !important;
   }
   .navContent {
     padding: 0rem 2rem;
@@ -492,6 +551,13 @@ a.buttonSecondary {
   }
   .ticket:last-child {
     margin-right: 0;
+  }
+  .buttonGroup {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .buttonGroup > * {
+    margin-right: 1rem;
   }
 }
 
