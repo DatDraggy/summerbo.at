@@ -1,0 +1,501 @@
+@import url("//hello.myfonts.net/count/38454e");
+@font-face {font-family: 'Tide Sans'; font-style:normal; font-weight: 400; src: url('webfonts/38454E_0_0.eot');src: url('webfonts/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_0_0.woff2') format('woff2'),url('webfonts/38454E_0_0.woff') format('woff'),url('webfonts/38454E_0_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: italic; font-weight: 400; src: url('webfonts/38454E_1_0.eot');src: url('webfonts/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_1_0.woff2') format('woff2'),url('webfonts/38454E_1_0.woff') format('woff'),url('webfonts/38454E_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-style: normal; font-weight: 700; src: url('webfonts/38454E_2_0.eot');src: url('webfonts/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('webfonts/38454E_2_0.woff2') format('woff2'),url('webfonts/38454E_2_0.woff') format('woff'),url('webfonts/38454E_2_0.ttf') format('truetype');}
+
+:root {
+  /* Sizing */
+  --sizeBase: 16px;
+  --pageBig: 70rem;
+  /* Colors */
+  --colorPink: #eb4274;
+  --colorPinkLight: #fe316e;
+  --colorPurple: #3b3f9e;
+  --colorPurpleLight: #2e34d1;
+  --colorToneLow: #0ccc9d;
+  --colorToneHigh: #1afbc4;
+  --colorWhite: #fff;
+  --colorBlack: #000;
+  --colorGold: rgb(254, 218, 33);
+  --colorGoldSecondary: #dcb800;
+  /* Text */
+  --fontStack: 'Tide Sans', sans-serif;
+  --colorHeadline: var(--colorPink);
+  --colorSubheadline: var(--colorToneLow);
+}
+::-moz-selection {
+  background-color: var(--colorToneHigh);
+}
+::selection {
+  background-color: var(--colorToneHigh);
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: var(--fontStack);
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+body.hasHero {
+  margin-top: 4rem;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--sizeBase);
+  background-color: var(--colorWhite);
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin:0;
+  margin-bottom: 2rem;
+
+}
+
+h1 {
+  margin-bottom: 4rem;
+}
+
+p, ul, ol, blockquote {
+  font-size: .875rem;
+  margin:0;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  max-width: 70ch;
+}
+
+h1, .heading1 {
+  font-size: 3.0rem;
+  line-height: 3.0rem;
+  max-width: 18ch;
+}
+h2, .heading2 {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+h3, .heading3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+h4, .heading4 {
+  font-size:1.0rem;
+  line-height: 1rem;
+}
+.textBig {
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+
+
+ul, ol {
+  padding-left: 2rem;
+  list-style: square;
+}
+ul li, ol li {
+  padding-left: 1rem;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: var(--colorPurple);
+}
+
+.headline {
+  color: var(--colorHeadline);
+}
+.subheadline {
+  color: var(--colorSubheadline)
+}
+
+/* Utilities */
+.strike {
+  text-decoration: line-through;
+}
+.nomargin {
+  margin: 0;
+}
+.centered {
+  text-align: center;
+}
+.flexStickyEnd {
+  flex:none; margin-top: auto;
+}
+/* Grid */
+.wrapper {
+  flex-basis: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.pageWrapper {
+  margin-top: 8rem;
+}
+/* Grid */
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 1.75rem;
+}
+.content {
+  flex-basis: 100%;
+  margin-bottom: 2rem;
+}
+
+/*hero */
+
+.hero {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  background-image: url('images/hotsummerBG.jpg');
+  background-size: cover;
+  height: calc(100vh - 4rem);
+  color: white;
+}
+.heroFeature {
+  margin-left:-44px;
+  margin-bottom: -4rem;
+  max-width: 480px;
+}
+/* Nav */
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.ticket *:last-child{
+  position: relative;
+  bottom:0;
+}
+.ticketPrimary {
+  color: var(--colorToneLow);
+}
+.ticketSecondary {
+  color: #ccc;
+}
+.ticketTertiary {
+  color: var(--colorGoldSecondary);
+}
+
+
+/* Buttons */
+.button {
+  transition: border 500ms ease-out;
+  font-family: var(--textStack);
+  display: block;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .875rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  border-radius: calc(4rem - 8px);
+  border: 4px solid transparent;
+  max-width: 288px;
+  cursor: pointer;
+}
+a.buttonPrimary {
+  color: var(--colorPurple);
+}
+a.buttonSecondary {
+  color: white;
+}
+.buttonPrimary {
+  background-color: var(--colorToneHigh);
+  color: var(--colorPurple);
+}
+.buttonPrimary:hover {
+  background-color: var(--colorToneLow);
+}
+.buttonSecondary {
+  color: white;
+  background-color: var(--colorPurple);
+}
+.buttonSecondary:hover {
+  background-color: var(--colorPurpleLight);
+}
+.buttonUpgrade {
+  color: black;
+  background-color: var(--colorGold);
+}
+.button.buttonUpgrade:hover {
+  color: black;
+  background-color: var(--colorGoldSecondary);
+}
+.button.disabled {
+  background-color: #ccc;
+  color: #777;
+}
+.button.disabled:hover {
+  border: 4px solid transparent;
+  cursor: not-allowed;
+}
+/* Counters */
+.countWrapper {
+  background-color: var(--colorPurple);
+  color: white;
+  padding: 4rem 0rem;
+}
+.countWrapper .content {
+  text-align: center;
+}
+/* Video */
+.hero .wrapper {
+  z-index: 100;
+}
+.videoBackground {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+  background: #000 url(../images/hotsummerBG.jpg) no-repeat;
+  background-size: cover;
+  opacity: .5;
+  top: 0;
+}
+
+/* Forms */
+.formWrapper {
+  display: flex;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 0 4rem rgba(0,0,0,.25);
+}
+.formRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.formRow .inputWrapper {
+  flex: 1;
+  margin-right: 2rem;
+}
+.formRow .inputWrapper:last-child{
+  margin-right: 0;
+}
+.inputWrapper {
+  transition: background-color 250ms cubic-bezier(.17,.67,.31,1);
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--colorPurple);
+  border-radius: 8px;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.inputWrapper.inputFocussed {
+  background-color: var(--colorPurple);
+}
+
+.inputWrapper input {
+  transition: all 250ms cubic-bezier(.17,.67,.31,1);
+  width: 100%;
+  padding-left: 1rem;
+  margin:0;
+  font-size: .875rem;
+  line-height: 1rem;
+  font-family: var(--fontStack);
+  border: 0;
+  height: 3rem;
+  background-color: transparent;
+}
+.inputWrapper.inputFocussed input {
+  transform: translateY(-.5rem);
+  width: calc(100% - 1rem);
+  background-color: white;
+  border-radius: .5rem;
+  box-shadow: none;
+  outline: none;
+}
+
+.inputWrapper label {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  color: var(--colorWhite);
+  margin:0;
+  padding-left: 1rem;
+  background-color: var(--colorPurple);
+  font-size: .75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  width: 100%;
+}
+.inputWrapper span {
+  transition: all 250ms cubic-bezier(.17,.67,.31,1);
+}
+.inputFocussed span {
+  transform: translateY(-.125rem);
+}
+.content > *:last-child {
+  margin-right: 0;
+}
+.teamMember {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 4px;
+  padding: 1.25rem;
+  box-shadow: 0 0 4rem rgba(0,0,0,.125);
+  margin-bottom: 2rem;
+
+}
+.teamMember > * {
+  margin-bottom: 1rem;
+}
+.teamMember p {
+  font-size: .75rem;
+  line-height: 1.25rem;
+}
+.teamMember img {
+  max-width: 4rem;
+}
+.teamMember *:last-child {
+  margin-bottom: 0;
+}
+.teamMember .button {
+  margin-top: auto;
+}
+/* Spacing */
+.pageWrapper {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.wsLarge {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+@media screen and (min-width: 768px) {
+  .teamMember img {
+    min-width: calc(100% + 2.5rem);
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+
+  .row {
+    padding: 0rem 4rem;
+  }
+  .wsMed {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .wsLarge {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+  }
+  .navContent {
+    padding: 0rem 2rem;
+  }
+
+  .content {
+    flex: 1;
+    margin-bottom: 0;
+    margin-right: 2rem;
+  }
+  .content:last-child {
+    margin-right: 0;
+  }
+
+  .nav {
+    top: 0;
+    background-color: white;
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    flex-direction: row;
+    box-shadow: 0 0 32px rgba(0,0,0,.25);
+  }
+
+  .navContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .navItem a {
+    flex: none;
+    font-size: .875rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    padding: 2rem;
+    max-height: 2.5rem;
+  }
+
+  .navItem a:hover {
+    background-color: var(--colorToneHigh);
+  }
+
+  .navItemButton a {
+    color: black;
+    padding: 1.25rem;
+    max-height: 1rem;
+    background-color: var(--colorPink);
+    color: white;
+    border-radius: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .navItemButton a:hover {
+    background-color: var(--colorPinkLight);
+  }
+
+  .navItemButtonGold a {
+    color: white;
+    background-color: var(--colorPurple);
+  }
+
+  .navItemButtonGold a:hover {
+    color: white;
+    background-color: var(--colorPurpleLight);
+  }
+
+  .navItem:nth-child(5){
+    margin-left:auto;
+  }
+  .ticket {
+    margin-right: 2rem;
+  }
+  .ticket:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+
+
+}
