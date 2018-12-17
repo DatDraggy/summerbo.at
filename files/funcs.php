@@ -108,20 +108,44 @@ function requestRegistrationConfirm($userId, $email) {
     mail($config['mail'], 'CODE BUG, NOT SET VAR', 'SET VAR BEFORE USAGE OF requestRegistrationConfirm');
     die();
   }
-  $token = getRandomString(40);
   try {
-    $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
-    $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
+    $sql = "SELECT nickname FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
-    $stmt->bindParam(':token', $token);
     $stmt->execute();
+    $row = $stmt->fetch();
   } catch (PDOException $e) {
-    notifyOnException('Database Insert', $config, $sql, $e);
+    notifyOnException('Database Select', $config, $sql, $e);
   }
+  if($stmt->rowCount() > 0) {
+    $nickname = $row['nickname'];
+    $token = getRandomString(40);
+    try {
+      $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
+      $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Insert', $config, $sql, $e);
+    }
 
-  $confirmationLink = 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
+    $confirmationLink = 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 
-  sendEmail($email, 'Subject', "Email Text $confirmationLink");
+    sendEmail($email, 'Summerbo.at Confirmation', "Dear $nickname,
+
+Thank you for your registration with the Summernights party.
+
+Your current status is: NEW - Regnumber $userId
+
+You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
+Afterwards another mail will be sent.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew
+");
+  }
 }
 
 function confirmRegistration($token) {
@@ -156,8 +180,26 @@ function confirmRegistration($token) {
         $email = $row['email'];
         $nickname = $row['nickname'];
         $userId = $row['id'];
-        sendEmail($email, 'Subject', " Hello $nickname your email was confirmed, Staff is approving it. Status 1");
+        sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
+
+You have successfully verified your email. 
+
+Our registration team will now check your details. You will get another email about this soon.
+It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
+It shouldn't take more than 24 hours.
+
+Your current status is: VERIFIED - Regnumber $userId
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
         sendStaffNotification($userId);
+        /*
+
+Your registration will be reviewed by our registration team after you have verified yourself.
+It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
+It shouldn't take more than 24 hours.*/
       }
     } catch (PDOException $e) {
       notifyOnException('Database Select', $config, $sql, $e);
@@ -186,7 +228,8 @@ function approveRegistration($userId) {
     return false;
   }
 }
-function rejectRegistration($userId){  global $dbConnection, $config;
+function rejectRegistration($userId){
+  global $dbConnection, $config;
 
   try {
     $sql = "DELETE FROM users WHERE id = '$userId'";
@@ -198,6 +241,16 @@ function rejectRegistration($userId){  global $dbConnection, $config;
     return false;
   }
   if ($stmt->rowCount() === 1) {
+    list($email, $nickname) = getRegDetails($userId, 'email, nickname');
+    sendEmail($email, 'Summerbo.at - Registration Canceled', "Dear $nickname,
+
+Sadly we have to inform you that your registration has been canceled.
+
+If you believe this was a mistake, please send us an email. It can be that there is still space. We will inform you with more information after checking the system. 
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew");
     return true;
   }
   else {
