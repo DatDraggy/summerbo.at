@@ -21,7 +21,7 @@
   /* Text */
   --fontStack: 'Tide Sans', sans-serif;
   --colorHeadline: var(--colorPink);
-  --colorSubheadline: var(--colorToneLow);
+  --colorSubheadline: var(--colorPurple);
 }
 ::-moz-selection {
   background-color: var(--colorToneHigh);
@@ -108,7 +108,11 @@ h4, .heading4 {
   font-size: 1.25rem;
   line-height: 2rem;
 }
-
+.textSmall {
+  font-size: .75rem;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+}
 
 
 ul, ol {
@@ -161,7 +165,7 @@ a, a:link, a:visited {
 /* Grid */
 .wrapper {
   flex-basis: 100%;
-  max-width: 1120px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 /* Grid */
@@ -408,14 +412,12 @@ a.buttonSecondary {
   padding: 1.25rem;
   box-shadow: 0 0 4rem rgba(0,0,0,.125);
   margin-bottom: 2rem;
+}
 
-}
-.teamMember > * {
-  margin-bottom: 1rem;
-}
 .teamMember p {
   font-size: .75rem;
   line-height: 1.25rem;
+  margin-bottom: 1rem;
 }
 .teamMember img {
   max-width: 4rem;
@@ -468,7 +470,7 @@ a.buttonSecondary {
   }
   .wsLarge {
     margin-top: 4rem;
-    margin-bottom: 4rem !important;
+    margin-bottom: 6rem !important;
   }
   .navContent {
     padding: 0rem 2rem;
@@ -545,7 +547,7 @@ a.buttonSecondary {
     background-color: var(--colorPurpleLight);
   }
 
-  .navItem:nth-child(6){
+  .navItem:nth-child(7){
     margin-left:auto;
   }
   .ticket {
