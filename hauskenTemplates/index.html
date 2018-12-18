@@ -6,6 +6,7 @@
     <title>Hot Summer Nights: Furry Bo.at Party</title>
     <link rel="stylesheet" href="css/css.css">
     <link rel="stylesheet" href="css/badger-accordion.css">
+    <link rel="stylesheet" href="css/line-awesome.min.css">
   </head>
   <body class="hasHero">
     <script src="js/vue.js"></script>
@@ -32,10 +33,10 @@
               <a href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
             </div>
             <div class="navItem navItemButton navItemButtonGold">
-              <a href="#">Register</a>
+              <a href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-ticket"></i>Register</a>
             </div>
             <div class="navItem navItemButton">
-              <a href="#">Login</a>
+              <a href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
             </div>
             </div>
           </div>
@@ -88,7 +89,7 @@
 
       <section id="contentPage">
 
-        <section id="about" style="background-color: var(--colorPink)">
+        <section id="about" class="ribbon" style="background-color: var(--colorPink)">
           <div class="wrapper">
             <div class="row">
               <div style="color:white" class="content wsLarge">
@@ -212,8 +213,10 @@
               <h1 class="headline">FAQ</h1>
             </div>
           </div>
-          <div class="row js-badger-accordion">
-              <dl class="content">
+          <div class="row">
+              <div class="content">
+                <h2>Attendance</h2>
+                <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
                       Why is the party on a boat?
@@ -326,6 +329,7 @@
                   </div>
                 </dd>
               </dl>
+              </div>
           </div>
         </section>
         <section id="team" class="wrapper wsLarge">
@@ -337,13 +341,13 @@
           <div class="row">
             <div class="teamMember content content25">
               <h4 class="subheadline nomargin">Hunter</h3>
-              <h5>Organiser</h4>
+              <h5 class="textSmall">Organiser</h4>
               <p><img src="images/staff/hunter.png" alt="Hunter"></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="teamMember content content25">
               <h4 class="subheadline nomargin">Kieran</h3>
-              <h5>Web and Reg System</h4>
+              <h5 class="textSmall">Web and Reg System</h4>
               <p><img src="images/staff/kieran.png" alt="Kieran"></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
