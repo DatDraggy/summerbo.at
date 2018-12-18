@@ -21,7 +21,9 @@
   /* Text */
   --fontStack: 'Tide Sans', sans-serif;
   --colorHeadline: var(--colorPink);
-  --colorSubheadline: var(--colorToneLow);
+  --colorSubheadline: var(--colorPurple);
+  /* Nice Anims */
+  --animNice: cubic-bezier(.32,.02,.38,.99);
 }
 ::-moz-selection {
   background-color: var(--colorToneHigh);
@@ -70,18 +72,18 @@ h1,h2,h3,h4,h5,h6, .heading1, .heading2, .heading3, .heading4, .heading5, .headi
 
 h1 {
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 h1:before {
 
 }
 
 p, ul, ol, blockquote {
-  font-size: .875rem;
+  font-size: 1rem;
   margin:0;
   margin-bottom: 2rem;
   font-weight: 500;
-  line-height: 1.5rem;
+  line-height: 1.75rem;
   max-width: 70ch;
 }
 
@@ -105,10 +107,14 @@ h4, .heading4 {
   margin-bottom: 1rem;
 }
 .textBig {
-  font-size: 1.25rem;
-  line-height: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
 }
-
+.textSmall {
+  font-size: .75rem;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+}
 
 
 ul, ol {
@@ -156,16 +162,16 @@ a, a:link, a:visited {
   text-align: center;
 }
 .flexStickyEnd {
-  flex:none; margin-top: auto;
+  flex:none;
+  margin-top: auto;
+  margin-bottom: 0;
 }
 /* Grid */
 .wrapper {
   flex-basis: 100%;
-  max-width: 1120px;
+  max-width: 1440px;
   margin: 0 auto;
 }
-/* Grid */
-
 .row {
   display: flex;
   flex-direction: row;
@@ -184,15 +190,39 @@ a, a:link, a:visited {
   overflow: hidden;
   position: relative;
   align-items: center;
-  background-image: url('../images/hotsummerBG.jpg');
+  background-image: url('../images/hotsummerBG-placeholder.jpg');
   background-size: cover;
   height: calc(100vh - 4rem);
   color: white;
+  transition: background-image 1500ms var(--animNice);
+}
+
+.hero.lazy-bg-loaded {
+  background-image: url('../images/hotsummerBG.jpg');
 }
 .heroFeature {
+  transition: opacity 1500ms 1500ms var(--animNice);
+  opacity: 1;
   margin-left:-44px;
   margin-bottom: -4rem;
-  max-width: 480px;
+  width: 480px;
+  height: 357px;
+}
+.heroFeature.lazy {
+  opacity: 0;
+}
+.videoBackground {
+  transition: opacity 2500ms 1500ms var(--animNice);
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+  opacity: .5;
+  top: 0;
+}
+.videoBackground.lazy {
+  opacity: 0;
 }
 /* Nav */
 
@@ -226,7 +256,7 @@ a, a:link, a:visited {
 }
 .buttonGroup > * {
   display: block;
-  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 
 .buttonClr {
@@ -236,9 +266,9 @@ a, a:link, a:visited {
   background: none;
   border: 0;
   text-align: left;
-  padding:1rem 0;
+  padding:.5rem 0;
   margin:0;
-  line-height: 1.5;
+  line-height: 1.5rem;
 }
 .buttonClr:focus {
   outline: none;
@@ -262,14 +292,14 @@ a, a:link, a:visited {
   border: 0;
 }
 a.buttonPrimary {
-  color: var(--colorPurple);
+  color: var(--colorBlack);
 }
 a.buttonSecondary {
   color: white;
 }
 .buttonPrimary {
   background-color: var(--colorToneHigh);
-  color: var(--colorPurple);
+  color: var(--colorBlack);
 }
 .buttonPrimary:hover {
   background-color: var(--colorToneLow);
@@ -282,11 +312,11 @@ a.buttonSecondary {
   background-color: var(--colorPurpleLight);
 }
 .button.buttonUpgrade {
-  color: black;
+  color: var(--colorBlack);
   background-color: var(--colorGold);
 }
 .button.buttonUpgrade:hover {
-  color: black;
+  color: var(--colorBlack);;
   background-color: var(--colorGoldSecondary);
 }
 .button.disabled {
@@ -294,9 +324,9 @@ a.buttonSecondary {
   color: #777;
 }
 .button.disabled:hover {
-  border: 4px solid transparent;
   cursor: not-allowed;
 }
+
 /* Counters */
 .countWrapper {
   background-color: var(--colorPurple);
@@ -309,17 +339,6 @@ a.buttonSecondary {
 /* Video */
 .hero .wrapper {
   z-index: 100;
-}
-.videoBackground {
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  height: auto;
-  width: auto;
-  background: #000 url(../images/hotsummerBG.jpg) no-repeat;
-  background-size: cover;
-  opacity: .5;
-  top: 0;
 }
 
 /* Forms */
@@ -344,7 +363,7 @@ a.buttonSecondary {
   margin-right: 0;
 }
 .inputWrapper {
-  transition: background-color 250ms cubic-bezier(.17,.67,.31,1);
+  transition: background-color 250ms var(--animNice);
   background-color: transparent;
   display: flex;
   flex-direction: column;
@@ -358,7 +377,7 @@ a.buttonSecondary {
 }
 
 .inputWrapper input {
-  transition: all 250ms cubic-bezier(.17,.67,.31,1);
+  transition: all 250ms var(--animNice);
   width: 100%;
   padding-left: 1rem;
   margin:0;
@@ -408,14 +427,12 @@ a.buttonSecondary {
   padding: 1.25rem;
   box-shadow: 0 0 4rem rgba(0,0,0,.125);
   margin-bottom: 2rem;
+}
 
-}
-.teamMember > * {
-  margin-bottom: 1rem;
-}
 .teamMember p {
   font-size: .75rem;
   line-height: 1.25rem;
+  margin-bottom: 1rem;
 }
 .teamMember img {
   max-width: 4rem;
@@ -452,6 +469,13 @@ a.buttonSecondary {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+.ribbon {
+  margin-top: 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
 @media screen and (min-width: 768px) {
   .teamMember img {
     min-width: calc(100% + 2.5rem);
@@ -468,7 +492,16 @@ a.buttonSecondary {
   }
   .wsLarge {
     margin-top: 4rem;
-    margin-bottom: 4rem !important;
+    margin-bottom: 6rem !important;
+  }
+  .ribbon {
+    margin-top: 0;
+    padding-top: 2rem;
+    padding-bottom: 0;
+    margin-bottom: 6rem;
+  }
+  .ribbon .content *:last-child {
+    margin-bottom: 0;
   }
   .navContent {
     padding: 0rem 2rem;
@@ -522,7 +555,7 @@ a.buttonSecondary {
   }
 
   .navItemButton a {
-    color: black;
+    color: var(--colorBlack);
     padding: 1.25rem;
     max-height: 1rem;
     background-color: var(--colorPink);
@@ -545,7 +578,7 @@ a.buttonSecondary {
     background-color: var(--colorPurpleLight);
   }
 
-  .navItem:nth-child(6){
+  .navItem:nth-child(7){
     margin-left:auto;
   }
   .ticket {

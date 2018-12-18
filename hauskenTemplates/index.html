@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hot Summer Nights: Furry Bo.at Party</title>
+    <script src="js/yall-2.2.0.min.js"></script>
     <link rel="stylesheet" href="css/css.css">
     <link rel="stylesheet" href="css/badger-accordion.css">
+    <link rel="stylesheet" href="css/line-awesome.min.css">
   </head>
   <body class="hasHero">
     <script src="js/vue.js"></script>
@@ -28,29 +30,32 @@
             <div class="navItem">
               <a href="#faq">FAQ</a>
             </div>
+            <div class="navItem">
+              <a href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
+            </div>
             <div class="navItem navItemButton navItemButtonGold">
-              <a href="#">Register</a>
+              <a href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-ticket"></i>Register</a>
             </div>
             <div class="navItem navItemButton">
-              <a href="#">Login</a>
+              <a href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
             </div>
             </div>
           </div>
         </div>
       </nav>
 
-      <section id="hero" class="hero">
+      <section id="hero" class="hero lazy-bg">
         <div class="wrapper">
           <div class="row">
             <div class="content">
-              <h1><img alt="Hot Summer Nights" src="images/headerLarge@2x.png" class="heroFeature"></h1>
+              <h1><img alt="Hot Summer Nights" src="images/header@2x.png" data-src="images/headerLarge@2x.png" class="heroFeature lazy"></h1>
               <h2 class="heading-1">Furry Boat Party</h2>
               <p>Berlin&mdash;13 August 2019 8pm CET</p>
               <p><button class="button buttonPrimary">Register Now</button>
             </div>
           </div>
         </div>
-        <video playsinline autoplay muted loop class="videoBackground" poster="images/hotsummerBG.jpg">
+        <video playsinline autoplay muted loop class="videoBackground lazy" preload="none" data-poster="images/hotsummerBG-placeholder.jpg">
           <source src="images/background-nosound.webm" type="video/webm">
           <source src="images/background-nosound.mp4" type="video/mp4">
         </video>
@@ -85,7 +90,7 @@
 
       <section id="contentPage">
 
-        <section id="about" style="background-color: var(--colorPink)">
+        <section id="about" class="ribbon" style="background-color: var(--colorPink)">
           <div class="wrapper">
             <div class="row">
               <div style="color:white" class="content wsLarge">
@@ -202,15 +207,17 @@
             </div>
           </form>
         </section>
-        
+
         <section id="faq" class="wrapper wsLarge">
           <div class="row">
             <div class="content">
               <h1 class="headline">FAQ</h1>
             </div>
           </div>
-          <div class="row js-badger-accordion">
-              <dl class="content">
+          <div class="row">
+              <div class="content">
+                <h2>Attendance</h2>
+                <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
                       Why is the party on a boat?
@@ -323,6 +330,7 @@
                   </div>
                 </dd>
               </dl>
+              </div>
           </div>
         </section>
         <section id="team" class="wrapper wsLarge">
@@ -334,22 +342,21 @@
           <div class="row">
             <div class="teamMember content content25">
               <h4 class="subheadline nomargin">Hunter</h3>
-              <h5>Organiser</h4>
+              <h5 class="textSmall">Organiser</h4>
               <p><img src="images/staff/hunter.png" alt="Hunter"></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="teamMember content content25">
               <h4 class="subheadline nomargin">Kieran</h3>
-              <h5>Web and Reg System</h4>
+              <h5 class="textSmall">Web and Reg System</h4>
               <p><img src="images/staff/kieran.png" alt="Kieran"></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="teamMember content content25">
               <h4 class="subheadline nomargin">Hausken</h3>
-              <h5>Design and Web</h4>
+              <h5 class="textSmall">Design and Web</h4>
               <p><img src="images/staff/hausken.png" alt="Hausken"></p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
             </div>
             <div class="teamMember content content25" style="background-color: var(--colorPink); color: white;">
               <h4 class="nomargin">Volunteer</h3>
@@ -371,6 +378,7 @@
         </section>
       </section> <!--pageWrapper -->
     </div> <!-- App -->
+  <script>document.addEventListener("DOMContentLoaded", yall);</script>
   <script src="js/badger-accordion.min.js"></script>
   <script src="js/app.js"></script>
   </body>

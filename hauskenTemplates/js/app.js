@@ -18,26 +18,7 @@ theForm.addEventListener("blur", function( event ) {
   theirParent.classList = "inputWrapper"
 }, true);
 
-
-new BadgerAccordion('.js-badger-accordion', {
+const accordions = document.querySelectorAll('.js-badger-accordion')
+Array.from(accordions).forEach((accordion) => {
+    const ba = new BadgerAccordion(accordion);
 });
-// const faqQuestions = document.querySelectorAll('.faqQuestion')
-// const faqAnswerContent = document.querySelectorAll('.faqAnswerContent')
-//
-//
-// function addClass(el, klass) {
-//   el.classList.add(klass);
-// }
-//
-// function removeClass(el, klass) {
-//   el.classList.remove(klass);
-// }
-//
-// faqQuestions.forEach(function(faq){
-//   faq.classList.add('hidden')
-//   var faqQuestion = faq.children[0]
-//   faqQuestion.addEventListener('click', showFaq)
-//   function showFaq(event) {
-//     event.target.parentElement
-//   }
-// })
