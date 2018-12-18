@@ -18,6 +18,7 @@ theForm.addEventListener("blur", function( event ) {
   theirParent.classList = "inputWrapper"
 }, true);
 
-
-new BadgerAccordion('.js-badger-accordion', {
+const accordions = document.querySelectorAll('.js-badger-accordion')
+Array.from(accordions).forEach((accordion) => {
+    const ba = new BadgerAccordion(accordion);
 });
