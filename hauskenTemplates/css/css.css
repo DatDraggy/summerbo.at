@@ -172,8 +172,6 @@ a, a:link, a:visited {
   max-width: 1440px;
   margin: 0 auto;
 }
-/* Grid */
-
 .row {
   display: flex;
   flex-direction: row;
@@ -192,15 +190,27 @@ a, a:link, a:visited {
   overflow: hidden;
   position: relative;
   align-items: center;
-  background-image: url('../images/hotsummerBG.jpg');
+  background-image: url('../images/hotsummerBG-placeholder.jpg');
   background-size: cover;
   height: calc(100vh - 4rem);
   color: white;
+  transition: background-image 500ms var(--animNice);
+}
+
+.hero.lazy-bg-loaded {
+  background-image: url('../images/hotsummerBG.jpg');
 }
 .heroFeature {
+  transition: opacity 1500ms var(--animNice);
+  opacity: 1;
   margin-left:-44px;
   margin-bottom: -4rem;
-  max-width: 480px;
+  width: 480px;
+  height: 357px;
+}
+.heroFeature.lazy {
+  opacity: 0;
+
 }
 /* Nav */
 
@@ -319,6 +329,8 @@ a.buttonSecondary {
   z-index: 100;
 }
 .videoBackground {
+  opacity: 1;
+  transition: opacity 1500ms var(--animNice);
   position: absolute;
   min-width: 100%;
   min-height: 100%;
@@ -328,6 +340,9 @@ a.buttonSecondary {
   background-size: cover;
   opacity: .5;
   top: 0;
+}
+.videoBackground.lazy {
+  opacity: 0;
 }
 
 /* Forms */
