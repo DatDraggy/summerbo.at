@@ -34,7 +34,7 @@
 img {
   display: block;
   max-width: 100%;
-  height: auto;
+  max-height: auto;
 }
 
 * {
@@ -47,9 +47,7 @@ html, body {
   margin: 0;
   padding: 0;
 }
-body.hasHero {
-  margin-top: 4rem;
-}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -70,31 +68,33 @@ h1,h2,h3,h4,h5,h6, .heading1, .heading2, .heading3, .heading4, .heading5, .headi
   margin-bottom: 2rem;
 }
 
-h1 {
-  position: relative;
-  margin-bottom: 3rem;
-}
-h1:before {
-
-}
-
 p, ul, ol, blockquote {
-  font-size: 1rem;
+  font-size: .875rem;
   margin:0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-weight: 500;
-  line-height: 1.75rem;
+  line-height: 1.5rem;
   max-width: 70ch;
 }
 
-h1, .heading1 {
-  font-size: 3.0rem;
-  line-height: 3.0rem;
-  max-width: 18ch;
+ul, ol {
+  padding-left: 1rem;
+  list-style: square;
 }
+
+ul li, ol li {
+  padding-left: .5rem;
+}
+
+h1, .heading1 {
+  font-size: 2.0rem;
+  line-height: 2.0rem;
+  margin-bottom: 1rem;
+}
+
 h2, .heading2 {
-  font-size: 2.5rem;
-  line-height: 3rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
 }
 h3, .heading3 {
   font-size: 2rem;
@@ -107,7 +107,7 @@ h4, .heading4 {
   margin-bottom: 1rem;
 }
 .textBig {
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.5rem;
 }
 .textSmall {
@@ -117,13 +117,6 @@ h4, .heading4 {
 }
 
 
-ul, ol {
-  padding-left: 2rem;
-  list-style: square;
-}
-ul li, ol li {
-  padding-left: 1rem;
-}
 
 dl, dt, dd {
   margin: 0;
@@ -183,30 +176,171 @@ a, a:link, a:visited {
   margin-bottom: 2rem;
 }
 
+/* Nav */
+.nav {
+  transition: max-height 500ms var(--animNice);
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  top: 0;
+  background-color: white;
+  z-index: 200;
+  width: 100%;
+  box-shadow: 0 0 32px rgba(0,0,0,.25);
+  overflow: hidden;
+  max-height: 100vh;
+}
+.nav.inactive {
+  max-height: 3rem;
+}
+.nav.inactive .navContent {
+  padding-top: 0;
+}
+.navContent {
+  transition: transform 500ms var(--animNice);
+  display: flex;
+  /* flex-direction: row; */
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  /* transform: translateY(32px); */
+}
+.js-showNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colorToneHigh);
+  height:3rem;
+}
+.js-showNav i {
+  font-size: 1.5rem;
+  margin-right: .5rem;
+  margin-bottom: 2px;
+
+}
+
+.js-showNav span {
+  margin-top: 2px;
+  display: inline-block;
+}
+nav.active .js-showNav {
+
+}
+.navLinks {
+  padding: 1rem 0;
+  margin-top: auto;
+}
+.navButtons {
+  padding: 1rem 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.navItem {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+.navItemLogo {
+  margin-bottom: 2rem;
+}
+.navItem .navLink {
+  border-radius: 4rem;
+
+  /* flex: none; */
+  flex: 1 0 auto;
+  font-size: .875rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  /* padding: 2rem; */
+  padding: 1.5rem 2rem;
+  max-height: 3rem;
+
+}
+
+.navItem a:hover {
+  background-color: var(--colorToneHigh);
+}
+
+.button.navItemButton {
+  max-height: 2.5rem;
+  margin-bottom: 1rem;
+}
+@media screen and (min-width: 769px) {
+  .js-showNav {
+    display: none;
+  }
+  .nav, .nav.active, .nav.inactive {
+    height: 4rem !important;
+    max-height: 4rem;
+  }
+  .nav {
+  }
+  .navContent {
+    max-height: 4rem;
+    flex-direction: row;
+  }
+  .navButtons {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 2rem;
+  }
+  .navButtons .navItemButton {
+    margin-left: 1rem;
+    margin-bottom: 0;
+  }
+  .navLinks {
+    display: flex;
+    padding:0;
+    margin:0;
+    flex-direction: row;
+  }
+  .navItemLogo {
+    margin: 0;
+  }
+  .navItemLogo p{
+    display: none;
+  }
+}
+
+.navItem:nth-child(7){
+  /* margin-left:auto; */
+}
+
 /*hero */
 
 .hero {
   display: flex;
   overflow: hidden;
   position: relative;
-  align-items: center;
+  /* align-items: center; */
+  align-items: flex-end;
   background-image: url('../images/hotsummerBG-placeholder.jpg');
   background-size: cover;
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 3rem);
   color: white;
   transition: background-image 1500ms var(--animNice);
 }
+
 
 .hero.lazy-bg-loaded {
   background-image: url('../images/hotsummerBG.jpg');
 }
 .heroFeature {
+  flex:none;
   transition: opacity 1500ms 1500ms var(--animNice);
   opacity: 1;
-  margin-left:-44px;
-  margin-bottom: -4rem;
+  margin-top: 2rem;
+  margin-left:-22px;
+  margin-bottom: -22px;
   width: 480px;
-  height: 357px;
+  max-height: 357px;
 }
 .heroFeature.lazy {
   opacity: 0;
@@ -255,8 +389,10 @@ a, a:link, a:visited {
 
 }
 .buttonGroup > * {
-  display: block;
   margin-bottom: 1rem;
+}
+.buttonGroup > *:last-child {
+  margin-bottom: 0;
 }
 
 .buttonClr {
@@ -273,8 +409,21 @@ a, a:link, a:visited {
 .buttonClr:focus {
   outline: none;
 }
-
+button {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  font-family: var(--textStack);
+  font-size: .875rem;
+  line-height: .875rem;
+  border: none;
+  outline: none;
+}
 .button {
+  border-radius: 2rem;
   transition: background-color 500ms ease-out;
   font-family: var(--textStack);
   width: 100%;
@@ -285,9 +434,8 @@ a, a:link, a:visited {
   padding-top:1rem;
   text-align: center;
   font-size: .875rem;
-  line-height: .875rem;
-  border-radius: calc(4rem - 8px);
-  max-width: 288px;
+  line-height: 1rem;
+  /* max-width: 288px; */
   cursor: pointer;
   border: 0;
 }
@@ -301,14 +449,14 @@ a.buttonSecondary {
   background-color: var(--colorToneHigh);
   color: var(--colorBlack);
 }
-.buttonPrimary:hover {
+.buttonPrimary:hover, a.buttonPrimary:hover {
   background-color: var(--colorToneLow);
 }
-.buttonSecondary {
+.buttonSecondary, a.buttonSecondary {
   color: white;
   background-color: var(--colorPurple);
 }
-.buttonSecondary:hover {
+.buttonSecondary:hover, a.buttonSecondary:hover {
   background-color: var(--colorPurpleLight);
 }
 .button.buttonUpgrade {
@@ -475,12 +623,13 @@ a.buttonSecondary {
   padding-bottom: 2rem;
   margin-bottom: 2rem;
 }
+body.hasNav{
+  margin-top: 3rem;
+}
+@media screen and (min-width: 769px) {
 
-@media screen and (min-width: 768px) {
-  .teamMember img {
-    min-width: calc(100% + 2.5rem);
-    margin-left: -1.25rem;
-    margin-right: -1.25rem;
+  body.hasNav {
+    margin-top: 4rem;
   }
 
   .row {
@@ -500,9 +649,13 @@ a.buttonSecondary {
     padding-bottom: 0;
     margin-bottom: 6rem;
   }
+  button , .button {
+    max-width: 16rem;
+  }
   .ribbon .content *:last-child {
     margin-bottom: 0;
   }
+
   .navContent {
     padding: 0rem 2rem;
   }
@@ -516,70 +669,65 @@ a.buttonSecondary {
     margin-right: 0;
   }
 
-  .nav {
-    top: 0;
-    background-color: white;
-    position: fixed;
-    z-index: 200;
-    width: 100%;
-    flex-direction: row;
-    box-shadow: 0 0 32px rgba(0,0,0,.25);
-  }
-
-  .navContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .navItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-  }
-
-  .navItem a {
-    flex: none;
+  p, ul, ol, blockquote {
     font-size: .875rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: baseline;
-    padding: 2rem;
-    max-height: 2.5rem;
+    margin:0;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    max-width: 70ch;
   }
 
-  .navItem a:hover {
-    background-color: var(--colorToneHigh);
+  ul, ol {
+    padding-left: 1rem;
   }
 
-  .navItemButton a {
-    color: var(--colorBlack);
-    padding: 1.25rem;
-    max-height: 1rem;
-    background-color: var(--colorPink);
-    color: white;
-    border-radius: 1.5rem;
-    margin-left: 1rem;
+  ul li, ol li {
+    padding-left: .5rem;
   }
 
-  .navItemButton a:hover {
-    background-color: var(--colorPinkLight);
+  h1, .heading1 {
+    font-size: 3.0rem;
+    line-height: 3.0rem;
+    max-width: 18ch;
+    margin-bottom: 3rem;
   }
 
-  .navItemButtonGold a {
-    color: white;
-    background-color: var(--colorPurple);
+  h2, .heading2 {
+    font-size: 2.5rem;
+    line-height: 3rem;
   }
 
-  .navItemButtonGold a:hover {
-    color: white;
-    background-color: var(--colorPurpleLight);
+  h3, .heading3 {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
   }
 
-  .navItem:nth-child(7){
-    margin-left:auto;
+  h4, .heading4 {
+    font-size:1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .textBig {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
+  .textSmall {
+    font-size: .75rem;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+  }
+  .hero {
+    height: calc(100vh - 4rem);
+  }
+  .heroFeature {
+    margin-left:-44px;
+    margin-bottom: -4rem;
+    width: 480px;
+    max-height: 357px;
   }
   .ticket {
     margin-right: 2rem;
@@ -590,10 +738,19 @@ a.buttonSecondary {
   .buttonGroup {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
   }
+
   .buttonGroup > * {
     margin-right: 1rem;
   }
+
+  .teamMember img {
+    min-width: calc(100% + 2.5rem);
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+
 }
 
 @media screen and (min-width: 1000px) {
