@@ -10,3 +10,6 @@ $config['telegramAdmins'] = array('user1' => 123, 'user2' => 1234); //Telegram u
 $config['token'] = '123456:aefAOIEFjoauenfseljnFOUnoEAF';
 $config['url'] = 'https://api.telegram.org/bot' . $config['token'] . '/';
 $config['secretPath'] = 'aDOINauiwdnUdbwniUABdiuabwidu';
+$config['priceAddSponsor'] = 15;
+$config['priceAttendeeEarly'] = 25;
+$config['priceAttendee'] = 35;

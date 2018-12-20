@@ -101,6 +101,69 @@ function getUserRank($userId) {
   }
 }
 
+function newRegistration($nickname, $firstName, $lastName, $dob, $country, $email, $hash, $sponsor, $fursuiter, $rank, $regdate, $topay) {
+  global $dbConnection, $config;
+  //ToDo: INSERT INTO users
+  //ToDo: UPDATE Balance SET topay
+
+  try {
+    $dbConnection->beginTransaction();
+
+    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL)";
+    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate) (:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL)');
+    $stmt->bindParam('nickname', $nickname);
+    $stmt->bindParam(':firstName', $firstName);
+    $stmt->bindParam(':lastName', $lastName);
+    $stmt->bindParam(':dob', $dob);
+    $stmt->bindParam(':country', $country);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':hash', $hash);
+    $stmt->bindParam(':sponsor', $sponsor);
+    $stmt->bindParam(':fursuiter', $fursuiter);
+    $stmt->bindParam(':rank', $rank);
+    $stmt->bindParam(':regdate', $regdate);
+    $stmt->execute();
+
+    /*
+    try {
+      $sql = "SELECT last_insert_id() from users";
+      $stmt = $dbConnection->prepare('SELECT last_insert_id() from users');
+      $stmt->execute();
+      $row = $stmt->fetch();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+    }
+    if ($stmt->rowCount() > 0) {
+      $userId = $row['id'];
+    }*/
+
+    $userId = $dbConnection->lastInsertId();
+
+    /*
+     * If trigger dont work, uncomment this
+    try {
+      $sql = "INSERT INTO balance(id, topay, paid) VALUES ($userId, $topay, 0)";
+      $stmt = $dbConnection->prepare('INSERT INTO balance(id, topay, paid) VALUES (:userId, :topay, 0)');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':topay', $topay);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+    }
+    */
+
+    $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
+    $stmt = $dbConnection->prepare('UPDATE balance SET topay = :topay WHERE id = :userId');
+    $stmt->bindParam(':topay', $topay);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+
+    $dbConnection->commit();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+}
+
 //dbConnection needs to be set
 function requestRegistrationConfirm($userId, $email) {
   global $dbConnection, $config;
@@ -145,6 +208,19 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ");
+  }
+}
+
+function upgradeToSponsor($userId){
+  global $dbConnection, $config;
+  try{
+    $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceAddSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
+    $stmt = $dbConnection->prepare('UPDATE balance SET topay = topay + :priceAddSponsor WHERE id = :userId');
+    $stmt->bindParam(':priceAddSponsor', $config['priceAddSponsor']);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  }catch (PDOException $e){
+    notifyOnException('Database Update', $config, $sql, $e);
   }
 }
 
@@ -321,49 +397,47 @@ function approvePayment($userId, $approver, $amount) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT topay, (SELECT COUNT(1) FROM payments WHERE user_id = '$userId') as paid FROM users WHERE id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT topay, (SELECT COUNT(1) FROM payments WHERE user_id = :userId) as paid FROM users WHERE id = :userIdB");
+    $sql = "SELECT topay, paid FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT topay, paid FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = ':userId'");
     $stmt->bindParam(':userId', $userId);
-    $stmt->bindParam(':userIdB', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if ($stmt->rowCount() === 1) {
-    if ($row['topay'] <= $amount) {
+    if ($row['topay'] <= $amount + $row['paid']) {
       $status = 3;
     }
     else {
       $status = 2;
     }
-    if ($row['paid'] == 1) {
-      try {
-        $sql = "UPDATE payments INNER JOIN users on payments.user_id = users.id SET status = '$status', amount = $amount WHERE user_id = '$userId'";
-        $stmt = $dbConnection->prepare("UPDATE payments INNER JOIN users on payments.user_id = users.id SET status = :status, amount = :amount WHERE user_id = :userId");
-        $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':amount', $amount);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->execute();
-      } catch (PDOException $e) {
-        notifyOnException('Database Select', $config, $sql, $e);
-      }
+
+    try {
+      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET status = '$status', paid = paid + $amount WHERE users.id = '$userId'";
+      $stmt = $dbConnection->prepare("UPDATE balance INNER JOIN users on balance.id = users.id SET status = :status, paid = paid + :amount WHERE users.id = :userId");
+      $stmt->bindParam(':status', $status);
+      $stmt->bindParam(':amount', $amount);
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
     }
-    else {
-      try {
-        $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
-        $stmt = $dbConnection->prepare("INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)");
-        $stmt->bindParam(':userId', $userId);
-        $stmt->bindParam(':approver', $approver);
-        $stmt->bindParam(':amount', $amount);
-        $stmt->execute();
-      } catch (PDOException $e) {
-        notifyOnException('Database Select', $config, $sql, $e);
-      }
+
+    try {
+      $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
+      $stmt = $dbConnection->prepare("INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)");
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':approver', $approver);
+      $stmt->bindParam(':amount', $amount);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
     }
-    if ($stmt->rowCount() > 0) {
-      return true;
-    }
+  }
+  if ($stmt->rowCount() > 0) {
+    return true;
+
   }
   return false;
 }
