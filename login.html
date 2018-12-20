@@ -1,5 +1,63 @@
 <?php
 require_once('files/things.php');
+//Test
+session_start();
+require_once(__DIR__ . '/files/funcs.php');
+require_once(__DIR__ . '/files/config.php');
+if (!empty($_SESSION['userid'])) {
+  $userId = $_SESSION['userid'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  if (checkRegValid($userId)) {
+    header('Location: userarea.html');
+    die();
+  }
+  else {
+    if (isset($_COOKIE[session_name()])) {
+      setcookie(session_name(), '', time() - 3600, '/');
+    }
+    session_destroy();
+  }
+}
+else if (!empty($_POST['id']) && !empty($_POST['password'])) {
+  $userId = $_POST['id'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  //Check for existing Reg
+  $sql = "SELECT hash, `rank` FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT hash, `rank` FROM users WHERE id = :userId');
+  $stmt->bindParam(':userId', $userId);
+  $stmt->execute();
+  $row = $stmt->fetch();
+  if ($row->numRows() === 1) {
+    $dbHash = $row['hash'];
+    $userId = $row['id'];
+    $rank = $row['rank'];
+    if (password_verify($_POST['password'], $dbHash)) {
+      $_POST['password'] = '';
+      //Logged in
+      //Password Correct, set Session
+      $_SESSION['userid'] = $userId;
+      $_SESSION['rank'] = $rank;
+      header('Location: user/index.html?from=login');
+      die();
+    }
+    else {
+      echo 'Login Details didn\'t match';
+      //ToDo: use session to save status and msg
+    }
+  }
+  else {
+    echo 'No user found';
+    //ToDo: use session to save status and msg
+  }
+}
+else {
+  echo 'Missing details, displaying form or redirecting';
+  //ToDo: use session to save status and msg
+}
+
+?>
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
