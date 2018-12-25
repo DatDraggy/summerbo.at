@@ -223,13 +223,35 @@ Your Boat Party Crew
 function upgradeToSponsor($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceAddSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
-    $stmt = $dbConnection->prepare('UPDATE balance SET topay = topay + :priceAddSponsor WHERE id = :userId');
-    $stmt->bindParam(':priceAddSponsor', $config['priceAddSponsor']);
+    $sql = "SELECT email, nickname FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
+    $row = $stmt->fetch();
   } catch (PDOException $e) {
     notifyOnException('Database Update', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() === 1) {
+    $email = $row['email'];
+    $nickname = $row['nickname'];
+    try {
+      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceAddSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE balance SET topay = topay + :priceAddSponsor WHERE id = :userId');
+      $stmt->bindParam(':priceAddSponsor', $config['priceAddSponsor']);
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Update', $config, $sql, $e);
+    }
+
+    sendEmail($email, 'Sponsor upgrade', "Dear $nickname, 
+
+Thank you for your upgrade! You are now a sponsor for the Summernight party. As a sponsor you get a special gift and badge as a thank you for the extra support. 
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
   }
 }
 
@@ -388,7 +410,7 @@ function approvePayment($userId, $approver, $amount) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT topay, paid FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
+    $sql = "SELECT topay, paid, nickname, email FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
     $stmt = $dbConnection->prepare("SELECT topay, paid FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = ':userId'");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
@@ -397,7 +419,11 @@ function approvePayment($userId, $approver, $amount) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if ($stmt->rowCount() === 1) {
-    if ($row['topay'] <= $amount + $row['paid']) {
+    $email = $row['email'];
+    $nickname = $row['nickname'];
+    $topay = $row['topay'];
+    $paid = $row['paid'];
+    if ($topay <= $amount + $paid) {
       $status = 3;
     } else {
       $status = 2;
@@ -424,10 +450,28 @@ function approvePayment($userId, $approver, $amount) {
     } catch (PDOException $e) {
       notifyOnException('Database Select', $config, $sql, $e);
     }
-  }
-  if ($stmt->rowCount() > 0) {
-    return true;
+    if ($status === 3) {
+      //ToDo Below more Information
+      sendEmail($email, 'Payment received', "Dear $nickname,
 
+Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. 
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
+      return true;
+    } else {
+      sendEmail($email, 'Payment received', "Dear $nickname,
+
+Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
+      return false;
+    }
   }
   return false;
 }
