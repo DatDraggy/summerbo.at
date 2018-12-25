@@ -73,8 +73,9 @@ if (preg_match('/[\sa-zA-Z]/', $lastNamePost) !== 1) {
   $lastName = $lastNamePost;
 }
 
-$nicknameRaw = str_replace(' ', '_', $nicknamePost);
-$nickname = preg_replace('/[^\w-.~]/', '', $nicknameRaw);
+//$nicknameRaw = str_replace(' ', '_', $nicknamePost);
+$nicknameRaw = $nicknamePost;
+$nickname = preg_replace('/[^\w-. ~]/', '', $nicknameRaw);
 
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
