@@ -7,6 +7,7 @@ function buildDatabaseConnection($config) {
     $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   } catch (PDOException $e) {
     notifyOnException('Database Connection', $config, '', $e);
+    return false;
   }
   return $dbConnection;
 }
@@ -17,12 +18,12 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = true) 
   $headers = 'From: ' . $config['mail'];
   mail($to, $subject, $txt, $headers);
   http_response_code(200);
-  if($fail) {
+  if ($fail) {
     die();
   }
 }
 
-function checkRegValid($userId){
+function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
     $sql = "SELECT id FROM users WHERE id = $userId";
@@ -30,19 +31,19 @@ function checkRegValid($userId){
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
-  }catch (PDOException $e){
-    notifyOnException('Database Select', $config, $sql, $e);}
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
   if ($row->numRows() === 1) {
     //Already logged in, redirect to userarea
     return true;
-  }
-  else {
+  } else {
     //Clear Session and Cookies
     return false;
   }
 }
 
-function getRegDetails($userId, $columns = '*'){
+function getRegDetails($userId, $columns = '*') {
   global $dbConnection, $config;
 
   try {
@@ -56,12 +57,12 @@ function getRegDetails($userId, $columns = '*'){
   }
   if (!empty($row)) {
     return $row;
-  }
-  else {
+  } else {
     return 'Not found';
   }
 }
-function getPaymentDetails($userId, $columns = '*'){
+
+function getPaymentDetails($userId, $columns = '*') {
   global $dbConnection, $config;
 
   try {
@@ -75,8 +76,7 @@ function getPaymentDetails($userId, $columns = '*'){
   }
   if (!empty($row)) {
     return $row;
-  }
-  else {
+  } else {
     return 'Not found';
   }
 }
@@ -95,23 +95,46 @@ function getUserRank($userId) {
   }
   if (!empty($row)) {
     return $row['rank'];
-  }
-  else {
+  } else {
     return 0;
   }
 }
 
-function newRegistration($nickname, $firstName, $lastName, $dob, $country, $email, $hash, $sponsor, $fursuiter, $rank, $regdate, $topay) {
+function hashPassword($password) {
+  return password_hash($password, PASSWORD_DEFAULT);
+}
+
+function isEarlyBird() {
+  global $dbConnection, $config;
+
+  try {
+    $sql = 'SELECT count(id) as count FROM users WHERE status = 2 GROUP BY status';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status = 2 GROUP BY status');
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() > 0) {
+    if ($row['count'] < 100) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+
+function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list) {
   global $dbConnection, $config;
   //ToDo: INSERT INTO users
   //ToDo: UPDATE Balance SET topay
 
   try {
-    $dbConnection->beginTransaction();
-
-    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL)";
-    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate) (:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL)');
-    $stmt->bindParam('nickname', $nickname);
+    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list)";
+    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list)');
+    $stmt->bindParam(':nickname', $nickname);
     $stmt->bindParam(':firstName', $firstName);
     $stmt->bindParam(':lastName', $lastName);
     $stmt->bindParam(':dob', $dob);
@@ -122,45 +145,31 @@ function newRegistration($nickname, $firstName, $lastName, $dob, $country, $emai
     $stmt->bindParam(':fursuiter', $fursuiter);
     $stmt->bindParam(':rank', $rank);
     $stmt->bindParam(':regdate', $regdate);
+    $stmt->bindParam(':list', $list);
     $stmt->execute();
 
-    /*
-    try {
-      $sql = "SELECT last_insert_id() from users";
-      $stmt = $dbConnection->prepare('SELECT last_insert_id() from users');
-      $stmt->execute();
-      $row = $stmt->fetch();
-    } catch (PDOException $e) {
-      notifyOnException('Database Select', $config, $sql, $e);
-    }
-    if ($stmt->rowCount() > 0) {
-      $userId = $row['id'];
-    }*/
-
-    $userId = $dbConnection->lastInsertId();
-
-    /*
-     * If trigger dont work, uncomment this
-    try {
-      $sql = "INSERT INTO balance(id, topay, paid) VALUES ($userId, $topay, 0)";
-      $stmt = $dbConnection->prepare('INSERT INTO balance(id, topay, paid) VALUES (:userId, :topay, 0)');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->bindParam(':topay', $topay);
-      $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Select', $config, $sql, $e);
-    }
-    */
-
-    $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
-    $stmt = $dbConnection->prepare('UPDATE balance SET topay = :topay WHERE id = :userId');
-    $stmt->bindParam(':topay', $topay);
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-
-    $dbConnection->commit();
+    return $dbConnection->lastInsertId();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+}
+
+function validatePassword($password) {
+  if (strlen($password) < 8) {
+    return 'Too short, min 8';
+  }
+  $hash = strtoupper(sha1($password));
+  $hashShort = substr($hash, 0, 5);
+  $list = file_get_contents('https://api.pwnedpasswords.com/range/' . $hashShort);
+  $pwned = false;
+  if (strpos($list, substr($hash, -35))) {
+    $pwned = true;
+  }
+  if ($pwned) {
+    return 'Password was leaked before';
+  } else {
+    return true;
   }
 }
 
@@ -180,7 +189,7 @@ function requestRegistrationConfirm($userId, $email) {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if($stmt->rowCount() > 0) {
+  if ($stmt->rowCount() > 0) {
     $nickname = $row['nickname'];
     $token = getRandomString(40);
     try {
@@ -211,15 +220,15 @@ Your Boat Party Crew
   }
 }
 
-function upgradeToSponsor($userId){
+function upgradeToSponsor($userId) {
   global $dbConnection, $config;
-  try{
+  try {
     $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceAddSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
     $stmt = $dbConnection->prepare('UPDATE balance SET topay = topay + :priceAddSponsor WHERE id = :userId');
     $stmt->bindParam(':priceAddSponsor', $config['priceAddSponsor']);
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-  }catch (PDOException $e){
+  } catch (PDOException $e) {
     notifyOnException('Database Update', $config, $sql, $e);
   }
 }
@@ -227,36 +236,40 @@ function upgradeToSponsor($userId){
 function confirmRegistration($token) {
   global $dbConnection, $config;
   try {
-    $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id SET status = 1 WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id SET status = 1 WHERE token = :token');
+    $sql = "SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
-  } catch (PDOException $e) {
-    notifyOnException('Database Update', $config, $sql, $e);
-    return false;
-  }
-  if ($stmt->rowCount() !== 1) {
-    $data = array(
-      'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-      'token'   => $token,
-      'server'  => $_SERVER,
-      'headers' => $http_response_header
-    );
-    mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
-    return false;
-  }
-  else {
-    try {
-      $sql = "SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-      $stmt = $dbConnection->prepare('SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
-      $stmt->bindParam(':token', $token);
-      $stmt->execute();
-      $row = $stmt->fetch();
-      if ($stmt->rowCount() === 1) {
-        $email = $row['email'];
-        $nickname = $row['nickname'];
-        $userId = $row['id'];
-        sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
+    $row = $stmt->fetch();
+    if ($stmt->rowCount() === 1) {
+      $email = $row['email'];
+      $nickname = $row['nickname'];
+      $userId = $row['id'];
+
+      $topay = $config['priceAttendee'];
+      if (isEarlyBird()) {
+        $topay = $config['priceAttendeeEarly'];
+      }
+      if ($row['sponsor']) {
+        $topay += $config['priceSponsor'];
+      }
+      try {
+        $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
+        $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
+        $stmt->bindParam(':topay', $topay);
+        $stmt->bindParam(':token', $token);
+        $stmt->execute();
+      } catch (PDOException $e) {
+        notifyOnException('Database Update', $config, $sql, $e);
+        return false;
+      }
+      if ($stmt->rowCount() !== 1) {
+        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
+        mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
+        return false;
+      }
+
+      sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
 
 You have successfully verified your email. 
 
@@ -270,17 +283,16 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ");
-        sendStaffNotification($userId);
-        /*
+      sendStaffNotification($userId);
+      /*
 
 Your registration will be reviewed by our registration team after you have verified yourself.
 It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
 It shouldn't take more than 24 hours.*/
-      }
-    } catch (PDOException $e) {
-      notifyOnException('Database Select', $config, $sql, $e);
-      return false;
     }
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
   }
   return true;
 }
@@ -299,12 +311,12 @@ function approveRegistration($userId) {
   }
   if ($stmt->rowCount() === 1) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
-function rejectRegistration($userId){
+
+function rejectRegistration($userId) {
   global $dbConnection, $config;
 
   try {
@@ -328,8 +340,7 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew");
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -357,37 +368,17 @@ function sendStaffNotification($userId, $text = '') {
   foreach ($config['telegramAdmins'] as $admin) {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
-    }
-    else {
+    } else {
       sendMessage($admin, $text);
     }
   }
 }
 
-function buildApproveMarkup($userId){
-  return array(
-    'inline_keyboard' => array(
-      array(
-        array(
-          'text' => 'View',
-          'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
-        )
-      ),
-      array(
-        array(
-          'text'          => 'Approve',
-          'callback_data' => $userId . '|approve|0'
-        ),
-        array(
-          'text'          => 'Reject',
-          'callback_data' => $userId . '|reject|0'
-        )
-      )
-    )
-  );
+function buildApproveMarkup($userId) {
+  return array('inline_keyboard' => array(array(array('text' => 'View', 'url' => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId)), array(array('text' => 'Approve', 'callback_data' => $userId . '|approve|0'), array('text' => 'Reject', 'callback_data' => $userId . '|reject|0'))));
 }
 
-function requestApproveMessage($chatId, $userId){
+function requestApproveMessage($chatId, $userId) {
   $replyMarkup = buildApproveMarkup($userId);
   sendMessage($chatId, "<b>New Registration on summerbo.at!</b>
 Regnumber: $userId", json_encode($replyMarkup));
@@ -408,8 +399,7 @@ function approvePayment($userId, $approver, $amount) {
   if ($stmt->rowCount() === 1) {
     if ($row['topay'] <= $amount + $row['paid']) {
       $status = 3;
-    }
-    else {
+    } else {
       $status = 2;
     }
 
@@ -442,7 +432,7 @@ function approvePayment($userId, $approver, $amount) {
   return false;
 }
 
-function requestUnapproved($chatId){
+function requestUnapproved($chatId) {
   global $dbConnection, $config;
   try {
     $sql = "SELECT id FROM users WHERE status = 1";
