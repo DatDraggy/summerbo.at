@@ -1,9 +1,9 @@
 <?php
-require_once('files/things.php');
+require_once('backend/things.php');
 //Test
 session_start();
-require_once(__DIR__ . '/files/funcs.php');
-require_once(__DIR__ . '/files/config.php');
+require_once(__DIR__ . '/backend/funcs.php');
+require_once(__DIR__ . '/backend/config.php');
 if (!empty($_SESSION['userid'])) {
   $userId = $_SESSION['userid'];
   $dbConnection = buildDatabaseConnection($config);

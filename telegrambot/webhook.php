@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . '/../files/config.php');
+require_once(__DIR__ . '/../backend/config.php');
 if (stripos($_SERVER['REQUEST_URI'], $config['secretPath']) === false) {
   die();
 }
 echo 'rawr';
-require_once(__DIR__ . '/../files/funcs.php');
+require_once(__DIR__ . '/../backend/funcs.php');
 
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);
