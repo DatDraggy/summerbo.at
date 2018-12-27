@@ -35,7 +35,7 @@ function checkRegValid($userId) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if ($row->numRows() === 1) {
-    //Already logged in, redirect to userarea
+    //Already logged in
     return true;
   }
   else {

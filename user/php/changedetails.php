@@ -1,13 +1,26 @@
 <?php
 require_once('../../backend/config.php');
-if (empty($_POST['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
+session_start();
+if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
   die('Details can\'t be empty');
 }
 
-$userId = $_POST['userId'];
+$userId = $_SESSION['userId'];
 $nickname = $_POST['nickname'];
 $newEmail = $_POST['email'];
 $dbConnection = buildDatabaseConnection($config);
+
+////////////////////////
+// Check Reg Validity //
+if (!checkRegValid($userId)) {
+//If invalid, kill that bih
+  if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();
+}
+// Check Reg Validity //
+////////////////////////
 
 /////////////////////
 // Password Verify //
