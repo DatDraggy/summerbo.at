@@ -1,12 +1,16 @@
 <?php
 require_once('../backend/config.php');
-require_once ('../backend/funcs.php');
+require_once('../backend/funcs.php');
 $userId = $_SESSION['userId'];
+if (empty($userId)) {
+  header('Location: ../login.html');
+  die();
+}
 $dbConnection = buildDatabaseConnection($config);
 
 ////////////////////////
 // Check Reg Validity //
-if (empty($userId) && !checkRegValid($userId)) {
+if (!checkRegValid($userId)) {
 //If invalid, kill that bih
   if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');
@@ -22,7 +26,7 @@ $userStatus = $status[getRegDetails($userId, 'status')['status']];
 
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '';
-foreach ($payments as $payment){
+foreach ($payments as $payment) {
   $amount = $payment['amount'];
   $date = date('Y-m-d', strtotime($payment['date']));
 
@@ -30,7 +34,6 @@ foreach ($payments as $payment){
 }
 
 ?>
-
 
 
 <?php echo $userStatus; ?>
