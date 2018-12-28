@@ -1,6 +1,7 @@
 <?php
 require_once('../backend/config.php');
 require_once('../backend/funcs.php');
+session_start();
 $userId = $_SESSION['userId'];
 if (empty($userId)) {
   header('Location: ../login.html');
