@@ -18,6 +18,8 @@ if (!checkRegValid($userId)) {
     setcookie(session_name(), '', time() - 3600, '/');
   }
   session_destroy();
+  header('Location: ../login.html');
+  die();
 }
 // Check Reg Validity //
 ////////////////////////

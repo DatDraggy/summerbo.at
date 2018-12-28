@@ -1,4 +1,10 @@
 <?php
+require_once('/var/libraries/PHPMailer/PHPMailer.php');
+require_once('/var/libraries/PHPMailer/SMTP.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 function buildDatabaseConnection($config) {
   //Connect to DB only here to save response time on other commands
   try {
@@ -72,7 +78,7 @@ function getPaymentDetails($userId, $columns = '*') {
     $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-    $row = $stmt->fetch();
+    $row = $stmt->fetchAll();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
@@ -575,39 +581,33 @@ function requestUnapproved($chatId) {
 }
 
 function sendEmail($address, $subject, $text, $reg = false) {
-
-
-  /* ToDo: Just mail(); or PHPMailer TBD */
-
-  /*$mail = new PHPMailer(); // create a new object
-  $mail->IsSMTP(); // enable SMTP
-  $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
-  $mail->SMTPAuth = true; // authentication enabled
-  $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED
-  $mail->Host = 'smtp.gmail.com';
-  $mail->Port = 465; // or 587
-  $mail->Username = 'fajournalmon@gmail.com';
-  $mail->Password = 'KOHTcKg0X!Yu';
-  $mail->SetFrom('fajournalmon@gmail.com');
-  $mail->Subject = $subject;
-  $mail->Body = $text;
-  $mail->AddAddress($address);
-  $mail->IsHTML(true);
-  if ($address == 'admin@kieran.de') {
-    $return = $mail->Send();
-  } else {
-    $return = 1;
+global $config;
+  if ($reg === false) {
+    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    $text .= "
+--
+The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   }
-  if ($return != 1) {
-    $to = 'admin@kieran.de';
-    $subject = 'Error journal send mail';
-    $txt = __FILE__ . ' Error: ' . $return . '<br>';
-    $headers = 'From: fajournal@kieran.de';
-    mail($to, $subject, $txt, $headers);
-    die("Unable to send confirmation mail. You will receive an email later!");
-  }*/
 
-  //Append IP if reg false
+  $mail = new PHPMailer(true); // create a new object
+  try {
+    $mail->IsSMTP(); // enable SMTP
+    $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPAuth = true; // authentication enabled
+    $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED
+    $mail->Host = 'mail.summerbo.at';
+    $mail->Port = 465; // or 587
+    $mail->Username = 'team';
+    $mail->Password = $config['mailPassword'];
+    $mail->SetFrom('team@summerbo.at', 'Team - Summerbo.at');
+    $mail->Subject = $subject;
+    $mail->Body = $text;
+    $mail->AddAddress($address);
+    $mail->IsHTML(true);
+    $mail->send();
+  } catch (Exception $e) {
+    mail('admin@kieran.de', 'Error Sending mail', $mail->ErrorInfo);
+  }
 }
 
 function getRandomString($Length) {
