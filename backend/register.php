@@ -1,5 +1,5 @@
 <?php
-require_once('backend/config.php');
+require_once('config.php');
 if (!empty($_POST['firstname'])) {
   $firstNamePost = $_POST['firstname'];
 }
