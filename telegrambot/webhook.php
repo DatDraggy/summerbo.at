@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../backend/config.php');
 if (stripos($_SERVER['REQUEST_URI'], $config['secretPath']) === false) {
-  die();
+  die('Get Lost.');
 }
 echo 'rawr';
 require_once(__DIR__ . '/../backend/funcs.php');

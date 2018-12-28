@@ -6,7 +6,7 @@ $dbConnection = buildDatabaseConnection($config);
 
 ////////////////////////
 // Check Reg Validity //
-if (!checkRegValid($userId)) {
+if (empty($userId) && !checkRegValid($userId)) {
 //If invalid, kill that bih
   if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');
