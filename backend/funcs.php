@@ -465,7 +465,7 @@ function buildApproveMarkup($userId) {
     )
   );
 }
-//Test
+
 function requestApproveMessage($chatId, $userId) {
   $replyMarkup = buildApproveMarkup($userId);
   sendMessage($chatId, "<b>New Registration on summerbo.at!</b>
