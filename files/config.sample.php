@@ -1,5 +1,4 @@
 <?php
-$config = array();
 $config['dbuser'] = 'user';
 $config['dbpassword'] = 'p4ssw0rd';
 $config['dbserver'] = 'database.example.com';

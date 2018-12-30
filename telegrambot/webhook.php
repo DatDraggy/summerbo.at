@@ -3,7 +3,6 @@ require_once(__DIR__ . '/../files/config.php');
 if (stripos($_SERVER['REQUEST_URI'], $config['secretPath']) === false) {
   die();
 }
-echo 'rawr';
 require_once(__DIR__ . '/../files/funcs.php');
 
 $response = file_get_contents('php://input');
