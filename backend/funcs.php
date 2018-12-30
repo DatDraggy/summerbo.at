@@ -1,4 +1,10 @@
 <?php
+require_once('/var/libraries/PHPMailer/PHPMailer.php');
+require_once('/var/libraries/PHPMailer/SMTP.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 function buildDatabaseConnection($config) {
   //Connect to DB only here to save response time on other commands
   try {
@@ -35,9 +41,10 @@ function checkRegValid($userId) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if ($row->numRows() === 1) {
-    //Already logged in, redirect to userarea
+    //Already logged in
     return true;
-  } else {
+  }
+  else {
     //Clear Session and Cookies
     return false;
   }
@@ -57,7 +64,8 @@ function getRegDetails($userId, $columns = '*') {
   }
   if (!empty($row)) {
     return $row;
-  } else {
+  }
+  else {
     return 'Not found';
   }
 }
@@ -70,13 +78,14 @@ function getPaymentDetails($userId, $columns = '*') {
     $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-    $row = $stmt->fetch();
+    $row = $stmt->fetchAll();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if (!empty($row)) {
     return $row;
-  } else {
+  }
+  else {
     return 'Not found';
   }
 }
@@ -95,7 +104,8 @@ function getUserRank($userId) {
   }
   if (!empty($row)) {
     return $row['rank'];
-  } else {
+  }
+  else {
     return 0;
   }
 }
@@ -118,10 +128,12 @@ function isEarlyBird() {
   if ($stmt->rowCount() > 0) {
     if ($row['count'] < 100) {
       return true;
-    } else {
+    }
+    else {
       return false;
     }
-  } else {
+  }
+  else {
     return true;
   }
 }
@@ -147,12 +159,11 @@ function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sp
     $stmt->bindParam(':regdate', $regdate);
     $stmt->bindParam(':list', $list);
     $stmt->execute();
-
-    return $dbConnection->lastInsertId();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
     return false;
   }
+  return $dbConnection->lastInsertId();
 }
 
 function validatePassword($password) {
@@ -167,57 +178,52 @@ function validatePassword($password) {
     $pwned = true;
   }
   if ($pwned) {
-    return 'Password was leaked before';
-  } else {
+    return 'Password was leaked before, Choose another one!';
+  }
+  else {
     return true;
   }
 }
 
 //dbConnection needs to be set
-function requestRegistrationConfirm($userId, $email) {
+function requestEmailConfirm($userId, $newMail = false) {
   global $dbConnection, $config;
   if (!isset($dbConnection)) {
     mail($config['mail'], 'CODE BUG, NOT SET VAR', 'SET VAR BEFORE USAGE OF requestRegistrationConfirm');
     die();
   }
   try {
-    $sql = "SELECT nickname FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE id = :userId');
+    $dbConnection->beginTransaction();
+    $sql = "SELECT id FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($stmt->rowCount() > 0) {
-    $nickname = $row['nickname'];
-    $token = getRandomString(40);
-    try {
+    if ($stmt->rowCount() > 0) {
+      $sql = "DELETE FROM email_tokens WHERE id = $userId";
+      $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE id = :userId');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+
+      $token = getRandomString(40);
       $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
       $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':token', $token);
       $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Insert', $config, $sql, $e);
+
     }
+    $dbConnection->commit();
 
-    $confirmationLink = 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
-
-    sendEmail($email, 'Summerbo.at Confirmation', "Dear $nickname,
-
-Thank you for your registration with the Summernights party.
-
-Your current status is: NEW - Regnumber $userId
-
-You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
-Afterwards another mail will be sent.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
-");
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+    return false;
   }
+
+  if ($newMail) {
+    $token .= '&changed';
+  }
+  return 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 }
 
 function upgradeToSponsor($userId) {
@@ -258,6 +264,7 @@ Your Boat Party Crew
 function confirmRegistration($token) {
   global $dbConnection, $config;
   try {
+    $dbConnection->beginTransaction();
     $sql = "SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
     $stmt = $dbConnection->prepare('SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
@@ -275,18 +282,20 @@ function confirmRegistration($token) {
       if ($row['sponsor']) {
         $topay += $config['priceSponsor'];
       }
-      try {
-        $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
-        $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
-        $stmt->bindParam(':topay', $topay);
-        $stmt->bindParam(':token', $token);
-        $stmt->execute();
-      } catch (PDOException $e) {
-        notifyOnException('Database Update', $config, $sql, $e);
-        return false;
-      }
+
+      $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
+      $stmt->bindParam(':topay', $topay);
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+
       if ($stmt->rowCount() !== 1) {
-        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
+        $data = array(
+          'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+          'token'   => $token,
+          'server'  => $_SERVER,
+          'headers' => $http_response_header
+        );
         mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
         return false;
       }
@@ -311,9 +320,44 @@ Your Boat Party Crew
 Your registration will be reviewed by our registration team after you have verified yourself.
 It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
 It shouldn't take more than 24 hours.*/
+      $sql = "DELETE FROM email_tokens WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
     }
+    $dbConnection->commit();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+  return true;
+}
+
+function confirmEmail($token) {
+  global $dbConnection, $config;
+
+  try {
+    $dbConnection->beginTransaction();
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if ($stmt->rowCount() === 1) {
+      $userId = $row['id'];
+      $sql = "UPDATE users SET email = email_new, email_new = NULL WHERE id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET email = email_new, email_new = NULL WHERE id = :userId');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+
+      $sql = "DELETE FROM email_tokens WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+    }
+    $dbConnection->commit();
+  } catch (PDOException $e) {
+    notifyOnException('Database Transaction', $config, $sql, $e);
     return false;
   }
   return true;
@@ -333,7 +377,8 @@ function approveRegistration($userId) {
   }
   if ($stmt->rowCount() === 1) {
     return true;
-  } else {
+  }
+  else {
     return false;
   }
 }
@@ -362,7 +407,8 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew");
     return true;
-  } else {
+  }
+  else {
     return false;
   }
 }
@@ -390,14 +436,34 @@ function sendStaffNotification($userId, $text = '') {
   foreach ($config['telegramAdmins'] as $admin) {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
-    } else {
+    }
+    else {
       sendMessage($admin, $text);
     }
   }
 }
 
 function buildApproveMarkup($userId) {
-  return array('inline_keyboard' => array(array(array('text' => 'View', 'url' => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId)), array(array('text' => 'Approve', 'callback_data' => $userId . '|approve|0'), array('text' => 'Reject', 'callback_data' => $userId . '|reject|0'))));
+  return array(
+    'inline_keyboard' => array(
+      array(
+        array(
+          'text' => 'View',
+          'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
+        )
+      ),
+      array(
+        array(
+          'text'          => 'Approve',
+          'callback_data' => $userId . '|approve|0'
+        ),
+        array(
+          'text'          => 'Reject',
+          'callback_data' => $userId . '|reject|0'
+        )
+      )
+    )
+  );
 }
 
 function requestApproveMessage($chatId, $userId) {
@@ -425,7 +491,8 @@ function approvePayment($userId, $approver, $amount) {
     $paid = $row['paid'];
     if ($topay <= $amount + $paid) {
       $status = 3;
-    } else {
+    }
+    else {
       $status = 2;
     }
 
@@ -461,7 +528,8 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 Your Boat Party Crew
 ");
       return true;
-    } else {
+    }
+    else {
       sendEmail($email, 'Payment received', "Dear $nickname,
 
 Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
@@ -472,6 +540,25 @@ Your Boat Party Crew
 ");
       return false;
     }
+  }
+  return false;
+}
+
+function checkPassword($userId, $password) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT hash FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT hash FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+
+  if (password_verify($password, $row['hash'])) {
+    return $row['hash'];
   }
   return false;
 }
@@ -493,38 +580,34 @@ function requestUnapproved($chatId) {
   sendMessage($chatId, 'Done.');
 }
 
-function sendEmail($address, $subject, $text) {
-
-
-  /* ToDo: Just mail(); or PHPMailer TBD */
-
-  /*$mail = new PHPMailer(); // create a new object
-  $mail->IsSMTP(); // enable SMTP
-  $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
-  $mail->SMTPAuth = true; // authentication enabled
-  $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED
-  $mail->Host = 'smtp.gmail.com';
-  $mail->Port = 465; // or 587
-  $mail->Username = 'fajournalmon@gmail.com';
-  $mail->Password = 'KOHTcKg0X!Yu';
-  $mail->SetFrom('fajournalmon@gmail.com');
-  $mail->Subject = $subject;
-  $mail->Body = $text;
-  $mail->AddAddress($address);
-  $mail->IsHTML(true);
-  if ($address == 'admin@kieran.de') {
-    $return = $mail->Send();
-  } else {
-    $return = 1;
+function sendEmail($address, $subject, $text, $reg = false) {
+global $config;
+  if ($reg === false) {
+    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    $text .= "
+--
+The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   }
-  if ($return != 1) {
-    $to = 'admin@kieran.de';
-    $subject = 'Error journal send mail';
-    $txt = __FILE__ . ' Error: ' . $return . '<br>';
-    $headers = 'From: fajournal@kieran.de';
-    mail($to, $subject, $txt, $headers);
-    die("Unable to send confirmation mail. You will receive an email later!");
-  }*/
+
+  $mail = new PHPMailer(true); // create a new object
+  try {
+    $mail->IsSMTP(); // enable SMTP
+    $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPAuth = true; // authentication enabled
+    $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED
+    $mail->Host = 'mail.summerbo.at';
+    $mail->Port = 465; // or 587
+    $mail->Username = 'team';
+    $mail->Password = $config['mailPassword'];
+    $mail->SetFrom('team@summerbo.at', 'Team - Summerbo.at');
+    $mail->Subject = $subject;
+    $mail->Body = $text;
+    $mail->AddAddress($address);
+    $mail->IsHTML(true);
+    $mail->send();
+  } catch (Exception $e) {
+    mail('admin@kieran.de', 'Error Sending mail', $mail->ErrorInfo);
+  }
 }
 
 function getRandomString($Length) {

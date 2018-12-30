@@ -1,1 +1,42 @@
-hello dis the user area
+<?php
+require_once('../backend/config.php');
+require_once('../backend/funcs.php');
+session_start();
+$userId = $_SESSION['userId'];
+if (empty($userId)) {
+  header('Location: ../login.html');
+  die();
+}
+$dbConnection = buildDatabaseConnection($config);
+
+////////////////////////
+// Check Reg Validity //
+if (!checkRegValid($userId)) {
+//If invalid, kill that bih
+  if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();
+  header('Location: ../login.html');
+  die();
+}
+// Check Reg Validity //
+////////////////////////
+
+$userStatus = $status[getRegDetails($userId, 'status')['status']];
+
+$payments = getPaymentDetails($userId, 'date, amount');
+$paymentsHtml = '';
+foreach ($payments as $payment) {
+  $amount = $payment['amount'];
+  $date = date('Y-m-d', strtotime($payment['date']));
+
+  $paymentsHtml .= '<span class="date">{$date}</span> <span class="amount">{$amount}€</span>';
+}
+
+?>
+
+
+<?php echo $userStatus; ?>
+
+<?php echo $paymentsHtml; ?>
