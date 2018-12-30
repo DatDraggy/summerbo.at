@@ -13,3 +13,9 @@ $config['secretPath'] = 'aDOINauiwdnUdbwniUABdiuabwidu';
 $config['priceAddSponsor'] = 15;
 $config['priceAttendeeEarly'] = 25;
 $config['priceAttendee'] = 35;
+$config['mailPassword'] = 'pass';
+
+$status[0] = 'NEW - New registration';
+$status[1] = 'VERIFIED - Email address verified';
+$status[2] = 'CONFIRMED - Confirmed by staff';
+$status[3] = 'PAID - Fee was paid';

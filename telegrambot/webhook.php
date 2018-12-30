@@ -1,9 +1,9 @@
 <?php
-require_once(__DIR__ . '/../files/config.php');
+require_once(__DIR__ . '/../backend/config.php');
 if (stripos($_SERVER['REQUEST_URI'], $config['secretPath']) === false) {
-  die();
+  die('Get Lost.');
 }
-require_once(__DIR__ . '/../files/funcs.php');
+require_once(__DIR__ . '/../backend/funcs.php');
 
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);
@@ -170,12 +170,14 @@ Approved: $approvedate");
         if ($messageArr[1] === 'status') {
           if (isset($messageArr[2])) {
             $details = getPaymentDetails($messageArr[2], 'id, approvedate, amount, topay');
-            $payByDate = date('m/d/Y', strtotime('+2 weeks', $details['approvedate']));
-            sendMessage($chatId, "
-Regnumber: {$details['id']}
+            foreach ($details as $detail) {
+              $payByDate = date('m/d/Y', strtotime('+2 weeks', $details['approvedate']));
+              sendMessage($chatId, "
+Regnumber: {$detail['id']}
 Until: $payByDate
-Paid: {$details['amount']}
-To pay: {$details['topay']}");
+Paid: {$detail['amount']}
+To pay: {$detail['topay']}");
+            }
           }
           else {
             sendMessage($chatId, 'Please supply a regnumber.');
@@ -185,7 +187,7 @@ To pay: {$details['topay']}");
           if (isset($messageArr[2])) {
             $dbConnection = buildDatabaseConnection($config);
             $status = (approvePayment($messageArr[2], $senderUserId, $messageArr[1])) ? 'yes' : 'no';
-            sendMessage($chatId, 'Updated. Payment completed: '.$status);
+            sendMessage($chatId, 'Updated. Payment completed: ' . $status);
           }
           else {
             sendMessage($chatId, 'Please supply a regnumber.');
@@ -194,7 +196,8 @@ To pay: {$details['topay']}");
         else {
           sendMessage($chatId, 'The given amount is not numeric.');
         }
-      }else {
+      }
+      else {
         sendMessage($chatId, 'Usage:
 <code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }

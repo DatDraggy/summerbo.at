@@ -1,0 +1,11 @@
+Display regform with filled data
+<form method="post" action="php/changedetails.php">
+  <input name="userId" value="<?php echo $userId; ?> hidden">
+  <input name="nickname" value="<?php echo $nickname; ?>">
+  <input name="email" value="<?php echo $newEmail; ?>">
+  <input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
+  <input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
+  <input name="password" type="password">
+  <input name="passwordVerify" type="password">
+  <input name="oldPassword" type="password">
+</form>
