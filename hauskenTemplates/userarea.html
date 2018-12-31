@@ -76,13 +76,24 @@ if (!empty($_SESSION['userid'])) {
           <div class="wrapper">
             <div class="row">
               <div style="color:white" class="content wsLarge">
-                <h1>An exclusive Boat party—departing from the estrel</h1>
-                <p class="textBig"><em>Hot Summer Nights</em> is an <em>exclusive</em> party on a three-hundred person capacity boat. From the Estrel dock to the Spree and back, through the German Capital, take in the sunset and mingle on the upper deck, retreat to the lounge and dancefloor with live DJs.</p>
+                <h1>User area</h1>
+                <p class="textBig">You can find all your information regarding the registration here. Edit your details, upgrade your ticket or see your payment status.</p>
               </div>
             </div>
           </div>
         </section>
-
+		<section class="wrapper wsLarge">
+			<form method="post" action="php/changedetails.php">
+			<input name="userId" value="<?php echo $userId; ?> hidden">
+			<input name="nickname" value="<?php echo $nickname; ?>">
+			<input name="email" value="<?php echo $newEmail; ?>">
+			<input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
+			<input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
+			<input name="password" type="password">
+			<input name="passwordVerify" type="password">
+			<input name="oldPassword" type="password">
+			</form>
+		</section>
         <section id="footer">
           <div class="footer" style="background-color: var(--colorPurple); color: white;">
             <div class="wrapper row">
