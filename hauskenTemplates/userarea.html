@@ -84,14 +84,50 @@ if (!empty($_SESSION['userid'])) {
         </section>
 		<section class="wrapper wsLarge">
 			<form method="post" action="php/changedetails.php">
-			<input name="userId" value="<?php echo $userId; ?> hidden">
-			<input name="nickname" value="<?php echo $nickname; ?>">
-			<input name="email" value="<?php echo $newEmail; ?>">
-			<input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
-			<input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
-			<input name="password" type="password">
-			<input name="passwordVerify" type="password">
-			<input name="oldPassword" type="password">
+			<div class="row">
+              <div class="content">
+                <h1 class="headline">Your details</h1>
+              </div>
+            </div>
+			<div class="row">
+              <div class="content content33">
+                <p>Epic Fortnite gamers, it's time to rise and grind! John Wick is in grave danger. Our friend is trapped in Dusty Divots surrounded by fake defaults with no shields or weaponry, and the only one who can help is you to save him! What he needs is your credit card number, the three numbers on the back, as well as the expiration month and date. BE SWIFT, GAMERS. You gotta do it. The circle is closing and John Wick needs your assistance fast so that he can acquire that bread, nae nae on those NOOBS, and achieve another SICK W! YEAH!</p>
+              </div>
+              <div class="content" style="">
+			 <div class="inputWrapper">
+             <label for="userId"><span>Registration Number</span></label> 
+			 <input name="userId" value="<?php echo $userId; ?> hidden">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="nickname"><span>Nickname</span></label>
+			 <input name="nickname" value="<?php echo $nickname; ?>">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="email"><span>E-mailaddress</span></label>
+			 <input name="email" value="<?php echo $newEmail; ?>">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="sponsor"><span>Sponsor Upgrade</span></label>
+			 <input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="fursuiter"><span>Fursuiter</span></label>
+			 <input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="password"><span>New Password</span></label>
+			 <input name="password" type="password">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="passwordVerify"><span>Verify New Password</span></label>
+			 <input name="passwordVerify" type="password">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="oldPassword"><span>Old Password</span></label>
+			 <input name="oldPassword" type="password">
+			 </div>
+			</div>
+			</div>
 			</form>
 		</section>
         <section id="footer">
