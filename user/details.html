@@ -1,11 +1,131 @@
-Display regform with filled data
-<form method="post" action="php/changedetails.php">
-  <input name="userId" value="<?php echo $userId; ?> hidden">
-  <input name="nickname" value="<?php echo $nickname; ?>">
-  <input name="email" value="<?php echo $newEmail; ?>">
-  <input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
-  <input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
-  <input name="password" type="password">
-  <input name="passwordVerify" type="password">
-  <input name="oldPassword" type="password">
-</form>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hot Summer Nights: Furry Bo.at Party</title>
+    <script src="js/yall-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="stylesheet" href="css/badger-accordion.css">
+    <link rel="stylesheet" href="css/line-awesome.min.css">
+  </head>
+  <body class="hasNav">
+    <script src="js/vue.js"></script>
+    <div id="app">
+      <nav id="nav" class="nav inactive">
+        <div class="wrapper">
+          <div class="navContent">
+            <button class="navItem js-showNav">
+              <i class="la la-bars"></i><span>Menu</span>
+            </button>
+
+            <div class="navLinks">
+              <div class="navItem navItemLogo">
+                <a class="navLink" href="/"><img src="images/logo@2x.png" width="48"><p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="#about">About</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="#tickets">Tickets</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="#faq">FAQ</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="#team">Team</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
+              </div>
+            </div>
+            <div class="navButtons">
+              <div class="navItem">
+                <a class="button navItemButton buttonPrimary" href="/register.html"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-ticket"></i>Register</a>
+              </div>
+              <div class="navItem">
+                <a class="button navItemButton buttonSecondary" href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+	  
+      <section id="contentPage">
+
+        <section id="about" class="ribbon" style="background-color: var(--colorPink)">
+          <div class="wrapper">
+            <div class="row">
+              <div style="color:white" class="content wsLarge">
+                <h1>User area</h1>
+                <p class="textBig">You can find all your information regarding the registration here. Edit your details, upgrade your ticket or see your payment status.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+		<section class="wrapper wsLarge">
+			<form method="post" action="php/changedetails.php">
+			<div class="row">
+              <div class="content">
+                <h1 class="headline">Your details</h1>
+              </div>
+            </div>
+			<div class="row">
+              <div class="content content33">
+                <p>Epic Fortnite gamers, it's time to rise and grind! John Wick is in grave danger. Our friend is trapped in Dusty Divots surrounded by fake defaults with no shields or weaponry, and the only one who can help is you to save him! What he needs is your credit card number, the three numbers on the back, as well as the expiration month and date. BE SWIFT, GAMERS. You gotta do it. The circle is closing and John Wick needs your assistance fast so that he can acquire that bread, nae nae on those NOOBS, and achieve another SICK W! YEAH!</p>
+              </div>
+              <div class="content" style="">
+			 <div class="inputWrapper">
+             <label for="userId"><span>Registration Number</span></label> 
+			 <input name="userId" value="<?php echo $userId; ?> hidden">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="nickname"><span>Nickname</span></label>
+			 <input name="nickname" value="<?php echo $nickname; ?>">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="email"><span>E-mailaddress</span></label>
+			 <input name="email" value="<?php echo $newEmail; ?>">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="sponsor"><span>Sponsor Upgrade</span></label>
+			 <input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="fursuiter"><span>Fursuiter</span></label>
+			 <input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="password"><span>New Password</span></label>
+			 <input name="password" type="password">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="passwordVerify"><span>Verify New Password</span></label>
+			 <input name="passwordVerify" type="password">
+			 </div>
+			 <div class="inputWrapper">
+			 <label for="oldPassword"><span>Old Password</span></label>
+			 <input name="oldPassword" type="password">
+			 </div>
+			</div>
+			</div>
+			</form>
+		</section>
+        <section id="footer">
+          <div class="footer" style="background-color: var(--colorPurple); color: white;">
+            <div class="wrapper row">
+              <div class="content">
+                <p>Content Copyright &copy; Summerbo.at Organization Group 2018-19, <br>
+                  Website by Hunter, Kieran and Hausken
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section> <!--pageWrapper -->
+    </div> <!-- App -->
+  <script>document.addEventListener("DOMContentLoaded", yall);</script>
+  <script src="js/badger-accordion.min.js"></script>
+  <script src="js/app.js"></script>
+  </body>
+</html>
