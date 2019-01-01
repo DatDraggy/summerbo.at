@@ -10,7 +10,6 @@ $data = json_decode($response, true);
 $dump = print_r($data, true);
 
 if (isset($data['callback_query'])) {
-  mail($config['mail'], 'Test', print_r($data['callback_query'], true));
   $chatId = $data['callback_query']['message']['chat']['id'];
   if (!in_array($chatId, $config['telegramAdmins'])) {
     die();
