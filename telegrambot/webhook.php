@@ -19,7 +19,7 @@ if (isset($data['callback_query'])) {
   $callbackData = $data['callback_query']['data'];
 
   if (stripos($callbackData, '|') !== false) {
-    list($targetUserId, $status, $confirm) = explode($callbackData, '|');
+    list($targetUserId, $status, $confirm) = explode('|', $callbackData);
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
         sendMessage($chatId, 'Registration has been approved.');
