@@ -491,7 +491,7 @@ Welcome aboard! Your payment of $amount €,- has been received. Below you find 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
 
 Your Boat Party Crew
-");
+", true);
         return true;
       } else {
         sendEmail($email, 'Payment received', "Dear $nickname,
@@ -501,7 +501,7 @@ Your payment of $amount €,- has been received. However, for some reason, this 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
 
 Your Boat Party Crew
-");
+", true);
         return false;
       }
     }
