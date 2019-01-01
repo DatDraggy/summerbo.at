@@ -4,8 +4,8 @@ require_once('backend/things.php');
 session_start();
 require_once(__DIR__ . '/backend/funcs.php');
 require_once(__DIR__ . '/backend/config.php');
-if (!empty($_SESSION['userid'])) {
-  $userId = $_SESSION['userid'];
+if (!empty($_SESSION['userId'])) {
+  $userId = $_SESSION['userId'];
   $dbConnection = buildDatabaseConnection($config);
 
   if (checkRegValid($userId)) {
@@ -19,8 +19,8 @@ if (!empty($_SESSION['userid'])) {
     session_destroy();
   }
 }
-else if (!empty($_POST['id']) && !empty($_POST['password'])) {
-  $userId = $_POST['id'];
+else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
+  $userId = $_POST['regnumber'];
   $dbConnection = buildDatabaseConnection($config);
 
   //Check for existing Reg
@@ -37,7 +37,7 @@ else if (!empty($_POST['id']) && !empty($_POST['password'])) {
       $_POST['password'] = '';
       //Logged in
       //Password Correct, set Session
-      $_SESSION['userid'] = $userId;
+      $_SESSION['userId'] = $userId;
       $_SESSION['rank'] = $rank;
       header('Location: user/index.html?from=login');
       die();

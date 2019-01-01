@@ -108,7 +108,7 @@ $footer = '<footer id="contact" class="footer-widgets">
         <script src="assets/js/vendor/jquery.ajaxchimp.js"></script>';
 
 $userarea = '<li><a href="https://summerbo.at/login.html">Login/Registration<span class="sr-only"></span></a></li>';
-if(!empty($_SESSION['userid'])) {
+if(!empty($_SESSION['userId'])) {
   $userarea = '<li><a href="https://summerbo.at/userarea.html">User Area<span class="sr-only"></span></a></li>';
 }
 
