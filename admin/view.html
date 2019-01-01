@@ -11,8 +11,20 @@ if (!empty($_SESSION['userId'])) {
     if ($rank > 0) {
       $userId = $_GET['id'];
       if ($_GET['type'] === 'reg') {
-        $details = getRegDetails($userId);
-        echo '<pre>'.print_r($details, true).'</pre>';
+        $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list');
+        echo $details['id'] . '<br>';
+        echo 'Nickname ' . htmlspecialchars($details['nickanme']) . '<br>';
+        echo 'First Name ' . htmlspecialchars($details['first_name']) . '<br>';
+        echo 'Last Name ' . htmlspecialchars($details['last_name']) . '<br>';
+        echo 'DoB ' . $details['dob'] . '<br>';
+        echo 'Country ' . $details['country'] . '<br>';
+        echo 'Email ' . htmlspecialchars($details['email']) . '<br>';
+        echo 'Sponsor ' . $details['sponsor'] . '<br>';
+        echo 'Fursuiter ' . $details['fursuiter'] . '<br>';
+        echo 'Status ' . $details['status'] . '<br>';
+        echo 'Regdate ' . date('Y-m-d', strtotime($details['regdate'])) . '<br>';
+        echo 'Approvedate ' . date('Y-m-d', strtotime($details['approvedate'])) . '<br>';
+        echo 'Public List ' . $details['list'] . '<br>';
       }
     }
   }
