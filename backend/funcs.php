@@ -367,8 +367,8 @@ function approveRegistration($userId) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = '$userId'";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = :userId');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = '$userId' AND status < 2";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = :userId AND status < 2');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {

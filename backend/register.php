@@ -135,7 +135,7 @@ else {
 $hash = hashPassword($password);
 
 if (strlen($countryPost) == 2) {
-  $country = preg_replace('/[A-Z]/', '', $countryPost);
+  $country = preg_replace('/[^A-Z]/', '', $countryPost);
 }
 
 $dbConnection = buildDatabaseConnection($config);
