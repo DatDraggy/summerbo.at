@@ -74,8 +74,8 @@ function getPaymentDetails($userId, $columns = '*') {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE id = :userId");
+    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE users.id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE users.id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetchAll();
@@ -477,50 +477,42 @@ function approvePayment($userId, $approver, $amount) {
   global $dbConnection, $config;
 
   try {
+    $dbConnection->beginTransaction();
     $sql = "SELECT topay, paid, nickname, email FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT topay, paid FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = ':userId'");
+    $stmt = $dbConnection->prepare("SELECT topay, paid, nickname, email FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($stmt->rowCount() === 1) {
-    $email = $row['email'];
-    $nickname = $row['nickname'];
-    $topay = $row['topay'];
-    $paid = $row['paid'];
-    if ($topay <= $amount + $paid) {
-      $status = 3;
-    }
-    else {
-      $status = 2;
-    }
 
-    try {
+    if ($stmt->rowCount() === 1) {
+      $email = $row['email'];
+      $nickname = $row['nickname'];
+      $topay = $row['topay'];
+      $paid = $row['paid'];
+      if ($topay <= $amount + $paid) {
+        $status = 3;
+      } else {
+        $status = 2;
+      }
+
       $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET status = '$status', paid = paid + $amount WHERE users.id = '$userId'";
       $stmt = $dbConnection->prepare("UPDATE balance INNER JOIN users on balance.id = users.id SET status = :status, paid = paid + :amount WHERE users.id = :userId");
       $stmt->bindParam(':status', $status);
       $stmt->bindParam(':amount', $amount);
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Select', $config, $sql, $e);
-    }
 
-    try {
+
       $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
       $stmt = $dbConnection->prepare("INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)");
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':approver', $approver);
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Select', $config, $sql, $e);
-    }
-    if ($status === 3) {
-      //ToDo Below more Information
-      sendEmail($email, 'Payment received', "Dear $nickname,
+
+      if ($status === 3) {
+        //ToDo Below more Information
+        sendEmail($email, 'Payment received', "Dear $nickname,
 
 Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. 
 
@@ -528,10 +520,9 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ");
-      return true;
-    }
-    else {
-      sendEmail($email, 'Payment received', "Dear $nickname,
+        return true;
+      } else {
+        sendEmail($email, 'Payment received', "Dear $nickname,
 
 Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
 
@@ -539,8 +530,12 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ");
-      return false;
+        return false;
+      }
     }
+  } catch (PDOException $e) {
+    notifyOnException('Database Transaction', $config, $sql, $e);
+    return false;
   }
   return false;
 }
