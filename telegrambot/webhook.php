@@ -157,7 +157,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
           if (isset($messageArr[2])) {
             $dbConnection = buildDatabaseConnection($config);
             $details = getRegDetails($messageArr[2], 'id, nickname, status, approvedate');
-            $approvedate = strtotime($details['approvedate']);
+            $approvedate = date('Y-m-d', strtotime($details['approvedate']));
             sendMessage($chatId, "
 Regnumber: {$details['id']}
 Nickname: {$details['nickname']}
@@ -172,11 +172,12 @@ Approved: $approvedate");
       break;
     case '/payment':
       if (isset($messageArr[1])) {
+        $dbConnection = buildDatabaseConnection($config);
         if ($messageArr[1] === 'status') {
           if (isset($messageArr[2])) {
             $details = getPaymentDetails($messageArr[2], 'id, approvedate, amount, topay');
             foreach ($details as $detail) {
-              $payByDate = date('m/d/Y', strtotime('+2 weeks', $details['approvedate']));
+              $payByDate = date('Y-m-d', strtotime('+2 weeks', $details['approvedate']));
               sendMessage($chatId, "
 Regnumber: {$detail['id']}
 Until: $payByDate
@@ -190,7 +191,6 @@ To pay: {$detail['topay']}");
         }
         else if (is_numeric($messageArr[1])) {
           if (isset($messageArr[2])) {
-            $dbConnection = buildDatabaseConnection($config);
             $status = (approvePayment($messageArr[2], $senderUserId, $messageArr[1])) ? 'yes' : 'no';
             sendMessage($chatId, 'Updated. Payment completed: ' . $status);
           }
