@@ -24,8 +24,8 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
   $dbConnection = buildDatabaseConnection($config);
 
   //Check for existing Reg
-  $sql = "SELECT hash, `rank` FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT hash, `rank` FROM users WHERE id = :userId');
+  $sql = "SELECT hash, `rank`, id FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT hash, `rank`, id FROM users WHERE id = :userId');
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
