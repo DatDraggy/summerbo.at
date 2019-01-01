@@ -171,7 +171,7 @@ Approved: $approvedate");
         $dbConnection = buildDatabaseConnection($config);
         if ($messageArr[1] === 'status') {
           if (isset($messageArr[2])) {
-            $details = getPaymentDetails($messageArr[2], 'id, approvedate, amount, topay');
+            $details = getPaymentDetails($messageArr[2], 'users.id, approvedate, amount, topay');
             if ($details === false) {
               sendMessage($chatId, 'No Payments');
             } else {

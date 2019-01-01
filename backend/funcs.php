@@ -74,8 +74,8 @@ function getPaymentDetails($userId, $columns = '*') {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE users.id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id WHERE users.id = :userId");
+    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id INNER JOIN balance ON payments.user_id = balance.id WHERE users.id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id INNER JOIN balance ON payments.user_id = balance.id WHERE users.id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetchAll();
