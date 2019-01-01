@@ -86,7 +86,7 @@ function getPaymentDetails($userId, $columns = '*') {
     return $row;
   }
   else {
-    return 'Not found';
+    return false;
   }
 }
 
