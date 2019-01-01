@@ -1,5 +1,6 @@
 <?php
 require_once('config.php');
+require_once('funcs.php');
 if (!empty($_POST['firstname'])) {
   $firstNamePost = $_POST['firstname'];
 }
