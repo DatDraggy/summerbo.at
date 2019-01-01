@@ -40,7 +40,7 @@ function checkRegValid($userId) {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if ($row->numRows() === 1) {
+  if ($stmt->rowCount() === 1) {
     //Already logged in
     return true;
   }
