@@ -70,6 +70,9 @@ Your Boat Party Crew
         sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
       }
     }
+    else if ($status === 'view'){
+
+    }
   }
   die();
 }

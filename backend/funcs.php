@@ -283,7 +283,7 @@ function confirmRegistration($token) {
         $topay += $config['priceSponsor'];
       }
 
-                                        $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
+      $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
       $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
       $stmt->bindParam(':topay', $topay);
       $stmt->bindParam(':token', $token);
@@ -446,12 +446,13 @@ function sendStaffNotification($userId, $text = '') {
 function buildApproveMarkup($userId) {
   return array(
     'inline_keyboard' => array(
-      array(
+      /*array(
         array(
           'text' => 'View',
           'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
+          'callback_data' => $userId . '|view|0'
         )
-      ),
+      ),*/
       array(
         array(
           'text'          => 'Approve',
@@ -469,7 +470,7 @@ function buildApproveMarkup($userId) {
 function requestApproveMessage($chatId, $userId) {
   $replyMarkup = buildApproveMarkup($userId);
   sendMessage($chatId, "<b>New Registration on summerbo.at!</b>
-Regnumber: $userId", json_encode($replyMarkup));
+<a href=\"https://summerbo.at/admin/view.html?type=reg&id=$userId\">Regnumber: $userId</a>", json_encode($replyMarkup));
 }
 
 function approvePayment($userId, $approver, $amount) {
