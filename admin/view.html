@@ -12,7 +12,7 @@ if (!empty($_SESSION['userId'])) {
       $userId = $_GET['id'];
       if ($_GET['type'] === 'reg') {
         $details = getRegDetails($userId);
-        print_r($details);
+        echo '<pre>'.print_r($details, true).'</pre>';
       }
     }
   }
