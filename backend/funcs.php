@@ -283,13 +283,13 @@ function confirmRegistration($token) {
         $topay += $config['priceSponsor'];
       }
 
-      $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
+                                        $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
       $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
       $stmt->bindParam(':topay', $topay);
       $stmt->bindParam(':token', $token);
       $stmt->execute();
 
-      if ($stmt->rowCount() !== 1) {
+      if ($stmt->rowCount() < 1) {
         $data = array(
           'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
           'token'   => $token,
