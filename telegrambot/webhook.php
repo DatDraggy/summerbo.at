@@ -20,6 +20,7 @@ if (isset($data['callback_query'])) {
 
   if (stripos($callbackData, '|') !== false) {
     list($targetUserId, $status, $confirm) = explode('|', $callbackData);
+    $dbConnection = buildDatabaseConnection($config);
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
         sendMessage($chatId, 'Registration has been approved.');
