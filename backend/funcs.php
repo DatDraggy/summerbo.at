@@ -386,6 +386,7 @@ function approveRegistration($userId) {
 function rejectRegistration($userId) {
   global $dbConnection, $config;
 
+  list($email, $nickname) = getRegDetails($userId, 'email, nickname');
   try {
     $sql = "DELETE FROM users WHERE id = '$userId'";
     $stmt = $dbConnection->prepare('DELETE FROM users WHERE id = :userId');
@@ -396,7 +397,6 @@ function rejectRegistration($userId) {
     return false;
   }
   if ($stmt->rowCount() === 1) {
-    list($email, $nickname) = getRegDetails($userId, 'email, nickname');
     sendEmail($email, 'Summerbo.at - Registration Canceled', "Dear $nickname,
 
 Sadly we have to inform you that your registration has been canceled.
