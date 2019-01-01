@@ -318,9 +318,9 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                   You get a special gift and a super limited <abbr>VIP</abbr> badge, but you also help us to make the
                   party even more awesome.
                 </p>
-                <div class="buttonGroup">
-                  <a class="button buttonUpgrade" href="#" title="Upgrade to VIP">Upgrade to VIP</a>
-                  <a class="button buttonPrimary" href="#" title="Get a ticket">Register Now</a>
+                <div>
+                  <a class="button buttonUpgrade" href="#register" onclick="document.getElementById('sponsor').checked = true" title="Upgrade to VIP" style="display: inline-block;">Upgrade to VIP</a>
+                  <a class="button buttonPrimary" href="#register" title="Get a ticket" style="display: inline-block;">Register Now</a>
                 </div>
               </div>
             </dd>
