@@ -82,10 +82,9 @@ function getPaymentDetails($userId, $columns = '*') {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if (!empty($row)) {
+  if ($stmt->rowCount() > 0) {
     return $row;
-  }
-  else {
+  } else {
     return false;
   }
 }
