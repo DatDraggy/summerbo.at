@@ -214,7 +214,23 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 </div>
                 <div class="inputWrapper">
                   <label for="dob"><span>Date of Birth</span></label>
-                  <input name="dob" id="dob" type="date" class="input" placeholder="YYYY-MM-DD" required>
+                  <input name="dobday" id="dobday" class="input" placeholder="23" required>
+				  <input name="dobmonth" id="dobmonth" class="select" placeholder="December" required>
+				  <select form="GoodForm" name="dobmonth">
+			<option value="01">January</option>
+			<option value="02">February</option>
+			<option value="03">March</option>
+			<option value="04">April</option>
+			<option value="05">May</option>
+			<option value="06">June</option>
+			<option value="07">July</option>
+			<option value="08">August</option>
+			<option value="09">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+		   </select>
+				  <input name="dobyear" id="dobyear" class="input" placeholder="1999" required>
                 </div>
 				<div class="inputWrapper">
                   <label for="email"><span>Email</span></label>
