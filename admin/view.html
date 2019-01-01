@@ -2,12 +2,12 @@
 session_start();
 require_once(__DIR__ . '/../backend/funcs.php');
 require_once(__DIR__ . '/../backend/config.php');
-if (!empty($_SESSION['userid'])) {
-  $requesterUserId = $_SESSION['userid'];
+if (!empty($_SESSION['userId'])) {
+  $requesterUserId = $_SESSION['userId'];
   $dbConnection = buildDatabaseConnection($config);
 
   if (checkRegValid($requesterUserId)) {
-    $rank = getUserRank($_SESSION['userid']);
+    $rank = getUserRank($_SESSION['userId']);
     if ($rank > 0) {
       $userId = $_GET['id'];
       if ($_GET['type'] === 'reg') {

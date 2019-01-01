@@ -266,7 +266,7 @@ function confirmRegistration($token) {
   try {
     $dbConnection->beginTransaction();
     $sql = "SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
