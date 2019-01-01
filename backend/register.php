@@ -23,14 +23,14 @@ else {
   $dobPost = $_POST['dateofbirth'];
 }
   */
-if (!empty($_POST['dayofbirth'])) {
-  $dayofbirthPost = $_POST['dayofbirth'];
+if (!empty($_POST['day'])) {
+  $dayofbirthPost = $_POST['day'];
 }
-if (!empty($_POST['monthofbirth'])) {
-  $monthofbirthPost = $_POST['monthofbirth'];
+if (!empty($_POST['month'])) {
+  $monthofbirthPost = $_POST['month'];
 }
-if (!empty($_POST['yearofbirth'])) {
-  $yearofbirthPost = $_POST['yearofbirth'];
+if (!empty($_POST['year'])) {
+  $yearofbirthPost = $_POST['year'];
 }
 else {
   die('no date of birth');
