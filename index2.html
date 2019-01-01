@@ -186,7 +186,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         </section> -->
 
         <section id="register" class="wrapper wsLarge">
-          <form class="formWrapper wrapper" id="GoodForm" action="SUBMIT">
+          <form class="formWrapper wrapper" id="GoodForm" action="backend/register.php" method="post">
             <div class="row">
               <div class="content">
                 <h1 class="headline">Registration</h1>
@@ -204,30 +204,30 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 </div>
                 <div class="formRow">
                   <div class="inputWrapper">
-                    <label for="FirstName"><span>First Name</span></label>
-                    <input name="FirstName" id="FirstName" class="input"/ placeholder="First Name" required>
+                    <label for="firstname"><span>First Name</span></label>
+                    <input name="firstname" id="firstname" class="input"/ placeholder="First Name" required>
                   </div>
                   <div class="inputWrapper">
-                    <label for="LastName"><span>Last Name</span></label>
-                    <input name="LastName" id="LastName" class="input"/ placeholder="Last Name" required>
+                    <label for="lastname"><span>Last Name</span></label>
+                    <input name="lastname" id="lastname" class="input"/ placeholder="Last Name" required>
                   </div>
                 </div>
                 <div class="inputWrapper">
-                  <label for="DateofBirth"><span>Date of Birth</span></label>
-                  <input name="DateofBirth" id="DateofBirth" type="date" class="input" placeholder="YYYY-MM-DD" required>
+                  <label for="dob"><span>Date of Birth</span></label>
+                  <input name="dob" id="dob" type="date" class="input" placeholder="YYYY-MM-DD" required>
                 </div>
 				<div class="inputWrapper">
-                  <label for="Email"><span>Email</span></label>
-                  <input name="Email" id="Email" class="input" placeholder="Enter your email" required>
+                  <label for="email"><span>Email</span></label>
+                  <input name="email" id="email" class="input" placeholder="Enter your email" required>
                 </div>
 				<div class="formRow">
 				<div class="inputWrapper">
-                  <label for="Password"><span>Password</span></label>
-                  <input name="Password" type="password" id="Password" class="input" placeholder="Enter a password" required />
+                  <label for="password"><span>Password</span></label>
+                  <input name="password" type="password" id="password" class="input" placeholder="Enter a password" required />
                 </div>
 				<div class="inputWrapper">
-                  <label for="PasswordConfirm"><span>Re-enter Password</span></label>
-                  <input name="PasswordConfirm" type="password" id="PasswordConfirm" class="input"placeholder="Re-enter your password" required />
+                  <label for="passwordVerify"><span>Re-enter Password</span></label>
+                  <input name="passwordVerify" type="password" id="passwordVerify" class="input"placeholder="Re-enter your password" required />
 				</div>
 				</div>
 				<div class="inputWrapper">
