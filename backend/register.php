@@ -1,4 +1,5 @@
 <?php
+die(); //no reg yet bad boy
 require_once('config.php');
 if (!empty($_POST['firstname'])) {
   $firstNamePost = $_POST['firstname'];
