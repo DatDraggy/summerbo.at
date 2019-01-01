@@ -29,7 +29,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
-  if ($row->numRows() === 1) {
+  if ($stmt->rowCount() === 1) {
     $dbHash = $row['hash'];
     $userId = $row['id'];
     $rank = $row['rank'];
