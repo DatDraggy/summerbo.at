@@ -43,8 +43,7 @@ function checkRegValid($userId) {
   if ($stmt->rowCount() === 1) {
     //Already logged in
     return true;
-  }
-  else {
+  } else {
     //Clear Session and Cookies
     return false;
   }
@@ -64,8 +63,7 @@ function getRegDetails($userId, $columns = '*') {
   }
   if (!empty($row)) {
     return $row;
-  }
-  else {
+  } else {
     return 'Not found';
   }
 }
@@ -103,8 +101,7 @@ function getUserRank($userId) {
   }
   if (!empty($row)) {
     return $row['rank'];
-  }
-  else {
+  } else {
     return 0;
   }
 }
@@ -127,12 +124,10 @@ function isEarlyBird() {
   if ($stmt->rowCount() > 0) {
     if ($row['count'] < 100) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -178,8 +173,7 @@ function validatePassword($password) {
   }
   if ($pwned) {
     return 'Password was leaked before, Choose another one!';
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -289,12 +283,7 @@ function confirmRegistration($token) {
       $stmt->execute();
 
       if ($stmt->rowCount() < 1) {
-        $data = array(
-          'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-          'token'   => $token,
-          'server'  => $_SERVER,
-          'headers' => $http_response_header
-        );
+        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
         mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
         return false;
       }
@@ -376,8 +365,7 @@ function approveRegistration($userId) {
   }
   if ($stmt->rowCount() === 1) {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -406,8 +394,7 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew");
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -435,35 +422,21 @@ function sendStaffNotification($userId, $text = '') {
   foreach ($config['telegramAdmins'] as $admin) {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
-    }
-    else {
+    } else {
       sendMessage($admin, $text);
     }
   }
 }
 
 function buildApproveMarkup($userId) {
-  return array(
-    'inline_keyboard' => array(
-      /*array(
+  return array('inline_keyboard' => array(/*array(
         array(
           'text' => 'View',
           'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
           'callback_data' => $userId . '|view|0'
         )
       ),*/
-      array(
-        array(
-          'text'          => 'Approve',
-          'callback_data' => $userId . '|approve|0'
-        ),
-        array(
-          'text'          => 'Reject',
-          'callback_data' => $userId . '|reject|0'
-        )
-      )
-    )
-  );
+      array(array('text' => 'Approve', 'callback_data' => $userId . '|approve|0'), array('text' => 'Reject', 'callback_data' => $userId . '|reject|0'))));
 }
 
 function requestApproveMessage($chatId, $userId) {
@@ -508,7 +481,7 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':approver', $approver);
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
-
+      $dbConnection->commit();
       if ($status === 3) {
         //ToDo Below more Information
         sendEmail($email, 'Payment received', "Dear $nickname,
@@ -576,7 +549,7 @@ function requestUnapproved($chatId) {
 }
 
 function sendEmail($address, $subject, $text, $reg = false) {
-global $config;
+  global $config;
   if ($reg === false) {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
     $text .= "
