@@ -276,6 +276,7 @@ nav.active .js-showNav {
     max-height: 4rem;
   }
   .nav {
+    transition: none;
   }
   .navContent {
     max-height: 4rem;
@@ -405,6 +406,7 @@ nav.active .js-showNav {
   padding:.5rem 0;
   margin:0;
   line-height: 1.5rem;
+  max-width: 100%;
 }
 .buttonClr:focus {
   outline: none;
@@ -492,26 +494,13 @@ a.buttonSecondary {
 /* Forms */
 .formWrapper {
   display: flex;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   flex-direction: column;
-  border-radius: 4px;
-  box-shadow: 0 0 4rem rgba(0,0,0,.25);
+  max-width: 40rem;
 }
-.formRow {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.formRow .inputWrapper {
-  flex: 1;
-  margin-right: 2rem;
-}
-.formRow .inputWrapper:last-child{
-  margin-right: 0;
-}
+
 .inputWrapper {
-  transition: background-color 250ms var(--animNice);
   background-color: transparent;
   display: flex;
   flex-direction: column;
@@ -520,21 +509,89 @@ a.buttonSecondary {
   align-items: center;
   margin-bottom: 2rem;
 }
+.checkboxWrapper {
+  margin-bottom: 2rem;
+}
+.checkboxGroup {
+
+}
+.checkboxGroup input[type="checkbox"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+.checkboxGroup label {
+  display: block;
+  position: relative;
+  border-radius: .5rem;
+  line-height: 1.125rem;
+  padding-left: 3rem;
+  padding-top: 1.125rem;
+  padding-right: 1rem;
+  padding-bottom: .875rem;
+  margin-bottom: .5rem;
+
+}
+
+.checkboxGroup.VIP label {
+  background-color: var(--colorGoldSecondary);
+}
+
+.checkboxGroup label:before {
+  position: absolute;
+  top: 50%;
+  left: .75rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  font-family: 'LineAwesome';
+  content: '';
+  line-height: 0rem;
+}
+.checkboxGroup input[type=checkbox]:checked + label:before {
+  animation: pop 250ms var(--animNice) forwards;
+}
+.checkboxGroup  input[type=checkbox]:checked + label {
+  background-color: var(--colorToneHigh);
+}
+.checkboxGroup label {
+  background-color: #f3f3f3;
+  color: black;
+}
+.checkboxGroup.VIP input[type=checkbox]:checked + label {
+  background-color: var(--colorGold);
+}
+@keyframes pop {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.checkboxGroup input[type=checkbox]:checked + label:before {
+  content: '';
+}
 .inputWrapper.inputFocussed {
   background-color: var(--colorPurple);
 }
 
-.inputWrapper input {
+.inputWrapper input:not([type="checkbox"]),
+.inputWrapper input:not([type="radio"]),
+.inputWrapper select, .inputWrapper input  {
   transition: all 250ms var(--animNice);
   width: 100%;
   padding-left: 1rem;
   margin:0;
-  font-size: .875rem;
+  font-size: 1rem;
   line-height: 1rem;
   font-family: var(--fontStack);
   border: 0;
   height: 3rem;
   background-color: transparent;
+}
+.inputWrapper select {
+  width: calc(100% - 1rem);
+  margin: 0 .5rem;
 }
 .inputWrapper.inputFocussed input {
   transform: translateY(-.5rem);
@@ -735,13 +792,16 @@ body.hasNav{
   .ticket:last-child {
     margin-right: 0;
   }
+
   .buttonGroup {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+    align-items: flex-start;
   }
 
   .buttonGroup > * {
+    flex-grow: 0;
     margin-right: 1rem;
   }
 
@@ -751,6 +811,18 @@ body.hasNav{
     margin-right: -1.25rem;
   }
 
+  .formRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .formRow .inputWrapper {
+    flex: 1;
+    margin-right: 2rem;
+  }
+  .formRow .inputWrapper:last-child{
+    margin-right: 0;
+  }
 }
 
 @media screen and (min-width: 1000px) {
