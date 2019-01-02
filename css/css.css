@@ -173,7 +173,7 @@ a, a:link, a:visited {
   list-style: none;
   list-style-type: none;
   margin:0;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
   padding: 0;
   max-width: none;
 }
@@ -187,7 +187,7 @@ a, a:link, a:visited {
   height: 2.5rem;
   color: white;
   padding: 0;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   padding: .25rem .75rem;
   border-radius: 4px;
   background:transparent;
@@ -196,7 +196,6 @@ a, a:link, a:visited {
 }
 .blankList li a:hover {
   border: 2px solid white;
-
 }
 
 .la24:before {
@@ -728,7 +727,8 @@ a.buttonSecondary {
 .footer {
   padding: 3rem 0;
 }
-.footer .content > * {
+.footer .content {
+  margin-bottom: 0;
 }
 /* Spacing */
 .pageWrapper {
@@ -887,6 +887,12 @@ body.hasNav{
   }
   .formRow .inputWrapper:last-child{
     margin-right: 0;
+  }
+  .blankList {
+    margin-bottom: 1rem;
+  }
+  .blankList li a:link, .blankList li a:visited {
+    margin-bottom: 0;
   }
 }
 
