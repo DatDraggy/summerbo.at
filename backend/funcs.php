@@ -572,7 +572,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
     $mail->Password = $config['mailPassword'];
     $mail->SetFrom('team@summerbo.at', 'Summerbo.at Team');
     $mail->Subject = $subject;
-    $mail->Body = $text;
+    $mail->Body = nl2br($text);
     $mail->AddAddress($address);
     $mail->IsHTML(true);
     $mail->send();
