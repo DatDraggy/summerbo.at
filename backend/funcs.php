@@ -282,12 +282,6 @@ function confirmRegistration($token) {
       $stmt->bindParam(':token', $token);
       $stmt->execute();
 
-      if ($stmt->rowCount() < 1) {
-        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
-        mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
-        return false;
-      }
-
       sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
 
 You have successfully verified your email. 
@@ -312,6 +306,15 @@ It shouldn't take more than 24 hours.*/
       $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
       $stmt->bindParam(':token', $token);
       $stmt->execute();
+    }
+    else {
+      $data = array('ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+                    'token'   => $token,
+                    'server'  => $_SERVER,
+                    'headers' => $http_response_header
+      );
+      mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
+      return false;
     }
     $dbConnection->commit();
   } catch (PDOException $e) {
