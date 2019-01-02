@@ -24,7 +24,7 @@ if (isset($data['callback_query'])) {
       if (approveRegistration($targetUserId)) {
         sendMessage($chatId, 'Registration has been approved.');
         list($email, $nickname) = getRegDetails($targetUserId, 'email, nickname');
-        sendEmail($email, 'Subject', "Dear $nickname,
+        sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
 Your registration is confirmed by our registration team. Below you will find the bank details for sending us the payment.
 
