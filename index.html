@@ -216,7 +216,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
             <p>Before you register it is important that you are familiar with our rules and Terms and Conditions. You
               can find both here.
           <div class="content" style="">
-            <form id="GoodForm" action="backend/register.php" method="post">
+            <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
               <?php require_once('backend/config.php');
               if ($config['regOpen']) { ?>
                 <div class="inputWrapper">
