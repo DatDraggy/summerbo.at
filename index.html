@@ -1,6 +1,8 @@
 <?php
 require_once ('backend/funcs.php');
+require_once ('backend/config.php'); 
 $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+$dbConnection = buildDatabaseConnection($config);
 if (isEarlyBird()) {
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
