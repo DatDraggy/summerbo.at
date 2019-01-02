@@ -844,6 +844,7 @@ body.hasNav{
   }
   .hero {
     height: calc(100vh - 4rem);
+    align-items: center;
   }
   .heroFeature {
     margin-left:-44px;
