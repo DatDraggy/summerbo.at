@@ -1,0 +1,17 @@
+<?php
+if (!empty($_SESSION['userId'])) {
+  $userId = $_SESSION['userId'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  if (checkRegValid($userId)) {
+    //Display site, do nothing
+  }
+  else {
+    if (isset($_COOKIE[session_name()])) {
+      setcookie(session_name(), '', time() - 3600, '/');
+    }
+    session_destroy();
+    header('Location: login.html');
+    die();
+  }
+}

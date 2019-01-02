@@ -1,0 +1,32 @@
+<?php
+require_once('backend/config.php');
+require_once('backend/funcs.php');
+if (!empty($_GET['token'])) {
+  $token = $_GET['token'];
+  $dbConnection = buildDatabaseConnection($config);
+
+  if(isset($_GET['changed'])){
+    if (confirmEmail($token)) {
+      header('Location: login.html');
+      //Email Changed, Goto login
+      die();
+    }
+    else {
+      echo 'Something went wrong.';
+    }
+  }
+  else {
+    if (confirmRegistration($token)) {
+      header('Location: login.html');
+      //Email Confirmed, goto login, wait for staff approval
+      die();
+    }
+    else {
+      echo 'Something went wrong.';
+    }
+  }
+}
+else {
+  header('Location: login.html');
+  die();
+}

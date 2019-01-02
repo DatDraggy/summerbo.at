@@ -1,0 +1,361 @@
+/* --------------------------------------------------
+	12.0 Testimonials
+-------------------------------------------------- */
+
+
+
+/* ---- 12.1 Testimonial - 1 Column Slider ---- */
+.testimonials-parallax {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+	background-attachment: fixed;
+	
+
+	.bg-overlay {
+		width: 100%;
+		height: 100%;
+		background: rgba(17,17,17, .5);
+	}
+
+	.t-wrapper {
+		position: relative;
+		padding-top: $ws-m;
+		padding-bottom: $ws-m;
+		width: 55%;
+		margin: 0 auto;
+		text-align: center;
+
+		&:hover {
+
+			.t-slider-nav {
+				opacity: 1;
+			}
+		}
+
+		blockquote {
+			margin-bottom: 0;
+			font-size: 1.4em;
+			line-height: 1.6em;
+			color: $light;
+			
+			.t-type {
+				display: block;
+				padding-top: 25px;
+				padding-bottom: 25px;
+				font-size: 34px;
+			}
+
+			footer {
+				padding-top: 0;
+
+				&:before {
+					content: none;
+				}
+
+				cite {
+
+					h5 {
+						margin: 0;
+						color: $light;
+
+						&:first-child {
+							margin-bottom: 10px;
+						}
+					}
+				}
+			}
+		} // blockquote
+
+		.t-slider-nav {
+			display: inline-block;
+			position: absolute;
+			padding: 7px 7px 0 7px;
+			top: $ws-l;
+			border: 2px solid $light;
+			background: none;
+			opacity: 0;
+			transition: background .4s, opacity .6s;
+
+			span {
+				color: $light;
+				font-size: 28px;
+				transition: color .4s;
+			}
+
+			&:hover {
+				background: $light;
+
+				span {
+					color: $dark;
+				}
+			}
+
+			&:focus {
+				outline: none;
+			}
+		} // .t-slider-nav
+
+		.slick-prev {
+			left: 0;
+			margin-left: -100px;
+		}
+
+		.slick-next {
+			right: 0;
+			margin-right: -100px;
+		}
+	} // .t-wrapper
+
+	.t-clients {
+		display: block;
+		list-style: none;
+		margin: 0 auto $ws-m auto;
+		padding: 0;
+		width: 80%;
+		text-align: center;
+		z-index: 2;
+
+		li {
+			display: inline-block;
+			padding-left: 35px;
+			padding-right: 35px;
+		}
+	} // .t-clients
+} // .testimonials-parallax
+
+.testimonials-bg-2 {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-position: 50%;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .65);
+	}
+}
+
+.testimonials-dark {
+	@extend .testimonials-parallax;
+	background: $dark;
+}
+
+
+
+/* ---- 12.2 Testimonials - 3 Columns Cards ---- */
+.testimonials-3col { 
+	
+	.t-item {
+		padding: 40px 50px 50px 50px;
+		border-top: 1px solid $lighter;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		background: #fff;
+		text-align: center;
+		transition: all .3s;
+
+		&:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+		}
+
+		img {
+			margin-bottom: 30px;
+			border: 8px solid $light;
+			border-radius: 100px;
+		}
+
+		blockquote {
+			@extend body;
+			color: $gray-light;
+
+			p {
+				margin: 0;
+				border-width: 80%;
+
+				&:before {
+					content: '';
+					display: block;
+					position: relative;
+					width: 70%;
+					margin: 0 auto 30px auto;
+					border-top: 1px solid #ccc;
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					position: relative;
+					width: 70%;
+					margin: 30px auto 0 auto;
+					border-bottom: 1px solid #ccc;
+				}
+			}
+
+			footer {
+
+				&:before {
+					content: none;
+				}
+				
+				cite {
+					@extend h4;
+					font-family: $alt-heading-font;
+					color: $gray;
+
+					span {
+						display: block;
+						font-family: $heading-font;
+						letter-spacing: 2px;
+						color: $dark;
+					}
+				}
+			}
+		}
+
+		.t-icon {
+			font-size: 32px;
+			color: $gray-light;
+		}
+	} // .t-item
+
+	.t-clients {
+		padding-left: 0;
+
+		li {
+
+			a {
+				
+				img {
+					margin: auto;
+				}			
+			}
+		}
+	}
+} // .testimonials-3col
+
+
+
+/* ---- 12.3 Clients List ---- */
+.clients-list-parallax {
+	background: url(http://placehold.it/2440x1578);
+	background-size: cover;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		background: rgba(17,17,17, .5);
+	}
+
+	.c-wrapper {
+		margin-top: 75px;
+		margin-bottom: 75px;
+		padding: 70px 100px;
+		text-align: center;
+		background: rgba(17,17,17, .9);
+
+		&:hover {
+
+			.clients-slider-nav {
+				opacity: 1;
+			}
+		}
+
+		a {
+			display: inline-block;
+
+			img {
+				margin: auto;
+			}
+		}
+
+		.clients-slider-nav {
+			position: absolute;
+			top: 50%;
+			margin-top: -20px;
+			width: 40px;
+			height: 40px;
+			border: 2px solid $gray;
+			background: none;
+			opacity: 0;
+			transition: all .3s;
+
+			&:hover {
+				color: $dark;
+				border-color: $light;
+				background: $light;
+			}
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		.slick-prev {
+			left: 35px;
+		}
+
+		.slick-next {
+			right: 35px;
+		}
+	}
+} // .clients-list-parallax
+
+.clients-list-minimal {
+	@extend .clients-list-parallax;
+	background: $dark;
+	text-align: center;
+
+	.c-wrapper {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.c-heading {
+		padding-top: 75px;
+		color: $light;
+		text-align: center;
+	}
+
+	.clients-slider {
+
+		.slick-prev {
+			left: 0;
+			margin-left: -35px;
+		}
+
+		.slick-next {
+			right: 0;
+			margin-right: -35px;
+		}
+	}
+} // .clients-list-minimal
+
+.clients-list-gray {
+	@extend .clients-list-parallax;
+	background: $light;
+
+	.c-wrapper {
+		padding: 0;
+		background: none;
+
+		.clients-slider-nav {
+			border: 2px solid $gray;
+			transition: all .3s;
+
+			&:hover {
+				color: $light;
+				border-color: $dark;
+				background: $dark;
+			}
+		}
+
+		.slick-prev {
+			left: 0;
+			margin-left: -35px;
+		}
+
+		.slick-next {
+			right: 0;
+			margin-right: -35px;
+		}
+	}
+} // .clients-list-gray

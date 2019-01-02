@@ -1,0 +1,271 @@
+/* --------------------------------------------------
+	21.0 Login/Signup - Pages
+-------------------------------------------------- */
+
+
+
+/* ---- 21.1 Login Page 1 ---- */
+.login-1 {
+	background: $light;
+
+	.bg-overlay {
+		width: 100%;
+		height: 100%;
+		background: rgba(244,244,244, .7);
+	}
+	
+	.panel-group {
+		margin-top: $ws-l;
+		margin-bottom: $ws-m;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+
+		.panel {
+			border-radius: 0;
+			border: none;
+
+			.panel-heading {
+				background: #fff;
+				padding: 30px 100px;
+				border: none;
+
+				.panel-title {
+
+					a {
+
+						&:focus {
+							text-decoration: none;
+						}
+					}
+				}
+			} // .panel-heading
+
+			.panel-collapse {
+
+				.panel-body {
+					border: none;
+					padding-left: 100px;
+					padding-right: 100px;
+
+					.form-login {
+
+						.forget-pass-link {
+							color: $gray-light;
+							padding-bottom: 4px;
+							border-bottom: 1px solid rgba(17,17,17, 0);
+							transition: all .3s;
+
+
+							&:hover {
+								color: $dark;
+								padding-bottom: 1px;
+								border-bottom: 1px solid rgba(17,17,17, 1);
+							}
+						}
+					} // .form-login
+				} // .panel-body
+			} // .panel-collapse
+		} // .panel
+
+		.top-panel {
+
+			.panel-heading {
+				padding-top: $ws-m;
+
+				.panel-title {
+
+					.collapsed {
+						color: #ccc;
+
+						&:hover {
+							color: $dark;
+						}
+					}
+				}
+			}
+		} // .top-panel
+
+		.bottom-panel {
+
+			.panel-heading {
+
+				.panel-title {
+
+					.collapsed {
+						display: block;
+						padding-bottom: 30px;
+						color: #ccc;
+
+						&:hover {
+							color: $dark;
+						}
+					}
+				}
+			}
+
+			.panel-body {
+				padding-bottom: $ws-m;
+				color: $gray-light !important;
+			}
+		} // .bottom-panel
+
+		.panel+.panel {
+			margin-top: 0;
+		}
+	} // .panel-group
+} // .login-1
+
+
+
+/* ---- 21.2 Login Page 2 ---- */
+.login-2 {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: $light url(http://placehold.it/2440x1578);
+	background-position: 50%;
+	background-size: cover;
+	background-attachment: fixed;
+
+	.bg-overlay {
+		width: 100%;
+		height: 100%;
+		background: rgba(244,244,244, .7);
+
+		.form-wrapper {
+			display: block;
+			position: relative;
+			background: #fff;
+			box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+			transition: all .3s;
+
+			&:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+			}
+			
+			.form-content	{
+				margin-top: $ws-l;
+				padding: 100px 100px 30px 100px;
+				border-bottom: 1px solid #eaeaea;				
+
+				.form-header {
+					margin-top: 0;
+					margin-bottom: $ws-s;
+					text-align: center;
+				}
+
+				.forget-pass-link {
+					color: $gray-light;
+					padding-bottom: 4px;
+					border-bottom: 1px solid rgba(17,17,17, 0);
+					transition: all .3s;
+
+
+					&:hover {
+						color: $dark;
+						padding-bottom: 1px;
+						border-bottom: 1px solid rgba(17,17,17, 1);
+					}
+				}
+
+				.cards-header {
+					@extend h4;
+					display: block;
+					margin-top: $ws-s;
+					margin-bottom: 30px;
+					text-align: center;
+					color: $gray-light;
+				}
+			}
+
+			.social-signup {
+				display: block;
+				height: 140px;
+
+				.social-card {
+					display: inline-block;
+					position: relative;
+					padding: 30px 50px;
+					width: 50%;
+					height: 100%;
+					float: left;
+					border-right: 1px solid #eaeaea;
+					background: #fff;
+
+					&:last-child {
+						border-right: none;
+					}
+
+					span,
+					i {
+						position: absolute;
+						transition: all .3s;
+					}
+
+					.sc-lead {
+						@extend h4;
+						display: block;
+						bottom: 60px;
+					}
+
+					.sc-info {
+						bottom: 35px;
+						color: $gray-light;
+					}
+
+					i {
+						display: inline-block;
+						right: 40px;
+						top: 40px;
+						float: right;
+						font-size: 50px;
+						color: $dark;
+						vertical-align: top;
+					}
+				} // .social-card
+
+				.fb-card {
+					transition: all .3s;
+
+					&:hover {
+						background: #3b5998;
+
+						.sc-lead,
+						.sc-info,
+						i {
+							color: #fff;
+						}
+					}
+				} // .fb-card
+
+				.tw-card {
+					transition: all .3s;
+
+					&:hover {
+						background: #55acee;
+
+						.sc-lead,
+						.sc-info,
+						i {
+							color: #fff;
+						}
+					}
+				} // .tw-card
+			} // .social-signup
+		} // .form-wrapper
+
+		.email-signup {
+			color: $dark;
+			padding-bottom: 3px;
+			border-bottom: 1px solid rgba(17,17,17, 0);
+			transition: all .3s;
+
+
+			&:hover {
+				padding-bottom: 0;
+				margin-bottom: 3px;
+				border-bottom: 1px solid rgba(17,17,17, 1);
+			}
+		}
+	}
+}

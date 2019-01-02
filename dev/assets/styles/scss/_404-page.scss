@@ -1,0 +1,60 @@
+/* --------------------------------------------------
+	24.0 404 Page
+-------------------------------------------------- */
+
+
+
+.wrapper-404 {
+	display: table;
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: #cd5b3c;
+
+	.content-wrapper {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+
+		.lead-wrapper {
+			display: inline-block;
+
+			h1 {
+				padding-right: 30px;
+				border-right: 3px solid $light;
+				font-size: 120px;
+				letter-spacing: 20px;
+				color: $light;
+			}
+		}
+
+		.info-wrapper {
+			display: inline-block;
+			padding-left: 30px;
+			padding-bottom: 10px;
+			text-align: left;
+			vertical-align: bottom;
+
+			.info-404 {
+				@extend blockquote;
+				color: $light;
+			}
+		}
+
+		.links-404 {
+			display: block;
+			padding: 0;
+			margin: 50px 0 0 400px;
+			list-style: none;
+
+			li {
+				display: inline-block;
+				margin-right: 10px;
+
+				a {
+					vertical-align: middle;
+				}
+			}
+		}
+	}
+}
