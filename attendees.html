@@ -1,0 +1,17 @@
+<?php
+require_once ('backend/config.php');
+require_once ('backend/funcs.php');
+
+$dbConnection = buildDatabaseConnection($config);
+$sql = "SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY id ASC";
+$stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY id ASC');
+$stmt->execute();
+$rows = $stmt->fetchAll();
+$attendees = '<ul>';
+foreach ($rows as $row){
+    $attendees .= '<li>' . $row['nickname'] ."</li>\n";
+}
+$attendees .= '</ul>';
+?>
+
+<?php echo $attendees; ?>

@@ -1,6 +1,75 @@
 <?php
-require_once('backend/things.php');
+require_once ('backend/funcs.php');
+require_once ('backend/config.php'); 
 $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+$dbConnection = buildDatabaseConnection($config);
+if (isEarlyBird()) {
+  $earlyBirdTicket = '
+        <div class="ticket ticketPrimary content content33">
+          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
+          <p class="ticketPrice heading2">€25</p>
+          <ul class="ticketItems">
+            <li><strong>Limited to 100 Spaces</strong></li>
+            <li>Ticket to the party</li>
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li>Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">
+            <a class="button buttonPrimary" href="#register">Register</a>
+          </p>
+        </div>';
+  $standardTicket = '
+        <div class="ticket ticketSecondary content content33">
+          <h3 class="ticketName nomargin">Standard Ticket</h3>
+          <p class="ticketPrice heading2">€35</p>
+          <ul class="ticketItems">
+            <li>Ticket to the party</li>
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li class="strike">Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">
+            <button title="Not available yet. Get an early bird ticket!" disabled class="button disabled buttonPrimary">
+              Register
+            </button>
+          </p>
+        </div>
+        ';
+}else{
+  $earlyBirdTicket = '
+        <div class="ticket ticketSecondary content content33">
+          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
+          <p class="ticketPrice heading2">€25</p>
+          <ul class="ticketItems">
+            <li><strong>Limited to 100 Spaces</strong></li>
+            <li>Ticket to the party</li>
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li>Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">
+            <button title="Not available. Get a standard ticket!" disabled class="button disabled buttonPrimary">
+              Register
+            </button>
+          </p>
+        </div>';
+  $standardTicket = '
+        <div class="ticket ticketPrimary content content33">
+          <h3 class="ticketName nomargin">Standard Ticket</h3>
+          <p class="ticketPrice heading2">€35</p>
+          <ul class="ticketItems">
+            <li>Ticket to the party</li>
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li class="strike">Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">           
+            <a class="button buttonPrimary" href="#register">Register</a>
+          </p>
+        </div>
+        ';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -128,20 +197,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
         </div>
       </div>
       <div class="row">
-        <div class="ticket ticketPrimary content content33">
-          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
-          <p class="ticketPrice heading2">€25</p>
-          <ul class="ticketItems">
-            <li><strong>Limited to 100 Spaces</strong></li>
-            <li>Ticket to the party</li>
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li>Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <a class="button buttonPrimary" href="#register">Register</a>
-          </p>
-        </div>
+        <?php echo $earlyBirdTicket; ?>
         <div class="ticket ticketTertiary content content33">
           <h3 class="ticketName nomargin"><abbr title="Very Important Partyer">VIP</abbr> Upgrade</h3>
           <p class="ticketPrice heading2">+€15</p>
@@ -156,21 +212,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                onclick="document.getElementById('sponsor').checked = true">Upgrade Now</a>
           </p>
         </div>
-        <div class="ticket ticketSecondary content content33">
-          <h3 class="ticketName nomargin">Standard Ticket</h3>
-          <p class="ticketPrice heading2">€35</p>
-          <ul class="ticketItems">
-            <li>Ticket to the party</li>
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li class="strike">Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <button title="Not available yet. Get an early bird ticket!" disabled class="button disabled buttonPrimary">
-              Register
-            </button>
-          </p>
-        </div>
+        <?php echo $standardTicket; ?>
       </div>
     </section>
 
@@ -434,7 +476,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
 <script src="js/app.js"></script>
 <script src="assets/js/countdown.js"></script>
 <script>
-  CountDownTimer("<?php echo $startDate; ?>T18:00:00", 'countdown');
+  CountDownTimer("<?php echo $startDate; ?>T20:00:00", 'countdown');
 </script>
 </body>
 </html>
