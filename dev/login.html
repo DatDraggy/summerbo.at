@@ -37,7 +37,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
       //Logged in
       //Password Correct, set Session
       $_SESSION['userId'] = $userId;
-      header('Location: user/index.html?from=login');
+      header('Location: user/index.html');
       die();
     }
     else {
