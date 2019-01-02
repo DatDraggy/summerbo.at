@@ -159,7 +159,7 @@ if ($confirmationLink === false) {
   mail($config['mail'], 'ERROR IN SUMMERBOAT REG URGENT', $userId . ' No token generate possible');
   die('Database Error');
 }
-sendEmail($email, 'Summerbo.at Confirmation', "Dear $nickname,
+sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration with the Summernights party.
 
