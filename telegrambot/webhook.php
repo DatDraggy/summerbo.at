@@ -23,10 +23,10 @@ if (isset($data['callback_query'])) {
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
         sendMessage($chatId, 'Registration has been approved.');
-        list($email, $nickname) = getRegDetails($targetUserId, 'email, nickname');
+        list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
-Your registration is confirmed by our registration team. Below you will find the bank details for sending us the payment.
+Your registration was confirmed by our registration team. Below you will find the bank details to send us the payment.
 
 Bank details:
 Name:
@@ -34,9 +34,9 @@ Bank:
 IBAN:
 BIC:
 
-Please add your Regnumber and Nickname in the Comment field of the transfer.
+Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
 
-Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on the website with your details.
+Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on <a href=\"https://summerbo.at/login\">https://summerbo.at/login</a>.
 
 Alternatively, you can contact us if you would like to pay via PayPal.
 But, keep in mind that there will be an additional handling fee for the extra work.

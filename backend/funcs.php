@@ -243,9 +243,9 @@ function upgradeToSponsor($userId) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, 'Sponsor upgrade', "Dear $nickname, 
+    sendEmail($email, 'Sponsor Upgrade', "Dear $nickname, 
 
-Thank you for your upgrade! You are now a sponsor for the Summernight party. As a sponsor you get a special gift and badge as a thank you for the extra support. 
+Thank you for your upgrade! You are now a sponsor for the Summernight Party. As a sponsor, you get a special gift and badge as a thank you for the extra support. 
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
 
@@ -282,7 +282,7 @@ function confirmRegistration($token) {
       $stmt->bindParam(':token', $token);
       $stmt->execute();
 
-      sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
+      sendEmail($email, 'Email Confirmed', "Dear $nickname, 
 
 You have successfully verified your email. 
 
@@ -387,7 +387,7 @@ function rejectRegistration($userId) {
     return false;
   }
   if ($stmt->rowCount() === 1) {
-    sendEmail($email, 'Summerbo.at - Registration Canceled', "Dear $nickname,
+    sendEmail($email, 'Registration Canceled', "Dear $nickname,
 
 Sadly we have to inform you that your registration has been canceled.
 
@@ -487,7 +487,7 @@ function approvePayment($userId, $approver, $amount) {
       $dbConnection->commit();
       if ($status === 3) {
         //ToDo Below more Information
-        sendEmail($email, 'Payment received', "Dear $nickname,
+        sendEmail($email, 'Payment Received', "Dear $nickname,
 
 Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. 
 
@@ -497,7 +497,7 @@ Your Boat Party Crew
 ", true);
         return true;
       } else {
-        sendEmail($email, 'Payment received', "Dear $nickname,
+        sendEmail($email, 'Payment Received', "Dear $nickname,
 
 Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
 
