@@ -22,8 +22,8 @@ if (!empty($_SESSION['userId'])) {
         echo 'Sponsor: ' . $details['sponsor'] . '<br>';
         echo 'Fursuiter: ' . $details['fursuiter'] . '<br>';
         echo 'Status: ' . $details['status'] . '<br>';
-        echo 'Regdate: ' . date('Y-m-d', $details['regdate']) . '<br>';
-        echo 'Approvedate: ' . date('Y-m-d', $details['approvedate']) . '<br>';
+        echo 'Regdate: ' . date('Y-m-d H:i', $details['regdate']) . '<br>';
+        echo 'Approvedate: ' . date('Y-m-d H:i', $details['approvedate']) . '<br>';
         echo 'Public List: ' . $details['list'] . '<br>';
       }
     }
