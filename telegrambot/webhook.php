@@ -154,7 +154,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
           if (isset($messageArr[2])) {
             $dbConnection = buildDatabaseConnection($config);
             $details = getRegDetails($messageArr[2], 'id, nickname, status, approvedate');
-            $approvedate = date('Y-m-d', strtotime($details['approvedate']));
+            $approvedate = date('Y-m-d', $details['approvedate']);
             sendMessage($chatId, "
 Regnumber: {$details['id']}
 Nickname: {$details['nickname']}

@@ -29,7 +29,7 @@ $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '';
 foreach ($payments as $payment) {
   $amount = $payment['amount'];
-  $date = date('Y-m-d', strtotime($payment['date']));
+  $date = date('Y-m-d', $payment['date']);
 
   $paymentsHtml .= '<span class="date">{$date}</span> <span class="amount">{$amount}€</span>';
 }
