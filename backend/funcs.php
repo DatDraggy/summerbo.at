@@ -277,10 +277,16 @@ function confirmRegistration($token) {
       }
 
       $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
-      $stmtb = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
-      $stmtb->bindParam(':topay', $topay);
-      $stmtb->bindParam(':token', $token);
-      $stmtb->execute();
+      $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
+      $stmt->bindParam(':topay', $topay);
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+
+      if ($stmt->rowCount() < 1) {
+        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
+        mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
+        return false;
+      }
 
       sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
 
@@ -308,11 +314,6 @@ It shouldn't take more than 24 hours.*/
       $stmt->execute();
     }
     $dbConnection->commit();
-    if ($stmtb->rowCount() < 1) {
-      $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
-      mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
-      return false;
-    }
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
     return false;
