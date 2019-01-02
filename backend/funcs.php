@@ -277,16 +277,10 @@ function confirmRegistration($token) {
       }
 
       $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
-      $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
-      $stmt->bindParam(':topay', $topay);
-      $stmt->bindParam(':token', $token);
-      $stmt->execute();
-
-      if ($stmt->rowCount() < 1) {
-        $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
-        mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
-        return false;
-      }
+      $stmtb = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
+      $stmtb->bindParam(':topay', $topay);
+      $stmtb->bindParam(':token', $token);
+      $stmtb->execute();
 
       sendEmail($email, 'Summerbo.at - Email Confirmed', "Dear $nickname, 
 
@@ -314,6 +308,11 @@ It shouldn't take more than 24 hours.*/
       $stmt->execute();
     }
     $dbConnection->commit();
+    if ($stmtb->rowCount() < 1) {
+      $data = array('ip' => $_SERVER["HTTP_CF_CONNECTING_IP"], 'token' => $token, 'server' => $_SERVER, 'headers' => $http_response_header);
+      mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
+      return false;
+    }
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
     return false;
@@ -548,9 +547,9 @@ function requestUnapproved($chatId) {
   sendMessage($chatId, 'Done.');
 }
 
-function sendEmail($address, $subject, $text, $reg = false) {
+function sendEmail($address, $subject, $text, $internal = false) {
   global $config;
-  if ($reg === false) {
+  if ($internal === false) {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
     $text .= "
 --
@@ -567,7 +566,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
     $mail->Port = 465; // or 587
     $mail->Username = 'team';
     $mail->Password = $config['mailPassword'];
-    $mail->SetFrom('team@summerbo.at', 'Team - Summerbo.at');
+    $mail->SetFrom('team@summerbo.at', 'Summerbo.at Team');
     $mail->Subject = $subject;
     $mail->Body = $text;
     $mail->AddAddress($address);
