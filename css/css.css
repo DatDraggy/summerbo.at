@@ -529,6 +529,7 @@ a.buttonSecondary {
 }
 
 .checkboxGroup label {
+  text-align: left;
   display: block;
   position: relative;
   border-radius: .5rem;
