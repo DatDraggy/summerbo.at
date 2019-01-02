@@ -32,13 +32,11 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
   if ($stmt->rowCount() === 1) {
     $dbHash = $row['hash'];
     $userId = $row['id'];
-    $rank = $row['rank'];
     if (password_verify($_POST['password'], $dbHash)) {
       $_POST['password'] = '';
       //Logged in
       //Password Correct, set Session
       $_SESSION['userId'] = $userId;
-      $_SESSION['rank'] = $rank;
       header('Location: user/index.html?from=login');
       die();
     }
