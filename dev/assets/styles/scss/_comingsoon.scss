@@ -1,0 +1,135 @@
+/* --------------------------------------------------
+	22.0 Coming Soon
+-------------------------------------------------- */
+
+
+
+/* ---- 22.1 Coming Soon - Page 1 ---- */
+.comingsoon {
+	width: 100%;
+	height: 100vh;
+	background: $light url(http://placehold.it/2440x1578);
+	background-position: 50%;
+	background-size: cover;
+
+	.content-wrapper {
+		display: table;
+		width: 100%;
+		height: 100%;
+		background: rgba(244,244,244, .85);
+
+		.content-inner {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+
+			header {
+
+				h1 {
+					margin-bottom: 30px;
+					font-size: 2em;
+				}
+
+				p {
+					color: $gray-light;
+				}
+			}		
+
+			.cs-timer {
+				display: block;
+				margin-top: 70px;
+				margin-bottom: 70px;
+
+				.item {
+					display: inline-block;
+					margin-right: 15px;
+					margin-left: 15px;
+					margin: 30px 15px;
+					width: 170px;
+					height: 170px;
+					border: 2px solid $dark;
+					border-radius: 100px;
+
+					.nbr-timer {
+						@extend h1;
+						display: block;
+						margin-top: 45px;
+						font-size: 55px;
+						letter-spacing: 3px;
+						line-height: 55px;
+					}
+
+					.title-timer {
+						@extend h5;
+						font-family: $alt-heading-font;
+						color: $gray;
+					}
+				}
+			} // .cs-timer
+
+			form {
+
+				h5 {
+					margin-bottom: 30px;
+				}
+
+				input[type="email"] {
+					width: 250px;
+				}
+			}
+		} // .content-inner
+	} // .content-wrapper
+} // .comingsoon
+
+
+
+/* ---- 22.2 Coming Soon - Page 2 ---- */
+.comingsoon-2 {
+	display: table;
+	width: 100%;
+	height: 100vh;
+	background: $light url(http://placehold.it/2440x1578);
+	background-position: 50%;
+	background-size: cover;
+
+	.content-wrapper {
+		display: table-cell;
+		width: 100%;
+		height: 100%;
+		vertical-align: middle;
+		background: rgba(244,244,244, .85);
+
+		header {
+			margin-bottom: $ws-m;
+
+			h1 {
+				margin-bottom: 30px;
+			}
+
+			p {
+				color: $gray-light;
+			}
+		}
+
+		form {
+
+			h5 {
+				margin-bottom: 30px;
+			}
+
+			input[type="email"] {
+				width: 250px;
+			}
+		}
+	}
+} // .comingsoon-2
+
+
+
+.comingsoon,
+.comingsoon-2 {
+
+	.subscribe-result {
+		display: inline-block;
+	}
+}

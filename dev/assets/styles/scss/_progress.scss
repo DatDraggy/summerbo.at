@@ -1,0 +1,41 @@
+/* --------------------------------------------------
+	X.0 Progress Bars
+-------------------------------------------------- */
+
+
+.progress {
+	height: 25px;
+	margin-bottom: 5px;
+	border-radius: 0;
+	box-shadow: none;
+	background: $light;
+
+	.progress-bar {
+		background: $dark;
+		font-family: $heading-font;
+		font-size: 13px;
+		line-height: 1.9em;
+		letter-spacing: 1px;
+	}
+}
+
+.progress-thin {
+	height: 3px;
+}
+
+.progress-group {
+	margin-bottom: 20px;
+
+	.progress-title,
+	.progress-value {
+		@extend h6;
+		display: inline-block;
+		margin: 0;
+	}
+
+	.progress-value {
+		text-align: right;
+		right: 0;
+		float: right;
+	}
+}

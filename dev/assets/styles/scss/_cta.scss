@@ -1,0 +1,116 @@
+/* --------------------------------------------------
+	17.0 CTA - Call to Action
+-------------------------------------------------- */
+
+
+
+/* ---- 17.1 CTA - Link ---- */
+.cta-link {
+	background: url(../../assets/images/shattered.gif) repeat;
+	
+	.bg-overlay {
+		width: 100%;
+		background: rgba(17,17,17, .5);
+	}
+
+	.cta-wrapper {
+		padding-top: $ws-m;
+		padding-bottom: $ws-m;
+		text-align: center;
+
+		h3 {
+			margin-top: 0;
+			margin-bottom: $ws-s;
+			letter-spacing: 8px;
+			color: $light;
+		}
+	}
+}
+
+
+
+/* ---- 17.2 CTA - Newsletter Signup ---- */
+.cta-newsletter {
+	background: url(../../assets/images/shattered.gif) repeat;
+
+	.bg-overlay {
+		width: 100%;
+		background: rgba(17,17,17, .5);
+	}
+
+	.cta-wrapper {
+		padding-top: $ws-m;
+		padding-bottom: $ws-m;
+		text-align: center;
+
+		h3 {
+			margin-top: 0;
+			margin-bottom: $ws-m;
+			letter-spacing: 8px;
+			color: $light;
+		}
+
+		input[type="email"] {
+			display: block;
+			margin: 0 auto $ws-s auto;
+			padding-bottom: 10px;
+			width: 600px;
+			background: none;
+			border: none;
+			border-bottom: 2px solid $gray;
+			font-size: 2.6em;
+			font-weight: 400;
+			text-align: center;
+			color: $gray-light;
+			transition: border-color .4s;
+
+			&:focus {
+				outline: none;
+				border-color: $light;
+			}
+		}
+
+		::-webkit-input-placeholder {
+		  letter-spacing: 2px;
+		  color: rgba(235,235,235, .2);
+		}
+
+		:-moz-placeholder {
+			letter-spacing: 2px;
+			color: rgba(235,235,235, .2);
+		}
+
+		::-moz-placeholder {
+			letter-spacing: 2px;
+		  color: rgba(235,235,235, .2);
+		}
+
+		:-ms-input-placeholder {
+			letter-spacing: 2px;
+			color: rgba(235,235,235, .2);
+		}
+
+		.mc-info {
+			display: block;
+			font-weight: initial;
+			transition: translateY(10px);
+		}
+
+		.subscribe-result {
+			position: absolute;
+			left: 0;
+			right: 0;
+
+			.alert {
+				display: inline-block;
+				margin-top: 20px;
+			}
+		}		
+	} // .cta-wrapper
+} // .cta-newsletter
+
+
+
+.cta-dark {
+	background: $dark;
+}
