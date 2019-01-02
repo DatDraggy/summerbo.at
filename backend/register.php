@@ -22,11 +22,10 @@ if (!empty($_POST['nickname'])) {
 else {
   die('no nickname');
 }
-/*
-  if (!empty($_POST['dateofbirth'])) {
-  $dobPost = $_POST['dateofbirth'];
+if (!empty($_POST['dob'])) {
+  $dobPost = $_POST['dob'];
 }
-  */
+  /*
 if (!empty($_POST['day'])) {
   $dayofbirthPost = $_POST['day'];
 }
@@ -35,7 +34,7 @@ if (!empty($_POST['month'])) {
 }
 if (!empty($_POST['year'])) {
   $yearofbirthPost = $_POST['year'];
-}
+}*/
 else {
   die('no date of birth');
 }
@@ -106,17 +105,22 @@ else {
 $nicknameRaw = $nicknamePost;
 $nickname = preg_replace('/[^\w-. ~]/', '', $nicknameRaw);
 
-if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
+/*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
   $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
   $dobStamp = strtotime($dobPost);
   if ($dobStamp === false) {
-    die('Invalid Birthdate Format. Please use the following format: 2000-05-31');
+    die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
   }
   $dob = date('Y-m-d', $dobStamp);
 }
 else{
   die('Bad Date of Birth');
+}*/
+$dobStamp = strtotime($dobPost);
+if($dobStamp === false){
+  die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
 }
+$dob = date('Y-m-d', $dobStamp);
 
 if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   $email = $emailPost;

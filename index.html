@@ -240,9 +240,9 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                 <input type="checkbox" name="sponsor" id="sponsor" class="input"> <label for="sponsor">Sponsor</label>
               </div>
               <div class="inputWrapper">
-                <label for="dob"><span>Date of Birth</span></label>
-                <input name="day" id="day" class="input" placeholder="23" required>
-                <!-- <input name="dobmonth" id="dobmonth" class="select" placeholder="December" required> -->
+                <label for="dob"><span>Date of Birth (Format: 1900-12-31)</span></label>
+                <input name="dob" id="dob" class="input" placeholder="YYYY-MM-DD" required>
+                <!--<input name="day" id="day" class="input" placeholder="23" required>
                 <select class="input" name="month">
                   <option value="01">January</option>
                   <option value="02">February</option>
@@ -257,7 +257,7 @@ $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('http
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </select>
-                <input name="year" id="year" class="input" placeholder="1999" required>
+                <input name="year" id="year" class="input" placeholder="1999" required>-->
               </div>
               <div class="inputWrapper">
                 <label for="country"><span>Country</span></label>
