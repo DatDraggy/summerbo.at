@@ -12,11 +12,11 @@ try {
   $stmt = $dbConnection->prepare('SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3');
   $stmt->execute();
   $rows = $stmt->fetchAll();
-}catch (PDOException $e){
+} catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
 }
 
-foreach($rows as $row) {
+foreach ($rows as $row) {
   $userId = $row['id'];
   $email = $row['email'];
   $nickname = $row['nickname'];

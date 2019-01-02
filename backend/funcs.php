@@ -377,6 +377,16 @@ function rejectRegistration($userId) {
   global $dbConnection, $config;
 
   list($email, $nickname) = getRegDetails($userId, 'email, nickname');
+
+  try{
+    $sql = "INSERT INTO users_deleted SELECT * FROM users WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare('INSERT INTO users_deleted SELECT * FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+    return false;
+  }
   try {
     $sql = "DELETE FROM users WHERE id = '$userId'";
     $stmt = $dbConnection->prepare('DELETE FROM users WHERE id = :userId');

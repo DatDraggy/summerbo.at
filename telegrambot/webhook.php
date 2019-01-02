@@ -46,12 +46,16 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 Your Boat Party Crew
 ");
       }
+      else {
+        sendMessage($chatId, 'Already approved, rejected or error.');
+      }
     }
     else if ($status === 'reject') {
       if ($confirm == 1) {
         if (rejectRegistration($targetUserId)) {
           sendMessage($chatId, 'Registration has been rejected.');
         }
+        else{sendMessage($chatId, 'Already rejected or error');}
       }
       else {
         $replyMarkup = array(
@@ -71,7 +75,7 @@ Your Boat Party Crew
         sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
       }
     }
-    else if ($status === 'view'){
+    else if ($status === 'view') {
 
     }
   }
@@ -103,7 +107,8 @@ if (isset($text)) {
     if ($messageArr[0] == '/start' && isset($messageArr[1])) {
       $command = '/' . $messageArr[1];
     }
-  } else {
+  }
+  else {
     die();
   }
 
@@ -121,10 +126,12 @@ if (isset($text)) {
         sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
 $application");
         sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
-      } else {
+      }
+      else {
         sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
       }
-    } else {
+    }
+    else {
       sendMessage($chatId, '<b>How to apply as a volunteer:</b>
 Write <code>/apply</code> with a little bit about yourself and experiences behind it.
 Example: <code>/apply Hello, I\'m Dragon!</code>');
@@ -160,7 +167,8 @@ Regnumber: {$details['id']}
 Nickname: {$details['nickname']}
 Status: {$details['status']}
 Approved: $approvedate");
-          } else {
+          }
+          else {
             sendMessage($chatId, 'Please supply a regnumber.');
           }
         }
@@ -174,7 +182,8 @@ Approved: $approvedate");
             $details = getPaymentDetails($messageArr[2], 'users.id, approvedate, amount, topay');
             if ($details === false) {
               sendMessage($chatId, 'No Payments');
-            } else {
+            }
+            else {
               foreach ($details as $detail) {
                 $payByDate = date('Y-m-d', strtotime('+2 weeks', $details['approvedate']));
                 sendMessage($chatId, "
@@ -184,20 +193,25 @@ Paid: {$detail['amount']}
 To pay: {$detail['topay']}");
               }
             }
-          } else {
+          }
+          else {
             sendMessage($chatId, 'Please supply a regnumber.');
           }
-        } else if (is_numeric($messageArr[1])) {
+        }
+        else if (is_numeric($messageArr[1])) {
           if (isset($messageArr[2])) {
             $status = (approvePayment($messageArr[2], $senderUserId, $messageArr[1])) ? 'yes' : 'no';
             sendMessage($chatId, 'Updated. Payment completed: ' . $status);
-          } else {
+          }
+          else {
             sendMessage($chatId, 'Please supply a regnumber.');
           }
-        } else {
+        }
+        else {
           sendMessage($chatId, 'The given amount is not numeric.');
         }
-      } else {
+      }
+      else {
         sendMessage($chatId, 'Usage:
 <code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }
