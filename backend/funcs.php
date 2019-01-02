@@ -306,8 +306,7 @@ It shouldn't take more than 24 hours.*/
       $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
       $stmt->bindParam(':token', $token);
       $stmt->execute();
-    }
-    else {
+    } else {
       $data = array('ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
                     'token'   => $token,
                     'server'  => $_SERVER,
@@ -378,7 +377,7 @@ function rejectRegistration($userId) {
 
   list($email, $nickname) = getRegDetails($userId, 'email, nickname');
 
-  try{
+  try {
     $sql = "INSERT INTO users_deleted SELECT * FROM users WHERE id = '$userId'";
     $stmt = $dbConnection->prepare('INSERT INTO users_deleted SELECT * FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
@@ -449,7 +448,15 @@ function buildApproveMarkup($userId) {
           'callback_data' => $userId . '|view|0'
         )
       ),*/
-      array(array('text' => 'Approve', 'callback_data' => $userId . '|approve|0'), array('text' => 'Reject', 'callback_data' => $userId . '|reject|0'))));
+                                          array(array('text'          => 'Approve',
+                                                      'callback_data' => $userId . '|approve|0'
+                                                ),
+                                                array('text'          => 'Reject',
+                                                      'callback_data' => $userId . '|reject|0'
+                                                )
+                                          )
+  )
+  );
 }
 
 function requestApproveMessage($chatId, $userId) {
