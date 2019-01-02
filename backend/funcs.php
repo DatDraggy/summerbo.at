@@ -32,8 +32,8 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = true) 
 function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
+    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
