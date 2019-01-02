@@ -1,6 +1,7 @@
 <?php
+require_once ('backend/funcs.php');
 $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
-if (isEarlyBird()) {
+if (false) {
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
