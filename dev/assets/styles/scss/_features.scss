@@ -1,0 +1,1157 @@
+/* --------------------------------------------------
+	9.0 Feature
+-------------------------------------------------- */
+
+
+
+/* ---- 9.1 Feature - Cards ---- */
+.ft-cards {
+	
+	.ft-item {
+		padding: 50px 40px;
+		border: 1px solid $lighter;
+		background: #fff;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		transition: all .3s;
+
+		&:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+		}
+
+		span {
+			font-size: 64px;
+			color: $dark;
+		}
+
+		h4 {
+			margin-top: 40px;
+			margin-bottom: 30px;
+		}
+
+		p {
+			padding: 0;
+			margin: 0;
+		}
+
+		a {
+			@extend h6;
+			padding-top: $ws-s;
+			display: block;
+			text-align: right;
+			color: $gray-light;
+
+			&:hover {
+				color: $dark;
+			}
+
+			&:focus {
+				text-decoration: none;
+			}
+
+			span {
+				display: inline-block;
+				font-size: 25px;
+				vertical-align: top;
+				color: inherit;
+			}
+		}
+	} // .ft-item
+} // .ft-cards
+
+
+
+/* ---- 9.2 Feature - Cards 2 ---- */
+.ft-cards-2 {
+	
+	.ft-card-item {
+		margin-bottom: $ws-s;
+		height: 254px;
+		background: #fff;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		transition: all .3s;
+
+		&:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+		}
+
+		img {
+			display: inline-block;
+			max-width: 240px;
+			float: left;
+		}
+
+		.ft-content {
+			display: inline-block;
+			padding: 50px 40px;
+			width: 56%;
+
+			h5 {
+				margin: 0;
+				padding-bottom: 20px;
+			}
+
+			p {
+				margin: 0;
+				color: $gray-light;
+			}
+
+			.link-btn {
+				@extend h6;
+				display: inline-block;
+				margin-top: 30px;
+				float: right;
+				color: $gray;
+				transform: translateX(30px);
+				transition: transform .4s;
+
+				span {
+					display: inline-block;
+					font-size: 23px;
+					vertical-align: top;
+					transform: translateX(-30px);
+					opacity: 0;
+					transition: all .4s;
+				}
+
+				&:hover {
+					color: $dark;
+					transform: translateX(0);
+
+					span {
+						opacity: 1;
+						transform: translateX(5px);
+					}
+				}
+
+				&:focus {
+					text-decoration: none;
+				}
+			}
+		}
+	}
+} // .ft-cards-2
+
+
+
+/* ---- 9.3 Feature - Steps Numbers ---- */
+.ft-steps-numbers {
+	
+	.ft-item {
+		display: block;
+		position: relative;
+
+		.ft-nbr {
+			display: inline-block;
+			position: absolute;
+			top: 7px;
+			left: 0;
+			color: rgba(204,204,204, .4);
+			font-family: $alt-heading-font;
+			font-weight: lighter;
+			font-size: 165px;
+		}
+
+		h4 {
+			margin: 0;
+			padding-bottom: 20px;
+			padding-left: 85px;
+		}
+
+		p {
+			margin: 0;
+			padding-left: 85px;
+		}
+	}
+} // .ft-steps-numbers
+
+
+
+/* ---- 9.4 Feature - Centered ---- */
+.ft-centered {
+
+	.ft-item {
+		text-align: center;
+
+		h5 {
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+
+		span {
+			padding: 0;
+			width: 110px;
+			height: 110px;
+			font-size: 45px;
+			line-height: 109px;
+		}
+	}
+
+	.ft-material {
+
+		&:hover {
+
+			span,
+			i {
+				transform: translateY(-10px);
+				box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+			}
+		}
+
+		span,
+		i {
+			display: inline-block;
+			border: 1px solid $lighter;
+			border-radius: 100px;
+			background: #fff;
+			color: $gray;
+			box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+			transition: all .3s;
+		}
+	} // .ft-material
+
+	.ft-diagonal {
+
+		span,
+		i {
+			display: inline-block;
+			color: $dark;
+			background: url(../images/pat-diagonal.png) 100% repeat;
+			border-radius: 100px;
+		}
+	} // .ft-diagonal
+
+	.ft-circle-frame {
+
+		&:hover {
+
+			span,
+			i {
+				border-color: rgb(236,236,236);
+				box-shadow: 0 0 0 0 $light;
+			}
+		}
+
+		span,
+		i {
+			display: inline-block;
+			color: $dark;
+			background: $light;
+			border: 5px solid rgb(255,255,255);
+			box-shadow: 0 0 0 1px $light;
+			border-radius: 100px;
+			line-height: 102px;
+			transition: all .5s;
+		}
+	} // .ft-circle-frame
+
+	.ft-square-frame {
+		@extend .ft-circle-frame;
+
+		span,
+		i {
+			width: 100px;
+			height: 100px;
+			border-radius: 0;
+			font-size: 45px;
+			text-align: center;
+			line-height: 90px;
+		}
+	} // .ft-square-frame
+
+	.ft-dark-spin {
+
+		&:hover {
+
+			span,
+			i {
+				transform: rotateY(180deg);
+				border: 1px solid rgba(204,204,204, 1);
+				background: #fff;
+				color: $dark;
+			}
+		}
+
+		span,
+		i {
+			display: inline-block;
+			color: $lighter;
+			border: 1px solid rgba(17,17,17, 0);
+			background: $dark;
+			border-radius: 100px;
+			transition: all .3s;
+		}
+	} // .ft-dark-spin
+
+	.ft-circle-frame-dark {
+		@extend .ft-circle-frame;
+
+		&:hover {
+
+			span,
+			i {
+				border-color: rgba(17,17,17, 1);
+			}
+		}
+
+		span,
+		i {
+			color: $lighter;
+			background: $dark;
+			border: 5px solid rgba(255,255,255, 1);
+			box-shadow: 0 0 0 1px $dark;			
+		}
+	} // .ft-circle-frame-dark
+
+	.ft-square-frame-dark {
+		@extend .ft-circle-frame-dark;
+
+		span,
+		i {
+			width: 100px;
+			height: 100px;
+			border-radius: 0;
+			font-size: 45px;
+			text-align: center;
+			line-height: 90px;
+		}
+	}
+
+	.ft-small-card {
+		padding: 50px 30px;
+		background: $lighter;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+		transition: all .3s;
+
+		&:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 22px 43px rgba(0, 0, 0, 0.15);
+
+			span,
+			i {
+				color: $dark;
+			}
+		}
+
+		span,
+		i {
+			display: block;
+			margin-top: 30px;
+			padding-bottom: 30px;
+			width: auto;
+			height: auto;
+			line-height: 0;
+			font-size: 64px;
+			color: $gray;
+			transition: color .7s;
+		}
+	}
+
+	.ft-circle-overlay {
+
+		&:hover {
+			
+			span,
+			i {
+				background: #f4f4f4;
+			}
+		}
+
+		span,
+		i {
+			display: inline-block;
+			color: $dark;
+			border-radius: 100px;
+			background: $light;
+			border: 10px solid #f4f4f4;
+			line-height: 90px;
+			transition: all .3s;
+		}
+	} // .ft-circle-overlay
+
+	.ft-square-overlay {
+		@extend .ft-circle-overlay;
+
+		span,
+		i {
+			border-radius: 0;
+		}
+	} // .ft-square-overlay
+
+	.ft-basic {
+
+		span,
+		i {
+			font-size: 60px;
+			line-height: 60px;
+		}
+	}
+} // .ft-centered
+
+
+
+/* ---- 9.5 Feature - Horizontal Aligned ---- */
+.ft-x {
+	@extend .ft-centered;
+
+	.ft-item {
+		text-align: left;
+
+		h5 {
+			margin-top: 30px;
+			margin-bottom: 20px;
+		}
+
+		span,
+		i {
+			display: inline-block;
+			margin: 25px 35px 50px 0;
+			padding: 28px 26px;
+			width: 85px;
+			height: 85px;
+			float: left;
+			font-size: 28px;
+			line-height: 28px;
+			text-align: center;
+			vertical-align: top;
+		}
+	}
+
+	.ft-material {
+
+		span,
+		i {
+			color: $dark;
+		}
+	}
+
+	.ft-circle-frame {
+
+		span,
+		i {
+			padding: 24px 25px;
+		}
+	}
+
+	.ft-square-frame,
+	.ft-square-frame-dark {
+
+		span,
+		i {
+			width: 80px;
+			height: 80px;
+			padding: 21px 23px;
+		}
+	} // .ft-square-frame
+
+	.ft-circle-overlay {
+
+		span,
+		i {
+			padding: 20px;
+			border: 10px solid #f4f4f4;
+		}
+	} // .ft-circle-overlay
+
+	.ft-basic {
+
+		span,
+		i {
+			padding: 0;
+			font-size: 64px;
+			line-height: 64px;
+		}
+	} // .ft-basic
+
+	.right-align {
+		
+		.ft-content {
+			display: inline-block;
+			width: 62%;
+			text-align: right;
+		}
+
+		.ft-icon {
+			float: right;
+			display: inline-block;
+			margin-left: 20px;
+			width: 30%;
+		}
+	}
+} // .ft-x
+
+
+
+/* ---- 9.6 Feature - Vertical Aligned ---- */
+.ft-y {
+	@extend .ft-x;
+
+	.ft-item {
+
+		span,
+		i {
+			display: inline-block;
+			margin: 0;
+			float: none;
+		}
+	}
+
+	.right-align {
+		text-align: right;
+	}
+} // .ft-y
+
+
+
+/* ---- 9.7 Feature - Boxed Hover List ---- */
+.ft-boxed-hover {
+	
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			display: inline-block;
+			position: relative;
+			width: 25%;
+			float: left;
+			margin-top: -1px;
+			margin-left: -1px;
+			padding: $ws-s;
+			border: 1px solid #ddd;
+			background: #fff;
+			text-align: center;
+			transition: border-color .3s;
+
+			&:hover {
+				border-color: $dark;
+
+				.hover-content {
+					opacity: 1;
+				}	
+			}
+
+			.ft-icon {
+				font-size: 56px;
+				color: $gray;
+			}
+
+			.h-alt {
+				color: $gray-light;
+			}
+
+			.hover-content {
+				display: block;
+				position: absolute;
+				padding: 30px;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: $dark;
+				opacity: 0;
+				transition: all .3s;
+
+				.ft-icon {
+					position: absolute;
+					display: block;
+					top: 50px;
+					left: 0;
+					right: 0;
+					font-size: 120px;
+					color: rgba(217,217,217, .15);
+					z-index: 1;
+				}
+
+				.ft-heading {
+					@extend h5;
+					display: block;
+					margin: 0;
+					padding-bottom: 15px;
+					color: $light;
+				}
+
+				p {
+					margin: 0;
+					color: $gray-light;
+				}
+
+				a {
+					@extend h6;
+					display: inline-block;
+					position: relative;
+					margin-top: 20px;
+					color: $gray-light;
+					z-index: 10 !important;
+
+					&:hover {
+						color: $light;
+					}
+
+					&:focus {
+						outline: none;
+					}
+				}
+			} // .hover-content
+		} // li
+	} // ul
+} // .ft-boxed-hover
+
+
+
+/* ---- 9.8 Feature - Tabs ---- */
+.ft-tabs {
+	
+	.tabs-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			border-top: 1px solid $light;
+			border-bottom: 1px solid $light;
+
+			&:nth-child(2),
+			&:nth-child(3) {
+				margin-top: -1px;
+			}
+
+			a {
+				display: block;
+				padding: 50px;
+				border-left: 10px solid rgba(17,17,17, 0);
+
+				&:hover {
+					background: $lighter;
+				}
+
+				&:focus {
+					text-decoration: none;
+				}
+
+				.tab-icon {
+					display: inline-block;
+					padding-right: 20px;
+					font-size: 50px;
+					color: $dark;
+				}
+
+				.tab-group {
+					text-align: left;
+					float: right;
+
+					.tab-heading {
+						@extend h4;
+						display: block;
+						color: $dark;
+					}
+
+					.tab-info {
+						@extend h5;
+						font-family: $alt-heading-font;
+						letter-spacing: 2px;
+						color: $gray-light;
+					}
+				}
+			}
+		} // li
+
+		.active {
+
+			a {
+				border-left: 10px solid rgba(17,17,17, 1);
+				background: $light-bg;
+			}			
+		}
+	} // .tabs-list
+
+	.tab-content {
+		height: 475px;
+		background: $light-bg;
+
+		.tab-content-text {
+			padding-top: 110px;
+			padding-left: 80px;
+
+			h4 {
+				margin: 0;
+				padding-bottom: 25px;
+			}
+
+			p {
+				margin: 0;
+			}
+
+			button {
+				margin-top: 45px;
+			}
+		}
+
+		.tab-content-image {
+			padding-top: 110px;
+		}
+	} // .tab-content
+} // .ft-tabs
+
+
+
+/* ---- 9.9 Lists ---- */
+.list-check {
+	list-style: none;
+
+	li {
+		margin-bottom: 30px;
+
+		&:before {
+			content: "\e01b";
+			position: absolute;
+			left: 0;
+			font-family: "linea-icon-font";
+			font-size: 40px;
+			color: $dark;
+		}
+	}
+} // .list-check
+
+.list-square-check {
+	@extend .list-check;
+
+	li {
+		margin-left: 20px;
+		margin-bottom: 40px;
+
+		&:before {
+			content: "\e081";
+			font-size: 50px;
+		}
+	}
+} // .list-square-check
+
+.list-circle-check {
+	@extend .list-square-check;
+
+	li {
+
+		&:before {
+			content: "\e01c";
+		}
+	}
+} // .list-circle-check
+
+
+.list-square-check-full {
+	@extend .list-check;
+
+	li {
+		margin-left: 20px;
+		padding-top: 1px;
+
+		&:before {
+			display: inline-block;
+			padding-top: 12px;
+			width: 50px;
+			height: 50px;
+			background: $light;
+			font-size: 35px;
+			text-align: center;
+		}
+	}
+} // .list-square-check-full
+
+.list-circle-check-full {
+	@extend .list-square-check-full;
+
+	li {
+
+		&:before {
+			border-radius: 100px;
+		}
+	}
+} // .list-circle-check-full
+
+.list-basic {
+	list-style: none;
+
+	li {
+		margin-bottom: 30px;
+	}
+}
+
+
+
+/* ---- 9.10 Feature Layout 50/50 ---- */
+.ft-layout-50 {
+	
+	.ft-item {
+
+		.ft-content-wrapper {
+			padding: 75px 15% 75px 100px;
+			height: 450px;
+			background: $light-bg;
+
+			h4,
+			h5,
+			h6 {
+				margin: 0;
+			}
+
+			h6 {
+				margin-top: 15px;
+				margin-bottom: $ws-s;
+				color: $gray-light;
+			}
+
+			p {
+				margin-bottom: 45px;
+			}
+		}
+
+		.ft-img-wrapper {
+			position: relative;
+			padding: 0;
+			height: 450px;
+			overflow: hidden;
+
+			img {
+				width: 100%;
+				max-width: 100%;
+				height: auto;
+			}
+
+			.ft-video-wrapper {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 100%;
+				width: 100%;
+				background: rgba(17,17,17, .6);
+
+				.play-btn {
+					display: block;
+					position: relative;
+				  top: 44%;
+				  transform: translateY(-44%);
+					text-align: center;
+					color: $light;
+
+					h5 {
+						color: inherit;
+					}
+				}
+			}
+		}
+	}
+} // .ft-layout-50
+
+
+
+/* ---- 9.11 Feature Hover Box ---- */
+.ft-hover-item {
+
+	.ft-item {
+		position: relative;
+		height: 440px;
+		transition: all .4s;
+
+		.content-wrapper {
+			position: absolute;
+			left: 100px;
+			right: 100px;
+			bottom: 0;
+			transition: all .4s;
+
+			h3,
+			h4,
+			h5 {
+				margin: 0;
+				padding-bottom: 20px;
+				color: $light;
+			}
+
+			p {
+				margin: 0;
+				padding-bottom: 45px;
+				color: $light;
+			}
+
+			.ft-button {
+				opacity: 0;
+			}
+
+			
+		} // .content-wrapper
+
+		&:hover {
+			background-size: 103%;
+
+			.bg-overlay {
+				background: rgba(17,17,17, .8);
+			}
+			
+			.content-wrapper {
+				bottom: 100px;
+
+				.ft-button {
+					opacity: 1;
+				}
+			}
+		} // &:hover
+	} // .ft-item
+
+	.ft-1 {
+		background: #ccc url(http://placehold.it/900x580);
+		background-size: 100%;
+		background-position: 50%;
+		transition: background-size .3s;
+
+		.bg-overlay {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(17,17,17, .55);
+			transition: background .4s;
+		}
+	}
+
+	.ft-2 {
+		@extend .ft-1;
+		background: #ccc url(http://placehold.it/900x580/999/eee);
+		background-size: 100%;
+		background-position: 50%;
+
+		.bg-overlay {
+			background: rgba(17,17,17, .4);
+		}
+	}
+} // .ft-hover-box
+
+
+
+/* ---- 9.12 Video Background ---- */
+.play-btn {
+	display: inline-block;
+	padding-top: $ws-s;
+
+	.play-icon {
+		display: inline-block;
+		font-size: 64px;
+		vertical-align: middle;
+		transform: translateX(65px);
+		transition: all .3s;
+	}
+
+	h5 {
+		display: inline-block;
+		padding-left: 20px;
+		vertical-align: middle;
+		opacity: 0;
+		transition: opacity .4s;
+	}
+
+	&:hover {
+		
+		.play-icon {
+			font-size: 40px;
+			transform: translateX(0);
+		}
+
+		h5 {
+			opacity: 1;
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.video-bg-section {
+	height: 365px;
+	background: #ccc url(http://placehold.it/2440x1578);
+	background-position: 50%;
+	background-size: cover;
+
+	.video-sec-content {
+		background: rgba(17,17,17, .5);
+		padding-top: $ws-m;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+
+		h3,
+		h5,
+		span {
+			color: $light;
+		}
+
+		.cta-lead {
+			letter-spacing: 8px;
+		}
+	}
+} // .video-bg-section
+
+
+
+/* ---- 9.13 Feature Big Images + Text ---- */
+.ft-big-img-left {
+	position: relative;
+
+	.ft-img-container {
+		margin-bottom: -50px;
+
+		.ft-img {
+			position: relative;
+			top: -60px;
+			left: -55%;
+		}
+	}
+
+	.ft-content {
+		position: relative;
+	  top: 125px;
+
+	  h3 {
+	  	margin: 0;
+	  	padding-bottom: 30px;
+	  }
+
+	  .h-alt {
+	  	margin: 0;
+	  	padding-bottom: 45px;
+	  	color: $gray-light;
+	  }
+
+	  .btn {
+	  	margin-top: 30px;
+	  }
+	}
+} // .ft-big-img-left
+
+
+.ft-big-img-right {
+	position: relative;
+
+	.ft-img-container {
+		padding-top: $ws-m;
+		padding-bottom: $ws-m;
+		overflow: hidden;
+
+		.ft-img {
+			position: relative;
+			right: -35%;
+		}
+	}
+
+	.ft-content {
+		position: relative;
+	  top: 225px;
+
+	  h3 {
+	  	margin: 0;
+	  	padding-bottom: 30px;
+	  }
+
+	  .h-alt {
+	  	margin: 0;
+	  	padding-bottom: 45px;
+	  	color: $gray-light;
+	  }
+
+	  .btn {
+	  	margin-top: 30px;
+	  }
+	}
+}
+
+
+
+/* ---- 9.14 Features - Image Left ---- */
+.ft-img-left {
+
+	.ft-content {
+		position: relative;
+	  top: 35px;
+
+	  h3 {
+	  	margin: 0;
+	  	padding-bottom: 30px;
+	  }
+
+	  .h-alt {
+	  	margin: 0;
+	  	padding-bottom: 45px;
+	  	color: $gray-light;
+	  }
+
+	  .btn {
+	  	margin-top: 30px;
+	  }
+	}
+} // .ft-img-left
+
+
+
+/* ---- 9.15 Tabs ---- */
+.nav-tabs {
+	border-top: 1px solid #c1c1c1;
+	border-bottom: none;
+
+	li {
+		margin-top: -1px;
+		margin-bottom: 0;
+
+		a {
+			padding: 20px 25px 30px 25px;
+			border-radius: 0;
+			border: none;
+			border-top: 1px solid rgba(0,0,0, 0);
+			font-family: $heading-font;
+			font-size: 11px;
+			letter-spacing: 2px;
+			color: $gray-light;
+			text-transform: uppercase;
+
+			&:hover {
+				background: none;
+				border: none;
+				border-top: 1px solid lighten($dark, 20%);
+			}
+
+			&:focus {
+				background: none;
+				border: none;
+			}
+		}
+	}
+
+	  .active {
+
+		 a {
+			border: none !important;
+			border-top: 1px solid $dark !important;
+			color: $dark;
+		}
+	}
+}
+
+
+
+/* ---- 9.16 Utiliy Classes ---- */
+.ft-icon-white {
+	color: $light;
+}
+
+.ft-icon-gray {
+	color: $gray-light;
+}
+
+.ft-icon-dark {
+	color: $dark;
+}

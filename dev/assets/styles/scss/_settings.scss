@@ -1,0 +1,143 @@
+/* --------------------------------------------------
+	0.1 Settigns
+-------------------------------------------------- */
+
+
+
+/* ---- Colors ---- */
+$dark: #3b3f9e;
+$gray: #777;
+$gray-light: #999;
+$light: #ececec;
+$lighter: #f8f8f8;
+$light-bg: #f4f4f4;
+$white: #fff;
+$error-red: #e80000;
+$success-green: #0F9D58;
+$highlight-text-bg: #eb4274;
+
+
+
+/* ---- Label Colors ---- */
+$label-red: #DB211E;
+$label-green: #0BBE30;
+$label-gray: #7E8C95;
+$label-yellow: #FCD741;
+
+
+/* ---- Text ---- */
+
+// Font Family
+
+@import url("//hello.myfonts.net/count/38454e");
+@font-face {font-family: 'Tide Sans'; font-weight: 400; font-style: normal; src: url('../fonts/typography/38454E_0_0.eot');src: url('../fonts/typography/38454E_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_0_0.woff2') format('woff2'),url('../fonts/typography/38454E_0_0.woff') format('woff'),url('../fonts/typography/38454E_0_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-weight: 400; font-style: italic; src: url('../fonts/typography/38454E_1_0.eot');src: url('../fonts/typography/38454E_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_1_0.woff2') format('woff2'),url('../fonts/typography/38454E_1_0.woff') format('woff'),url('../fonts/typography/38454E_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Tide Sans'; font-weight: 700; font-style: normal; src: url('../fonts/typography/38454E_2_0.eot');src: url('../fonts/typography/38454E_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/typography/38454E_2_0.woff2') format('woff2'),url('../fonts/typography/38454E_2_0.woff') format('woff'),url('../fonts/typography/38454E_2_0.ttf') format('truetype');}
+body, html {-webkit-font-smoothing: antialiased;}
+$body-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$heading-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
+$alt-heading-font: 'Tide Sans', 'Helvetica Neue', Helvetica, sans-serif;
+
+// Text Sizes
+$body-text-size: 16px;
+$body-weight: 400;
+$line-hight: 1.8em;
+$letter-spacing: 0;
+
+// Heading Sizes
+$heading-base-size: 1.7em;
+
+// Text Color
+$body-text-color: #000;
+$heading-text-color: #eb4274;
+$link-color: rgba(59,63,158, 1);
+
+
+
+/* ---- White Space ---- */
+
+$ws-s: 50px;
+$ws-m: 100px;
+$ws-l: 160px;
+
+
+
+/* ---- Buttons ---- */
+$btn-padding: 8px 38px;
+$btn-font: $heading-font;
+$btn-font-size: .9em;
+$btn-letter-spaceing: 0;
+$btn-line-height: 1.8em;
+$btn-color: $light;
+$btn-bg: $dark;
+$btn-rounded: 0;
+$btn-trans-time: .5s;
+
+
+
+/* ---- Forms ---- */
+$input-height: 40px;
+$input-border-color: #ddd;
+$input-border-color-focused: $gray;
+
+
+
+/* ---- Navigation ---- */
+$navbar-higth: 75px;
+$navbar-background: #fff;
+$navbar-border-color: $light;
+$nav-links-font-size: .8em;
+$nav-links-font-weight: 400;
+$nav-links-letter-spacing: 0;
+$nav-links-color: $gray-light;
+$nav-links-color-hover: $dark;
+$nav-link-active-color: $dark;
+// Dropdown
+$dropdown-padding: 20px 0 10px 0;
+$dropdown-background: rgba(255,255,255, .93);
+$dropdown-link-padding: 11px 40px 11px 25px;
+$dropdown-link-letter-spacing: 0;
+$dropdown-link-line-height: .8em;
+$dropdown-link-left-border: 3px solid $dark; // don`t change the 3px;
+$dropdown-link-background: rgba(17,17,17, .05);
+$dropdown-link-shift: 35px; // no shift on 25px;
+$dropdown-header-padding: 0 25px;
+$dropdown-header-font-size: .8em;
+$dropdown-header-font: $heading-font;
+$dropdown-header-color: $dark;
+$dropdown-divider-color: #ddd;
+$bg-solid-white: #fff;
+$bg-solid-black: #111;
+// Navbar Inverse
+$navbar-inverse-background: $dark;
+$navbar-inverse-border-color: #222;
+$nav-inverse-links-color: $gray;
+$nav-inverse-links-color-hover: $light;
+$nav-inverse-link-active-color: $light;
+$dropdown-inverse-background: rgba(17,17,17, .95);
+$dropdown-inverse-link-background: rgba(255,255,255, .1);
+$dropdown-inverse-link-left-border: 3px solid $light;
+$dropdown-inverse-header-color: $light;
+$dropdown-inverse-divider-color: #444;
+$nav-inverse-searh-border-color: $light;
+
+
+
+/* ---- Footer ---- */
+$footer-bg: #e3e3e3;
+$footer-copyright-bg: #222;
+$footer-hr-color: #999;
+
+
+
+/* ---- Other ---- */
+$hr-color: #ccc;
+
+
+
+/* ---- Media Queries Breakpoints ---- */
+$screen-xs: 600px;
+$screen-sm: 770px;
+$screen-md: 992px;
+$screen-lg: 1260px;
+$screen-xlg: 1440px;
