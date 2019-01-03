@@ -6,14 +6,10 @@ if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['ema
 }
 
 $userId = $_SESSION['userId'];
-$nickname = $_POST['nickname'];
-$newEmail = $_POST['email'];
-$dbConnection = buildDatabaseConnection($config);
-
 ////////////////////////
 // Check Reg Validity //
 if (!checkRegValid($userId)) {
-//If invalid, kill that bih
+  //If invalid, kill that bih
   if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');
   }
@@ -23,6 +19,12 @@ if (!checkRegValid($userId)) {
 }
 // Check Reg Validity //
 ////////////////////////
+session_commit();
+$nickname = $_POST['nickname'];
+$newEmail = $_POST['email'];
+$dbConnection = buildDatabaseConnection($config);
+
+
 
 /////////////////////
 // Password Verify //
@@ -104,9 +106,9 @@ if ($oldEmail !== $newEmail) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
   if ($stmt->rowCount() === 1) {
-    $confirmationLink = requestEmailConfirm($userId, true);
-
-    sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
+    $confirmationLink = requestEmailConfirm($userId, 'email');
+    if ($confirmationLink !== false) {
+      sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
 
 You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 
@@ -114,6 +116,7 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ");
+    }
   }
 }
 // Email Change //

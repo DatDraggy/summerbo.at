@@ -1,31 +1,27 @@
 <?php
 require_once('config.php');
 require_once('funcs.php');
-if(!$config['regOpen']){
+if (!$config['regOpen']) {
   die();
 }
-if (!empty($_POST['firstname'])) {
+if (empty($_POST['firstname'])) {
+  die('no first name');
+} else {
   $firstNamePost = $_POST['firstname'];
 }
-else {
-  die('no first name');
-}
-if (!empty($_POST['lastname'])) {
+if (empty($_POST['lastname'])) {
+  die('no last name');
+} else {
   $lastNamePost = $_POST['lastname'];
 }
-else {
-  die('no last name');
-}
-if (!empty($_POST['nickname'])) {
+if (empty($_POST['nickname'])) {
+  die('no nickname');
+} else {
   $nicknamePost = $_POST['nickname'];
 }
-else {
-  die('no nickname');
-}
-if (!empty($_POST['dob'])) {
-  $dobPost = $_POST['dob'];
-}
-  /*
+if (empty($_POST['dob'])) {
+  die('no date of birth');
+} /*
 if (!empty($_POST['day'])) {
   $dayofbirthPost = $_POST['day'];
 }
@@ -34,70 +30,56 @@ if (!empty($_POST['month'])) {
 }
 if (!empty($_POST['year'])) {
   $yearofbirthPost = $_POST['year'];
-}*/
-else {
-  die('no date of birth');
+}*/ else {
+  $dobPost = $_POST['dob'];
 }
-if (!empty($_POST['fursuiter'])) {
+if (empty($_POST['fursuiter'])) {
+  $fursuiter = false;
+} else {
   $fursuiter = true;
 }
-else {
-  $fursuiter = false;
-}
-if (!empty($_POST['sponsor'])) {
+if (empty($_POST['sponsor'])) {
+  $sponsor = false;
+} else {
   $sponsor = true;
 }
-else {
-  $sponsor = false;
-}
-if (!empty($_POST['email'])) {
+if (empty($_POST['email'])) {
+  die('no email');
+} else {
   $emailPost = $_POST['email'];
 }
-else {
-  die('no email');
-}
-if (!empty($_POST['password'])) {
+if (empty($_POST['password'])) {
+  die('no password');
+} else {
   $passwordPost = $_POST['password'];
 }
-else {
-  die('no password');
-}
-if (!empty($_POST['passwordVerify'])) {
+if (empty($_POST['passwordVerify'])) {
+  die('no password verify');
+} else {
   $passwordVerifyPost = $_POST['passwordVerify'];
 }
-else {
-  die('no password verify');
-}
-if (!empty($_POST['country'])) {
+if (empty($_POST['country'])) {
+  die('no country');
+} else {
   $countryPost = $_POST['country'];
 }
-else {
-  die('no country');
-}
-if (!empty($_POST['tos'])) {
+if (empty($_POST['tos'])) {
+  $tos = false;
+} else {
   $tos = true;
 }
-else {
-  $tos = false;
-}
-if (!empty($_POST['publicList'])) {
-  $publicList = true;
-}
-else {
-  $publicList = false;
-}
+$publicList = empty($_POST['publicList']) ? false : true;
 
 if (preg_match('/[\sa-zA-Z]/', $firstNamePost) !== 1) {
+  //ToDo: Test pregmatch
   echo 'Illegal Char in First Name';
-}
-else {
+} else {
   $firstName = $firstNamePost;
 }
 
 if (preg_match('/[\sa-zA-Z]/', $lastNamePost) !== 1) {
   echo 'Illegal Char in Last Name';
-}
-else {
+} else {
   $lastName = $lastNamePost;
 }
 
@@ -117,15 +99,14 @@ else{
   die('Bad Date of Birth');
 }*/
 $dobStamp = strtotime($dobPost);
-if($dobStamp === false){
+if ($dobStamp === false) {
   die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
 }
 $dob = date('Y-m-d', $dobStamp);
 
 if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   $email = $emailPost;
-}
-else {
+} else {
   die('Invalid Email');
 }
 
@@ -135,8 +116,7 @@ if ($passwordPost !== $passwordVerifyPost) {
 $passValid = validatePassword($passwordPost);
 if ($passValid !== true) {
   die('Password invalid because ' . $passValid);
-}
-else {
+} else {
   $password = $passwordPost;
 }
 $hash = hashPassword($password);
