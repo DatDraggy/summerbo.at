@@ -36,7 +36,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
       //Logged in
       //Password Correct, set Session
       $_SESSION['userId'] = $userId;
-      header('Location: user/index.html?from=login');
+      header('Location: user/index.html');
       die();
     }
     else {
@@ -135,7 +135,7 @@ else {
           <div class="row">
             <div class="content">
               <h3>Login</h3>
-              <form class="formWrapper" id="login" action="backend/register.php" method="post">
+              <form class="formWrapper" id="login" action="" method="post">
                   <div class="inputWrapper">
                     <label for="regnumber"><span>Registration Number</span></label>
                     <input name="regnumber" id="regnumber" class="input" placeholder="Regnumber" required/>
