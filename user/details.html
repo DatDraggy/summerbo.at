@@ -42,89 +42,100 @@ if ($details['fursuiter'] == 1) {
 } else {
   $fursuiter = '';
 }
+
+$topay = getPaymentDetails($userId, 'topay - paid as remaining')['remaining'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
-    <?php echo $head; ?>
-  </head>
-  <body class="hasNav">
-    <div id="app">
-      <?php echo $nav; ?>
-	  
-      <section id="contentPage">
+<head>
+  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <?php echo $head; ?>
+</head>
+<body class="hasNav">
+<div id="app">
+  <?php echo $nav; ?>
 
-        <section id="about" class="ribbon" style="background-color: var(--colorPink)">
-          <div class="wrapper">
-            <div class="row">
-              <div style="color:white" class="content wsLarge">
-                <h1>User area</h1>
-                <p class="textBig">You can find all your information regarding the registration here. Edit your details, upgrade your ticket or see your payment status.</p>
+  <section id="contentPage">
+
+    <section id="about" class="ribbon" style="background-color: var(--colorPink)">
+      <div class="wrapper">
+        <div class="row">
+          <div style="color:white" class="content wsLarge">
+            <h1>User area</h1>
+            <p class="textBig">You can find all your information regarding the registration here. Edit your details,
+              upgrade your ticket or see your payment status.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="wrapper wsLarge">
+      <form method="post" action="php/changedetails.php">
+        <div class="row">
+          <div class="content">
+            <h1 class="headline">Your details</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="content content33">
+            <p>On the right side you can find all your info regarding the registration for our party. If a line is
+              greyed out it means that you can not edit it. All the other lines are possible to edit.<br>
+              You can also still upgrade to sponsor or let us know if you bring a fursuit or not to the party. Just
+              check or un-check the box. For sponsor upgrades and general payment details, please check the amount that
+              is still open a bit more below on this page.<br>
+              All our bankdetails are also bit more below so you can transfer your amount. Please wait a few days if you
+              just paid your ticket. We check manually the bankaccount and update your status.</p>
+            <p>The bank details are:<br>
+              <br>
+              Name: Edwin Verstaij<br>
+              IBAN: NL04 BUNQ 2290 9065 14<br>
+              BIC/SWIFT: BUNQNL2AXXX<br>
+              Currency: Euros<br>
+              Amount: <?php echo $topay; ?>€<br>
+              Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
+            </p>
+            <p>If you have any questions about your account or payments. Please send us an e-mail to team@summerbo.at
+              and include your name, nickname and regnumber.
+            </p>
+          </div>
+          <div class="content" style="">
+            <div class="inputWrapper">
+              <label for="userId"><span>Registration Number</span></label>
+              <input name="userId" id="userId" value="<?php echo $userId; ?>" type="text" hidden">
+            </div>
+            <div class="inputWrapper">
+              <label for="nickname"><span>Nickname</span></label>
+              <input name="nickname" id="nickname" value="<?php echo $nickname; ?>" type="text">
+            </div>
+            <div class="inputWrapper">
+              <label for="email"><span>E-Mail</span></label>
+              <input name="email" id="email" value="<?php echo $email; ?>" type="email">
+            </div>
+            <div class="checkboxWrapper">
+              <div class="checkboxGroup">
+                <input type="checkbox" name="fursuiter" id="fursuiter" <?php echo $fursuiter; ?> class="input">
+                <label for="fursuiter">I am a fursuiter</label>
               </div>
+              <div class="checkboxGroup VIP">
+                <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php echo $sponsor; ?>>
+                <label for="sponsor">I want to upgrade to a VIP ticket</label>
+              </div>
+            </div>
+            <div class="inputWrapper">
+              <label for="password"><span>New Password</span></label>
+              <input name="password" id="password" type="password">
+            </div>
+            <div class="inputWrapper">
+              <label for="passwordVerify"><span>Verify New Password</span></label>
+              <input name="passwordVerify" id="passwordVerify" type="password">
+            </div>
+            <div class="inputWrapper">
+              <label for="oldPassword"><span>Old Password</span></label>
+              <input name="oldPassword" id="oldPassword" type="password">
             </div>
           </div>
-        </section>
-		<section class="wrapper wsLarge">
-			<form method="post" action="php/changedetails.php">
-			<div class="row">
-              <div class="content">
-                <h1 class="headline">Your details</h1>
-              </div>
-            </div>
-			<div class="row">
-              <div class="content content33">
-                <p>On the right side you can find all your info regarding the registration for our party. If a line is greyed out it means that you can not edit it. All the other lines are possible to edit.<br>
-				You can also still upgrade to sponsor or let us know if you bring a fursuit or not to the party. Just check or un-check the box. For sponsor upgrades and general payment details, please check the amount that is still open a bit more below on this page.<br>
-				All our bankdetails are also bit more below so you can transfer your amount. Please wait a few days if you just paid your ticket. We check manually the bankaccount and update your status.</p>
-				<p>The bank details are:<br>
-				<br>
-				Name: Edwin Verstaij<br>
-				IBAN: NL04 BUNQ 2290 9065 14<br>
-				BIC/SWIFT: BUNQNL2AXXX<br>
-				Currency: Euros<br>
-				Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
-				</p>
-				<p>If you have any questions about your account or payments. Please send us an e-mail to team@summerbo.at and include your name, nickname and regnumber.
-				</p>
-              </div>
-              <div class="content" style="">
-			 <div class="inputWrapper">
-             <label for="userId"><span>Registration Number</span></label> 
-			 <input name="userId" id="userId" value="<?php echo $userId; ?>" type="text" hidden">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="nickname"><span>Nickname</span></label>
-			 <input name="nickname" id="nickname" value="<?php echo $nickname; ?>" type="text">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="email"><span>E-mailaddress</span></label>
-			 <input name="email" id="email" value="<?php echo $email; ?>" type="email">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="sponsor"><span>Sponsor Upgrade</span></label>
-			 <input name="sponsor" id="sponsor" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> type="checkbox">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="fursuiter"><span>Fursuiter</span></label>
-			 <input name="fursuiter" id="fursuiter" <?php echo $fursuiter; ?> type="checkbox">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="password"><span>New Password</span></label>
-			 <input name="password" id="password" type="password">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="passwordVerify"><span>Verify New Password</span></label>
-			 <input name="passwordVerify" id="passwordVerify" type="password">
-			 </div>
-			 <div class="inputWrapper">
-			 <label for="oldPassword"><span>Old Password</span></label>
-			 <input name="oldPassword" id="oldPassword" type="password">
-			 </div>
-			</div>
-			</div>
-			</form>
-		</section>
-        <?php echo $footer; ?>
-  </body>
+        </div>
+      </form>
+    </section>
+    <?php echo $footer; ?>
+</body>
 </html>
