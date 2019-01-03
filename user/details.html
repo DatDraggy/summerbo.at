@@ -32,7 +32,7 @@ if ($details == 'Not found') {
 }
 $nickname = $details['nickname'];
 $email = $details['email'];
-if ($details['$sponsor'] == 1) {
+if ($details['sponsor'] == 1) {
   $sponsor = 'checked disabled';
 } else {
   $sponsor = '';
@@ -43,7 +43,8 @@ if ($details['fursuiter'] == 1) {
   $fursuiter = '';
 }
 
-$topay = getPaymentDetails($userId, 'topay - paid as remaining')['remaining'];
+$topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -100,7 +101,7 @@ $topay = getPaymentDetails($userId, 'topay - paid as remaining')['remaining'];
           <div class="content" style="">
             <div class="inputWrapper">
               <label for="userId"><span>Registration Number</span></label>
-              <input name="userId" id="userId" value="<?php echo $userId; ?>" type="text" hidden">
+              <input name="userId" id="userId" value="<?php echo $userId; ?>" type="text" disabled>
             </div>
             <div class="inputWrapper">
               <label for="nickname"><span>Nickname</span></label>
@@ -132,6 +133,7 @@ $topay = getPaymentDetails($userId, 'topay - paid as remaining')['remaining'];
               <label for="oldPassword"><span>Old Password</span></label>
               <input name="oldPassword" id="oldPassword" type="password">
             </div>
+            <button class="button buttonPrimary">Submit</button>
           </div>
         </div>
       </form>
