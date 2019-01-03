@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/backend/funcs.php');
 require_once(__DIR__ . '/backend/config.php');
 session_start();
+print_r($_SESSION['status']);
 if(!empty($_SESSION['status'])) {
   $status = $_SESSION['status'];
   $_SESSION['status'] = '';
