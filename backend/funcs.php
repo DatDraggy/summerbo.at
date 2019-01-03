@@ -210,7 +210,7 @@ function requestEmailConfirm($userId, $newMail = false) {
   }
 
   if ($newMail) {
-    $token .= '&changed';
+    $token .= '&email';
   }
   return 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 }
