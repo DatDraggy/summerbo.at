@@ -55,278 +55,130 @@ else {
 }
 
 ?>
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Summerbo.at - Login/Register</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#1afbc4">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#1afbc4">
+    <script src="js/yall-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="stylesheet" href="css/badger-accordion.css">
+    <link rel="stylesheet" href="css/line-awesome.min.css">
+  </head>
+  <body class="hasNav">
+    <div id="app">
+      <nav id="nav" class="nav inactive">
+        <div class="wrapper">
+          <div class="navContent">
+            <button class="navItem js-showNav">
+              <i class="la la-bars"></i><span>Menu</span>
+            </button>
 
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="favicon.ico">
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="assets/styles/vendor/bootstrap.min.css">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="assets/fonts/et-lineicons/css/style.css">
-  <link rel="stylesheet" href="assets/fonts/linea-font/css/linea-font.css">
-  <link rel="stylesheet" href="assets/fonts/fontawesome/css/font-awesome.min.css">
-  <!-- Slider -->
-  <link rel="stylesheet" href="assets/styles/vendor/slick.css">
-  <!-- Lightbox -->
-  <link rel="stylesheet" href="assets/styles/vendor/magnific-popup.css">
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="assets/styles/vendor/animate.css">
-  <!-- Picker -->
-  <link href="assets/styles/bootstrap-datepicker.min.css" rel="stylesheet"/>
+            <div class="navLinks">
+              <div class="navItem navItemLogo">
+                <a class="navLink" href="/"><img src="images/logo@2x.png" width="48"><p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="/index.html#about">About</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="/index.html#tickets">Tickets</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="/index.html#faq">FAQ</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="/index.html#team">Team</a>
+              </div>
+              <div class="navItem">
+                <a class="navLink" href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
+              </div>
+            </div>
+            <div class="navButtons">
+              <div class="navItem">
+                <a class="button navItemButton buttonPrimary" href="/register.html"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-ticket"></i>Register</a>
+              </div>
+              <div class="navItem">
+                <a class="button navItemButton buttonSecondary" href="/login.html"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <section id="contentPage" class="noHeader wrapper wrapperCentered" >
+        <section>
+          <div class="row">
+            <div class="content">
+              <p><img style="margin: 0 auto" src="images/main@2x.png" width="320"></p>
+            </div>
+          </div>
+        </section>
+        <section id="registration-form">
+          <div class="row">
+            <div class="content">
+              <h3>Login Area</h3>
+              <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
+                  <div class="inputWrapper">
+                    <label for="regnumber"><span>Registration Number</span></label>
+                    <input name="regnumber" id="regnumber" class="input" placeholder="Regnumber" required/>
+                  </div>
+                  <div class="formRow">
+                    <div class="inputWrapper">
+                      <label for="password"><span>Password</span></label>
+                      <input name="password" type="password" id="password" class="input" placeholder="Enter your password"
+                             required/>
+                    </div>
+                  </div>
+            </div>
+            <button class="button buttonPrimary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </section>
 
-
-  <!-- Definity CSS -->
-  <link rel="stylesheet" href="assets/styles/main.css">
-  <link rel="stylesheet" href="assets/styles/responsive.css">
-
-  <!-- JS -->
-  <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body id="page-top">
-
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-  your browser</a> to improve your experience.</p>
-<![endif]-->
-
-<!-- ========== Preloader ========== -->
-
-<div class="preloader">
-  <img src="assets/images/loader.svg" alt="Loading...">
-</div>
-
-
-<!-- ========== Navigation ========== -->
-
-<?php echo $nav; ?>
-
-<!-- ========== Page Title ========== -->
-
-<header class="page-title pt-small pt-dark">
-  <div class="container">
-    <div class="row">
-      <h1 class="col-sm-6">Login Page</h1>
+      </section> <!--pageWrapper -->
+      <section id="footer">
+    <div class="footer" style="background-color: var(--colorPurple); color: white;">
+      <div class="wrapper row">
+        <div class="content">
+          <h2>Follow Us!</h2>
+          <ul class="blankList textSmall">
+            <li><a class="unselectable flexCentered" href="https://t.me/summerboat" target="_blank"><i class="la la24 la-paper-plane"></i> @summerboat</a></li>
+            <li><a class="unselectable flexCentered" href="https://twitter.com/summerbo_at" target="_blank"><i class="la la24 la-twitter-square"></i> @summerbo_at</a></li>
+            <li><a class="unselectable flexCentered" href="mailto:team@summerbo.at" target="_blank"><i class="la la24 la-envelope"></i> team@summerbo.at</a></li>
+          </ul>
+          <ul class="blankList textSmall" style="margin-bottom: 2rem">
+            <li><a href="mailto:team@summerbo.at" class="unselectable flexCentered" target="_blank">Contact Us</a></li>
+            <li><a href="#" class="unselectable flexCentered">Terms of Service</a></li>
+            <li><a href="https://berlincodeofconduct.org/" target="_blank" class="unselectable flexCentered">Code of Conduct</a></li>
+            <li><a href="#" class="unselectable flexCentered">Privacy</a></li>
+          </ul>
+          <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
+        </div>
+      </div>
     </div>
-  </div>
-</header>
-
-<!-- ========== Info text ========== -->
-
-<!--   <section id="about" class="container section">
-          <div class="row ws-m">
-
-            <header class="sec-heading">
-              <h2>Welcome</h2>
-              <span class="subheading">Party with us in the heart of Berlin</span>
-            </header>
-		    <div class="row ws-m">
-            <div class="col-md-6 mb-sm-50">
-              <h5 class="mb-30">Party, on a boat...</h5>
-              <p>Very beautiful, cool and awesome.</p>
-            </div>
-            <div class="col-md-6">
-              <h5 class="mb-30">Location</h5>
-              <p>Location of the boat party is the Mark Brandenburg. The biggest ship of the Stern und Kreis company that has many ships for cruises in Berlin. With a very big open deck and 4 saloons inside there is enough space for everyone.</p>
-            </div>
-          </div><!-- / .row -->
-  <!-- </section>
-
-<!-- ========== Login From ========== -->
-
-<div class="login-1">
-  <div class="bg-overlay">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-
-          <!-- Log in -->
-          <div class="panel-group" id="login-accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel top-panel panel-default">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#login-accordion" href="#collapseOne"
-                     aria-expanded="true" aria-controls="collapseOne">
-                    Login to your account
-                  </a>
-                </h4>
-              </div>
-              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-
-                  <div class="form-login">
-                    <form method="post">
-                      <!-- Username -->
-                      <div class="form-group">
-                        <label for="regnumber">Registration Number</label>
-                        <input type="text" id="regnumber" name="regnumber" class="form-control" placeholder="Enter your Reg Nr">
-                      </div>
-                      <!-- Password -->
-                      <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
-                        <span class="pull-right"><a href="#forgot-password" class="forget-pass-link">Forget password?</a></span>
-                      </div>
-                      <!-- Submit -->
-                      <input type="submit" value="Login" class="btn">
-                    </form>
-                  </div><!-- / .form-wrapper -->
-
-                </div><!-- / .panel-body -->
-              </div><!-- / .panel-collapse -->
-            </div><!-- / .panel -->
-            <hr>
-            <!-- Register Account -->
-            <?php if(date('d-m-Y', strtotime('12-01-2018')) < date('d-m-Y')){ ?>
-            <div class="panel bottom-panel panel-default">
-              <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#login-accordion"
-                     href="#register-login-page-2" aria-expanded="false" aria-controls="register-login-page-2">
-                    Register account
-                  </a>
-                </h4>
-              </div>
-              <div id="register-login-page-2" class="panel-collapse collapse" role="tabpanel"
-                   aria-labelledby="headingTwo">
-                <div class="panel-body">
-
-                  <div class="form-register">
-                    <form method="post">
-                      <!-- First Name -->
-                      <div class="form-group col-md-6 no-gap-left">
-                        <label for="firstname">First Name</label>
-                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" required>
-                      </div>
-                      <!-- Last name -->
-                      <div class="form-group col-md-6 no-gap-right">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required>
-                      </div>
-                      <!-- Nick name -->
-                      <div class="form-group col-md-6 no-gap-left">
-                        <label for="nickname">Nickname</label>
-                        <input type="text" id="nickname" name="nickname" class="form-control" placeholder="Last Name" required>
-                      </div>
-                      <!-- Date of Birth -->
-                      <div class="form-group">
-                        <label for="dateofbirth">Date of Birth</label>
-                        <input type="text" id="dateofbirth" name="dateofbirth" class="form-control" placeholder="YYYY-MM-DD" required>
-                      </div>
-                      <!-- Fursuiter -->
-                      <div class="form-group">
-                        <label class="checkbox-inline">
-                          <input type="checkbox" id="fursuiter" name="fursuiter"> Fursuiter
-                        </label>
-                      </div>
-                      <!-- Sponsor -->
-                      <div class="form-group">
-                        <label class="checkbox-inline">
-                          <input type="checkbox" id="sponsor" name="sponsor"> Become a sponsor for €15.- extra.
-                        </label>
-                      </div>
-                      <!-- Email -->
-                      <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
-                      </div>
-                      <!-- Password -->
-                      <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter a password" required>
-                      </div>
-                      <!-- Re-Enter Password -->
-                      <div class="form-group">
-                        <label for="passwordconfirm">Re-enter password</label>
-                        <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"
-                        placeholder="Re-enter your password" required>
-                      </div>
-                      <!-- TOS check -->
-                      <div class="form-group">
-                        <label class="checkbox-inline">
-                          <input type="checkbox" name="tos" id="tos" required> I accept the <a href="tos.html">Terms and
-                            Conditions</a> that apply.
-                        </label>
-                      </div>
-                      <!-- Public List -->
-                      <div class="form-group">
-                        <label class="checkbox-inline">
-                          <input type="checkbox" name="tos" id="tos" checked> I want to be listed on the public attendee list
-                        </label>
-                      </div>
-                      <!-- Submit -->
-                      <input type="submit" value="Register" class="btn">
-                    </form>
-                  </div><!-- / .form-wrapper -->
-
-                </div><!-- / .panel-body -->
-              </div><!-- / #register-login-page-2 .panel-colapse -->
-            </div><!-- / .panel -->
-            <?php } ?>
-			<hr>
-			<!-- Forgot Password -->
-			<div class="panel bottom-panel panel-default">
-              <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#login-accordion"
-                     href="#forgot-password" aria-expanded="false" aria-controls="forgot-password">
-                    Forgot Password
-                  </a>
-                </h4>
-              </div>
-              <div id="forgot-password" class="panel-collapse collapse" role="tabpanel"
-                   aria-labelledby="headingThree">
-                <div class="panel-body">
-
-                  <div class="form-forgotpw">
-                    <form method="post">
-                      <!-- First Name -->
-                      <div class="form-group">
-                        <label for="regnumber">Registration Number</label>
-                        <input type="text" id="regnumber" name="regnumber" class="form-control" placeholder="Enter your Reg Nr">
-                      </div>
-                      <!-- Email -->
-                      <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
-                      </div>
-                      <!-- Submit -->
-                      <input type="submit" value="Register" class="btn">
-                    </form>
-                  </div><!-- / .form-wrapper -->
-
-                </div><!-- / .panel-body -->
-              </div><!-- / #register-login-page-2 .panel-colapse -->
-            </div><!-- / .panel -->
-          </div><!-- / #login-accordion .panel-group -->
-
-
-        </div><!-- / .col-md-6 -->
-      </div><!-- / .row -->
-    </div><!-- / .container -->
-
-  </div><!-- / .bg-overlay -->
-</div><!-- / .bg-login -->
-
-
-<!-- ========== Footer Widgets ========== -->
-
-<?php echo $footer; ?>
-
-<!-- Definity JS -->
-<script src="/assets/js/main.js"></script>
-<script src="assets/js/bootstrap-datepicker.min.js"></script>
-<script>$('#dateofbirth').datepicker({
-    format: "yyyy-mm-dd",
-    startView: 2,
-    language: "en"
-  });</script>
-</body>
+  </section>
+    </div> <!-- App -->
+  <script>document.addEventListener("DOMContentLoaded", yall);</script>
+  <script src="js/badger-accordion.min.js"></script>
+  <script src="js/app.js"></script>
+  </body>
 </html>
