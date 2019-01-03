@@ -711,6 +711,10 @@ a.buttonSecondary {
   background-color: var(--colorToneHigh);
 }
 
+.checkboxGroup input[type=checkbox]:disabled + label {
+  background-color: var(--colorToneHigh);
+}
+
 .checkboxGroup label {
   background-color: #f3f3f3;
   color: black;
