@@ -94,6 +94,17 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
                     <button class="button buttonPrimary">Submit</button>
                   </div>
                 </form>
+				
+			  <h3>Forgot Password?</h3>
+			  <form class="formWrapper" id="reset" method="post">
+                  <div class="inputWrapper">
+                    <label for="email"><span>Email</span></label>
+                    <input name="email" id="email" class="input" placeholder="Email address" required/>
+                  </div>
+                  <div class="formRow">
+                    <button class="button buttonPrimary">Reset</button>
+                  </div>
+                </form>
             </div>
           </div>
         </section>
