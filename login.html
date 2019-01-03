@@ -134,10 +134,8 @@ else {
         <section id="registration-form">
           <div class="row">
             <div class="content">
-              <h3>Registration</h3>
+              <h3>Login Area</h3>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php require_once('backend/config.php');
-                if ($config['regOpen']) { ?>
                   <div class="inputWrapper">
                     <label for="regnumber"><span>Registration Number</span></label>
                     <input name="regnumber" id="regnumber" class="input" placeholder="Regnumber" required/>
@@ -145,15 +143,12 @@ else {
                   <div class="formRow">
                     <div class="inputWrapper">
                       <label for="password"><span>Password</span></label>
-                      <input name="password" type="password" id="password" class="input" placeholder="Enter a password"
+                      <input name="password" type="password" id="password" class="input" placeholder="Enter your password"
                              required/>
                     </div>
                   </div>
             </div>
             <button class="button buttonPrimary">Submit</button>
-                <?php } else {
-                  echo 'Registration has not opened yet';
-                } ?>
               </form>
             </div>
           </div>
