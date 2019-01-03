@@ -8,7 +8,7 @@ if (!empty($_SESSION['userId'])) {
   $dbConnection = buildDatabaseConnection($config);
 
   if (checkRegValid($userId)) {
-    header('Location: user/index.html?from=login');
+    header('Location: user/index');
     die();
   }
   else {
@@ -36,7 +36,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
       //Logged in
       //Password Correct, set Session
       $_SESSION['userId'] = $userId;
-      header('Location: user/index.html');
+      header('Location: user/index');
       die();
     }
     else {
