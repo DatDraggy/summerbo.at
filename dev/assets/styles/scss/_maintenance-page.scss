@@ -1,0 +1,47 @@
+/* --------------------------------------------------
+	23.0 Maintenance Page
+-------------------------------------------------- */
+
+
+
+.bg-maintenance {
+	background: #ccc url(http://placehold.it/2440x1578);
+	background-position: 50%;
+	background-size: cover;
+	
+	.content-wrapper {
+		display: table;
+		position: relative;
+		width: 100%;
+		height: 100vh;
+		text-align: center;
+		background: rgba(73,85,106, .95);
+
+		.content-inner {
+			display: table-cell;
+			vertical-align: middle;
+			padding-bottom: 100px;
+
+			i {
+				display: inline-block;
+				padding: 30px;
+				margin-bottom: 75px;
+				border-radius: 100px;
+				font-size: 50px;
+				color: $gray;
+				background: $light;
+			}
+
+			h3 {
+				margin-top: 0;
+				margin: 30px;
+				color: $light;
+			}
+
+			p {
+				@extend blockquote;
+				color: $light;
+			}
+		}
+	}
+}

@@ -1,0 +1,102 @@
+/* --------------------------------------------------
+	28.0 Tables
+-------------------------------------------------- */
+
+
+.table {
+	border: none;
+
+	thead {
+		border: none;
+		background: $dark;
+
+		tr {
+
+			th {
+				padding: 15px;
+				border: none;
+		 		font-family: $heading-font;
+		 		font-size: 11px !important;
+		 		font-weight: 400 !important;
+		 		letter-spacing: 2px;
+		 		text-transform: uppercase;
+		 		color: $white;
+			}
+		}
+	}
+
+	tbody {
+
+		tr {
+			background: #fff;
+
+			td {
+				padding: 15px;
+				border: 1px solid $light;
+				vertical-align: middle;
+			}
+		}
+	}
+} // .table
+
+
+.table-hover {
+
+	tbody {
+
+		tr {
+
+			&:hover {
+
+				td {
+					background: #efefef;
+					color: $dark;
+				}
+			}
+
+			td {
+				transition: all .4s;
+			}
+		}
+	}
+}
+
+
+.table-light {
+
+	thead {
+		border: none;
+		background: $light;
+
+		tr {
+
+			th {
+		 		color: $dark;
+			}
+		}
+	}
+
+	tbody {
+
+		tr {
+
+			&:nth-child(even) {
+				background: none;
+			}
+		}
+	}
+}
+
+
+.table-row-highlight {
+	
+	tbody {
+
+		tr {
+
+			&:nth-child(even) {
+				background: $lighter;
+			}
+		}
+	}
+}
