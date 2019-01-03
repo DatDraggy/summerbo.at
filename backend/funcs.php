@@ -114,21 +114,17 @@ function isEarlyBird() {
   global $dbConnection, $config;
 
   try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status = 2 GROUP BY status';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status = 2 GROUP BY status');
+    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status');
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if ($stmt->rowCount() > 0) {
-    if ($row['count'] < 100) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
+  if ($row['count'] < 100) {
     return true;
+  } else {
+    return false;
   }
 }
 
