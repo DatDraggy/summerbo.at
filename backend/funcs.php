@@ -175,42 +175,27 @@ function validatePassword($password) {
 }
 
 //dbConnection needs to be set
-function requestEmailConfirm($userId, $newMail = false) {
+function requestEmailConfirm($userId, $parameter = false) {
   global $dbConnection, $config;
   if (!isset($dbConnection)) {
     mail($config['mail'], 'CODE BUG, NOT SET VAR', 'SET VAR BEFORE USAGE OF requestRegistrationConfirm');
     die();
   }
   try {
-    $dbConnection->beginTransaction();
     $sql = "SELECT id FROM users WHERE id = $userId";
     $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-    $row = $stmt->fetch();
-    if ($stmt->rowCount() > 0) {
-      $sql = "DELETE FROM email_tokens WHERE id = $userId";
-      $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE id = :userId');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->execute();
-
-      $token = getRandomString(40);
-      $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
-      $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->bindParam(':token', $token);
-      $stmt->execute();
-
-    }
-    $dbConnection->commit();
-
   } catch (PDOException $e) {
     notifyOnException('Database Insert', $config, $sql, $e);
     return false;
   }
-
-  if ($newMail) {
-    $token .= '&email';
+  if ($stmt->rowCount() > 0) {
+    $token = insertToken($userId);
+    if($token === false){return false;}
+  }else{return false;}
+  if ($parameter !== false) {
+    $token .= '&' .$parameter;
   }
   return 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 }
@@ -594,9 +579,9 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
   }
 }
 
-function getRandomString($Length) {
+function getRandomString($length = 40) {
   $Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return substr(str_shuffle($Chars), 0, $Length);
+  return substr(str_shuffle($Chars), 0, $length);
 }
 
 function sendMessage($chatId, $text, $replyMarkup = '') {
@@ -604,4 +589,76 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   $response = file_get_contents($config['url'] . "sendMessage?disable_web_page_preview=true&parse_mode=html&chat_id=$chatId&text=" . urlencode($text) . "&reply_markup=$replyMarkup");
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
+}
+
+function getIdFromToken($token) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    return $row['id'];
+  }
+  return false;
+}
+
+function requestPasswordReset($userId) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT id, email, nickname FROM users WHERE id = $userId AND status > 0";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    $nickname = $row['nickname'];
+    $email = $row['email'];
+    $confirmationLink = requestEmailConfirm($userId, 'password');
+    sendEmail($email, 'Password Reset', "Dear $nickname, 
+
+You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+");
+    return true;
+  }
+  return false;
+}
+
+function insertToken($userId) {
+  global $dbConnection, $config;
+
+  try {
+    $dbConnection->beginTransaction();
+    $sql = "DELETE FROM email_tokens WHERE id = $userId";
+    $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+
+    $token = getRandomString();
+
+    $sql = "INSERT INTO email_tokens(id, token) VALUES ()";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Transaction', $config, $sql, $e);
+    return false;
+  }
+  return $token;
 }
