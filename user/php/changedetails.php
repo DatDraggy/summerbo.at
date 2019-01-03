@@ -1,10 +1,12 @@
 <?php
 require_once('../../backend/config.php');
+require_once ('../../backend/funcs.php');
 session_start();
 if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
   die('Details can\'t be empty');
 }
 
+$dbConnection = buildDatabaseConnection($config);
 $userId = $_SESSION['userId'];
 ////////////////////////
 // Check Reg Validity //
@@ -22,7 +24,6 @@ if (!checkRegValid($userId)) {
 session_commit();
 $nickname = $_POST['nickname'];
 $newEmail = $_POST['email'];
-$dbConnection = buildDatabaseConnection($config);
 
 
 
