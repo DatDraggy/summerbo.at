@@ -87,6 +87,25 @@ function getPaymentDetails($userId, $columns = '*') {
   }
 }
 
+function getBalanceDetails($userId, $columns = '*'){
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT $columns FROM balance WHERE id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT $columns FROM balance WHERE id = :userId");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() === 1) {
+    return $row;
+  } else {
+    return false;
+  }
+}
+
 function getUserRank($userId) {
   global $dbConnection, $config;
 
