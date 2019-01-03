@@ -24,6 +24,49 @@ $head = '<meta charset="utf-8">
   <link rel="stylesheet" href="css/badger-accordion.css">
   <link rel="stylesheet" href="css/line-awesome.min.css">';
 
+$nav = '<nav id="nav" class="nav inactive">
+    <div class="wrapper">
+      <div class="navContent">
+        <button class="navItem js-showNav">
+          <i class="la la-bars"></i><span>Menu</span>
+        </button>
+
+        <div class="navLinks">
+          <div class="navItem navItemLogo">
+            <a class="navLink" href="/"><img alt="Summerboat Logo" src="/images/logo@2x.png" width="48">
+              <p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
+          </div>
+          <div class="navItem">
+            <a class="navLink" href="/#about">About</a>
+          </div>
+          <div class="navItem">
+            <a class="navLink" href="/#tickets">Tickets</a>
+          </div>
+          <div class="navItem">
+            <a class="navLink" href="/#faq">FAQ</a>
+          </div>
+          <div class="navItem">
+            <a class="navLink" href="/#team">Team</a>
+          </div>
+          <div class="navItem">
+            <a class="navLink" href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
+          </div>
+        </div>
+        <div class="navButtons">
+          <div class="navItem">
+            <a class="button navItemButton buttonPrimary" href="/register"><i
+                      style="font-size: 24px; margin-right: .5rem; margin-top:-4px;"
+                      class="la la-ticket"></i>Register</a>
+          </div>
+          <div class="navItem">
+            <a class="button navItemButton buttonSecondary" href="/login"><i
+                      style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>';
+
 $footer = '<section id="footer">
     <div class="footer" style="background-color: var(--colorPurple); color: white;">
       <div class="wrapper row">
