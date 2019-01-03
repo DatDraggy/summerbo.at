@@ -126,14 +126,18 @@ Your Boat Party Crew
 /////////////////////////////////
 // Update Nickname and Fursuit //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, hash = $hash WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, hash = :hash WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
   $stmt->bindParam(':userId', $userId);
+  $stmt->bindParam(':hash', $hash);
   $stmt->execute();
 } catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
 }
 // Update Nickname and Fursuit //
 /////////////////////////////////
+
+
+header('Location: ../details');
