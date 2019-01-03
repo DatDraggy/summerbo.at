@@ -40,20 +40,13 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
       die();
     }
     else {
-      echo 'Login Details didn\'t match';
-      //ToDo: use session to save status and msg
+      $status = 'Incorrect Login Details';
     }
   }
   else {
-    echo 'No user found';
-    //ToDo: use session to save status and msg
+    $status = 'Incorrect Login Details';
   }
 }
-else {
-  //echo 'Missing details, displaying form or redirecting';
-  //ToDo: use session to save status and msg
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -123,6 +116,7 @@ else {
           </div>
         </div>
       </nav>
+
       <section id="contentPage" class="noHeader wrapper wrapperCentered" >
         <section>
           <div class="row">
@@ -135,6 +129,10 @@ else {
           <div class="row">
             <div class="content">
               <h3>Login</h3>
+              <?php
+              if(!empty($status)){
+              echo '<div class="info-box">{$status}</div>';
+              } ?>
               <form class="formWrapper" id="login" action="" method="post">
                   <div class="inputWrapper">
                     <label for="regnumber"><span>Registration Number</span></label>
