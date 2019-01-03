@@ -52,20 +52,20 @@ if (!empty($_POST['password'])) {
 // Sponsor Upgrade //
 /////////////////////
 
-if (!empty($_POST['fursuiter'])) {
-  $fursuiter = true;
+if (empty($_POST['fursuiter'])) {
+  $fursuiter = false;
 }
 else {
-  $fursuiter = false;
+  $fursuiter = true;
 }
 
 /////////////////////
 // Sponsor Upgrade //
-if (!empty($_POST['sponsor'])) {
-  $sponsorNew = true;
+if (empty($_POST['sponsor'])) {
+  $sponsorNew = false;
 }
 else {
-  $sponsorNew = false;
+  $sponsorNew = true;
 }
 try {
   $sql = "SELECT sponsor FROM users WHERE id = $userId";

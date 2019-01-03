@@ -1,5 +1,47 @@
 <?php
+require_once('../backend/config.php');
+require_once('../backend/funcs.php');
 require_once('../backend/includes.php');
+session_start();
+if (empty($_SESSION['userId'])) {
+  session_commit();
+  header('Location: ../login');
+  die();
+}
+$userId = $_SESSION['userId'];
+session_commit();
+$dbConnection = buildDatabaseConnection($config);
+
+////////////////////////
+// Check Reg Validity //
+if (!checkRegValid($userId)) {
+  //If invalid, kill that bih
+  if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();
+  header('Location: ../login.html');
+  die();
+}
+// Check Reg Validity //
+////////////////////////
+
+$details = getRegDetails($userId, 'nickname, email, sponsor, fursuiter');
+if ($details == 'Not found') {
+  mail($config['mail'], 'Weird Error', 'Uh, this shouldn\'t happen. No details for ' . $userId);
+}
+$nickname = $details['nickname'];
+$email = $details['email'];
+if ($details['$sponsor'] == 1) {
+  $sponsor = 'checked disabled';
+} else {
+  $sponsor = '';
+}
+if ($details['fursuiter'] == 1) {
+  $fursuiter = 'checked';
+} else {
+  $fursuiter = '';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -9,44 +51,7 @@ require_once('../backend/includes.php');
   </head>
   <body class="hasNav">
     <div id="app">
-      <nav id="nav" class="nav inactive">
-        <div class="wrapper">
-          <div class="navContent">
-            <button class="navItem js-showNav">
-              <i class="la la-bars"></i><span>Menu</span>
-            </button>
-
-            <div class="navLinks">
-              <div class="navItem navItemLogo">
-                <a class="navLink" href="/"><img alt="Summerbo.at Logo" src="images/logo@2x.png" width="48"><p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
-              </div>
-              <div class="navItem">
-                <a class="navLink" href="/index.html#about">About</a>
-              </div>
-              <div class="navItem">
-                <a class="navLink" href="/index.html#tickets">Tickets</a>
-              </div>
-              <div class="navItem">
-                <a class="navLink" href="/index.html#faq">FAQ</a>
-              </div>
-              <div class="navItem">
-                <a class="navLink" href="/index.html#team">Team</a>
-              </div>
-              <div class="navItem">
-                <a class="navLink" href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
-              </div>
-            </div>
-            <div class="navButtons">
-              <div class="navItem">
-                <a class="button navItemButton buttonPrimary" href="/register.html"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-ticket"></i>Register</a>
-              </div>
-              <div class="navItem">
-                <a class="button navItemButton buttonSecondary" href="/login.html"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <?php echo $nav; ?>
 	  
       <section id="contentPage">
 
@@ -86,35 +91,35 @@ require_once('../backend/includes.php');
               <div class="content" style="">
 			 <div class="inputWrapper">
              <label for="userId"><span>Registration Number</span></label> 
-			 <input name="userId" value="<?php echo $userId; ?> hidden">
+			 <input name="userId" id="userId" value="<?php echo $userId; ?>" type="text" hidden">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="nickname"><span>Nickname</span></label>
-			 <input name="nickname" value="<?php echo $nickname; ?>">
+			 <input name="nickname" id="nickname" value="<?php echo $nickname; ?>" type="text">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="email"><span>E-mailaddress</span></label>
-			 <input name="email" value="<?php echo $email; ?>">
+			 <input name="email" id="email" value="<?php echo $email; ?>" type="email">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="sponsor"><span>Sponsor Upgrade</span></label>
-			 <input name="sponsor" type="checkbox" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> >
+			 <input name="sponsor" id="sponsor" <?php echo $sponsor; /*ToDo: If was sponsor, disable*/?> type="checkbox">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="fursuiter"><span>Fursuiter</span></label>
-			 <input name="fursuiter" type="checkbox" <?php echo $fursuiter; ?> >
+			 <input name="fursuiter" id="fursuiter" <?php echo $fursuiter; ?> type="checkbox">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="password"><span>New Password</span></label>
-			 <input name="password" type="password">
+			 <input name="password" id="password" type="password">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="passwordVerify"><span>Verify New Password</span></label>
-			 <input name="passwordVerify" type="password">
+			 <input name="passwordVerify" id="passwordVerify" type="password">
 			 </div>
 			 <div class="inputWrapper">
 			 <label for="oldPassword"><span>Old Password</span></label>
-			 <input name="oldPassword" type="password">
+			 <input name="oldPassword" id="oldPassword" type="password">
 			 </div>
 			</div>
 			</div>
