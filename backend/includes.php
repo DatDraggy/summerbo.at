@@ -19,10 +19,10 @@ $head = '<meta charset="utf-8">
   <meta name="msapplication-TileColor" content="#1afbc4">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#1afbc4">
-  <script src="js/yall-2.2.0.min.js"></script>
-  <link rel="stylesheet" href="css/css.css">
-  <link rel="stylesheet" href="css/badger-accordion.css">
-  <link rel="stylesheet" href="css/line-awesome.min.css">';
+  <script src="/js/yall-2.2.0.min.js"></script>
+  <link rel="stylesheet" href="/css/css.css">
+  <link rel="stylesheet" href="/css/badger-accordion.css">
+  <link rel="stylesheet" href="/css/line-awesome.min.css">';
 
 $nav = '<nav id="nav" class="nav inactive">
     <div class="wrapper">
@@ -90,8 +90,8 @@ $footer = '<section id="footer">
   </section>
 </div> <!-- App -->
 <script>document.addEventListener("DOMContentLoaded", yall);</script>
-<script src="js/badger-accordion.min.js"></script>
-<script src="js/app.js"></script>
+<script src="/js/badger-accordion.min.js"></script>
+<script src="/js/app.js"></script>
 <!-- Start Cookie Plugin -->
 <script>
   window.cookieconsent_options = {
@@ -102,4 +102,4 @@ $footer = '<section id="footer">
     theme: \'light-floating\'
   };
 </script>
-<script src="js/cookie-consent/script.js"></script>';
+<script src="/js/cookie-consent/script.js"></script>';
