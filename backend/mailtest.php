@@ -20,7 +20,7 @@ Name: Edwin Verstaij<br>
 Bank: Bunq<br>
 IBAN: NL04 BUNQ 2290 9065 14<br>
 IC/SWIFT: BUNQNL2AXXX<br>
-Comment: $userId, $nickname
+Comment: $userId, $nickname</p>
 
 <p>Did you already pay everything? Please ignore this email or send us a message.</p>
 
