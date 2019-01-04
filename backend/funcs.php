@@ -18,7 +18,7 @@ function buildDatabaseConnection($config) {
   return $dbConnection;
 }
 
-function notifyOnException($subject, $config, $sql = '', $e = '', $fail = true) {
+function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false) {
   $to = $config['mail'];
   $txt = __FILE__ . ' ' . $sql . ' Error: ' . $e;
   $headers = 'From: ' . $config['mail'];
@@ -132,15 +132,8 @@ function hashPassword($password) {
 function isEarlyBird() {
   global $dbConnection, $config;
 
-  try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status');
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($row['count'] < 100) {
+  $count = getConfirmedAttendees();
+  if ($count < 100) {
     return true;
   } else {
     return false;
@@ -422,7 +415,7 @@ function saveApplication($chatId, $name, $message) {
     $stmt->bindParam(':message', $message);
     $stmt->execute();
   } catch (PDOException $e) {
-    notifyOnException('Database Insert', $config, $sql, $e, false);
+    notifyOnException('Database Insert', $config, $sql, $e);
     return false;
   }
   return true;
@@ -681,4 +674,19 @@ function insertToken($userId) {
     return false;
   }
   return $token;
+}
+
+function getConfirmedAttendees() {
+  global $dbConnection, $config;
+  try {
+    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status');
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+
+  return $row['count'];
 }
