@@ -4,12 +4,11 @@ require_once(__DIR__ . '/backend/config.php');
 require_once('backend/includes.php');
 session_start();
 $status = '';
-if(!empty($_SESSION['status'])) {
+if (!empty($_SESSION['status'])) {
   $status = $_SESSION['status'];
   $_SESSION['status'] = '';
   session_commit();
-}
-else if (!empty($_SESSION['userId'])) {
+} else if (!empty($_SESSION['userId'])) {
   $userId = $_SESSION['userId'];
   $dbConnection = buildDatabaseConnection($config);
 
@@ -22,33 +21,53 @@ else if (!empty($_SESSION['userId'])) {
     }
     session_destroy();
   }
-}
-else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
-  $userId = $_POST['regnumber'];
-  $dbConnection = buildDatabaseConnection($config);
+} else if (!empty($_POST['regnumber']) && !empty($_POST['password']) && !empty($_POST['g-recaptcha-response'])) {
+  #
+  # Verify captcha
+  if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  }
+  $post_data = http_build_query(array('secret'   => $config['captchaSecret'],
+                                      'response' => $_POST['g-recaptcha-response'],
+                                      'remoteip' => $_SERVER['REMOTE_ADDR']
+  ));
+  $opts = array('http' => array('method'  => 'POST',
+                                'header'  => 'Content-type: application/x-www-form-urlencoded',
+                                'content' => $post_data
+  )
+  );
+  $context = stream_context_create($opts);
+  $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+  $result = json_decode($response);
+  if (!$result->success) {
+    $status = 'reCAPTCHA Verification Failed';
+  } else {
+    $userId = $_POST['regnumber'];
+    $dbConnection = buildDatabaseConnection($config);
 
-  //Check for existing Reg
-  $sql = "SELECT hash, `rank`, id FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT hash, `rank`, id FROM users WHERE id = :userId');
-  $stmt->bindParam(':userId', $userId);
-  $stmt->execute();
-  $row = $stmt->fetch();
-  if ($stmt->rowCount() === 1) {
-    $dbHash = $row['hash'];
-    $userId = $row['id'];
-    if (password_verify($_POST['password'], $dbHash)) {
-      $_POST['password'] = '';
-      //Logged in
-      //Password Correct, set Session
-      $_SESSION['userId'] = $userId;
-      session_commit();
-      header('Location: user/index');
-      die();
+    //Check for existing Reg
+    $sql = "SELECT hash, `rank`, id FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT hash, `rank`, id FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if ($stmt->rowCount() === 1) {
+      $dbHash = $row['hash'];
+      $userId = $row['id'];
+      if (password_verify($_POST['password'], $dbHash)) {
+        $_POST['password'] = '';
+        //Logged in
+        //Password Correct, set Session
+        $_SESSION['userId'] = $userId;
+        session_commit();
+        header('Location: user/index');
+        die();
+      } else {
+        $status = 'Incorrect Login Details';
+      }
     } else {
       $status = 'Incorrect Login Details';
     }
-  } else {
-    $status = 'Incorrect Login Details';
   }
 }
 ?>
@@ -56,6 +75,12 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
 <html lang="en" dir="ltr">
   <head>
     <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("GoodForm").submit();
+      }
+    </script>
     <?php echo $head; ?>
   </head>
   <body class="hasNav">
@@ -91,7 +116,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
                     </div>
                   </div>
                   <div class="formRow">
-                    <button class="button buttonPrimary">Submit</button>
+                    <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Login</button>
                   </div>
                 </form>
 				
@@ -102,7 +127,7 @@ else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
                     <input name="email" id="email" class="input" placeholder="Email address" required/>
                   </div>
                   <div class="formRow">
-                    <button class="button buttonPrimary">Reset</button>
+                    <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Reset</button>
                   </div>
                 </form>
             </div>
