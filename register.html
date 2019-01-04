@@ -336,7 +336,7 @@ require_once('backend/includes.php');
 
                   <div class="inputWrapper">
                     <label for="email"><span>Email</span></label>
-                    <input name="email" id="email" class="input" placeholder="Enter your email" required>
+                    <input name="email" id="email" class="input" placeholder="Enter your email" type="email" required>
                   </div>
                   <div class="formRow">
                     <div class="inputWrapper">
@@ -361,7 +361,7 @@ require_once('backend/includes.php');
                         list</label>
                     </div>
                   </div>
-                  <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback='onSubmit'>Submit</button>
+                  <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Submit</button>
                 <?php } else {
                   echo 'Registration has not opened yet';
                 } ?>
