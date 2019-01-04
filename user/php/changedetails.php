@@ -130,8 +130,8 @@ try {
   $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, hash = :hash WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
-  $stmt->bindParam(':userId', $userId);
   $stmt->bindParam(':hash', $hash);
+  $stmt->bindParam(':userId', $userId);
   $stmt->execute();
 } catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
