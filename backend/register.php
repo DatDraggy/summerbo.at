@@ -4,7 +4,7 @@ require_once('funcs.php');
 if (!$config['regOpen']) {
   die();
 }
-#
+
 # Verify captcha
 if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
   $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
@@ -12,7 +12,7 @@ if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
 $post_data = http_build_query(array('secret'   => $config['captchaSecret'],
                                     'response' => $_POST['g-recaptcha-response'],
                                     'remoteip' => $_SERVER['REMOTE_ADDR']
-  ));
+));
 $opts = array('http' => array('method'  => 'POST',
                               'header'  => 'Content-type: application/x-www-form-urlencoded',
                               'content' => $post_data
@@ -22,26 +22,51 @@ $context = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
 if (!$result->success) {
-  die('reCAPTCHA Verification Failed. Did you forget to allow cookies?');
+  $status = 'reCAPTCHA Verification Failed. Did you forget to allow cookies?';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 
 if (empty($_POST['firstname'])) {
-  die('no first name');
+  $status = 'First Name can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $firstNamePost = $_POST['firstname'];
 }
 if (empty($_POST['lastname'])) {
-  die('no last name');
+  $status = 'Last Name can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $lastNamePost = $_POST['lastname'];
 }
 if (empty($_POST['nickname'])) {
-  die('no nickname');
+  $status = 'Nickname can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $nicknamePost = $_POST['nickname'];
 }
 if (empty($_POST['dob'])) {
-  die('no date of birth');
+  $status = 'Birthday can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } /*
 if (!empty($_POST['day'])) {
   $dayofbirthPost = $_POST['day'];
@@ -65,41 +90,75 @@ if (empty($_POST['sponsor'])) {
   $sponsor = true;
 }
 if (empty($_POST['email'])) {
-  die('no email');
+  $status = 'Email can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $emailPost = $_POST['email'];
 }
 if (empty($_POST['password'])) {
-  die('no password');
+  $status = 'Password can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $passwordPost = $_POST['password'];
 }
 if (empty($_POST['passwordVerify'])) {
-  die('no password verify');
+  $status = 'Password Confirmation can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $passwordVerifyPost = $_POST['passwordVerify'];
 }
 if (empty($_POST['country'])) {
-  die('no country');
+  $status = 'Country can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $countryPost = $_POST['country'];
 }
 if (empty($_POST['tos'])) {
-  $tos = false;
-} else {
-  $tos = true;
+  $status = 'Please accept the ToS.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
+
 $publicList = empty($_POST['publicList']) ? false : true;
 
 if (preg_match('/[\sa-zA-Z]/', $firstNamePost) !== 1) {
   //ToDo: Test pregmatch
-  echo 'Illegal Char in First Name';
+  $status = 'Illegal character in First Name.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $firstName = $firstNamePost;
 }
 
 if (preg_match('/[\sa-zA-Z]/', $lastNamePost) !== 1) {
-  echo 'Illegal Char in Last Name';
+  $status = 'Illegal character in Last Name';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $lastName = $lastNamePost;
 }
@@ -121,25 +180,53 @@ else{
 }*/
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
-  die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
+  $status = 'Invalid Birthdate Format. Please use the following format: YYYY-MM-DD';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 $dob = date('Y-m-d', $dobStamp);
 
+if (strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))) < strtotime('+18 years', strtotime($dob))) {
+  $status = 'You have to be at least 18 years old on the day of the party.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
+}
 
 if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   $email = $emailPost;
 } else {
-  die('Invalid Email');
+  $status = 'Invalid Email Format';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 
 //Check for used email
 
 if ($passwordPost !== $passwordVerifyPost) {
-  die('Do not match');
+  $status = 'Passwords do not match';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 $passValid = validatePassword($passwordPost);
 if ($passValid !== true) {
-  die('Password invalid because ' . $passValid);
+  $status = 'Password invalid because ' . $passValid;
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 } else {
   $password = $passwordPost;
 }
@@ -151,17 +238,32 @@ if (strlen($countryPost) == 2) {
 
 $dbConnection = buildDatabaseConnection($config);
 if ($dbConnection === false) {
-  die('Broken Database Connection');
+  $status = 'Database Connection Broken. Notifications have been sent.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 
 $userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList);
 if ($userId === false) {
-  die('Reg failed for some reason');
+  $status = 'Unknown Error in Registration. Administrator has been notified.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 $confirmationLink = requestEmailConfirm($userId);
 if ($confirmationLink === false) {
   mail($config['mail'], 'ERROR IN SUMMERBOAT REG URGENT', $userId . ' No token generate possible');
-  die('Database Error');
+  $status = 'Unknown Error in Registration. Administrator has been notified';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
 }
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
@@ -177,4 +279,9 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 Your Boat Party Crew
 ", true);
 
-echo 'Done. You\'ve got mail';
+$status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
+session_start();
+$_SESSION['status'] = $status;
+session_commit();
+header('Location: login?reg');
+die($status);

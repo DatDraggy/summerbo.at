@@ -2,26 +2,42 @@
 require_once('backend/includes.php');
 require_once('backend/config.php');
 require_once('backend/funcs.php');
-
+session_start();
+$status = '';
+if (!empty($_SESSION['status'])) {
+  $status = $_SESSION['status'];
+  $_SESSION['status'] = '';
+  session_commit();
+}
 $dbConnection = buildDatabaseConnection($config);
 $attendees = getConfirmedAttendees();
 if ($attendees === false) {
   $attendees = 999;
 }
 $attendeesMax = $config['attendeesMax'];
+
+$recaptcha = '';
+if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
+  $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+} else {
+  $status = 'Please allow cookies and refresh the page. Otherwise you won\'t be able to register.';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <?php echo $recaptcha; ?>
   <script>
-    if ('yes' === Cookies.get('cookieconsent_dismissed')) {
+    /*if ('yes' === Cookies.get('cookieconsent_dismissed')) {
       var script = document.createElement('script');
       script.src = 'https://www.google.com/recaptcha/api.js';
       script.createAttribute('async');
       script.createAttribute('defer');
       document.body.appendChild(script);
-    }
+    } else{
+
+    }*/
     function onSubmit(token) {
       document.getElementById("GoodForm").submit();
     }
@@ -50,6 +66,11 @@ $attendeesMax = $config['attendeesMax'];
             <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
               can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
               <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
+              <noscript>Enable Javascript, otherwise you won't be able to register because of reCAPTCHA</noscript>
+              <?php
+              if(!empty($status)){
+                echo '<div class="info-box-err">'.$status.'</div>';
+              } ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                 <?php if ($config['regOpen']) { ?>
                   <div class="inputWrapper">
