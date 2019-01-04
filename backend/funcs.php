@@ -481,7 +481,7 @@ function approvePayment($userId, $approver, $amount) {
       $nickname = $row['nickname'];
       $topay = $row['topay'];
       $paid = $row['paid'];
-      mail($config['mail'], 'Debug', print_r($row, true));
+
       if ($topay <= $amount + $paid) {
         $status = 3;
       } else {
@@ -503,7 +503,8 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
       $dbConnection->commit();
-      if ($status === 3) {
+      mail($config['mail'], 'Debug', $status);
+      if ($status == 3) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
