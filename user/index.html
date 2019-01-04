@@ -27,7 +27,7 @@ if (!checkRegValid($userId)) {
 ////////////////////////
 
 $userStatus = $status[getRegDetails($userId, 'nickname, status')['status']];
-
+$nickname = $details['nickname'];
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
 foreach ($payments as $payment) {
