@@ -1037,9 +1037,16 @@ body.hasNav {
 
 }
 
-.info-box {
+.info-box-err {
   border-radius: 5px;
   border-style: solid;
   border-color: red;
+  padding: 5px;
+}
+
+.info-box-succ {
+  border-radius: 5px;
+  border-style: solid;
+  border-color: limegreen;
   padding: 5px;
 }
