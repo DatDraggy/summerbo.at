@@ -398,7 +398,7 @@ function rejectRegistration($userId) {
   if ($stmt->rowCount() === 1) {
     sendEmail($email, 'Registration Canceled', "Dear $nickname,
 
-Sadly we have to inform you that your registration has been canceled.
+Sadly we have to inform you that your registration has been deleted.
 
 If you believe this was a mistake, please send us an email. It can be that there is still space. We will inform you with more information after checking the system. 
 
@@ -481,6 +481,7 @@ function approvePayment($userId, $approver, $amount) {
       $nickname = $row['nickname'];
       $topay = $row['topay'];
       $paid = $row['paid'];
+      mail($config['mail'], 'Debug', print_r($row, true));
       if ($topay <= $amount + $paid) {
         $status = 3;
       } else {

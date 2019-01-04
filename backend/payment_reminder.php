@@ -50,3 +50,55 @@ Your Boat Party Crew
   }
   sleep(5);
 }
+
+
+try {
+  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3";
+  $stmt = $dbConnection->prepare('SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3');
+  $stmt->execute();
+  $rows = $stmt->fetchAll();
+} catch (PDOException $e) {
+  notifyOnException('Database Select', $config, $sql, $e);
+}
+
+foreach ($rows as $row) {
+  $userId = $row['id'];
+  $email = $row['email'];
+  $nickname = $row['nickname'];
+  sendEmail($email, 'Summerbo.at No Payment Received', "Dear $nickname,
+
+Sadly we haven't received the payment for your ticket. Therefore we had to lock your account and invalidate your reservation.
+From now on you have 7 days time to send your payment, after that your account will be deleted and you will have to register again.
+
+If you already paid, your account will be unlocked once the payment is confirmed.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+", true);
+
+  try {
+    $sql = "UPDATE users SET locked = true WHERE id = $userId";
+    $stmt = $dbConnection->prepare('UPDATE users SET locked = true WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+  }
+  sleep(5);
+}
+
+try {
+  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1814400 < UNIX_TIMESTAMP() AND locked = false AND status < 3";
+  $stmt = $dbConnection->prepare('SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1814400 < UNIX_TIMESTAMP() AND locked = false AND status < 3');
+  $stmt->execute();
+  $rows = $stmt->fetchAll();
+} catch (PDOException $e) {
+  notifyOnException('Database Select', $config, $sql, $e);
+}
+
+foreach ($rows as $row) {
+  $userId = $row['id'];
+  rejectRegistration($userId);
+  sleep(5);
+}
