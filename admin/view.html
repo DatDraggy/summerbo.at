@@ -12,7 +12,7 @@ if (!empty($_SESSION['userId'])) {
     if ($rank > 0) {
       $userId = $_GET['id'];
       if ($_GET['type'] === 'reg') {
-        $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded');
+        $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded, locked');
         echo $details['id'] . '<br>';
         echo 'Nickname: ' . htmlspecialchars($details['nickname']) . '<br>';
         echo 'First Name: ' . htmlspecialchars($details['first_name']) . '<br>';
@@ -27,6 +27,7 @@ if (!empty($_SESSION['userId'])) {
         echo 'Approvedate: ' . date('Y-m-d H:i', $details['approvedate']) . '<br>';
         echo 'Public List: ' . $details['list'] . '<br>';
         echo 'Reminded: ' . $details['reminded'] . '<br>';
+        echo 'Locked: ' . $details['locked'] . '<br>';
       }
     }
   }
