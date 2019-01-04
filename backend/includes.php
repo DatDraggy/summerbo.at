@@ -76,6 +76,7 @@ $footer = '<section id="footer">
             <li><a class="unselectable flexCentered" href="https://t.me/summerboat" target="_blank"><i class="la la24 la-paper-plane"></i> @summerboat</a></li>
             <li><a class="unselectable flexCentered" href="https://twitter.com/summerbo_at" target="_blank"><i class="la la24 la-twitter-square"></i> @summerbo_at</a></li>
             <li><a class="unselectable flexCentered" href="mailto:team@summerbo.at" target="_blank"><i class="la la24 la-envelope"></i> team@summerbo.at</a></li>
+			<li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
           </ul>
           <ul class="blankList textSmall" style="margin-bottom: 2rem">
             <li><a href="mailto:team@summerbo.at" class="unselectable flexCentered" target="_blank">Contact Us</a></li>
