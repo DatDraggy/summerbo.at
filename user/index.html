@@ -40,11 +40,6 @@ $paymentsHtml .= '</table>';
 
 ?>
 
-
-<?php echo $userStatus; ?>
-<br>
-<?php echo $paymentsHtml; ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -62,8 +57,8 @@ $paymentsHtml .= '</table>';
           <div class="wrapper">
             <div class="row">
               <div style="color:white" class="content wsLarge">
-                <h1>Attendee List</h1>
-                <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin. Don't see yourself yet?</p>
+                <h1>User Area</h1>
+                <p class="textBig">Welcome to your own user area. Here you can find information about your registration and payments.</p>
               </div>
             </div>
           </div>
@@ -71,7 +66,10 @@ $paymentsHtml .= '</table>';
 
         <section class="wrapper wsLarge">
         <div class="row">
-        <h1>Attendees</h1>
+        <h1>Payments</h1>
+		<?php echo $userStatus; ?>
+						<br>
+		<?php echo $paymentsHtml; ?>
         </div>
         <div>
 		<?php echo $attendees; ?>
