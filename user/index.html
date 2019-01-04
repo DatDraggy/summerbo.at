@@ -44,3 +44,40 @@ $paymentsHtml .= '</table>';
 <?php echo $userStatus; ?>
 <br>
 <?php echo $paymentsHtml; ?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <?php echo $head; ?>
+  </head>
+  <body class="hasNav">
+    <div id="app">
+      <?php echo $nav; ?>
+
+      <section id="contentPage">
+		<!-- ========== Info text ========== -->
+
+        <section id="about" class="ribbon" style="background-color: var(--colorPink)">
+          <div class="wrapper">
+            <div class="row">
+              <div style="color:white" class="content wsLarge">
+                <h1>Attendee List</h1>
+                <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin. Don't see yourself yet?</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="wrapper wsLarge">
+        <div class="row">
+        <h1>Attendees</h1>
+        </div>
+        <div>
+		<?php echo $attendees; ?>
+		    </div>
+        </section>
+      </section> <!--pageWrapper -->
+      <?php echo $footer; ?>
+  </body>
+</html>
