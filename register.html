@@ -1,5 +1,13 @@
 <?php
 require_once('backend/includes.php');
+require_once('backend/config.php');
+require_once ('backend/funcs.php');
+
+$attendees = getConfirmedAttendees();
+if($attendees === false){
+  $attendees = 999;
+}
+$attendeesMax = $config['attendeesMax'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -40,9 +48,9 @@ require_once('backend/includes.php');
               or let us know.</p>
             <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
               can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
+              <p><?php echo $attendees . ' of ' . $attendeesMax; ?> slots are taken.</p>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php require_once('backend/config.php');
-                if ($config['regOpen']) { ?>
+                <?php if ($config['regOpen']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
