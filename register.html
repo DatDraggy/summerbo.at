@@ -5,6 +5,12 @@ require_once('backend/includes.php');
 <html lang="en" dir="ltr">
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    function onSubmit(token) {
+      document.getElementById("GoodForm").submit();
+    }
+  </script>
   <?php echo $head; ?>
   </head>
   <body class="hasNav">
@@ -355,7 +361,7 @@ require_once('backend/includes.php');
                         list</label>
                     </div>
                   </div>
-                  <button class="button buttonPrimary">Submit</button>
+                  <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback='onSubmit'>Submit</button>
                 <?php } else {
                   echo 'Registration has not opened yet';
                 } ?>
