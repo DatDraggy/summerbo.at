@@ -14,6 +14,8 @@ $config['priceSponsor'] = 15;
 $config['priceAttendeeEarly'] = 25;
 $config['priceAttendee'] = 35;
 $config['mailPassword'] = 'pass';
+$config['regOpen'] = false;
+$config['captchaSecret'] = '';
 
 $status[0] = 'NEW - New registration';
 $status[1] = 'VERIFIED - Email address verified';
