@@ -9,26 +9,22 @@ if (!$config['regOpen']) {
 if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
   $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
 }
-$post_data = http_build_query(
-  array(
-    'secret' => $config['captchaSecret'],
-    'response' => $_POST['g-recaptcha-response'],
-    'remoteip' => $_SERVER['REMOTE_ADDR']
-  )
+$post_data = http_build_query(array('secret'   => $config['captchaSecret'],
+                                    'response' => $_POST['g-recaptcha-response'],
+                                    'remoteip' => $_SERVER['REMOTE_ADDR']
+  ));
+$opts = array('http' => array('method'  => 'POST',
+                              'header'  => 'Content-type: application/x-www-form-urlencoded',
+                              'content' => $post_data
+)
 );
-$opts = array('http' =>
-                array(
-                  'method'  => 'POST',
-                  'header'  => 'Content-type: application/x-www-form-urlencoded',
-                  'content' => $post_data
-                )
-);
-$context  = stream_context_create($opts);
+$context = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
 if (!$result->success) {
   die('reCAPTCHA Verification Failed');
 }
+
 if (empty($_POST['firstname'])) {
   die('no first name');
 } else {
@@ -129,11 +125,14 @@ if ($dobStamp === false) {
 }
 $dob = date('Y-m-d', $dobStamp);
 
+
 if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   $email = $emailPost;
 } else {
   die('Invalid Email');
 }
+
+//Check for used email
 
 if ($passwordPost !== $passwordVerifyPost) {
   die('Do not match');
