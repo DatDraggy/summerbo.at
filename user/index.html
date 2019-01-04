@@ -30,7 +30,7 @@ $userStatus = $status[getRegDetails($userId, 'nickname, status')['status']];
 
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
-$nickname = $details['nickname'];
+$nickname = $payments['nickname'];
 foreach ($payments as $payment) {
   $amount = $payment['amount'];
   $date = date('Y-m-d', $payment['date']);
