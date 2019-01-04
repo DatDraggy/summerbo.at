@@ -96,10 +96,10 @@ $footer = '<section id="footer">
 <!-- Start Cookie Plugin -->
 <script>
   window.cookieconsent_options = {
-    message: \'This website uses cookies. Thank you for understanding.\',
+    message: \'This website uses cookies to fully function. To register or login, you will have to allow them.\',
     dismiss: \'Ok, I accept\',
-    learnMore: \'More infos\',
-    link: \'https://en.wikipedia.org/wiki/HTTP_cookie\',
+    learnMore: \'More infos about our cookies\',
+    link: \'https://summerbo.at/tos\',
     theme: \'light-floating\'
   };
 </script>

@@ -1,12 +1,27 @@
 <?php
 require_once('backend/includes.php');
+require_once('backend/config.php');
+require_once('backend/funcs.php');
+
+$dbConnection = buildDatabaseConnection($config);
+$attendees = getConfirmedAttendees();
+if ($attendees === false) {
+  $attendees = 999;
+}
+$attendeesMax = $config['attendeesMax'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
+    if ('yes' === Cookies.get('cookieconsent_dismissed')) {
+      var script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.createAttribute('async');
+      script.createAttribute('defer');
+      document.body.appendChild(script);
+    }
     function onSubmit(token) {
       document.getElementById("GoodForm").submit();
     }
@@ -32,11 +47,11 @@ require_once('backend/includes.php');
 			  <p>Please fill in all details because everything is required to register succesfully.
               If you made a mistake during filling in, just update it yourself on the login page
               or let us know.</p>
-            <p>Before you register it is important that you are familiar with our <a href="tos.html" title="Terms and Conditions"><em>Code of Conduct</em> and <em>Terms and Conditions</em></a>. You
-              can find both here.</p>
+            <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
+              can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
+              <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php require_once('backend/config.php');
-                if ($config['regOpen']) { ?>
+                <?php if ($config['regOpen']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>

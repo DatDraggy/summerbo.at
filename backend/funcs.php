@@ -18,7 +18,7 @@ function buildDatabaseConnection($config) {
   return $dbConnection;
 }
 
-function notifyOnException($subject, $config, $sql = '', $e = '', $fail = true) {
+function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false) {
   $to = $config['mail'];
   $txt = __FILE__ . ' ' . $sql . ' Error: ' . $e;
   $headers = 'From: ' . $config['mail'];
@@ -132,15 +132,8 @@ function hashPassword($password) {
 function isEarlyBird() {
   global $dbConnection, $config;
 
-  try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 GROUP BY status');
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($row['count'] < 100) {
+  $count = getConfirmedAttendees();
+  if ($count < 100) {
     return true;
   } else {
     return false;
@@ -398,7 +391,7 @@ function rejectRegistration($userId) {
   if ($stmt->rowCount() === 1) {
     sendEmail($email, 'Registration Canceled', "Dear $nickname,
 
-Sadly we have to inform you that your registration has been canceled.
+Sadly we have to inform you that your registration has been deleted.
 
 If you believe this was a mistake, please send us an email. It can be that there is still space. We will inform you with more information after checking the system. 
 
@@ -422,7 +415,7 @@ function saveApplication($chatId, $name, $message) {
     $stmt->bindParam(':message', $message);
     $stmt->execute();
   } catch (PDOException $e) {
-    notifyOnException('Database Insert', $config, $sql, $e, false);
+    notifyOnException('Database Insert', $config, $sql, $e);
     return false;
   }
   return true;
@@ -481,6 +474,7 @@ function approvePayment($userId, $approver, $amount) {
       $nickname = $row['nickname'];
       $topay = $row['topay'];
       $paid = $row['paid'];
+
       if ($topay <= $amount + $paid) {
         $status = 3;
       } else {
@@ -502,7 +496,7 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
       $dbConnection->commit();
-      if ($status === 3) {
+      if ($status == 3) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
@@ -680,4 +674,19 @@ function insertToken($userId) {
     return false;
   }
   return $token;
+}
+
+function getConfirmedAttendees() {
+  global $dbConnection, $config;
+  try {
+    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0');
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+
+  return $row['count'];
 }
