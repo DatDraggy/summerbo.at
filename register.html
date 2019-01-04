@@ -1,10 +1,11 @@
 <?php
 require_once('backend/includes.php');
 require_once('backend/config.php');
-require_once ('backend/funcs.php');
+require_once('backend/funcs.php');
 
+$dbConnection = buildDatabaseConnection($config);
 $attendees = getConfirmedAttendees();
-if($attendees === false){
+if ($attendees === false) {
   $attendees = 999;
 }
 $attendeesMax = $config['attendeesMax'];
