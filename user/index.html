@@ -26,11 +26,11 @@ if (!checkRegValid($userId)) {
 // Check Reg Validity //
 ////////////////////////
 
-$userStatus = $status[getRegDetails($userId, 'nickname, status')['status']];
+$userStatus = $status[getRegDetails($userId, 'status')['status']];
 
-$payments = getPaymentDetails($userId, 'date, amount');
+$payments = getPaymentDetails($userId, 'nickname, date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
-$nickname = '$userStatus'['nickname'];
+
 foreach ($payments as $payment) {
   $amount = $payment['amount'];
   $date = date('Y-m-d', $payment['date']);
