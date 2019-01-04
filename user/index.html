@@ -29,13 +29,14 @@ if (!checkRegValid($userId)) {
 $userStatus = $status[getRegDetails($userId, 'status')['status']];
 
 $payments = getPaymentDetails($userId, 'date, amount');
-$paymentsHtml = '';
+$paymentsHtml = '<table><th>Date</th><th>Amount</th><td>';
 foreach ($payments as $payment) {
   $amount = $payment['amount'];
   $date = date('Y-m-d', $payment['date']);
 
-  $paymentsHtml .= '<span class="date">' . $date . '</span> <span class="amount">' . $amount . '€</span>';
+  $paymentsHtml .= '<tr class="date">' . $date . '</tr> <tr class="amount">' . $amount . '€</tr>';
 }
+$paymentsHtml .= '</td></table>';
 
 ?>
 
