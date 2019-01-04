@@ -27,7 +27,7 @@ $context  = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
 if (!$result->success) {
-  throw new Exception('reCAPTCHA Verification Failed', 1);
+  die('reCAPTCHA Verification Failed');
 }
 if (empty($_POST['firstname'])) {
   die('no first name');
