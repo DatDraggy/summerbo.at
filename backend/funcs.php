@@ -503,7 +503,6 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
       $dbConnection->commit();
-      mail($config['mail'], 'Debug', $status);
       if ($status == 3) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
