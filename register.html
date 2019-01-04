@@ -49,7 +49,7 @@ $attendeesMax = $config['attendeesMax'];
               or let us know.</p>
             <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
               can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
-              <p><?php echo $attendees . ' of ' . $attendeesMax; ?> slots are taken.</p>
+              <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                 <?php if ($config['regOpen']) { ?>
                   <div class="inputWrapper">
