@@ -22,7 +22,7 @@ $context = stream_context_create($opts);
 $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 $result = json_decode($response);
 if (!$result->success) {
-  die('reCAPTCHA Verification Failed');
+  die('reCAPTCHA Verification Failed. Did you forget to allow cookies?');
 }
 
 if (empty($_POST['firstname'])) {
