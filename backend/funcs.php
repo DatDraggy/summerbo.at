@@ -133,7 +133,7 @@ function isEarlyBird() {
   global $dbConnection, $config;
 
   $count = getConfirmedAttendees();
-  if ($count < 100) {
+  if ($count > 100) {
     return true;
   } else {
     return false;
