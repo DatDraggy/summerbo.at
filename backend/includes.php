@@ -49,7 +49,7 @@ $nav = '<nav id="nav" class="nav inactive">
             <a class="navLink" href="/#team">Team</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="https://berlincodeofconduct.org/" target="_blank">Conduct</a>
+            <a class="navLink" href="/tos#rules" >Conduct</a>
           </div>
         </div>
         <div class="navButtons">
@@ -80,9 +80,9 @@ $footer = '<section id="footer">
           </ul>
           <ul class="blankList textSmall" style="margin-bottom: 2rem">
             <li><a href="mailto:team@summerbo.at" class="unselectable flexCentered" target="_blank">Contact Us</a></li>
-            <li><a href="#" class="unselectable flexCentered">Terms of Service</a></li>
-            <li><a href="https://berlincodeofconduct.org/" target="_blank" class="unselectable flexCentered">Code of Conduct</a></li>
-            <li><a href="/tos.html#privacy" class="unselectable flexCentered">Privacy</a></li>
+            <li><a href="/tos#terms" class="unselectable flexCentered">Terms of Service</a></li>
+            <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
+            <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
           </ul>
           <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
         </div>
