@@ -1,10 +1,11 @@
 <?php
 require_once('config.php');
 require_once('funcs.php');
-if (!$config['regOpen']) {
+session_start();
+if (!$config['regOpen'] || $_SESSION['secret'] === $config['secret']) {
   die();
 }
-
+session_commit();
 # Verify captcha
 if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
   $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
