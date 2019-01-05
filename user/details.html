@@ -8,6 +8,13 @@ if (empty($_SESSION['userId'])) {
   header('Location: ../login');
   die();
 }
+
+$statusSession = '';
+if (!empty($_SESSION['status'])) {
+  $statusSession = $_SESSION['status'];
+  $_SESSION['status'] = '';
+}
+
 $userId = $_SESSION['userId'];
 session_commit();
 $dbConnection = buildDatabaseConnection($config);
@@ -74,6 +81,9 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
       </div>
     </section>
     <section class="wrapper wsLarge">
+      <?php if(!empty($statusSession)){
+      echo '<div class="info-box-err">' . $statusSession . '</div>';
+      } ?>
       <form method="post" action="php/changedetails.php">
         <div class="row">
           <div class="content">

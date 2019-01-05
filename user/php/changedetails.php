@@ -22,9 +22,28 @@ if (!checkRegValid($userId)) {
 // Check Reg Validity //
 ////////////////////////
 session_commit();
-$nickname = $_POST['nickname'];
-$newEmail = $_POST['email'];
-
+$nicknamePost = $_POST['nickname'];
+if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
+  $status = 'Illegal character in Nickname';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
+} else {
+  $nickname = $nicknamePost;
+}
+$newEmailPost = $_POST['email'];
+if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
+  $email = $newEmailPost;
+} else {
+  $status = 'Invalid Email Format';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
+}
 
 /////////////////////
 // Password Verify //
@@ -41,11 +60,21 @@ if ($hash === false) {
 if (!empty($_POST['password'])) {
   $passwordNew = $_POST['password'];
   if (empty($_POST['passwordVerify']) || $passwordNew !== $_POST['passwordVerify']) {
-    die('Passwords do not match');
+    $status = 'Passwords do not match';
+    session_start();
+    $_SESSION['status'] = $status;
+    session_commit();
+    header('Location: ../details');
+    die($status);
   }
   $valid = validatePassword($passwordNew);
   if ($valid !== true) {
-    die($valid);
+    $status = $valid;
+    session_start();
+    $_SESSION['status'] = $status;
+    session_commit();
+    header('Location: ../details');
+    die($status);
   }
   $hash = hashPassword($passwordNew);
 }
