@@ -3,7 +3,12 @@ require_once('config.php');
 require_once('funcs.php');
 
 if (empty($_POST['token'])) {
-  die('something went wrong. No token set in form. Contact dev@summerbo.at');
+  $status = 'something went wrong. No token set in form. Contact dev@summerbo.at';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('../login');
+  die($status);
 } else {
   $token = preg_replace('/[^a-zA-Z0-9]/', '', $_POST['token']);
 }
@@ -12,11 +17,21 @@ $userId = getIdFromToken($token);
 if ($userId !== false) {
   $passwordNew = $_POST['password'];
   if (empty($_POST['passwordVerify']) || $passwordNew !== $_POST['passwordVerify']) {
-    die('Passwords do not match');
+    $status = 'Passwords do not match';
+    session_start();
+    $_SESSION['status'] = $status;
+    session_commit();
+    header('../login');
+    die($status);
   }
   $valid = validatePassword($passwordNew);
   if ($valid !== true) {
-    die($valid);
+    $status = $valid;
+    session_start();
+    $_SESSION['status'] = $status;
+    session_commit();
+    header('../login');
+    die($status);
   }
   $hash = hashPassword($passwordNew);
 
@@ -33,15 +48,19 @@ if ($userId !== false) {
   if ($stmt->rowCount() === 1) {
     $_SESSION['status'] = 'Password Changed';
     session_commit();
-    header('Location: login');
+    header('Location: ../login');
     die();
   } else {
     $_SESSION['status'] = 'Something went wrong';
     session_commit();
-    header('Location: login');
+    header('Location: ../login');
     die();
   }
 } else {
-  header('Location: login');
+  $status = 'Invalid token provided.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../login');
   die();
 }
