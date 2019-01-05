@@ -321,5 +321,5 @@ $status = 'Registration successful. Check your email for the confirmation link. 
 session_start();
 $_SESSION['status'] = $status;
 session_commit();
-header('Location: login?reg');
+header('Location: ../login?reg');
 die($status);
