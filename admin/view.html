@@ -41,6 +41,11 @@ if (!empty($_SESSION['userId'])) {
     setcookie(session_name(), '', time() - 3600, '/');
   }
   session_destroy();
+  $status = 'You are not logged in.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
   header('Location: ../login.html');
+  die($status);
 }
 ?>
