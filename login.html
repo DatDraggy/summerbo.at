@@ -4,8 +4,9 @@ require_once(__DIR__ . '/backend/config.php');
 require_once('backend/includes.php');
 session_start();
 $status = '';
+$statusSession = '';
 if (!empty($_SESSION['status'])) {
-  $status = $_SESSION['status'];
+  $statusSession = $_SESSION['status'];
   $_SESSION['status'] = '';
   session_commit();
 } else if (!empty($_SESSION['userId'])) {
@@ -115,11 +116,12 @@ if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
             <div class="content">
               <h3>Login</h3>
               <?php
-              if (!empty($status) && !isset($_GET['reg'])) {
+              if(isset($_GET['reg'])){
+                echo '<div class="info-box-succ">' . $statusSession . '</div>';
+              }
+              if (!empty($status)) {
                 echo '<div class="info-box-err">' . $status . '</div>';
-              } else if (!empty($status)) {
-                echo '<div class="info-box-succ">' . $status . '</div>';
-              } ?>
+              }  ?>
               <form class="formWrapper" id="login" method="post">
                   <div class="inputWrapper">
                     <label for="regnumber"><span>Registration Number</span></label>
