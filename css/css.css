@@ -233,8 +233,8 @@ a, a:link, a:visited {
   border: 2px solid rgba(255, 255, 255, .25);
 }
 
-.blankList li a:hover {
-  border: 2px solid var(--colorPurple);
+.blankList. li a:hover {
+  border: 2px solid white;
 }
 .blankList.inverse li a:hover {
   border: 2px solid var(--colorPurple);
