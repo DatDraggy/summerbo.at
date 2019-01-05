@@ -32,6 +32,15 @@ if (!$result->success) {
   die($status);
 }*/
 
+if (!openSlots()) {
+  $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will be freed up again.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
+}
+
 if (empty($_POST['firstname'])) {
   $status = 'First Name can\'t be empty.';
   session_start();

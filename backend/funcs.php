@@ -36,9 +36,9 @@ function checkRegValid($userId) {
     $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-    $row = $stmt->fetch();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
+    die();
   }
   if ($stmt->rowCount() === 1) {
     //Already logged in
@@ -87,7 +87,7 @@ function getPaymentDetails($userId, $columns = '*') {
   }
 }
 
-function getBalanceDetails($userId, $columns = '*'){
+function getBalanceDetails($userId, $columns = '*') {
   global $dbConnection, $config;
 
   try {
@@ -204,10 +204,14 @@ function requestEmailConfirm($userId, $parameter = false) {
   }
   if ($stmt->rowCount() > 0) {
     $token = insertToken($userId);
-    if($token === false){return false;}
-  }else{return false;}
+    if ($token === false) {
+      return false;
+    }
+  } else {
+    return false;
+  }
   if ($parameter !== false) {
-    $token .= '&' .$parameter;
+    $token .= '&' . $parameter;
   }
   return 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 }
@@ -300,10 +304,11 @@ It shouldn't take more than 24 hours.*/
       $stmt->bindParam(':token', $token);
       $stmt->execute();
     } else {
-      $data = array('ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-                    'token'   => $token,
-                    'server'  => $_SERVER,
-                    'headers' => $http_response_header
+      $data = array(
+        'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+        'token'   => $token,
+        'server'  => $_SERVER,
+        'headers' => $http_response_header
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;
@@ -434,21 +439,25 @@ function sendStaffNotification($userId, $text = '') {
 }
 
 function buildApproveMarkup($userId) {
-  return array('inline_keyboard' => array(/*array(
+  return array(
+    'inline_keyboard' => array(/*array(
         array(
           'text' => 'View',
           'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
           'callback_data' => $userId . '|view|0'
         )
       ),*/
-                                          array(array('text'          => 'Approve',
-                                                      'callback_data' => $userId . '|approve|0'
-                                                ),
-                                                array('text'          => 'Reject',
-                                                      'callback_data' => $userId . '|reject|0'
-                                                )
-                                          )
-  )
+                               array(
+                                 array(
+                                   'text'          => 'Approve',
+                                   'callback_data' => $userId . '|approve|0'
+                                 ),
+                                 array(
+                                   'text'          => 'Reject',
+                                   'callback_data' => $userId . '|reject|0'
+                                 )
+                               )
+    )
   );
 }
 
@@ -458,13 +467,22 @@ function requestApproveMessage($chatId, $userId) {
 <a href=\"https://summerbo.at/admin/view.html?type=reg&id=$userId\">Regnumber: $userId</a>", json_encode($replyMarkup));
 }
 
+function openSlots() {
+  global $dbConnection, $config;
+  $confirmedAttendees = getConfirmedAttendees();
+  if ($confirmedAttendees === false || $confirmedAttendees >= $config['attendeesMax']) {
+    return false;
+  }
+  return true;
+}
+
 function approvePayment($userId, $approver, $amount) {
   global $dbConnection, $config;
 
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT topay, paid, nickname, email FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT topay, paid, nickname, email FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = :userId");
+    $sql = "SELECT topay, paid, nickname, email, locked FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT topay, paid, nickname, email, locked FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = :userId");
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -474,6 +492,7 @@ function approvePayment($userId, $approver, $amount) {
       $nickname = $row['nickname'];
       $topay = $row['topay'];
       $paid = $row['paid'];
+      $locked = $row['locked'];
 
       if ($topay <= $amount + $paid) {
         $status = 3;
@@ -482,15 +501,21 @@ function approvePayment($userId, $approver, $amount) {
       }
 
       $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET status = '$status', paid = paid + $amount WHERE users.id = '$userId'";
-      $stmt = $dbConnection->prepare("UPDATE balance INNER JOIN users on balance.id = users.id SET status = :status, paid = paid + :amount WHERE users.id = :userId");
+      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET status = :status, paid = paid + :amount WHERE users.id = :userId');
       $stmt->bindParam(':status', $status);
       $stmt->bindParam(':amount', $amount);
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
 
+      if ($status == 3 && $locked != 0) {
+        $sql = "UPDATE users SET locked = 0 WHERE id = $userId";
+        $stmt = $dbConnection->prepare('UPDATE users SET locked = 0 WHERE id = :userId');
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+      }
 
       $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
-      $stmt = $dbConnection->prepare("INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)");
+      $stmt = $dbConnection->prepare('INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)');
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':approver', $approver);
       $stmt->bindParam(':amount', $amount);
@@ -500,7 +525,9 @@ function approvePayment($userId, $approver, $amount) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
-Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. 
+Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party.
+
+<a href=\"https://summerbo.at/#faq\">https://summerbo.at/#faq</a>
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
 
@@ -679,8 +706,8 @@ function insertToken($userId) {
 function getConfirmedAttendees() {
   global $dbConnection, $config;
   try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0');
+    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0');
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
