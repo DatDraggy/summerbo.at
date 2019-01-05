@@ -34,11 +34,13 @@ $locked = $details['locked'];
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
 
-foreach ($payments as $payment) {
-  $amount = $payment['amount'];
-  $date = date('Y-m-d', $payment['date']);
+if (is_array($payments)) {
+  foreach ($payments as $payment) {
+    $amount = $payment['amount'];
+    $date = date('Y-m-d', $payment['date']);
 
-  $paymentsHtml .= '<tr><td class="date">' . $date . '</td> <td class="amount">' . $amount . '€</td></tr>';
+    $paymentsHtml .= '<tr><td class="date">' . $date . '</td> <td class="amount">' . $amount . '€</td></tr>';
+  }
 }
 $paymentsHtml .= '</table>';
 

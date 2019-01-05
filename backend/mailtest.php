@@ -24,7 +24,7 @@ Comment: $userId, $nickname</p>
 
 Did you already pay everything? Please ignore this email or send us a message.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ", true);
