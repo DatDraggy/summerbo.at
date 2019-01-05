@@ -35,6 +35,7 @@ if (!$result->success) {
   die($status);
 }*/
 
+$dbConnection = buildDatabaseConnection($config);
 if (!openSlots()) {
   $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will be freed up again.';
   session_start();
@@ -274,7 +275,6 @@ if (strlen($countryPost) == 2) {
   $country = preg_replace('/[^A-Z]/', '', $countryPost);
 }
 
-$dbConnection = buildDatabaseConnection($config);
 if ($dbConnection === false) {
   $status = 'Database Connection Broken. Notifications have been sent.';
   session_start();
