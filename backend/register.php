@@ -2,7 +2,7 @@
 require_once('config.php');
 require_once('funcs.php');
 session_start();
-if (!$config['regOpen'] || $_SESSION['secret'] === $config['secret']) {
+if (!$config['regOpen'] || empty($_SESSION['secret']) || $_SESSION['secret'] !== $config['secret']) {
   die();
 }
 session_commit();
@@ -221,6 +221,30 @@ if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
 }
 
 //Check for used email
+try{
+  $sql = "SELECT count(id) as count FROM users WHERE email = $email";
+  $stmt=$dbConnection->prepare('SELECT count(id) as count FROM users WHERE email = :email');
+  $stmt->bindParam(':email', $email);
+  $stmt->execute();
+  $row = $stmt->fetch();
+}catch (PDOException $e){
+  notifyOnException('Database Insert', $config, $sql, $e);
+  $status = 'Unknown Error in Registration. Administrator has been notified';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
+}
+
+if($row['count'] > 0){
+  $status = 'Email already taken. Please login or choose another email.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: register');
+  die($status);
+}
 
 if ($passwordPost !== $passwordVerifyPost) {
   $status = 'Passwords do not match';
