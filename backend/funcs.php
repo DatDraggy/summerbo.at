@@ -707,9 +707,10 @@ function insertToken($userId) {
 
     $token = getRandomString();
 
-    $sql = "INSERT INTO email_tokens(id, token) VALUES ()";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
+    $sql = "INSERT INTO email_tokens(id, token) VALUES ($userId, $token)";
+    $stmt = $dbConnection->prepare('INSERT INTO email_tokens(id, token) VALUES (:userId, :token)');
     $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':token', $token);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Transaction', $config, $sql, $e);
