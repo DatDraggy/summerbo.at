@@ -167,6 +167,8 @@ a, a:link, a:visited {
 
 .headline {
   color: var(--colorHeadline);
+  margin-top:-8rem;
+  padding-top: 8rem;
 }
 
 .subheadline {
