@@ -116,7 +116,7 @@ try {
 $sponsorOld = $row['sponsor'];
 if ($sponsorNew === true && $sponsorOld == 0) {
   upgradeToSponsor($userId);
-  sendStaffNotification($userId, "Attendee $userId upgraded to sponsor.");
+  sendStaffNotification($userId, "<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Attendee $userId</a> upgraded to sponsor.");
 }
 // Sponsor Upgrade //
 /////////////////////
