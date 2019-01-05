@@ -130,11 +130,11 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
             </div>
             <div class="inputWrapper">
               <label for="nickname"><span>Nickname</span></label>
-              <input name="nickname" id="nickname" value="<?php echo $nickname; ?>" type="text">
+              <input name="nickname" id="nickname" value="<?php echo $nickname; ?>" type="text" required>
             </div>
             <div class="inputWrapper">
               <label for="email"><span>E-Mail</span></label>
-              <input name="email" id="email" value="<?php echo $email; ?>" type="email">
+              <input name="email" id="email" value="<?php echo $email; ?>" type="email" required>
             </div>
             <div class="checkboxWrapper">
               <div class="checkboxGroup">
@@ -156,7 +156,7 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
             </div>
             <div class="inputWrapper">
               <label for="passwordOld"><span>Old Password</span></label>
-              <input name="passwordOld" id="passwordOld" type="password">
+              <input name="passwordOld" id="passwordOld" type="password" required>
             </div>
             <button class="button buttonPrimary">Submit</button>
           </div>
