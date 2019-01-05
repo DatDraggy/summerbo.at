@@ -220,7 +220,7 @@ function upgradeToSponsor($userId) {
   global $dbConnection, $config;
   try {
     $sql = "SELECT email, nickname FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE id = :userId');
+    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -231,15 +231,15 @@ function upgradeToSponsor($userId) {
     $email = $row['email'];
     $nickname = $row['nickname'];
     try {
-      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceAddSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE balance SET topay = topay + :priceAddSponsor WHERE id = :userId');
-      $stmt->bindParam(':priceAddSponsor', $config['priceAddSponsor']);
+      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + :priceSponsor, sponsor = 1, status = 2 WHERE users.id = :userId');
+      $stmt->bindParam(':priceSponsor', $config['priceSponsor']);
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
     } catch (PDOException $e) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
-
+    
     sendEmail($email, 'Sponsor Upgrade', "Dear $nickname, 
 
 Thank you for your upgrade! You are now a sponsor for the Summernight Party. As a sponsor, you get a special gift and badge as a thank you for the extra support. 
@@ -464,7 +464,7 @@ function buildApproveMarkup($userId) {
 function requestApproveMessage($chatId, $userId) {
   $replyMarkup = buildApproveMarkup($userId);
   sendMessage($chatId, "<b>New Registration on summerbo.at!</b>
-<a href=\"https://summerbo.at/admin/view.html?type=reg&id=$userId\">Regnumber: $userId</a>", json_encode($replyMarkup));
+<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Regnumber: $userId</a>", json_encode($replyMarkup));
 }
 
 function openSlots() {
