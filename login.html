@@ -70,6 +70,46 @@ if (!empty($_SESSION['status'])) {
       $status = 'Incorrect Login Details';
     }
   }
+} else if (!empty($_POST['email']) && !empty($_POST['g-recaptcha-response'])) {
+  $email = $_POST['email'];
+#
+# Verify captcha
+  if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  }
+  $post_data = http_build_query(array(
+    'secret'   => $config['captchaSecret'],
+    'response' => $_POST['g-recaptcha-response'],
+    'remoteip' => $_SERVER['REMOTE_ADDR']
+  ));
+  $opts = array(
+    'http' => array(
+      'method'  => 'POST',
+      'header'  => 'Content-type: application/x-www-form-urlencoded',
+      'content' => $post_data
+    )
+  );
+  $context = stream_context_create($opts);
+  $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+  $result = json_decode($response);
+  if (!$result->success) {
+    $status = 'reCAPTCHA Verification Failed';
+  } else {
+    try{
+      $sql="SELECT id FROM users WHERE email = $email AND status > 0";
+      $stmt = $dbConnection->prepare('SELECT id FROM users WHERE email = :email AND status > 0');
+      $stmt->bindParam(':email', $email);
+      $stmt->execute();
+      $row = $stmt->fetch();
+    }catch (PDOException $e){
+      notifyOnException('Database Select', $config, $sql, $e);
+      $status = 'Database Error';
+    }
+    if($stmt->rowCount() > 0) {
+      requestPasswordReset($row['id']);
+    }
+    $status = 'If there is an account linked to the provided email, a password reset link has been sent.';
+  }
 }
 $recaptcha = '';
 if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
@@ -95,6 +135,9 @@ if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
       }*/
       function onSubmit(token) {
         document.getElementById("login").submit();
+      }
+      function onSubmitReset(token) {
+        document.getElementById("reset").submit();
       }
     </script>
     <?php echo $head; ?>
@@ -146,7 +189,7 @@ if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
                     <input name="email" id="email" class="input" placeholder="Email address" required/>
                   </div>
                   <div class="formRow">
-                    <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Reset</button>
+                    <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmitReset">Reset</button>
                   </div>
                 </form>
             </div>
