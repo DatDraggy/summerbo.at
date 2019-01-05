@@ -2,9 +2,12 @@
 require_once('config.php');
 require_once('funcs.php');
 session_start();
-if (!$config['regOpen'] || empty($_SESSION['secret']) || $_SESSION['secret'] !== $config['secret']) {
-  die();
+if (!$config['regOpen']) {
+  if(empty($_SESSION['secret']) || $_SESSION['secret'] !== $config['secret']) {
+    die();
+  }
 }
+
 session_commit();
 /*
 # Verify captcha
