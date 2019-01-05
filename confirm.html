@@ -7,9 +7,12 @@ if (!empty($_GET['token'])) {
 
   if(isset($_GET['email'])){
     if (confirmEmail($token)) {
-      header('Location: login.html');
+      session_start();
+      $status = 'Email changed';
+      $_SESSION['status'] = $status;
+      header('Location: user/details');
       //Email Changed, Goto login
-      die();
+      die($status);
     }
     else {
       echo 'Something went wrong.';

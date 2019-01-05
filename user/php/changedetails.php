@@ -55,7 +55,12 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
 $hash = checkPassword($userId, $_POST['passwordOld']);
 
 if ($hash === false) {
-  die('Incorrect Password');
+  $status = 'Incorrect Password';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
 }
 // Password Verify //
 /////////////////////
