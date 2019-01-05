@@ -239,7 +239,7 @@ function upgradeToSponsor($userId) {
     } catch (PDOException $e) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
-    
+
     sendEmail($email, 'Sponsor Upgrade', "Dear $nickname, 
 
 Thank you for your upgrade! You are now a sponsor for the Summernight Party. As a sponsor, you get a special gift and badge as a thank you for the extra support. 
