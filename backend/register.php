@@ -164,7 +164,7 @@ $publicList = empty($_POST['publicList']) ? false : true;
   header('Location: ../register');
   die($status);
 } else {*/
-  $firstName = $firstNamePost;
+  $firstName = htmlspecialchars($firstNamePost);
 //}
 
 /*if (preg_match('/[^\sa-zA-Z]/', $lastNamePost) === 1) {
@@ -175,7 +175,7 @@ $publicList = empty($_POST['publicList']) ? false : true;
   header('Location: ../register');
   die($status);
 } else {*/
-  $lastName = $lastNamePost;
+  $lastName = htmlspecialchars($lastNamePost);
 //}
 
 //$nicknameRaw = str_replace(' ', '_', $nicknamePost);
