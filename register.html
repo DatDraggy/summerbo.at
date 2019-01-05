@@ -15,32 +15,11 @@ if ($attendees === false) {
 }
 $attendeesMax = $config['attendeesMax'];
 
-$recaptcha = '';
-if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
-  $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
-} else {
-  $status = 'Please allow cookies and refresh the page. Otherwise you won\'t be able to register.';
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
-  <?php echo $recaptcha; ?>
-  <script>
-    /*if ('yes' === Cookies.get('cookieconsent_dismissed')) {
-      var script = document.createElement('script');
-      script.src = 'https://www.google.com/recaptcha/api.js';
-      script.createAttribute('async');
-      script.createAttribute('defer');
-      document.body.appendChild(script);
-    } else{
-
-    }*/
-    function onSubmit(token) {
-      document.getElementById("GoodForm").submit();
-    }
-  </script>
   <?php echo $head; ?>
   </head>
   <body class="hasNav">
@@ -401,7 +380,7 @@ if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
                         list</label>
                     </div>
                   </div>
-                  <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Submit</button>
+                  <button class="button buttonPrimary">Submit</button>
                 <?php } else {
                   echo 'Registration has not opened yet';
                 } ?>
