@@ -31,7 +31,7 @@ if (!$result->success) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }*/
 
@@ -41,7 +41,7 @@ if (!openSlots()) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -50,7 +50,7 @@ if (empty($_POST['firstname'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $firstNamePost = $_POST['firstname'];
@@ -60,7 +60,7 @@ if (empty($_POST['lastname'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $lastNamePost = $_POST['lastname'];
@@ -70,7 +70,7 @@ if (empty($_POST['nickname'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $nicknamePost = $_POST['nickname'];
@@ -80,7 +80,7 @@ if (empty($_POST['dob'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } /*
 if (!empty($_POST['day'])) {
@@ -109,7 +109,7 @@ if (empty($_POST['email'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $emailPost = $_POST['email'];
@@ -119,7 +119,7 @@ if (empty($_POST['password'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $passwordPost = $_POST['password'];
@@ -129,7 +129,7 @@ if (empty($_POST['passwordVerify'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $passwordVerifyPost = $_POST['passwordVerify'];
@@ -139,7 +139,7 @@ if (empty($_POST['country'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $countryPost = $_POST['country'];
@@ -149,7 +149,7 @@ if (empty($_POST['tos'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -161,7 +161,7 @@ if (preg_match('/[^\sa-zA-Z]/', $firstNamePost) === 1) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $firstName = $firstNamePost;
@@ -172,7 +172,7 @@ if (preg_match('/[^\sa-zA-Z]/', $lastNamePost) === 1) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $lastName = $lastNamePost;
@@ -199,7 +199,7 @@ if ($dobStamp === false) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 $dob = date('Y-m-d', $dobStamp);
@@ -209,7 +209,7 @@ if (strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start')
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -220,7 +220,7 @@ if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -237,7 +237,7 @@ try{
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -246,7 +246,7 @@ if($row['count'] > 0){
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -255,7 +255,7 @@ if ($passwordPost !== $passwordVerifyPost) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 $passValid = validatePassword($passwordPost);
@@ -264,7 +264,7 @@ if ($passValid !== true) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 } else {
   $password = $passwordPost;
@@ -280,7 +280,7 @@ if ($dbConnection === false) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 
@@ -290,7 +290,7 @@ if ($userId === false) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 $confirmationLink = requestEmailConfirm($userId);
@@ -300,7 +300,7 @@ if ($confirmationLink === false) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: register');
+  header('Location: ../register');
   die($status);
 }
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
