@@ -28,18 +28,17 @@ if (isset($data['callback_query'])) {
 
 Your registration was confirmed by our registration team. Below you will find the bank details to send us the payment.
 
-Bank details:
-Name:
-Bank:
-IBAN:
-BIC:
+Bank Details:
+Name: Edwin Verstaij
+Bank: Bunq
+IBAN: NL04 BUNQ 2290 9065 14
+IC/SWIFT: BUNQNL2AXXX
+Comment: $userId, $nickname
 
 Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
 
 Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on <a href=\"https://summerbo.at/login\">https://summerbo.at/login</a>.
-
-Alternatively, you can contact us if you would like to pay via PayPal.
-But, keep in mind that there will be an additional handling fee for the extra work.
+Is it not possible to pay us via bank transfer? Please send us an email with your problem and we will try to help you.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
