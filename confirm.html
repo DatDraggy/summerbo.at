@@ -16,7 +16,7 @@ if (!empty($_GET['token'])) {
     }
   }
   else if(isset($_GET['password'])){
-    header('Location: password.php?token='.$token);
+    header('Location: password?token='.$token);
   }
   else {
     if (confirmRegistration($token)) {
