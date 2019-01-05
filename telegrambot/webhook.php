@@ -41,7 +41,7 @@ Please pay within 14 days to make sure you will have a spot on the boat. If you 
 Alternatively, you can contact us if you would like to pay via PayPal.
 But, keep in mind that there will be an additional handling fee for the extra work.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ");

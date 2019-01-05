@@ -244,7 +244,7 @@ function upgradeToSponsor($userId) {
 
 Thank you for your upgrade! You are now a sponsor for the Summernight Party. As a sponsor, you get a special gift and badge as a thank you for the extra support. 
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ");
@@ -289,7 +289,7 @@ It shouldn't take more than 24 hours.
 
 Your current status is: VERIFIED - Regnumber $userId
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ");
@@ -533,7 +533,7 @@ Welcome aboard! Your payment of $amount €,- has been received. Below you find 
 
 <a href=\"https://summerbo.at/#faq\">https://summerbo.at/#faq</a>
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ", true);
@@ -543,7 +543,7 @@ Your Boat Party Crew
 
 Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ", true);
@@ -554,7 +554,7 @@ Your Boat Party Crew
 Your payment of $amount €,- has been received. However, there were no more open slots for you.
 We're sorry and apologize for any inconvenience.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ", true);
@@ -686,7 +686,7 @@ function requestPasswordReset($userId) {
 
 You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ");
