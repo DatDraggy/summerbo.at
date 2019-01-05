@@ -179,8 +179,18 @@ $publicList = empty($_POST['publicList']) ? false : true;
 //}
 
 //$nicknameRaw = str_replace(' ', '_', $nicknamePost);
-$nicknameRaw = $nicknamePost;
-$nickname = preg_replace('/[^\w-. ~]/', '', $nicknameRaw);
+
+
+if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
+  $status = 'Illegal character in Nickname';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
+} else {
+  $nicknameRaw = $nicknamePost;
+}
 
 /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
   $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
