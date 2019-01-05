@@ -155,7 +155,7 @@ if (empty($_POST['tos'])) {
 
 $publicList = empty($_POST['publicList']) ? false : true;
 
-if (preg_match('/[\sa-zA-Z]/', $firstNamePost) !== 1) {
+if (preg_match('/[^\sa-zA-Z]/', $firstNamePost) === 1) {
   //ToDo: Test pregmatch
   $status = 'Illegal character in First Name.';
   session_start();
@@ -167,7 +167,7 @@ if (preg_match('/[\sa-zA-Z]/', $firstNamePost) !== 1) {
   $firstName = $firstNamePost;
 }
 
-if (preg_match('/[\sa-zA-Z]/', $lastNamePost) !== 1) {
+if (preg_match('/[^\sa-zA-Z]/', $lastNamePost) === 1) {
   $status = 'Illegal character in Last Name';
   session_start();
   $_SESSION['status'] = $status;
