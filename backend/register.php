@@ -189,7 +189,7 @@ if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
   header('Location: ../register');
   die($status);
 } else {
-  $nicknameRaw = $nicknamePost;
+  $nickname = $nicknamePost;
 }
 
 /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
