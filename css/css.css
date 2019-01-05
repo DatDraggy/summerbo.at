@@ -233,17 +233,17 @@ a, a:link, a:visited {
   border: 2px solid rgba(255, 255, 255, .25);
 }
 
-.blankList. li a:hover {
+.blankList li a:hover {
   border: 2px solid white;
 }
-.blankList.inverse li a:hover {
-  border: 2px solid var(--colorPurple);
-}
+
 .blankList.inverse li a:link, .blankList.inverse li a:visited {
   color: var(--colorPurple);
   border: 2px solid rgba(112, 39, 125,.25);
 }
-
+.blankList.inverse li a:hover {
+  border: 2px solid var(--colorPurple);
+}
 
 .la24:before {
   font-size: 1.5rem;
