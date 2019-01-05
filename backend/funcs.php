@@ -712,6 +712,7 @@ function insertToken($userId) {
     $stmt->bindParam(':userId', $userId);
     $stmt->bindParam(':token', $token);
     $stmt->execute();
+    $dbConnection->commit();
   } catch (PDOException $e) {
     notifyOnException('Database Transaction', $config, $sql, $e);
     return false;
