@@ -506,12 +506,15 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':amount', $amount);
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
-
-      if ($status == 3 && $locked != 0) {
+      $openSlots = openSlots();
+      if ($status == 3 && $locked != 0 && $openSlots) {
         $sql = "UPDATE users SET locked = 0 WHERE id = $userId";
         $stmt = $dbConnection->prepare('UPDATE users SET locked = 0 WHERE id = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
+      }
+      if ($locked != 0 && !$openSlots) {
+        $status = 1;
       }
 
       $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
@@ -521,6 +524,7 @@ function approvePayment($userId, $approver, $amount) {
       $stmt->bindParam(':amount', $amount);
       $stmt->execute();
       $dbConnection->commit();
+
       if ($status == 3) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
@@ -534,10 +538,21 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 Your Boat Party Crew
 ", true);
         return true;
-      } else {
+      } else if ($status == 2) {
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
 Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
+
+Your Boat Party Crew
+", true);
+        return false;
+      } else {
+        sendEmail($email, 'Payment Received', "Dear $nickname,
+
+Your payment of $amount €,- has been received. However, there were no more open slots for you.
+We're sorry and apologize for any inconvenience.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at https://t.me/summerboat.
 
