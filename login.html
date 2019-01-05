@@ -160,12 +160,14 @@ if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
             <div class="content">
               <h3>Login</h3>
               <?php
-              if(isset($_GET['reg'])){
+              if (isset($_GET['reg'])) {
                 echo '<div class="info-box-succ">' . $statusSession . '</div>';
+              } else {
+                echo '<div class="info-box-err">' . $statusSession . '</div>';
               }
               if (!empty($status)) {
                 echo '<div class="info-box-err">' . $status . '</div>';
-              }  ?>
+              } ?>
               <form class="formWrapper" id="login" method="post">
                   <div class="inputWrapper">
                     <label for="regnumber"><span>Registration Number</span></label>
