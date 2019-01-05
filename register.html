@@ -15,6 +15,11 @@ if ($attendees === false) {
 }
 $attendeesMax = $config['attendeesMax'];
 
+$regOpen = $config['regOpen'];
+if($regOpen === true) {
+  $regOpen = openSlots();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -50,7 +55,7 @@ $attendeesMax = $config['attendeesMax'];
                 echo '<div class="info-box-err">'.$status.'</div>';
               } ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php if ($config['regOpen'] || $_SESSION['secret'] === $config['secret']) { ?>
+                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>

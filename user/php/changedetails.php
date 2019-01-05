@@ -1,6 +1,6 @@
 <?php
 require_once('../../backend/config.php');
-require_once ('../../backend/funcs.php');
+require_once('../../backend/funcs.php');
 session_start();
 if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
   die('Details can\'t be empty');
@@ -24,7 +24,6 @@ if (!checkRegValid($userId)) {
 session_commit();
 $nickname = $_POST['nickname'];
 $newEmail = $_POST['email'];
-
 
 
 /////////////////////
@@ -55,8 +54,7 @@ if (!empty($_POST['password'])) {
 
 if (empty($_POST['fursuiter'])) {
   $fursuiter = false;
-}
-else {
+} else {
   $fursuiter = true;
 }
 
@@ -64,8 +62,7 @@ else {
 // Sponsor Upgrade //
 if (empty($_POST['sponsor'])) {
   $sponsorNew = false;
-}
-else {
+} else {
   $sponsorNew = true;
 }
 try {
