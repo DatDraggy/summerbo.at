@@ -71,6 +71,7 @@ if (!empty($_SESSION['status'])) {
     }
   }
 } else if (!empty($_POST['email']) && !empty($_POST['g-recaptcha-response'])) {
+  $dbConnection = buildDatabaseConnection($config);
   $email = $_POST['email'];
 #
 # Verify captcha
