@@ -176,5 +176,9 @@ try {
 // Update Nickname and Fursuit //
 /////////////////////////////////
 
-
+$status = 'Details changed successfully.';
+session_start();
+$_SESSION = $status;
+session_commit();
 header('Location: ../details');
+die($status);
