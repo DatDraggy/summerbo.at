@@ -3,7 +3,12 @@ require_once('../../backend/config.php');
 require_once('../../backend/funcs.php');
 session_start();
 if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
-  die('Details can\'t be empty');
+  $status = 'Missing details. Check Nickname, Email and old Password.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
 }
 
 $dbConnection = buildDatabaseConnection($config);
