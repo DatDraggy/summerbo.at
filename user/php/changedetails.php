@@ -40,7 +40,7 @@ if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
 }
 $newEmailPost = $_POST['email'];
 if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
-  $email = $newEmailPost;
+  $newEmail = $newEmailPost;
 } else {
   $status = 'Invalid Email Format';
   session_start();
@@ -131,7 +131,8 @@ $oldEmail = $row['email'];
 if ($oldEmail !== $newEmail) {
   try {
     $sql = "UPDATE users SET email_new = $newEmail WHERE id = $userId";
-    $stmt = $dbConnection->prepare('UPDATE users SET email_new = $email WHERE id = :userId');
+    $stmt = $dbConnection->prepare('UPDATE users SET email_new = :email WHERE id = :userId');
+    $stmt->bindParam(':email', $newEmail);
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
