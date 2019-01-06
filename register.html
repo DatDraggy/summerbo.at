@@ -43,22 +43,19 @@ if($regOpen === true) {
           <div class="row">
             <div class="content">
               <h3>Registration</h3>
-              <p>Please fill in all details because everything is required to register succesfully.
+			  <p>Please fill in all details because everything is required to register succesfully.
               If you made a mistake during filling in, just update it yourself on the login page
               or let us know.</p>
             <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
               can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
+              <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
+              <noscript>Enable Javascript, otherwise you won't be able to register because of reCAPTCHA</noscript>
               <?php
-              if($attendeesMax - $attendees <= 100){
-                ?>
-                <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
-                <?php
-              }
               if(!empty($status)){
                 echo '<div class="info-box-err">'.$status.'</div>';
-              }
-              if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
+              } ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
+                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
@@ -389,45 +386,14 @@ if($regOpen === true) {
                     </div>
                   </div>
                   <button class="button buttonPrimary">Submit</button>
+                <?php } else { ?>
+                  Registration will open on Sunday the 27th January 2019<br>
+                <?php } ?>
               </form>
             </div>
           </div>
         </section>
 
-      <?php } else { ?>
-      Registration will open on Sunday the 27th January 2019<br>
-
-      <section id="count" class="countWrapperReg">
-        <div class="wrapper">
-          <div id="counters-min" class="row">
-            <!-- Item 1 -->
-            <div class="content">
-              <span id="count-min-1" class="countNbr heading1">0</span><br>
-              <span class="countText">Days</span>
-            </div>
-            <!-- Item 2 -->
-            <div class="content">
-              <span id="count-min-2" class="countNbr heading1">0</span><br>
-              <span class="countText">Hours</span>
-            </div>
-            <!-- Item 3 -->
-            <div class="content">
-              <span id="count-min-3" class="countNbr heading1">0</span><br>
-              <span class="countText">Minutes</span>
-            </div>
-            <!-- Item 4 -->
-            <div class="content">
-              <span id="count-min-4" class="count-nbr heading1">0</span><br>
-              <span class="count-text">Seconds</span>
-            </div>
-          </div>
-        </div>
-      </section>
-      <script src="js/countdown.js"></script>
-      <script>
-        CountDownTimer("2019-01-27T20:00:00");
-      </script>
-      <?php } ?>
       </section> <!--pageWrapper -->
       <?php echo $footer; ?>
   </body>
