@@ -389,7 +389,7 @@ if($regOpen === true) {
                 <?php } else { ?>
                   Registration will open on Sunday the 27th January 2019<br>
 
-                  <span id="countdown">0 Days 0 Hours 0 Minutes 0 Seconds</span>
+                  <div id="countdown">0 Days 0 Hours 0 Minutes 0 Seconds</div>
                   <script>
                     function CountDownTimer(dt) {
                       const end = new Date(dt);
@@ -413,10 +413,10 @@ if($regOpen === true) {
 
                         const countdown = document.getElementById('countdown');
 
-                        countdown.innerHTML = days + ' Days';
-                        countdown.innerHTML += hours + ' Hours';
-                        countdown.innerHTML += minutes + ' Minutes';
-                        countdown.innerHTML += seconds + ' Seconds';
+                        countdown.innerHTML = days + ' Days ';
+                        countdown.innerHTML += hours + ' Hours ';
+                        countdown.innerHTML += minutes + ' Minutes ';
+                        countdown.innerHTML += seconds + ' Seconds ';
                       }
                       showRemaining();
                       timer = setInterval(showRemaining, 1000);
