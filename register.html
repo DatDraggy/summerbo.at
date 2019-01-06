@@ -387,13 +387,12 @@ if($regOpen === true) {
                   </div>
                   <button class="button buttonPrimary">Submit</button>
               </form>
-              <?php } ?>
+              <?php } else { echo 'Registration will open on Sunday the 27th January 2019<br>'; } ?>
             </div>
           </div>
         </section>
       </section> <!--pageWrapper -->
       <?php if(!$regOpen && $_SESSION['secret'] !== $config['secret']) { ?>
-        Registration will open on Sunday the 27th January 2019<br>
         <section id="count" class="countWrapperReg">
           <div class="wrapper">
             <div id="counters-min" class="row">
