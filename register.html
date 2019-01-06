@@ -48,14 +48,18 @@ if($regOpen === true) {
               or let us know.</p>
             <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
               can find both <a href="tos.html" title="Terms and Conditions">here</a>.</p>
-              <p><?php echo $attendees; ?> of <?php echo $attendeesMax; ?> slots are taken.</p>
-              <noscript>Enable Javascript, otherwise you won't be able to register because of reCAPTCHA</noscript>
+              <?php
+              $slotsLeft = $attendeesMax - $attendees;
+              if ($attendeesMax - $attendees <= 100) {
+                echo "<p>There are only $slotsLeft slots left!</p>";
+              }
+              ?>
               <?php
               if(!empty($status)){
                 echo '<div class="info-box-err">'.$status.'</div>';
-              }
-              if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
+              }?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
+                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
@@ -386,8 +390,8 @@ if($regOpen === true) {
                     </div>
                   </div>
                   <button class="button buttonPrimary">Submit</button>
+                <?php } else { echo 'Registration will open on Sunday the 27th January 2019<br>'; } ?>
               </form>
-              <?php } else { echo 'Registration will open on Sunday the 27th January 2019<br>'; } ?>
             </div>
           </div>
         </section>
