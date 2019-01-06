@@ -141,7 +141,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
       sendMessage($chatId, '/help');
       break;
     case '/help':
-      sendMessage($chatId, 'Approving a payment: /payment
+      sendMessage($chatId, 'Applying for Volunteer: /apply
 ');
       break;
     case '/getunconfirmed':
