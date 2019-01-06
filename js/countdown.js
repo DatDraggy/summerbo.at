@@ -1,4 +1,4 @@
-function CountDownTimer(dt, id) {
+function CountDownTimer(dt) {
   const end = new Date(dt);
 
   const _second = 1000;
