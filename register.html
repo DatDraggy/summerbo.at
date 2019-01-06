@@ -53,9 +53,9 @@ if($regOpen === true) {
               <?php
               if(!empty($status)){
                 echo '<div class="info-box-err">'.$status.'</div>';
-              } ?>
+              }
+              if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
@@ -386,10 +386,40 @@ if($regOpen === true) {
                     </div>
                   </div>
                   <button class="button buttonPrimary">Submit</button>
-                <?php } else { ?>
-                  Registration will open on Sunday the 27th January 2019<br>
-                <?php } ?>
               </form>
+              <?php } else { ?>
+                Registration will open on Sunday the 27th January 2019<br>
+                <section id="count" class="countWrapperReg">
+                  <div class="wrapper">
+                    <div id="counters-min" class="row">
+                      <!-- Item 1 -->
+                      <div class="content">
+                        <span id="count-min-1" class="countNbr heading1">0</span><br>
+                        <span class="countText">Days</span>
+                      </div>
+                      <!-- Item 2 -->
+                      <div class="content">
+                        <span id="count-min-2" class="countNbr heading1">0</span><br>
+                        <span class="countText">Hours</span>
+                      </div>
+                      <!-- Item 3 -->
+                      <div class="content">
+                        <span id="count-min-3" class="countNbr heading1">0</span><br>
+                        <span class="countText">Minutes</span>
+                      </div>
+                      <!-- Item 4 -->
+                      <div class="content">
+                        <span id="count-min-4" class="count-nbr heading1">0</span><br>
+                        <span class="count-text">Seconds</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <script src="js/countdown.js"></script>
+                <script>
+                  CountDownTimer("<?php echo $startDate; ?>T20:00:00", 'countdown');
+                </script>
+              <?php } ?>
             </div>
           </div>
         </section>
