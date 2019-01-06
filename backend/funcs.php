@@ -216,6 +216,20 @@ function requestEmailConfirm($userId, $parameter = false) {
   return 'https://' . $config['sitedomain'] . '/confirm?token=' . $token;
 }
 
+function getFursuiters() {
+  global $dbConnection, $config;
+
+  try {
+    $sql = 'SELECT nickname, email FROM users WHERE list = 1 AND fursuiter = 1';
+    $stmt = $dbConnection->prepare('SELECT nickname, email FROM users WHERE list = 1 AND fursuiter = 1 ORDER BY id ASC');
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+  }
+  return $rows;
+}
+
 function upgradeToSponsor($userId) {
   global $dbConnection, $config;
   try {
