@@ -389,14 +389,39 @@ if($regOpen === true) {
                 <?php } else { ?>
                   Registration will open on Sunday the 27th January 2019<br>
 
-                  <span id="count-min-1">0</span> Days
-                  <span id="count-min-2">0</span> Hours
-                  <span id="count-min-3">0</span> Minutes
-                  <span id="count-min-4">0</span> Seconds
-
-                  <script src="js/countdown.js"></script>
+                  <span id="countdown">0 Days 0 Hours 0 Minutes 0 Seconds</span>
                   <script>
-                    CountDownTimer("<?php echo $startDate; ?>T20:00:00", 'countdown');
+                    function CountDownTimerReg(dt) {
+                      const end = new Date(dt);
+
+                      const _second = 1000;
+                      const _minute = _second * 60;
+                      const _hour = _minute * 60;
+                      const _day = _hour * 24;
+                      let timer;
+
+                      function showRemaining() {
+                        const now = new Date();
+                        const distance = end - now;
+                        if (distance <= 0) {
+                          clearInterval(timer);
+                        }
+                        const days = Math.floor(distance / _day);
+                        const hours = Math.floor((distance % _day) / _hour);
+                        const minutes = Math.floor((distance % _hour) / _minute);
+                        const seconds = Math.floor((distance % _minute) / _second);
+
+                        const countdown = document.getElementById('countdown');
+
+                        countdown.innerHTML = days + ' Days';
+                        countdown.innerHTML += hours + ' Hours';
+                        countdown.innerHTML += minutes + ' Minutes';
+                        countdown.innerHTML += seconds + ' Seconds';
+                      }
+                      showRemaining();
+                      timer = setInterval(showRemaining, 1000);
+                    }
+                    CountDownTimer("2019-01-27T20:00:00");
                   </script>
                 <?php } ?>
               </form>
