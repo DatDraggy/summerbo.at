@@ -646,6 +646,12 @@ a.buttonSecondary {
   text-align: center;
 }
 
+.countWrapperReg {
+  background-color: var(--colorToneHigh);
+  color: var(--colorBlack);
+  padding: 4rem 0rem;
+}
+
 /* Video */
 .hero .wrapper {
   z-index: 100;
