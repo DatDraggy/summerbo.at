@@ -240,9 +240,9 @@ function upgradeToSponsor($userId) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, 'Sponsor Upgrade', "Dear $nickname, 
+    sendEmail($email, '`VIP Upgrade', "Dear $nickname, 
 
-Thank you for your upgrade! You are now a sponsor for the Summernight Party. As a sponsor, you get a special gift and badge as a thank you for the extra support. 
+Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support. 
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
@@ -529,7 +529,7 @@ function approvePayment($userId, $approver, $amount) {
         //ToDo Below more Information
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
-Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party.
+Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. We will also send more information in the weeks before the party.
 
 <a href=\"https://summerbo.at/#faq\">https://summerbo.at/#faq</a>
 
@@ -541,7 +541,8 @@ Your Boat Party Crew
       } else if ($status == 2) {
         sendEmail($email, 'Payment Received', "Dear $nickname,
 
-Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-.
+Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-. 
+Please pay the rest of the amount as well to make sure you are fully registered. If you think this is a mistake, let us know via email.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
@@ -685,6 +686,7 @@ function requestPasswordReset($userId) {
     sendEmail($email, 'Password Reset', "Dear $nickname, 
 
 You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+Was it not you who requested this? Let us know!
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
