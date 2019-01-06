@@ -387,44 +387,44 @@ if($regOpen === true) {
                   </div>
                   <button class="button buttonPrimary">Submit</button>
               </form>
-              <?php } else { ?>
-                Registration will open on Sunday the 27th January 2019<br>
-                <section id="count" class="countWrapperReg">
-                  <div class="wrapper">
-                    <div id="counters-min" class="row">
-                      <!-- Item 1 -->
-                      <div class="content">
-                        <span id="count-min-1" class="countNbr heading1">0</span><br>
-                        <span class="countText">Days</span>
-                      </div>
-                      <!-- Item 2 -->
-                      <div class="content">
-                        <span id="count-min-2" class="countNbr heading1">0</span><br>
-                        <span class="countText">Hours</span>
-                      </div>
-                      <!-- Item 3 -->
-                      <div class="content">
-                        <span id="count-min-3" class="countNbr heading1">0</span><br>
-                        <span class="countText">Minutes</span>
-                      </div>
-                      <!-- Item 4 -->
-                      <div class="content">
-                        <span id="count-min-4" class="count-nbr heading1">0</span><br>
-                        <span class="count-text">Seconds</span>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <script src="js/countdown.js"></script>
-                <script>
-                  CountDownTimer("<?php echo $startDate; ?>T20:00:00", 'countdown');
-                </script>
               <?php } ?>
             </div>
           </div>
         </section>
-
       </section> <!--pageWrapper -->
+      <?php if(!$regOpen && $_SESSION['secret'] !== $config['secret']) { ?>
+        Registration will open on Sunday the 27th January 2019<br>
+        <section id="count" class="countWrapperReg">
+          <div class="wrapper">
+            <div id="counters-min" class="row">
+              <!-- Item 1 -->
+              <div class="content">
+                <span id="count-min-1" class="countNbr heading1">0</span><br>
+                <span class="countText">Days</span>
+              </div>
+              <!-- Item 2 -->
+              <div class="content">
+                <span id="count-min-2" class="countNbr heading1">0</span><br>
+                <span class="countText">Hours</span>
+              </div>
+              <!-- Item 3 -->
+              <div class="content">
+                <span id="count-min-3" class="countNbr heading1">0</span><br>
+                <span class="countText">Minutes</span>
+              </div>
+              <!-- Item 4 -->
+              <div class="content">
+                <span id="count-min-4" class="count-nbr heading1">0</span><br>
+                <span class="count-text">Seconds</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <script src="js/countdown.js"></script>
+        <script>
+          CountDownTimer("2019-01-27T20:00:00", 'countdown');
+        </script>
+      <?php } ?>
       <?php echo $footer; ?>
   </body>
 </html>
