@@ -13,7 +13,7 @@ if (isEarlyBird()) {
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
-          <p class="ticketPrice heading2">€xx</p>
+          <p class="ticketPrice heading2">€25</p>
           <ul class="ticketItems">
             <li><strong>Limited to 100 Spaces</strong></li>
             <li>1 (One) Awesome Badge</li>
@@ -27,7 +27,7 @@ if (isEarlyBird()) {
   $standardTicket = '
         <div class="ticket ticketSecondary content content33">
           <h3 class="ticketName nomargin">Standard Ticket</h3>
-          <p class="ticketPrice heading2">€xx</p>
+          <p class="ticketPrice heading2">€35</p>
           <ul class="ticketItems">
             <li>1 (One) Awesome Badge</li>
             <li>Full Access to the Party</li>
@@ -45,7 +45,7 @@ else {
   $earlyBirdTicket = '
         <div class="ticket ticketSecondary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
-          <p class="ticketPrice heading2">€xx</p>
+          <p class="ticketPrice heading2">€25</p>
           <ul class="ticketItems">
             <li><strong>Limited to 100 Spaces</strong></li>
             <li>1 (One) Awesome Badge</li>
@@ -61,7 +61,7 @@ else {
   $standardTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Standard Ticket</h3>
-          <p class="ticketPrice heading2">€xx</p>
+          <p class="ticketPrice heading2">€35</p>
           <ul class="ticketItems">
             <li>1 (One) Awesome Badge</li>
             <li>Full Access to the Party</li>
@@ -91,7 +91,7 @@ else {
           <h1><img alt="Hot Summer Nights" src="images/header@2x.png" data-src="images/headerLarge@2x.png"
                    class="heroFeature lazy"></h1>
           <h2 class="heading2 nomargin">Furry Boat Party</h2>
-          <p>Berlin&mdash;13 August 2019 8pm CET</p>
+          <p>Berlin&mdash;13 August 2019 Evening</p>
           <div class="buttonGroup flexStickyEnd">
             <a href="register" class="button buttonPrimary">Register Now</a>
           </div>
@@ -138,53 +138,14 @@ else {
       <div class="wrapper">
         <div class="row">
           <div style="color:white" class="content wsLarge">
-            <h2 class="headline" id="about" style="color:white">An exclusive Boat party—departing from the estrel</h2>
-            <p class="textBig"><em>Hot Summer Nights</em> is an <em>exclusive</em> party on a three-hundred person
-              capacity boat. From the Estrel dock to the Spree and back, through the German Capital, take in the sunset
+            <h2 class="headline" id="about" style="color:white">An exclusive Boat party—departing from the Estrel</h2>
+            <p class="textBig"><em>Hot Summer Nights</em> is an <em>exclusive</em> party on a large boat. 
+			From the Estrel dock to the Spree and back, through the German Capital, take in the sunset
               and mingle on the upper deck, retreat to the lounge and dancefloor with live DJs.</p>
           </div>
         </div>
       </div>
-    </section>
-	
-<!-- 	<section class="wrapper wsLarge">
-    <div class="row">
-	<img src="images/berlinmap.svg" alt="Berlin boat route" />
-	</div>
-	</section> -->
-	<!-- <section class="wrapper wsLarge">
-      <div class="row">
-        <div class="teamMember content content25" style="background-color: var(--colorPink); color: white;">
-          <h4 class="subheadline nomargin">Location</h4>
-            <h5 class="textSmall">Let's set sail!</h5>
-          <p><img src="images/staff/hunter.png" alt="Hunter"></p>
-          <p>Location of the boat party is the Mark Brandenburg. The biggest ship of the Stern und Kreis company that has many ships for cruises in Berlin. 
-		  With a very big open deck and 4 saloons inside there is enough space for everyone.</p>
-        </div>
-        <div class="teamMember content content25">
-          <h4 class="subheadline nomargin">Drinks</h4>
-            <h5 class="textSmall">Web and Reg System</h5>
-          <p><img src="images/staff/kieran.png" alt="Kieran"></p>
-          <p>On the boat we have a fully equipped bar with all kinds of drinks available. You wanna go for a cold beer from the tap to watch Berlin? 
-		  Sure, we have it! Want something refreshing after fursuiting or dancing hard? Also no problem! 
-		  You can pay directly at the bar in cash so no need for tokens or special currency.</p>
-        </div>
-        <div class="teamMember content content25" style="background-color: var(--colorPink); color: white;">
-          <h4 class="subheadline nomargin">Fursuits</h4>
-            <h5 class="textSmall">Let's suit up!</h5>
-          <p><img src="images/staff/hausken.png" alt="Hausken"></p>
-          <p>Do boats and fursuits work? Of course they do! We make sure that it's very easy to bring your stuff on the boat, including a fursuitlounge with basic supplies. We do understand that you maybe don't want to suit during the whole trip. Simply change out of suit and we keep guard. Also the outside decks are perfect for cooling down and waving at the many people on the side.
-</p>
-        </div>
-        <div class="teamMember content content25">
-          <h4 class="subheadline nomargin">Transport</h4>
-            <h5 class="textSmall">Choo choo</h5>
-          <p><img src="images/staff/hausken.png" alt="Hausken"></p>
-          <p>For this party you don't have to travel at all! We start in the biergarten of the Estrel hotel. Perfect for everyone who wants to party and see Berlin without traveling far. The boat is also ending the tour there so no worries to get back to the hotel. Before boarding it's already possible to receive your badge and lanyard so you can enter without waiting. For more information about that, check below in the FAQ.</p>
-        </div>
-      </div>
-    </section> -->
-	
+    </section>	
 
     <section class="wrapper wsLarge">
       <div class="row">
@@ -196,10 +157,10 @@ else {
         <?php echo $earlyBirdTicket; ?>
         <div class="ticket ticketTertiary content content33">
           <h3 class="ticketName nomargin"><abbr title="Very Important Partyer">VIP</abbr> Upgrade</h3>
-          <p class="ticketPrice heading2">+€xx</p>
+          <p class="ticketPrice heading2">+€15</p>
           <ul class="ticketItems">
             <li><strong>Upgrade your experience</strong></li>
-            <li>Exclusive <abbr>VIP</abbr> Badge</li>
+            <li>A <abbr>free</abbr> Drink</li>
             <li>Special Gift</li>
             <li>Undying Love</li>
           </ul>
@@ -287,10 +248,10 @@ else {
             <dd class="badger-accordion__panel js-badger-accordion-panel">
               <div class="js-badger-accordion-panel-inner">
                 <p>
-                  <em>Early Bird</em> tickets cost <strong>&euro;xx</strong>. When there are no more available, you can
-                  purchase a <em>Normal</em> ticket for <strong>&euro;xx</strong>. There are only 100 early bird tickets
+                  <em>Early Bird</em> tickets cost <strong>&euro;25</strong>. When there are no more available, you can
+                  purchase a <em>Normal</em> ticket for <strong>&euro;35</strong>. There are only 100 early bird tickets
                   available.
-                  We also offer a <abbr>VIP</abbr> upgrade for <strong>&euro;xx</strong>.
+                  We also offer a <abbr>VIP</abbr> upgrade for <strong>&euro;15</strong>.
                   You get a special gift and a super limited <abbr>VIP</abbr> badge, but you also help us to make the
                   party even more awesome.
                 </p>
