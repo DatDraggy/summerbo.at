@@ -56,9 +56,9 @@ if($regOpen === true) {
               }
               if(!empty($status)){
                 echo '<div class="info-box-err">'.$status.'</div>';
-              } ?>
+              }
+              if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
