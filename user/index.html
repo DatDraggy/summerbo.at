@@ -31,6 +31,8 @@ $userStatus = $status[$details['status']];
 $nickname = $details['nickname'];
 $locked = $details['locked'];
 
+$topay = getBalanceDetails($userId, 'topay - paid as left')['left'];
+
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
 
@@ -82,6 +84,7 @@ $paymentsHtml .= '</table>';
 		<div class="row">
       <p>Your current registration status is <strong><?php echo $userStatus; ?></strong> <?php if($locked){ ?> <span style="color:red">However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span> <?php } ?>. Below you can find all the payments you made to us and the amount connected to it.</p>
 		</div>
+          <?php if($topay > 0) { ?>
 		<div class="row">
 		<p></p>
             <p>The bank details are:<br>
@@ -93,6 +96,7 @@ $paymentsHtml .= '</table>';
               Amount: <?php echo $topay; ?>€<br>
               Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
 		</div>
+          <?php } ?>
 		<div class="row">
 		<?php echo $paymentsHtml; ?>
         </div>
