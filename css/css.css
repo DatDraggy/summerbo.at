@@ -517,6 +517,10 @@ nav.active .js-showNav {
   color: var(--colorGoldSecondary);
 }
 
+.ticketQuartery {
+  color: #000;
+}
+
 .ticketName {
   min-height: 4rem;
 }
