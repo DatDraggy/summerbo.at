@@ -31,7 +31,7 @@ $userStatus = $status[$details['status']];
 $nickname = $details['nickname'];
 $locked = $details['locked'];
 
-$topay = getBalanceDetails($userId, 'topay - paid as left')['left'];
+$topay = getBalanceDetails($userId, 'topay - paid as leftToPay')['leftToPay'];
 
 $payments = getPaymentDetails($userId, 'date, amount');
 $paymentsHtml = '<table><th>Date</th><th>Amount</th>';
