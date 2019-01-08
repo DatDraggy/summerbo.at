@@ -313,6 +313,13 @@ if ($confirmationLink === false) {
   header('Location: ../register');
   die($status);
 }
+
+$status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
+session_start();
+$_SESSION['status'] = $status;
+session_commit();
+header('Location: ../login?reg');
+
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration with the Summernights party.
@@ -326,10 +333,3 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ", true);
-
-$status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
-session_start();
-$_SESSION['status'] = $status;
-session_commit();
-header('Location: ../login?reg');
-die($status);

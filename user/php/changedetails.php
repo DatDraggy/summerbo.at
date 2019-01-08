@@ -114,10 +114,7 @@ try {
   notifyOnException('Database Select', $config, $sql, $e);
 }
 $sponsorOld = $row['sponsor'];
-if ($sponsorNew === true && $sponsorOld == 0) {
-  upgradeToSponsor($userId);
-  sendStaffNotification($userId, "<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Attendee $userId</a> upgraded to sponsor.");
-}
+
 // Sponsor Upgrade //
 /////////////////////
 
@@ -133,6 +130,7 @@ try {
   notifyOnException('Database Select', $config, $sql, $e);
 }
 $oldEmail = $row['email'];
+$confirmationLink = false;
 if ($oldEmail !== $newEmail) {
   try {
     $sql = "UPDATE users SET email_new = $newEmail WHERE id = $userId";
@@ -145,16 +143,6 @@ if ($oldEmail !== $newEmail) {
   }
   if ($stmt->rowCount() === 1) {
     $confirmationLink = requestEmailConfirm($userId, 'email');
-    if ($confirmationLink !== false) {
-      sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
-
-You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
-");
-    }
   }
 }
 // Email Change //
@@ -181,4 +169,19 @@ session_start();
 $_SESSION = $status;
 session_commit();
 header('Location: ../details');
-die($status);
+
+if ($sponsorNew === true && $sponsorOld == 0) {
+  upgradeToSponsor($userId);
+  sendStaffNotification($userId, "<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Attendee $userId</a> upgraded to sponsor.");
+}
+
+if ($confirmationLink !== false) {
+  sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
+
+You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew
+");
+}
