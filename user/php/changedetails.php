@@ -96,6 +96,11 @@ if (empty($_POST['fursuiter'])) {
 } else {
   $fursuiter = true;
 }
+if (empty($_POST['publiclist'])) {
+  $list = false;
+} else {
+  $list = true;
+}
 
 /////////////////////
 // Sponsor Upgrade //
@@ -151,10 +156,11 @@ if ($oldEmail !== $newEmail) {
 /////////////////////////////////
 // Update Nickname and Fursuit //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, hash = $hash WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, hash = :hash WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
+  $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
