@@ -1070,3 +1070,8 @@ body.hasNav {
   border-color: limegreen;
   padding: 5px;
 }
+
+#attendeeList ul {
+  font-size: 1.2rem;
+  list-style-type: none;
+}
