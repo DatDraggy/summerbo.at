@@ -219,24 +219,31 @@ else {
     </section>
 
     <section class="wrapper wsLarge">
-        <div class="row">
-          <div class="content">
-            <h2 id="register" class="headline heading1">Registration</h2>
-          </div>
+      <div class="row">
+        <div class="content">
+          <h2 id="register" class="headline heading1">Registration</h2>
         </div>
-        <div class="row">
-          <div class="content">
-		    <p>The registration will open soon! After registration it is possible to pay immediately but your payment has to be made before the 25th of March. Until that date you will stay registered without having to pay. 
-			If you have an early bird ticket that would mean that you have to pay the early bird fee before that date. After the 25th of March your slot is canceled or changed based on the available tickets left.</p>
-            <p>The registration is open! After registration you have 14 days to pay the fees. When everything is done you are successfully registered and ready to board the ship.</p>
-			<p>The VIP upgrade is our name for the good old sponsor upgrade. With this upgrade you get not only special goodies, but you also support us so we can make it the best party ever!
-			The upgrade is not limited to a maximum amount and can always be bought later in the user area. Downgrading is not possible but transferring it to someone else is. Just send us an email.</p>
-            <p>Before you register it is important that you are familiar with our <a href="tos" title="Terms and Conditions"><em>Code of Conduct</em> and <em>Terms and Conditions</em></a>.
-			They explain the rules for keeping it a fun and awesome party.</p>
-			<p>Want to see who is going to party hard with us? Check out our <a href="attendees">Attendees List</a>!</p>
-			  <p>If you have any questions left or can't wait until the party is starting, join then our Telegram group under <strong><a href="https://t.me/summerboat">@summerboat</a></strong>.</p>
-          </div>
+      </div>
+      <div class="row">
+        <div class="content">
+          <?php
+          if(1553472000 > time()) {
+            echo '<p>The registration will open soon! After registering it is possible to pay immediately but your payment is not required until the 25th of March. Until that date you will stay registered without having to pay.
+            After March 25th, you have 14 days to pay. </p>';
+          }else {
+            echo '<p>The registration is open! After registering you have 14 days to pay the fees. When everything is done you are successfully registered and ready to board the ship.</p>';
+          }
+          ?>
+          <p>The VIP upgrade is our name for the good old sponsor upgrade. With this upgrade you not only get special goodies, but you also support us so that we can make it the best party ever!
+            The upgrade is not limited to a maximum amount and can always be bought later in the user area. Downgrading is not possible but transferring it to someone else is. Just send us an email.</p>
+          <p>Before you register it is important that you are familiar with our
+            <a href="tos" title="Terms and Conditions"><em>Code of Conduct</em> and <em>Terms and Conditions</em></a>.
+            They explain the rules for keeping it a fun and awesome party.</p>
+          <p>Want to see who is going to party hard with us? Check out our <a href="attendees">Attendees List</a>!</p>
+          <p>If you have any questions or can't wait until the party is starting, then join our Telegram group
+            <strong><a href="https://t.me/summerboat">@summerboat</a></strong>.</p>
         </div>
+      </div>
     </section>
 
     <section class="wrapper wsLarge">
