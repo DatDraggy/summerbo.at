@@ -1,0 +1,80 @@
+<?php
+require_once('backend/includes.php');
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <?php echo $head; ?>
+  </head>
+  <body class="hasNav">
+    <div id="app">
+      <?php echo $nav; ?>
+
+      <section id="contentPage">
+		<!-- ========== Info text ========== -->
+
+        <section class="ribbon" style="background-color: var(--colorPink)">
+          <div class="wrapper">
+            <div class="row">
+              <div style="color:white" class="content wsLarge">
+                <h1 id="legal">Contact</h1>
+                <p class="textBig">Looking for a way to contact us? Look no further! We have all the options to contact us here below. Choose the way you want to contact us and we will do our best to make sure you get an answer as soon as possible.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+		<section>
+		<div class="row">
+    
+		<div class="content">
+      
+
+			<h2 id="terms" class="headline">How to contact us</h2>
+			<p><strong>Telegram</strong></p>
+			
+			<p>The best way to contact us is to ask one of the Admins in our official Telegram group. The username for the group is <a href="https://t.me/summerboat">@Summerboat</a>. 
+			Just ask for an Admin or contact them directly via Telegram. All Admins can help you with every question so do not hesitate to ask them.</p>
+
+			<p><strong>Email</strong></p>
+
+			<p>The other way of contacting us is using the form below. Fill in all fields to provide us with all the information needed. If the form is not working, please send an email to team@summerbo.at. 
+			Include your regnumber, email address or nickname just in case.</p>
+			
+			<form class="formWrapper" id="contact" method="post">
+                  <div class="inputWrapper">
+                    <label for="contactname"><span>Name</span></label>
+                    <input name="contactname" id="contactname" class="input" placeholder="Name" required/>
+                  </div>
+                  <div class="formRow">
+                    <div class="inputWrapper">
+                    <label for="contactmail"><span>Email/Telegram</span></label>
+                    <input name="contactmail" id="contactmail" class="input" placeholder="How can we contact you?" required/>
+                  </div>
+                  </div>
+				   <div class="formRow">
+                    <div class="inputWrapper">
+                    <label for="contactsubject"><span>Subject</span></label>
+                    <input name="contactsubject" id="contactsubject" class="input" placeholder="Subject" required/>
+                  </div>
+                  </div>
+				   <div class="formRow">
+                    <div class="inputWrapper">
+                    <label for="contacttext"><span>Message</span></label>
+                    <input name="contacttext" id="contacttext" class="input" placeholder="Enter your information here" required/>
+                  </div>
+                  </div>
+                  <div class="formRow">
+                    <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Send</button>
+                  </div>
+                </form>
+
+		</div>
+		</div>
+		</section>
+
+      </section> <!--pageWrapper -->
+      <?php echo $footer; ?>
+  </body>
+</html>
