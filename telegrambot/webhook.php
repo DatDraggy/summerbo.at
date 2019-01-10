@@ -143,6 +143,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
     case '/help':
       sendMessage($chatId, 'Applying for Volunteer: /apply
 ');
+      //Maybe display clickable buttons in case theres more commands in the future
       break;
     case '/getunconfirmed':
       $dbConnection = buildDatabaseConnection($config);
