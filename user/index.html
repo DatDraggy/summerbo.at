@@ -82,7 +82,7 @@ $paymentsHtml .= '</table>';
         <h1 class="headline">Payments</h1>
 		</div>
 		<div class="row">
-      <p>Your current registration status is <strong><?php echo $userStatus; ?></strong>.</p><p> <?php if($locked){ ?> <span style="color:red"> However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span> <br><?php } ?>  Below you can find all the payments you made to us and the amount connected to it.</p>
+      <p>Your current registration status is <strong><?php echo $userStatus; ?></strong>. </p><p> <?php if($locked){ ?> <span style="color:red"> However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span> <br><?php } ?> Below you can find all the payments you made to us and the amount connected to it.</p>
 		</div>
           <?php if($topay > 0) { ?>
 		<div class="row">
