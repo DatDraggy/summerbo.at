@@ -19,7 +19,11 @@ $regOpen = $config['regOpen'];
 if($regOpen === true) {
   $regOpen = openSlots();
 }
-
+if (empty($_SESSION['secret'])) {
+  $secret = false;
+} else {
+  $secret = $_SESSION['secret'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -59,7 +63,7 @@ if($regOpen === true) {
                 echo '<div class="info-box-err">'.$status.'</div>';
               }?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php if ($regOpen || $_SESSION['secret'] === $config['secret']) { ?>
+                <?php if ($regOpen || $secret === $config['secret']) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
@@ -396,7 +400,7 @@ if($regOpen === true) {
           </div>
         </section>
       </section> <!--pageWrapper -->
-      <?php if(!$regOpen && $_SESSION['secret'] !== $config['secret']) { ?>
+      <?php if(!$regOpen && $secret !== $config['secret']) { ?>
         <section id="count" class="countWrapperReg" style="text-align: center;">
           <div class="wrapper">
             <div id="counters-min" class="row">
