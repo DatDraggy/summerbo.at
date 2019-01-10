@@ -103,26 +103,18 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
                 <!-- Paid -->
             <p>You have paid everything! Next step is waiting till the party. Have any questions in the mean time? Just contact us!</p>
 			<p>On this page you can edit the details from your registration. Just type in the new details, old password to verify and press Submit.</p>
-			<p>You want to transfer your ticket or need to change your First/Last name or Date of Birth? Please send us an e-mail with the request. 
+			<p>You want to transfer your ticket or need to change your First/Last name or Date of Birth? Please send us an e-mail with the request.</p>
+            <p>Upgrading your ticket to a VIP ticket, attend as fursuiter or remove your name from the attendee list is of course also possible, just tick the box, enter your password and press Submit.</p>			
 			<p>If it is about a transfer to someone else send also the details from the other person and let the other person send an email to confirm the transfer.</p>
             <?php } else { ?>
                 <!-- Not Paid -->
-            <p>On the right side you can find all your info regarding the registration for our party. If a line is
-              greyed out it means that you can not edit it. All the other lines are possible to edit.<br>
-              You can also still upgrade to sponsor or let us know if you bring a fursuit or not to the party. Just
-              check or un-check the box. For sponsor upgrades and general payment details, please check the amount that
-              is still open a bit more below on this page.<br>
-              All our bankdetails are also bit more below so you can transfer your amount. Please wait a few days if you
+			<p>On this page you can edit the details from your registration. Just type in the new details, old password to verify and press Submit.</p>
+			<p>You want to transfer your ticket or need to change your First/Last name or Date of Birth? Please send us an e-mail with the request. 
+			<p>If it is about a transfer to someone else send also the details from the other person and let the other person send an email to confirm the transfer.</p>
+			
+			<p>You can find the payment details on the payment page of your account. Please wait a few days if you
               just paid your ticket. We check manually the bankaccount and update your status.</p>
-            <p>The bank details are:<br>
-              <br>
-              Name: Edwin Verstaij<br>
-              IBAN: NL04 BUNQ 2290 9065 14<br>
-              BIC/SWIFT: BUNQNL2AXXX<br>
-              Currency: Euros<br>
-              Amount: <?php echo $topay; ?>€<br>
-              Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
-            </p>
+
             <?php } ?>
             <p>If you have any questions about your account or payments. Please send us an e-mail to team@summerbo.at
               and include your name, nickname and regnumber.
