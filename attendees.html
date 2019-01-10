@@ -4,8 +4,8 @@ require_once ('backend/funcs.php');
 require_once ('backend/includes.php');
 
 $dbConnection = buildDatabaseConnection($config);
-$sql = "SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY id ASC";
-$stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY id ASC');
+$sql = "SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY nickname";
+$stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE status > 1 AND list = true ORDER BY nickname');
 $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
