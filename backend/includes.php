@@ -79,7 +79,7 @@ $footer = '<section id="footer">
 			<li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
           </ul>
           <ul class="blankList textSmall" style="margin-bottom: 2rem">
-            <li><a href="mailto:team@summerbo.at" class="unselectable flexCentered" target="_blank">Contact Us</a></li>
+            <li><a href="contact" class="unselectable flexCentered" >Contact Us</a></li>
             <li><a href="/tos#terms" class="unselectable flexCentered">Terms of Service</a></li>
             <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
             <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
