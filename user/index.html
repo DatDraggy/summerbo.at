@@ -82,11 +82,11 @@ $paymentsHtml .= '</table>';
         <h1 class="headline">Payments</h1>
 		</div>
 		<div class="row">
-      <p>Your current registration status is <strong><?php echo $userStatus; ?></strong>.</p><p> <?php if($locked){ ?> <span style="color:red">However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span> <br><?php } ?> Below you can find all the payments you made to us and the amount connected to it.</p>
+      <p>Your current registration status is <strong><?php echo $userStatus; ?></strong>.</p><p> <?php if($locked){ ?> <span style="color:red"> However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span> <br><?php } ?>  Below you can find all the payments you made to us and the amount connected to it.</p>
 		</div>
           <?php if($topay > 0) { ?>
 		<div class="row">
-		<p></p>
+		<p>You still have some fees due. Please use the bank details below to make a bank transfer to our bank account.</p>
             <p>The bank details are:<br>
               <br>
               Name: Edwin Verstaij<br>
@@ -95,8 +95,15 @@ $paymentsHtml .= '</table>';
               Currency: Euros<br>
               Amount: <?php echo $topay; ?>€<br>
               Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
+			  
+	    <p>Don't you see your payment below in the history? Normally we receive the money within a few working days. Due to international banking it can sometimes take a bit longer. 
+		If after a week after paying nothing has been updated, make sure all the information you entered was correct. If it was correct, send us an email with a proof of payment to us so we can sort it out for you.
+		</p>
 		</div>
           <?php } ?>
+		<div class="row">
+		<h2 id="payhis" class="headline">Paymeny History</h2>
+		</div>
 		<div class="row">
 		<?php echo $paymentsHtml; ?>
         </div>
