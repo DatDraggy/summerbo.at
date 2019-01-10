@@ -10,7 +10,7 @@ $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
 foreach ($rows as $row){
-    $attendees .= '<li>' . $row['nickname'] ."</li>\n";
+    $attendees .= '<li>' . htmlspecialchars($row['nickname']) ."</li>\n";
 }
 $attendees .= '</ul>';
 ?>
