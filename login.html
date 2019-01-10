@@ -113,7 +113,7 @@ if (!empty($_SESSION['status'])) {
   }
 }
 $recaptcha = '';
-if ($_COOKIE['cookieconsent_dismissed'] === 'yes') {
+if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismissed'] === 'yes') {
   $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 } else {
   $status = 'Please allow cookies and refresh the page. Otherwise you won\'t be able to login.';
