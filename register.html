@@ -54,8 +54,11 @@ if (empty($_SESSION['secret'])) {
               can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
               <?php
               $slotsLeft = $attendeesMax - $attendees;
-              if ($attendeesMax - $attendees <= 100) {
+              if ($slotsLeft <= 100) {
                 echo "<p>There are only $slotsLeft slots left!</p>";
+              }
+              else if($slotsLeft <= 0){
+                echo "<p>All slots are taken! However some slots might free up because of canceled registrations, so remember to check back.</p>";
               }
               ?>
               <?php
@@ -429,7 +432,7 @@ if (empty($_SESSION['secret'])) {
         </section>
         <script src="js/countdown.js"></script>
         <script>
-          CountDownTimer("2019-01-27T11:00:00");
+          CountDownTimer("2019-01-27T10:59:00");
         </script>
       <?php } ?>
       <?php echo $footer; ?>
