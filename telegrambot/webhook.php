@@ -108,48 +108,38 @@ if (isset($text)) {
   }
 
   $command = strtolower($command);
-
-  if ($command === '/apply') {
-    if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
-      $dbConnection = buildDatabaseConnection($config);
-      $application = explode(' ', $text, 2)[1];
-      $saveName = $senderName;
-      if ($senderUsername !== NULL) {
-        $saveName = $senderUsername;
-      }
-      if (saveApplication($chatId, $saveName, $application)) {
-        sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
-$application");
-        sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
-      } else {
-        sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
-      }
-    } else {
-      sendMessage($chatId, '<b>How to apply as a volunteer:</b>
-Write <code>/apply</code> with a little bit about yourself and experiences behind it.
-Example: <code>/apply Hello, I\'m Dragon!</code>');
-    }
-    die();
-  }
-
-  if (!in_array($chatId, $config['telegramAdmins'])) {
-    die();
-  }
-//Admin Commands locked down
-  switch ($command) {
-    case '/start':
-      sendMessage($chatId, '/help');
+  switch (true) {
+    case($command === '/start'):
+      sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
+To get a command overview, send /help.');
       break;
-    case '/help':
+    case($command === '/help'):
       sendMessage($chatId, 'Applying for Volunteer: /apply
 ');
-      //Maybe display clickable buttons in case theres more commands in the future
       break;
-    case '/getunconfirmed':
-      $dbConnection = buildDatabaseConnection($config);
-      requestUnapproved($chatId);
+    case ($command === '/apply'):
+      if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
+        $dbConnection = buildDatabaseConnection($config);
+        $application = explode(' ', $text, 2)[1];
+        $saveName = $senderName;
+        if ($senderUsername !== NULL) {
+          $saveName = $senderUsername;
+        }
+        if (saveApplication($chatId, $saveName, $application)) {
+          sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
+$application");
+          sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
+        } else {
+          sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
+        }
+      } else {
+        sendMessage($chatId, '<b>How to apply as a volunteer:</b>
+Write <code>/apply</code> with a little bit about yourself and experiences behind it.
+Example: <code>/apply Hello, I\'m Dragon!</code>');
+      }
+      die();
       break;
-    case '/reg':
+    case($command === '/reg' && isTelegramAdmin($chatId)):
       if (isset($messageArr[1])) {
         if ($messageArr[1] === 'status') {
           if (isset($messageArr[2])) {
@@ -167,7 +157,11 @@ Approved: $approvedate");
         }
       }
       break;
-    case '/payment':
+    case ($command == '/getunconfirmed' && isTelegramAdmin($chatId)):
+      $dbConnection = buildDatabaseConnection($config);
+      requestUnapproved($chatId);
+      break;
+    case($command === '/payment' && isTelegramAdmin($chatId)):
       if (isset($messageArr[1])) {
         $dbConnection = buildDatabaseConnection($config);
         if ($messageArr[1] === 'status') {
@@ -203,7 +197,5 @@ To pay: {$detail['topay']}");
 <code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }
       break;
-    default:
-      sendMessage($chatId, 'Unknown Command. Please try again or use /help');
   }
 }
