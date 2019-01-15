@@ -423,6 +423,14 @@ Your Boat Party Crew");
   }
 }
 
+function isTelegramAdmin($userId){
+  global $config;
+  if (in_array($userId, $config['telegramAdmins'])) {
+   return true;
+  }
+  return false;
+}
+
 function saveApplication($chatId, $name, $message) {
   global $dbConnection, $config;
 
