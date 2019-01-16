@@ -671,15 +671,9 @@ function answerCallbackQuery($queryId, $text = '') {
   return json_decode($response, true)['result'];
 }
 
-function sendVenue($chatId) {
+function sendVenue($chatId, $latitude, $longitude, $title, $address) {
   global $config;
-
-  $latitude = 52.473208;
-  $longitude = 13.458217;
-  $title = 'Estrel Biergarten / Beergarden';
-  $address = 'Ziegrastraße 44, 12057 Berlin';
-
-  $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=$title&address=" . urlencode($address));
+  $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=".urlencode($title)."&address=" . urlencode($address));
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
 }
