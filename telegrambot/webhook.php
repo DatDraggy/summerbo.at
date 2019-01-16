@@ -61,7 +61,7 @@ Your Boat Party Crew
             array(
               array(
                 'text'          => 'Yes',
-                'callback_data' => $targetUserId . '|reject|1|'.time()
+                'callback_data' => $targetUserId . '|reject|1|' . time()
               ),
               array(
                 'text'          => 'No',
@@ -76,8 +76,7 @@ Your Boat Party Crew
     } else if ($status === 'view') {
 
     }
-  }
-  else {
+  } else {
     answerCallbackQuery($queryId);
   }
   die();
@@ -114,7 +113,7 @@ if (isset($text)) {
 
   $command = strtolower($command);
   switch (true) {
-    case($command === '/start'):
+    case ($command === '/start'):
       sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
 To get a command overview, send /help.');
       break;
@@ -203,7 +202,7 @@ To pay: {$detail['topay']}");
 <code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }
       break;
-    case '/venue':
+    case ($command === '/venue'):
       sendVenue($chatId);
       break;
     default:
