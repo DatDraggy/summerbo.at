@@ -318,11 +318,10 @@ It shouldn't take more than 24 hours.*/
       $stmt->bindParam(':token', $token);
       $stmt->execute();
     } else {
-      $data = array(
-        'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-        'token'   => $token,
-        'server'  => $_SERVER,
-        'headers' => $http_response_header
+      $data = array('ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+                    'token'   => $token,
+                    'server'  => $_SERVER,
+                    'headers' => $http_response_header
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;
@@ -423,10 +422,10 @@ Your Boat Party Crew");
   }
 }
 
-function isTelegramAdmin($userId){
+function isTelegramAdmin($userId) {
   global $config;
   if (in_array($userId, $config['telegramAdmins'])) {
-   return true;
+    return true;
   }
   return false;
 }
@@ -461,25 +460,21 @@ function sendStaffNotification($userId, $text = '') {
 }
 
 function buildApproveMarkup($userId) {
-  return array(
-    'inline_keyboard' => array(/*array(
+  return array('inline_keyboard' => array(/*array(
         array(
           'text' => 'View',
           'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
           'callback_data' => $userId . '|view|0'
         )
       ),*/
-                               array(
-                                 array(
-                                   'text'          => 'Approve',
-                                   'callback_data' => $userId . '|approve|0'
-                                 ),
-                                 array(
-                                   'text'          => 'Reject',
-                                   'callback_data' => $userId . '|reject|0'
-                                 )
-                               )
-    )
+                                          array(array('text'          => 'Approve',
+                                                      'callback_data' => $userId . '|approve|0'
+                                                ),
+                                                array('text'          => 'Reject',
+                                                      'callback_data' => $userId . '|reject|0'
+                                                )
+                                          )
+  )
   );
 }
 
@@ -669,9 +664,22 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   return json_decode($response, true)['result'];
 }
 
-function answerCallbackQuery($queryId, $text = ''){
+function answerCallbackQuery($queryId, $text = '') {
   global $config;
   $response = file_get_contents($config['url'] . "answerCallbackQuery?callback_query_id=$queryId&text=" . urlencode($text));
+  //Might use http_build_query in the future
+  return json_decode($response, true)['result'];
+}
+
+function sendVenue($chatId) {
+  global $config;
+
+  $latitude = 52.473208;
+  $longitude = 13.458217;
+  $title = 'Estrel Biergarten / Beergarden';
+  $address = 'Ziegrastraße 44, 12057 Berlin';
+
+  $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=$title&address=" . urlencode($address));
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
 }
