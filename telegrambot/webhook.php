@@ -19,7 +19,7 @@ if (isset($data['callback_query'])) {
   $callbackData = $data['callback_query']['data'];
 
   if (stripos($callbackData, '|') !== false) {
-    list($targetUserId, $status, $confirm) = explode('|', $callbackData);
+    list($targetUserId, $status, $confirm, $time) = explode('|', $callbackData);
     $dbConnection = buildDatabaseConnection($config);
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
@@ -49,7 +49,7 @@ Your Boat Party Crew
         answerCallbackQuery($queryId, 'Already approved, rejected or error.');
       }
     } else if ($status === 'reject') {
-      if ($confirm == 1) {
+      if ($confirm == 1 && $time + 10 >= time()) {
         if (rejectRegistration($targetUserId)) {
           answerCallbackQuery($queryId, 'Registration has been rejected.');
         } else {
@@ -61,7 +61,7 @@ Your Boat Party Crew
             array(
               array(
                 'text'          => 'Yes',
-                'callback_data' => $targetUserId . '|reject|1'
+                'callback_data' => $targetUserId . '|reject|1|'.time()
               ),
               array(
                 'text'          => 'No',
@@ -76,6 +76,9 @@ Your Boat Party Crew
     } else if ($status === 'view') {
 
     }
+  }
+  else {
+    answerCallbackQuery($queryId);
   }
   die();
 }
