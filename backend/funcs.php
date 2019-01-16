@@ -669,6 +669,13 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   return json_decode($response, true)['result'];
 }
 
+function answerCallbackQuery($queryId, $text = ''){
+  global $config;
+  $response = file_get_contents($config['url'] . "answerCallbackQuery?callback_query_id=$queryId&text=" . urlencode($text) . "&show_alert=true");
+  //Might use http_build_query in the future
+  return json_decode($response, true)['result'];
+}
+
 function getIdFromToken($token) {
   global $dbConnection, $config;
 
