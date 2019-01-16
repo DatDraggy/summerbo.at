@@ -117,9 +117,10 @@ if (isset($text)) {
       sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
 To get a command overview, send /help.');
       break;
-    case($command === '/help'):
+    case ($command === '/help'):
       sendMessage($chatId, 'Applying for Volunteer: /apply
-Get location of the meetup point: /venue
+Location: /venue
+Badge pickup: /badge
 ');
       break;
     case ($command === '/apply'):
@@ -144,7 +145,7 @@ Example: <code>/apply Hello, I\'m Dragon!</code>');
       }
       die();
       break;
-    case($command === '/reg' && isTelegramAdmin($chatId)):
+    case ($command === '/reg' && isTelegramAdmin($chatId)):
       if (isset($messageArr[1])) {
         if ($messageArr[1] === 'status') {
           if (isset($messageArr[2])) {
@@ -166,7 +167,7 @@ Approved: $approvedate");
       $dbConnection = buildDatabaseConnection($config);
       requestUnapproved($chatId);
       break;
-    case($command === '/payment' && isTelegramAdmin($chatId)):
+    case ($command === '/payment' && isTelegramAdmin($chatId)):
       if (isset($messageArr[1])) {
         $dbConnection = buildDatabaseConnection($config);
         if ($messageArr[1] === 'status') {
@@ -203,7 +204,10 @@ To pay: {$detail['topay']}");
       }
       break;
     case ($command === '/venue'):
-      sendVenue($chatId);
+      sendVenue($chatId, 52.473208, 13.458217, 'Estrel Biergarten / Beergarden', 'Ziegrastraße 44, 12057 Berlin');
+      break;
+    case ($command === '/badge'):
+      sendMessage($chatId, 'On the day of the party you can pick up the badge inside the Estrel Hotel during the afternoon or in the evening in the Biergarten near the boat. Please make sure you bring your ID or Passport with you. The badge is your entrance to the party so please do not lose it. There will be no tickets sold on the day itself.');
       break;
     default:
       sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
