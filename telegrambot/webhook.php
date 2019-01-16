@@ -120,6 +120,7 @@ To get a command overview, send /help.');
       break;
     case($command === '/help'):
       sendMessage($chatId, 'Applying for Volunteer: /apply
+Get location of the meetup point: /venue
 ');
       break;
     case ($command === '/apply'):
@@ -201,6 +202,13 @@ To pay: {$detail['topay']}");
         sendMessage($chatId, 'Usage:
 <code>/payment</code> <b>amount</b> <b>regnumber</b>');
       }
+      break;
+    case '/venue':
+      sendVenue($chatId);
+      break;
+    default:
+      sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
+To get a command overview, send /help.');
       break;
   }
 }
