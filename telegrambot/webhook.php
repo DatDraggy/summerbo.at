@@ -11,6 +11,7 @@ $dump = print_r($data, true);
 
 if (isset($data['callback_query'])) {
   $chatId = $data['callback_query']['message']['chat']['id'];
+  $queryId = $data['callback_query']['id'];
   if (!in_array($chatId, $config['telegramAdmins'])) {
     die();
   }
@@ -22,7 +23,7 @@ if (isset($data['callback_query'])) {
     $dbConnection = buildDatabaseConnection($config);
     if ($status === 'approve') {
       if (approveRegistration($targetUserId)) {
-        sendMessage($chatId, 'Registration has been approved.');
+        answerCallbackQuery($queryId, 'Registration has been approved.');
         list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
@@ -45,14 +46,14 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 Your Boat Party Crew
 ");
       } else {
-        sendMessage($chatId, 'Already approved, rejected or error.');
+        answerCallbackQuery($queryId, 'Already approved, rejected or error.');
       }
     } else if ($status === 'reject') {
       if ($confirm == 1) {
         if (rejectRegistration($targetUserId)) {
-          sendMessage($chatId, 'Registration has been rejected.');
+          answerCallbackQuery($queryId, 'Registration has been rejected.');
         } else {
-          sendMessage($chatId, 'Already rejected or error');
+          answerCallbackQuery($queryId, 'Already rejected or error');
         }
       } else {
         $replyMarkup = array(
