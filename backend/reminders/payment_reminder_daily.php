@@ -3,13 +3,16 @@ if (php_sapi_name() != "cli") {
   die('lol nah');
 }
 
-require_once('config.php');
-require_once('funcs.php');
+require_once('../config.php');
+require_once('../funcs.php');
 
+die();
+
+//ToDo: Execute once 7 days after march 25th. Execute once after march
 $dbConnection = buildDatabaseConnection($config);
 try {
-  $sql = "SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3";
-  $stmt = $dbConnection->prepare('SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3');
+  $sql = 'SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3';
+  $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -31,7 +34,7 @@ Name: Edwin Verstaij
 Bank: Bunq
 IBAN: NL04 BUNQ 2290 9065 14
 IC/SWIFT: BUNQNL2AXXX
-Comment: $userId, $nickname
+Comment: $userId + $nickname
 
 Did you already pay everything? Please ignore this email or send us a message.
 
@@ -53,8 +56,8 @@ Your Boat Party Crew
 
 
 try {
-  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3";
-  $stmt = $dbConnection->prepare('SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3');
+  $sql = 'SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3';
+  $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -68,10 +71,10 @@ foreach ($rows as $row) {
   sendEmail($email, 'Summerbo.at No Payment Received', "Dear $nickname,
 
 Sadly we haven't received the payment for your ticket. Therefore we had to lock your account and invalidate your reservation.
-From now on you have 7 days time to send your payment, after that your account will be deleted and you will have to register again.
-Keep in mind that you do NOT have a reservation anymore. If you pay, but all slots are taken, your payment won't be accepted.
 
-If you already paid, your account will be unlocked if there are free slots left once the payment is confirmed.
+Keep in mind that you do NOT have a reservation anymore, meaning that if you pay now but it doesn't arrive in the next 3 days, you will lose your money and not get a registration.
+
+In case you already paid and the payment arrives within 3 days, your account will be unlocked.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
@@ -89,11 +92,9 @@ Your Boat Party Crew
   sleep(5);
 }
 
-die();
-
 try {
-  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1814400 < UNIX_TIMESTAMP() AND locked = false AND status < 3";
-  $stmt = $dbConnection->prepare('SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1814400 < UNIX_TIMESTAMP() AND locked = false AND status < 3');
+  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1468800 < UNIX_TIMESTAMP() AND locked = true AND status < 3";
+  $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
 } catch (PDOException $e) {

@@ -163,6 +163,9 @@ Approved: $approvedate");
         }
       }
       break;
+    case ($command === '/blacklist' && isTelegramAdmin($chatId)):
+      //ToDo: TBD
+      break;
     case ($command == '/getunconfirmed' && isTelegramAdmin($chatId)):
       $dbConnection = buildDatabaseConnection($config);
       requestUnapproved($chatId);
