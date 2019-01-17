@@ -36,10 +36,12 @@ Contact: $contactmethod
 Subject: $subject
 
 Text: $text");
+    $status = 'Message was sent.';
   }
 }
 
 $recaptcha = '';
+$status = '';
 if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismissed'] === 'yes') {
   $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 } else {
@@ -94,11 +96,11 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
               <p>The other way of contacting us is using the form below. Fill in all fields to provide us with all the information needed. If the form is not working, please send an email to team@summerbo.at.
                 Include your regnumber, email address or nickname just in case.</p>
 
-              <?php
-              if (!empty($status)) {
-                echo '<div class="info-box-err">' . $status . '</div>';
-              } ?>
               <form class="formWrapper" id="contact" method="post">
+                <?php
+                if (!empty($status)) {
+                  echo '<div class="info-box-err">' . $status . '</div><br>';
+                } ?>
                 <div class="inputWrapper">
                   <label for="contactname"><span>Name</span></label>
                   <input name="contactname" id="contactname" class="input" placeholder="Name" required/>
