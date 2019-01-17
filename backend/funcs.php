@@ -403,7 +403,7 @@ function rejectRegistration($userId) {
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
-    notifyOnException('Database Update', $config, $sql, $e);
+    notifyOnException('Database Delete', $config, $sql, $e);
     return false;
   }
   if ($stmt->rowCount() === 1) {
