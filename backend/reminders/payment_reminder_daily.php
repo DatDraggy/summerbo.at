@@ -14,12 +14,12 @@ $delete = '2019-04-11';
 
 if (date('Y-m-d', strtotime($remind)) <= date('Y-m-d', time())) {
   remindRemindReg();
-}
 
-if (date('Y-m-d', strtotime($lock)) <= date('Y-m-d', time())) {
-  remindLockReg();
-}
+  if (date('Y-m-d', strtotime($lock)) <= date('Y-m-d', time())) {
+    remindLockReg();
 
-if (date('Y-m-d', strtotime($delete)) <= date('Y-m-d', time())) {
-  remindDeleteReg();
+    if (date('Y-m-d', strtotime($delete)) <= date('Y-m-d', time())) {
+      remindDeleteReg();
+    }
+  }
 }

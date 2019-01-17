@@ -1,20 +1,63 @@
 <?php
 require_once('backend/includes.php');
+require_once('backend/config.php');
 
-if(!empty('contactname'))
+if (!empty($_POST['contactname']) && !empty($_POST['contact']) && !empty($_POST['contactsubject']) && !empty($_POST['contacttext']) && !empty($_POST['g-recaptcha-response'])) {
+  #
+  # Verify captcha
+  if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  }
+  $post_data = http_build_query(array(
+    'secret'   => $config['captchaSecret'],
+    'response' => $_POST['g-recaptcha-response'],
+    'remoteip' => $_SERVER['REMOTE_ADDR']
+  ));
+  $opts = array(
+    'http' => array(
+      'method'  => 'POST',
+      'header'  => 'Content-type: application/x-www-form-urlencoded',
+      'content' => $post_data
+    )
+  );
+  $context = stream_context_create($opts);
+  $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+  $result = json_decode($response);
+  if (!$result->success) {
+    $status = 'reCAPTCHA Verification Failed';
+  } else {
+    $name = htmlspecialchars($_POST['contactname']);
+    $contact = htmlspecialchars($_POST['contact']);
+    $subject = htmlspecialchars($_POST['contactsubject']);
+    $text = htmlspecialchars($_POST['contacttext']);
+    mail('team@summerbo.at', 'New Contact Request on Summerbo.at', "
+From: $name
+Contact: $contact
+Subject: $subject
+
+Text: $text");
+  }
+}
+
+$recaptcha = '';
+if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismissed'] === 'yes') {
+  $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+} else {
+  $status = 'Please allow cookies and refresh the page. Otherwise you won\'t be able to use this form.';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
-  <?php echo $head; ?>
+  <head>
+    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <?php echo $head; ?>
   </head>
   <body class="hasNav">
     <div id="app">
       <?php echo $nav; ?>
 
       <section id="contentPage">
-		<!-- ========== Info text ========== -->
+        <!-- ========== Info text ========== -->
 
         <section class="ribbon" style="background-color: var(--colorPink)">
           <div class="wrapper">
@@ -27,53 +70,59 @@ if(!empty('contactname'))
           </div>
         </section>
 
-		<section>
-		<div class="row">
-    
-		<div class="content">
+        <section>
+          <div class="row">
 
-			<h2 id="terms" class="headline">How to contact us</h2>
-			<p><strong>Telegram</strong></p>
-			
-			<p>The best way to contact us is to ask one of the Admins in our official Telegram group. The username for the group is <a href="https://t.me/summerboat">@Summerboat</a>. 
-			Just ask for an Admin or contact them directly via Telegram. All Admins can help you with every question so do not hesitate to ask them.</p>
+            <div class="content">
 
-			<p><strong>Email</strong></p>
+              <h2 id="terms" class="headline">How to contact us</h2>
+              <p><strong>Telegram</strong></p>
 
-			<p>The other way of contacting us is using the form below. Fill in all fields to provide us with all the information needed. If the form is not working, please send an email to team@summerbo.at. 
-			Include your regnumber, email address or nickname just in case.</p>
-			
-			<form class="formWrapper" id="contact" method="post">
-              <div class="inputWrapper">
-                <label for="contactname"><span>Name</span></label>
-                <input name="contactname" id="contactname" class="input" placeholder="Name" required/>
-              </div>
-              <div class="formRow">
-              <div class="inputWrapper">
-                <label for="contactmail"><span>Email/Telegram</span></label>
-                <input name="contactmail" id="contactmail" class="input" placeholder="How can we contact you?" required/>
-              </div>
-              </div>
-			  <div class="formRow">
-              <div class="inputWrapper">
-                <label for="contactsubject"><span>Subject</span></label>
-                <input name="contactsubject" id="contactsubject" class="input" placeholder="Subject" required/>
-              </div>
-              </div>
-			  <div class="formRow">
-              <div class="inputWrapper">
-                <label for="contacttext"><span>Message</span></label>
-                <input name="contacttext" id="contacttext" class="input" placeholder="Enter your information here" required/>
-              </div>
-              </div>
-              <div class="formRow">
-                <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Send</button>
-              </div>
-            </form>
+              <p>The best way to contact us is to ask one of the Admins in our official Telegram group. The username for the group is
+                <a href="https://t.me/summerboat">@Summerboat</a>.
+                Just ask for an Admin or contact them directly via Telegram. All Admins can help you with every question so do not hesitate to ask them.
+              </p>
 
-		</div>
-		</div>
-		</section>
+              <p><strong>Email</strong></p>
+
+              <p>The other way of contacting us is using the form below. Fill in all fields to provide us with all the information needed. If the form is not working, please send an email to team@summerbo.at.
+                Include your regnumber, email address or nickname just in case.</p>
+
+              <?php
+              if (!empty($status)) {
+                echo '<div class="info-box-err">' . $status . '</div>';
+              } ?>
+              <form class="formWrapper" id="contact" method="post">
+                <div class="inputWrapper">
+                  <label for="contactname"><span>Name</span></label>
+                  <input name="contactname" id="contactname" class="input" placeholder="Name" required/>
+                </div>
+                <div class="formRow">
+                  <div class="inputWrapper">
+                    <label for="contact"><span>Email/Telegram</span></label>
+                    <input name="contact" id="contact" class="input" placeholder="How can we contact you?" required/>
+                  </div>
+                </div>
+                <div class="formRow">
+                  <div class="inputWrapper">
+                    <label for="contactsubject"><span>Subject</span></label>
+                    <input name="contactsubject" id="contactsubject" class="input" placeholder="Subject" required/>
+                  </div>
+                </div>
+                <div class="formRow">
+                  <div class="inputWrapper">
+                    <label for="contacttext"><span>Message</span></label>
+                    <input name="contacttext" id="contacttext" class="input" placeholder="Enter your message here" required/>
+                  </div>
+                </div>
+                <div class="formRow">
+                  <button class="button buttonPrimary g-recaptcha" data-sitekey="6LerxIYUAAAAAOpo-qezTeapSk-6PLKERBfjZBwV" data-callback="onSubmit">Send</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </section>
 
       </section> <!--pageWrapper -->
       <?php echo $footer; ?>
