@@ -2,7 +2,7 @@
 require_once('backend/includes.php');
 require_once('backend/config.php');
 
-if (!empty($_POST['contactname']) && !empty($_POST['contact']) && !empty($_POST['contactsubject']) && !empty($_POST['contacttext']) && !empty($_POST['g-recaptcha-response'])) {
+if (!empty($_POST['contactname']) && !empty($_POST['contactmethod']) && !empty($_POST['contactsubject']) && !empty($_POST['contacttext']) && !empty($_POST['g-recaptcha-response'])) {
   #
   # Verify captcha
   if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
@@ -27,12 +27,12 @@ if (!empty($_POST['contactname']) && !empty($_POST['contact']) && !empty($_POST[
     $status = 'reCAPTCHA Verification Failed';
   } else {
     $name = htmlspecialchars($_POST['contactname']);
-    $contact = htmlspecialchars($_POST['contact']);
+    $contactmethod = htmlspecialchars($_POST['contactmethod']);
     $subject = htmlspecialchars($_POST['contactsubject']);
     $text = htmlspecialchars($_POST['contacttext']);
     mail('team@summerbo.at', 'New Contact Request on Summerbo.at', "
 From: $name
-Contact: $contact
+Contact: $contactmethod
 Subject: $subject
 
 Text: $text");
@@ -50,6 +50,12 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
 <html lang="en" dir="ltr">
   <head>
     <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <?php echo $recaptcha; ?>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("login").submit();
+      }
+    </script>
     <?php echo $head; ?>
   </head>
   <body class="hasNav">
@@ -99,8 +105,8 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
                 </div>
                 <div class="formRow">
                   <div class="inputWrapper">
-                    <label for="contact"><span>Email/Telegram</span></label>
-                    <input name="contact" id="contact" class="input" placeholder="How can we contact you?" required/>
+                    <label for="contactmethod"><span>Email/Telegram</span></label>
+                    <input name="contactmethod" id="contactmethod" class="input" placeholder="How can we contact you?" required/>
                   </div>
                 </div>
                 <div class="formRow">
