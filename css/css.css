@@ -1084,7 +1084,7 @@ body.hasNav {
   list-style-type: none;
 }
 
-.payments th, .payments td {
+.payments, .payments th, .payments td {
   border: 1px solid black;
 }
 

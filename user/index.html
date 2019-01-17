@@ -34,7 +34,7 @@ $locked = $details['locked'];
 $leftToPay = getBalanceDetails($userId, 'topay - paid as leftToPay')['leftToPay'];
 
 $payments = getPaymentDetails($userId, 'date, amount');
-$paymentsHtml = '<table><th>Date</th><th>Amount</th>';
+$paymentsHtml = '<table class="payments"><th>Date</th><th>Amount</th>';
 
 if (is_array($payments)) {
   foreach ($payments as $payment) {
@@ -106,13 +106,13 @@ $paymentsHtml .= '</table>';
             </div>
             <div class="row"><p>The bank details are:<br>
                 <br>
-                Name: Edwin Verstaij<br>
-                IBAN: DE68 7001 1110 6054 4164 13<br>
-                BIC/SWIFT: DEKTDE7GXXX<br>
-                Currency: Euros<br>
-                Amount: <?php echo $leftToPay; ?>€<br>
-                Comment: <?php echo $userId; ?> + <?php echo $nickname; ?><br><br>
-                Address: Handelsbank<br>
+                <strong>Name:</strong> Edwin Verstaij<br>
+                <strong>IBAN:</strong> DE68 7001 1110 6054 4164 13<br>
+                <strong>BIC/SWIFT:</strong> DEKTDE7GXXX<br>
+                <strong>Currency:</strong> Euros<br>
+                <strong>Amount:</strong> <?php echo $leftToPay; ?>€<br>
+                <strong>Comment:</strong> <?php echo $userId; ?> + <?php echo $nickname; ?><br><br>
+                <strong>Address:</strong> Handelsbank<br>
                 Elsenheimer Str. 41<br>
                 80687<br>
                 München<br>
