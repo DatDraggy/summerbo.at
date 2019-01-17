@@ -15,7 +15,7 @@ $dbConnection = buildDatabaseConnection($config);
 ////////////////////////
 // Check Reg Validity //
 if (!checkRegValid($userId)) {
-//If invalid, kill that bih
+  //If invalid, kill that bih
   if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');
   }
@@ -59,7 +59,7 @@ $paymentsHtml .= '</table>';
       <?php echo $nav; ?>
 
       <section id="contentPage">
-		<!-- ========== Info text ========== -->
+        <!-- ========== Info text ========== -->
 
         <section id="about" class="ribbon" style="background-color: var(--colorPink)">
           <div class="wrapper">
@@ -67,10 +67,10 @@ $paymentsHtml .= '</table>';
               <div style="color:white" class="content wsLarge">
                 <h1>User Area</h1>
                 <p class="textBig">Welcome <?php echo $nickname; ?>. This is your own user area with all information regarding your registration for the next party. On this page are your payment transactions. Your payment status is also visible below.</p>
-				<p>If you want to edit the rest of your details, please click on the button below to go to that website.</p>
-				<div class="buttonGroup">
+                <p>If you want to edit the rest of your details, please click on the button below to go to that website.</p>
+                <div class="buttonGroup">
                   <a class="button buttonUpgrade" href="details" title="Edit Details">Edit Details</a>
-          <a class="button buttonUpgrade" href="../logout" title="Logout">Logout</a>
+                  <a class="button buttonUpgrade" href="../logout" title="Logout">Logout</a>
                 </div>
               </div>
             </div>
@@ -78,51 +78,54 @@ $paymentsHtml .= '</table>';
         </section>
 
         <section class="wrapper wsLarge">
-        <div class="row">
-        <h1 class="headline">Payments</h1>
-		</div>
-		<div class="row">
-      <p>Your current registration status is <strong><?php echo $userStatus; ?></strong>.<br><?php if($locked){ ?> <span style="color:red">However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span><br><?php } ?> Below you can find all the payments you made to us and the amount connected to it.</p>
-		</div>
-          <?php if($leftToPay > 0) { ?>
-		<div class="row">
-		<p>You still have some fees due. Please use the payment details below to pay your fees.</p>
-		</div>
-		<div class="row">
-            <p>We are happy to provide you a few options to pay for your ticket and upgrade. The easiest way would be to bank transfer to our bank account. 
-			That way you make sure you don't pay any extra fees or have to have an account at another website. If bank transfer is not possible or you want to pay with Credit Card/Sofort/Ideal, we have good news. 
-			For those options you can pay via Transferwire. Transferwire is accepting all kinds of payment options for a low fee. Some are even free like Sofort and iDeal. 
-			It is also possible to directly convert money from other currencies to euros with the rate you see on Google.</p>
-			<p><strong>How does Transferwire work?</strong></p>
-			<p>If you want to use one of the other payment options you do have to create an account at Transferwire. You can also use your Google or Facebook account for it. 
-			There is no extra identy check needed if you want to send money to us. Simply click on Send Money and use our IBAN to make sure it goes to the right account. Check their website for more information.</p>
-			<p>The bank details are:<br>
-              <br>
-              Name: Edwin Verstaij<br>
-              IBAN: DE68 7001 1110 6054 4164 13<br>
-              BIC/SWIFT: DEKTDE7GXXX<br>
-              Currency: Euros<br>
-			  Address: Handelsbank<br>
-			  Elsenheimer Str. 41<br>
-			  80687<br>
-			  München<br>
-			  Germany<br>
-              Amount: <?php echo $leftToPay; ?>€<br>
-              Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
-		</p>
-        </div>
-        <div class="row">		
-	    <p>Don't you see your payment below in the history? Normally we receive the money within a few working days. Due to international banking it can sometimes take a bit longer. 
-		If after a week after paying nothing has been updated, make sure all the information you entered was correct. If it was correct, send us an email with a proof of payment to us so we can sort it out for you.
-		</p>
-		</div>
+          <div class="row">
+            <h1 class="headline">Payments</h1>
+          </div>
+          <div class="row">
+            <p>Your current registration status is
+              <strong><?php echo $userStatus; ?></strong>.<br><?php if ($locked) { ?>
+                <span style="color:red">However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span>
+                <br><?php } ?> Below you can find all the payments you made to us and the amount connected to it.</p>
+          </div>
+          <?php if ($leftToPay > 0) { ?>
+            <div class="row">
+              <p>You still have some fees due. Please use the payment details below to pay your fees.</p>
+            </div>
+            <div class="row">
+              <p>We are happy to provide you a few options to pay for your ticket and upgrade. The easiest way would be to bank transfer to our bank account.
+                That way you make sure you don't pay any extra fees or have to have an account at another website. If bank transfer is not possible or you want to pay with Credit Card/Sofort/Ideal, we have good news.
+                For those options you can pay via Transferwire. Transferwire is accepting all kinds of payment options for a low fee. Some are even free like Sofort and iDeal.
+                It is also possible to directly convert money from other currencies to euros with the rate you see on Google.</p>
+              <p><strong>How does Transferwire work?</strong></p>
+              <p>If you want to use one of the other payment options you do have to create an account at Transferwire. You can also use your Google or Facebook account for it.
+                There is no extra identy check needed if you want to send money to us. Simply click on Send Money and use our IBAN to make sure it goes to the right account. Check their website for more information.</p>
+              <p>The bank details are:<br>
+                <br>
+                Name: Edwin Verstaij<br>
+                IBAN: DE68 7001 1110 6054 4164 13<br>
+                BIC/SWIFT: DEKTDE7GXXX<br>
+                Currency: Euros<br>
+                Address: Handelsbank<br>
+                Elsenheimer Str. 41<br>
+                80687<br>
+                München<br>
+                Germany<br>
+                Amount: <?php echo $leftToPay; ?>€<br>
+                Comment: <?php echo $userId; ?> + <?php echo $nickname; ?>
+              </p>
+            </div>
+            <div class="row">
+              <p>Don't you see your payment below in the history? Normally we receive the money within a few working days. Due to international banking it can sometimes take a bit longer.
+                If after a week after paying nothing has been updated, make sure all the information you entered was correct. If it was correct, send us an email with a proof of payment to us so we can sort it out for you.
+              </p>
+            </div>
           <?php } ?>
-		<div class="row">
-		<h2 id="payhis" class="headline">Payment History</h2>
-		</div>
-		<div class="row">
-		<?php echo $paymentsHtml; ?>
-        </div>
+          <div class="row">
+            <h2 id="payhis" class="headline">Payment History</h2>
+          </div>
+          <div class="row">
+            <?php echo $paymentsHtml; ?>
+          </div>
 
         </section>
       </section> <!--pageWrapper -->
