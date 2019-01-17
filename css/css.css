@@ -1083,3 +1083,11 @@ body.hasNav {
   font-size: 1.2rem;
   list-style-type: none;
 }
+
+.payments th, .payments td {
+  border: 1px solid black;
+}
+
+.payments td {
+  padding: 8px;
+}
