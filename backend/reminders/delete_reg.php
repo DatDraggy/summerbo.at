@@ -8,19 +8,6 @@ require_once('../funcs.php');
 
 $dbConnection = buildDatabaseConnection($config);
 
-try {
-  $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1468800 < UNIX_TIMESTAMP() AND locked = true AND status < 3";
-  $stmt = $dbConnection->prepare($sql);
-  $stmt->execute();
-  $rows = $stmt->fetchAll();
-} catch (PDOException $e) {
-  notifyOnException('Database Select', $config, $sql, $e);
-}
-
-foreach ($rows as $row) {
-  $userId = $row['id'];
-  rejectRegistration($userId);
-  sleep(5);
-}
+remindDeleteReg();
 
 mail($config['mail'], 'Enable Payment Check', 'Enable Cronjob daily');
