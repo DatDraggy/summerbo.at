@@ -1066,17 +1066,17 @@ body.hasNav {
 }
 
 .info-box-err {
-  border-radius: 5px;
-  border-style: solid;
-  border-color: red;
-  padding: 5px;
+  border-radius: 8px;
+  background-color: var(--colorPink);
+  padding: 10px;
+  color: white;
 }
 
 .info-box-succ {
-  border-radius: 5px;
-  border-style: solid;
-  border-color: limegreen;
-  padding: 5px;
+  border-radius: 8px;
+  background-color: var(--colorToneHigh);
+  padding: 10px;
+  color: black;
 }
 
 #attendeeList ul {
