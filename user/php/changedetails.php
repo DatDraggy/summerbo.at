@@ -2,7 +2,7 @@
 require_once('../../backend/config.php');
 require_once('../../backend/funcs.php');
 session_start();
-if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['passwordOld'])) {
+if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password'])) {
   $status = 'Missing details. Check Nickname, Email and old Password.';
   session_start();
   $_SESSION['status'] = $status;
@@ -52,7 +52,7 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
 
 /////////////////////
 // Password Verify //
-$hash = checkPassword($userId, $_POST['passwordOld']);
+$hash = checkPassword($userId, $_POST['password']);
 
 if ($hash === false) {
   $status = 'Incorrect Password';
@@ -67,9 +67,9 @@ if ($hash === false) {
 
 /////////////////////
 // Password Change //
-if (!empty($_POST['password'])) {
-  $passwordNew = $_POST['password'];
-  if (empty($_POST['passwordVerify']) || $passwordNew !== $_POST['passwordVerify']) {
+if (!empty($_POST['passwordNew'])) {
+  $passwordNew = $_POST['passwordNew'];
+  if (empty($_POST['passwordNewVerify']) || $passwordNew !== $_POST['passwordNewVerify']) {
     $status = 'Passwords do not match';
     session_start();
     $_SESSION['status'] = $status;
@@ -172,7 +172,7 @@ try {
 
 $status = 'Details changed successfully.';
 session_start();
-$_SESSION = $status;
+$_SESSION['status'] = $status;
 session_commit();
 header('Location: ../details');
 
