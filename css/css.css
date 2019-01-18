@@ -763,7 +763,7 @@ a.buttonSecondary {
 
 .inputWrapper input:not([type="checkbox"]),
 .inputWrapper input:not([type="radio"]),
-.inputWrapper select, .inputWrapper input {
+.inputWrapper select, .inputWrapper input, .inputWrapper textarea {
   transition: all 250ms var(--animNice);
   width: 100%;
   padding: 0;
