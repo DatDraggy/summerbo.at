@@ -130,6 +130,7 @@ else {
           <span class="count-text">Seconds</span>
         </div>
       </div>
+      <noscript>Javascript is required to display the countdown.</noscript>
     </div>
   </section>
 
@@ -466,18 +467,27 @@ else {
   <?php echo $footer; ?>
 <script src="js/countdown.js"></script>
   <script>
-    function httpGetAsync(theUrl, callback)
+    function httpGetAsync(theUrl, callback, callback2)
     {
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
           callback(xmlHttp.responseText + "T20:00:00");
+          callback2();
       };
       xmlHttp.open("GET", theUrl, true); // true for asynchronous
       xmlHttp.send(null);
     }
+    function toggleHide() {
+      var x = document.getElementById("count");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
 
-    httpGetAsync('https://isitef.com/?start', CountDownTimer);
+    httpGetAsync('https://isitef.com/?start', CountDownTimer, toggleHide);
   </script>
 </body>
 </html>
