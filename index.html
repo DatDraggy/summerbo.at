@@ -2,7 +2,7 @@
 require_once('backend/funcs.php');
 require_once('backend/config.php');
 require_once('backend/includes.php');
-$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+//$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
 if(!empty($_GET['secret'])){
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
@@ -465,8 +465,19 @@ else {
   </section> <!--pageWrapper -->
   <?php echo $footer; ?>
 <script src="js/countdown.js"></script>
-<script>
-  CountDownTimer("<?php echo $startDate; ?>T20:00:00");
-</script>
+  <script>
+    function httpGetAsync(theUrl, callback)
+    {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          callback(xmlHttp.responseText + "T20:00:00");
+      };
+      xmlHttp.open("GET", theUrl, true); // true for asynchronous
+      xmlHttp.send(null);
+    }
+
+    httpGetAsync('https://isitef.com/?start', CountDownTimer);
+  </script>
 </body>
 </html>
