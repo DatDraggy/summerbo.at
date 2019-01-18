@@ -3,6 +3,7 @@ require_once('backend/includes.php');
 require_once('backend/config.php');
 
 $status = '';
+$statusSuccess = '';
 if (!empty($_POST['contactname']) && !empty($_POST['contactmethod']) && !empty($_POST['contactsubject']) && !empty($_POST['contacttext']) && !empty($_POST['g-recaptcha-response'])) {
   #
   # Verify captcha
@@ -37,7 +38,7 @@ Contact: $contactmethod
 Subject: $subject
 
 Text: $text");
-    $status = 'Message was sent.';
+    $statusSuccess = 'Message was sent.';
   }
 }
 
@@ -100,7 +101,10 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
                 <?php
                 if (!empty($status)) {
                   echo '<div class="info-box-err">' . $status . '</div><br>';
-                } ?>
+                }
+                if(!empty($statusSuccess)){
+                  echo '<div class="info-box-succ">' . $status . '</div><br>';
+                }?>
                 <div class="inputWrapper">
                   <label for="contactname"><span>Name</span></label>
                   <input name="contactname" id="contactname" class="input" placeholder="Name" required/>
