@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/backend/funcs.php');
 require_once(__DIR__ . '/backend/config.php');
 require_once('backend/includes.php');
-header('Cache-Control: s-maxage=0');
+header('Cache-Control: max-age=0');
 session_start();
 $status = '';
 $statusSession = '';
