@@ -2,6 +2,7 @@
 require_once('backend/includes.php');
 require_once('backend/config.php');
 
+$status = '';
 if (!empty($_POST['contactname']) && !empty($_POST['contactmethod']) && !empty($_POST['contactsubject']) && !empty($_POST['contacttext']) && !empty($_POST['g-recaptcha-response'])) {
   #
   # Verify captcha
@@ -41,7 +42,6 @@ Text: $text");
 }
 
 $recaptcha = '';
-$status = '';
 if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismissed'] === 'yes') {
   $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 } else {
