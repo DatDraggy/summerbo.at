@@ -3,13 +3,13 @@ require_once('backend/funcs.php');
 require_once('backend/config.php');
 require_once('backend/includes.php');
 $startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
-$dbConnection = buildDatabaseConnection($config);
 if(!empty($_GET['secret'])){
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
   session_commit();
 }
-if (isEarlyBird()) {
+/*$dbConnection = buildDatabaseConnection($config);
+if (isEarlyBird()) {*/
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
@@ -40,7 +40,7 @@ if (isEarlyBird()) {
           </p>
         </div>
         ';
-}
+/*}
 else {
   $earlyBirdTicket = '
         <div class="ticket ticketSecondary content content33">
@@ -72,7 +72,7 @@ else {
           </p>
         </div>
         ';
-}
+}*/
 
 ?>
 <!DOCTYPE html>
