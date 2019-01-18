@@ -135,6 +135,8 @@ Badge pickup: /badge
           sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
 $application");
           sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
+          mail('team@summerbo.at', 'New Application!', "By: $saveName
+Message: $application");
         } else {
           sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
         }
