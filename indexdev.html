@@ -477,7 +477,9 @@ else {
     xmlHttp.send(null);
   }
 
-  httpGetAsync('https://isitef.com/?startDate', CountDownTimer);
+  httpGetAsync('https://isitef.com/?startDate', function (x) {
+    console.log(x);
+  });
 </script>
 </body>
 </html>
