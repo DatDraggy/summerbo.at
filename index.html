@@ -106,7 +106,7 @@ else {
     </video>
   </section>
 
-  <section id="count" class="countWrapper" style="display: none;">
+  <section id="count" class="countWrapper">
     <div class="wrapper">
       <div id="counters-min" class="row">
         <!-- Item 1 -->
@@ -467,22 +467,18 @@ else {
   <?php echo $footer; ?>
 <script src="js/countdown.js"></script>
   <script>
-    function httpGetAsync(theUrl, callback, callback2)
+    function httpGetAsync(theUrl, callback)
     {
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
           callback(xmlHttp.responseText + "T20:00:00");
-          callback2();
       };
       xmlHttp.open("GET", theUrl, true); // true for asynchronous
       xmlHttp.send(null);
     }
-    
-    httpGetAsync('https://isitef.com/?start', CountDownTimer, function(){
-      var x = document.getElementById("count");
-      x.style.display = null;
-    });
+
+    httpGetAsync('https://isitef.com/?start', CountDownTimer);
   </script>
 </body>
 </html>
