@@ -172,7 +172,7 @@ try {
 
 $status = 'Details changed successfully.';
 session_start();
-$_SESSION['status'] = $status;
+$_SESSION['statusSuccess'] = $status;
 session_commit();
 header('Location: ../details');
 
