@@ -2,7 +2,7 @@
 require_once('backend/funcs.php');
 require_once('backend/config.php');
 require_once('backend/includes.php');
-//$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
+$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
 if(!empty($_GET['secret'])){
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
