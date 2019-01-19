@@ -121,7 +121,11 @@ To get a command overview, send /help.');
       sendMessage($chatId, 'Applying for Volunteer: /apply
 Location: /venue
 Badge pickup: /badge
+ID: /id
 ');
+      break;
+    case ($command === '/id'):
+      sendMessage($chatId, $chatId . ' ' . $senderUserId);
       break;
     case ($command === '/apply'):
       if (!empty($messageArr[1]) && $messageArr[0] !== '/start') {
