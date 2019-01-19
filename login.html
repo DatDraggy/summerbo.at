@@ -1,7 +1,8 @@
 <?php
 require_once(__DIR__ . '/backend/funcs.php');
 require_once(__DIR__ . '/backend/config.php');
-require_once('backend/includes.php');
+require_once(__DIR__  . 'backend/includes.php');
+header('Cache-Control: max-age=0');
 session_start();
 $status = '';
 $statusSession = '';
@@ -24,7 +25,6 @@ if (!empty($_SESSION['status'])) {
   }
 } else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
   if (!empty($_POST['g-recaptcha-response'])) {
-    mail('admin@kieran.de', 'Rawr', 'Rawr');
     #
     # Verify captcha
     if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
