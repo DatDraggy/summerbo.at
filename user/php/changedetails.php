@@ -139,7 +139,7 @@ $confirmationLink = false;
 if ($oldEmail !== $newEmail) {
   try {
     $sql = "SELECT email FROM users WHERE email = '$newEmail'";
-    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE email = :newEmail'):
+    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE email = :newEmail');
     $stmt->bindParam(':newEmail', $newEmail);
     $stmt->execute();
     $stmt->fetchAll();
