@@ -113,7 +113,7 @@ if (empty($_POST['email'])) {
   header('Location: ../register');
   die($status);
 } else {
-  $emailPost = $_POST['email'];
+  $emailPost = strtolower($_POST['email']);
 }
 if (empty($_POST['password'])) {
   $status = 'Password can\'t be empty.';

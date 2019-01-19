@@ -38,7 +38,7 @@ if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
 } else {
   $nickname = $nicknamePost;
 }
-$newEmailPost = $_POST['email'];
+$newEmailPost = strtolower($_POST['email']);
 if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   $newEmail = $newEmailPost;
 } else {
@@ -138,16 +138,35 @@ $oldEmail = $row['email'];
 $confirmationLink = false;
 if ($oldEmail !== $newEmail) {
   try {
-    $sql = "UPDATE users SET email_new = $newEmail WHERE id = $userId";
-    $stmt = $dbConnection->prepare('UPDATE users SET email_new = :email WHERE id = :userId');
-    $stmt->bindParam(':email', $newEmail);
-    $stmt->bindParam(':userId', $userId);
+    $sql = "SELECT email FROM users WHERE email = '$newEmail'";
+    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE email = :newEmail'):
+    $stmt->bindParam(':newEmail', $newEmail);
     $stmt->execute();
+    $stmt->fetchAll();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if ($stmt->rowCount() === 1) {
-    $confirmationLink = requestEmailConfirm($userId, 'email');
+  if ($stmt->rowCount() > 1) {
+    $status = 'This email address is already taken.';
+    session_start();
+    $_SESSION['status'] = $status;
+    session_commit();
+    header('Location: ../details');
+    die($status);
+  }
+  else {
+    try {
+      $sql = "UPDATE users SET email_new = $newEmail WHERE id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET email_new = :email WHERE id = :userId');
+      $stmt->bindParam(':email', $newEmail);
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Update', $config, $sql, $e);
+    }
+    if ($stmt->rowCount() === 1) {
+      $confirmationLink = requestEmailConfirm($userId, 'email');
+    }
   }
 }
 // Email Change //
