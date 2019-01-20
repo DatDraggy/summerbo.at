@@ -74,7 +74,15 @@ Your Boat Party Crew
         sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
       }
     } else if ($status === 'handled') {
-      sendStaffNotification(0, 'Application from ' . $confirm . ' was handled.');
+      if (isset($data['callback_query']['from']['username'])) {
+        $handleName = $data['callback_query']['from']['username'];
+      } else {
+        $handleName = $data['callback_query']['from']['first_name'];
+        if (isset($data['callback_query']['from']['last_name'])) {
+          $handleName .= ' ' . $data['callback_query']['from']['last_name'];
+        }
+      }
+      sendStaffNotification(0, 'Application from ' . $confirm . ' was handled by ' . $handleName . '.');
     }
   } else {
     answerCallbackQuery($queryId);
@@ -141,7 +149,7 @@ ID: /id
               array(
                 array(
                   'text'          => 'Handled',
-                  'callback_data' => $chatId . '|handled|'.$saveName.'|0'
+                  'callback_data' => $chatId . '|handled|' . $saveName . '|0'
                 )
               )
             )
