@@ -447,14 +447,14 @@ function saveApplication($chatId, $name, $message) {
   return true;
 }
 
-function sendStaffNotification($userId, $text = '') {
+function sendStaffNotification($userId, $text = '', $replyMarkup = '') {
   global $config;
 
   foreach ($config['telegramAdmins'] as $admin) {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
     } else {
-      sendMessage($admin, $text);
+      sendMessage($admin, $text, $replyMarkup);
     }
   }
 }
