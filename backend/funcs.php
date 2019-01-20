@@ -458,7 +458,7 @@ function sendStaffNotification($userId, $text = '', $replyMarkup = '') {
       if (empty($replyMarkup)) {
         sendMessage($admin, $text);
       } else {
-        sendMessage($admin, $text, json_encode($replyMarkup);
+        sendMessage($admin, $text, json_encode($replyMarkup));
       }
     }
   }
