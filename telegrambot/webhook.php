@@ -73,8 +73,8 @@ Your Boat Party Crew
         answerCallbackQuery($queryId);
         sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
       }
-    } else if ($status === 'view') {
-
+    } else if ($status === 'handled') {
+      sendStaffNotification(0, 'Application from ' . $confirm . ' was handled.');
     }
   } else {
     answerCallbackQuery($queryId);
@@ -136,8 +136,18 @@ ID: /id
           $saveName = $senderUsername;
         }
         if (saveApplication($chatId, $saveName, $application)) {
+          $replyMarkup = array(
+            'inline_keyboard' => array(
+              array(
+                array(
+                  'text'          => 'Handled',
+                  'callback_data' => $chatId . '|handled|'.$saveName.'|0'
+                )
+              )
+            )
+          );
           sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
-$application");
+$application", '');
           sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
           mail('team@summerbo.at', 'New Application!', "By: $saveName
 Message: $application");
