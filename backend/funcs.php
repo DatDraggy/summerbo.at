@@ -318,10 +318,11 @@ It shouldn't take more than 24 hours.*/
       $stmt->bindParam(':token', $token);
       $stmt->execute();
     } else {
-      $data = array('ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-                    'token'   => $token,
-                    'server'  => $_SERVER,
-                    'headers' => $http_response_header
+      $data = array(
+        'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
+        'token'   => $token,
+        'server'  => $_SERVER,
+        'headers' => $http_response_header
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;
@@ -454,27 +455,25 @@ function sendStaffNotification($userId, $text = '', $replyMarkup = '') {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
     } else {
-      sendMessage($admin, $text, $replyMarkup);
+      sendMessage($admin, $text, json_encode($replyMarkup));
     }
   }
 }
 
 function buildApproveMarkup($userId) {
-  return array('inline_keyboard' => array(/*array(
+  return array(
+    'inline_keyboard' => array(
+      array(
         array(
-          'text' => 'View',
-          'url'  => 'https://summerbo.at/admin/view.html?type=reg&id=' . $userId
-          'callback_data' => $userId . '|view|0'
+          'text'          => 'Approve',
+          'callback_data' => $userId . '|approve|0'
+        ),
+        array(
+          'text'          => 'Reject',
+          'callback_data' => $userId . '|reject|0'
         )
-      ),*/
-                                          array(array('text'          => 'Approve',
-                                                      'callback_data' => $userId . '|approve|0'
-                                                ),
-                                                array('text'          => 'Reject',
-                                                      'callback_data' => $userId . '|reject|0'
-                                                )
-                                          )
-  )
+      )
+    )
   );
 }
 
@@ -673,7 +672,7 @@ function answerCallbackQuery($queryId, $text = '') {
 
 function sendVenue($chatId, $latitude, $longitude, $title, $address) {
   global $config;
-  $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=".urlencode($title)."&address=" . urlencode($address));
+  $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=" . urlencode($title) . "&address=" . urlencode($address));
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
 }
