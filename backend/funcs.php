@@ -455,7 +455,11 @@ function sendStaffNotification($userId, $text = '', $replyMarkup = '') {
     if (empty($text)) {
       requestApproveMessage($admin, $userId);
     } else {
-      sendMessage($admin, $text, json_encode($replyMarkup));
+      if (empty($replyMarkup)) {
+        sendMessage($admin, $text);
+      } else {
+        sendMessage($admin, $text, json_encode($replyMarkup);
+      }
     }
   }
 }
