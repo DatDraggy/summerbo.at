@@ -74,6 +74,7 @@ Your Boat Party Crew
         sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
       }
     } else if ($status === 'handled') {
+      answerCallbackQuery($queryId);
       if (isset($data['callback_query']['from']['username'])) {
         $handleName = $data['callback_query']['from']['username'];
       } else {
