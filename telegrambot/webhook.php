@@ -155,7 +155,7 @@ ID: /id
             )
           );
           sendStaffNotification($chatId, "<b>New application from </b><a href=\"tg://user?id=$chatId\">$saveName</a>:
-$application", '');
+$application", $replyMarkup);
           sendMessage($chatId, 'Thank you! Your application will be reviewed soon.');
           mail('team@summerbo.at', 'New Application!', "By: $saveName
 Message: $application");
