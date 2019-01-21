@@ -8,6 +8,8 @@ if(!empty($_GET['secret'])){
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
   session_commit();
+  header('Location: register');
+  die();
 }
 /*$dbConnection = buildDatabaseConnection($config);
 if (isEarlyBird()) {*/
