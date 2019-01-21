@@ -13,9 +13,9 @@ $attendees = '<ul>';
 foreach ($rows as $row) {
   $nickname = htmlspecialchars($row['nickname']);
   if ($row['rank'] == 1) {
-    $nickname .= ' (Crew)';
+    $nickname .= ' <span style="opacity:0.2">Crew</span>';
   } else if ($row['rank'] == 2) {
-    $nickname .= ' (Staff)';
+    $nickname .= ' <span style="opacity:0.2">Staff</span>';
   }
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
