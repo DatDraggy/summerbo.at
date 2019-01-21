@@ -1,7 +1,7 @@
 <?php
-require_once ('backend/config.php');
-require_once ('backend/funcs.php');
-require_once ('backend/includes.php');
+require_once('backend/config.php');
+require_once('backend/funcs.php');
+require_once('backend/includes.php');
 header('Cache-Control: max-age=0');
 
 $dbConnection = buildDatabaseConnection($config);
@@ -10,8 +10,14 @@ $stmt = $dbConnection->prepare('SELECT nickname FROM users WHERE status > 1 AND 
 $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
-foreach ($rows as $row){
-    $attendees .= '<li>' . htmlspecialchars($row['nickname']) ."</li>\n";
+foreach ($rows as $row) {
+  $nickname = htmlspecialchars($row['nickname']);
+  if ($row['rank'] == 1) {
+    $nickname .= ' (Crew)';
+  } else if ($row['rank'] == 2) {
+    $nickname .= ' (Staff)';
+  }
+  $attendees .= '<li>' . $nickname . "</li>\n";
 }
 $attendees .= '</ul>';
 ?>
