@@ -52,8 +52,8 @@ if (!empty($_SESSION['status'])) {
       $dbConnection = buildDatabaseConnection($config);
 
       //Check for existing Reg
-      $sql = "SELECT hash, `rank`, id FROM users WHERE id = $userId";
-      $stmt = $dbConnection->prepare('SELECT hash, `rank`, id FROM users WHERE id = :userId');
+      $sql = "SELECT hash, id FROM users WHERE id = $userId";
+      $stmt = $dbConnection->prepare('SELECT hash, id FROM users WHERE id = :userId');
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
       $row = $stmt->fetch();
