@@ -31,9 +31,8 @@ Your registration was confirmed by our registration team. Below you will find th
 
 Bank Details:
 Name: Edwin Verstaij
-Bank: Bunq
-IBAN: NL04 BUNQ 2290 9065 14
-IC/SWIFT: BUNQNL2AXXX
+IBAN: DE68 7001 1110 6054 4164 13
+BIC/SWIFT: DEKTDE7GXXX
 Comment: $regnumber + $nickname
 
 Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
