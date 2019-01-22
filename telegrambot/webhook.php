@@ -17,12 +17,13 @@ if (isset($data['callback_query'])) {
   }
   $chatType = $data['callback_query']['message']['chat']['type'];
   $callbackData = $data['callback_query']['data'];
+  $senderUserId = $data['callback_query']['from']['id'];
 
   if (stripos($callbackData, '|') !== false) {
     list($targetUserId, $status, $confirm, $time) = explode('|', $callbackData);
     $dbConnection = buildDatabaseConnection($config);
     if ($status === 'approve') {
-      if (approveRegistration($targetUserId)) {
+      if (approveRegistration($targetUserId, $senderUserId)) {
         answerCallbackQuery($queryId, 'Registration has been approved.');
         list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
