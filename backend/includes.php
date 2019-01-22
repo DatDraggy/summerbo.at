@@ -108,4 +108,8 @@ $footer = '<section id="footer">
     theme: \'light-floating\'
   };
 </script>
-<script src="/js/cookie-consent/script.js"></script>';
+<script onload="loginCheck()" src="/js/cookie-consent/script.js"></script>
+<script>
+function loginCheck() {
+}
+</script>';
