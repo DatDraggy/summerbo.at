@@ -245,8 +245,8 @@ function upgradeToSponsor($userId) {
     $email = $row['email'];
     $nickname = $row['nickname'];
     try {
-      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceSponsor']}, sponsor = 1, status = 2 WHERE users.id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + :priceSponsor, sponsor = 1, status = 2 WHERE users.id = :userId');
+      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceSponsor']}, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + :priceSponsor, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
       $stmt->bindParam(':priceSponsor', $config['priceSponsor']);
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
@@ -788,7 +788,7 @@ function remindRemindReg() {
   global $dbConnection, $config;
 
   try {
-    $sql = 'SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3';
+    $sql = 'SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3';
     $stmt = $dbConnection->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();
@@ -835,7 +835,7 @@ function remindLockReg() {
   global $config, $dbConnection;
 
   try {
-    $sql = 'SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3';
+    $sql = 'SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3';
     $stmt = $dbConnection->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();
@@ -876,7 +876,7 @@ function remindDeleteReg() {
   global $config, $dbConnection;
 
   try {
-    $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE approvedate + 1468800 < UNIX_TIMESTAMP() AND locked = true AND status < 3";
+    $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 1468800 < UNIX_TIMESTAMP() AND locked = true AND status < 3";
     $stmt = $dbConnection->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();

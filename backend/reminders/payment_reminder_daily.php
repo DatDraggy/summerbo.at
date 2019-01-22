@@ -19,7 +19,7 @@ if (date('Y-m-d', strtotime($remind)) <= date('Y-m-d', time())) {
     remindLockReg();
 
     if (date('Y-m-d', strtotime($delete)) <= date('Y-m-d', time())) {
-      remindDeleteReg();
+      //remindDeleteReg();
     }
   }
 }
