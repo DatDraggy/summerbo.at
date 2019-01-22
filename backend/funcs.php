@@ -313,7 +313,7 @@ Our registration team will now check your details. You will get another email ab
 It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
 It shouldn't take more than 24 hours.
 
-Your current status is: {$status[1]} - Regnumber $userId
+Your current status is: {$config['status'][1]} - Regnumber $userId
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 

@@ -52,8 +52,8 @@ if (!empty($_SESSION['status'])) {
       $dbConnection = buildDatabaseConnection($config);
 
       //Check for existing Reg
-      $sql = "SELECT hash, id FROM users WHERE id = $userId AND locked = 0";
-      $stmt = $dbConnection->prepare('SELECT hash, id FROM users WHERE id = :userId AND locked = 0');
+      $sql = "SELECT hash, id FROM users WHERE id = $userId AND locked = 0 AND status > 1";
+      $stmt = $dbConnection->prepare('SELECT hash, id FROM users WHERE id = :userId AND locked = 0 AND status > 1');
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
       $row = $stmt->fetch();
@@ -169,7 +169,7 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
         <div class="content">
           <h3>Login</h3>
           <?php
-          if (isset($_GET['reg'])) {
+          if (isset($_GET['reg']) && !empty($statusSession)) {
             echo '<div class="info-box-succ">' . $statusSession . '</div>';
           }
           if (!empty($statusSession) && !isset($_GET['reg'])) {
