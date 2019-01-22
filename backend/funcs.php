@@ -799,9 +799,8 @@ Below you will find our bank details to transfer the money.
 
 Bank Details:
 Name: Edwin Verstaij
-Bank: Bunq
-IBAN: NL04 BUNQ 2290 9065 14
-IC/SWIFT: BUNQNL2AXXX
+IBAN: DE68 7001 1110 6054 4164 13
+BIC/SWIFT: DEKTDE7GXXX
 Comment: $userId + $nickname
 
 Did you already pay everything? Please ignore this email or send us a message.
