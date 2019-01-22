@@ -34,7 +34,7 @@ if (!empty($_SESSION['userId'])) {
         }
       }
     }
-    if ($rank >= 1) {
+    if ($rank >= 2) {
       if ($_GET['type'] === 'fursuiters') {
         $details = getFursuiters();
         foreach ($details as $detail) {
