@@ -9,8 +9,8 @@ if (!empty($_SESSION['userId'])) {
 
   if (checkRegValid($requesterUserId)) {
     $rank = getUserRank($requesterUserId);
+    $userId = $_GET['id'];
     if ($rank == 2) {
-      $userId = $_GET['id'];
       if ($_GET['type'] === 'reg') {
         $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded, locked');
         if (is_array($details)) {
@@ -32,7 +32,10 @@ if (!empty($_SESSION['userId'])) {
         } else {
           echo 'Deleted Reg or not found';
         }
-      } else if ($_GET['type'] === 'fursuiters') {
+      }
+    }
+    if ($rank >= 2) {
+      if ($_GET['type'] === 'fursuiters') {
         $details = getFursuiters();
         foreach ($details as $detail) {
           echo 'Nickname: ' . htmlspecialchars($detail['nickname']) . '<br>';

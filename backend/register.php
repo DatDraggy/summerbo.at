@@ -182,16 +182,16 @@ $publicList = empty($_POST['publicList']) ? false : true;
 //$nicknameRaw = str_replace(' ', '_', $nicknamePost);
 
 
-if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
+/*if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
   $status = 'Illegal character in Nickname';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
   header('Location: ../register');
   die($status);
-} else {
-  $nickname = $nicknamePost;
-}
+} else {*/
+$nickname = substr($nicknamePost, 0, 30);
+/*}*/
 
 /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
   $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
@@ -206,7 +206,7 @@ else{
 }*/
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
-  $status = 'Invalid Birthdate Format. Please use the following format: YYYY-MM-DD';
+  $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
@@ -325,7 +325,7 @@ sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nicknam
 
 Thank you for your registration with the Summernights party.
 
-Your current status is: {$status[0]}
+Your current status is: {$config['status'][0]}
 
 You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
 Afterwards another mail will be sent.
