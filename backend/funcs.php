@@ -32,8 +32,8 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false)
 function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
+    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0 AND locked = 0";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0 AND locked = 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
@@ -287,9 +287,8 @@ function confirmRegistration($token) {
         $topay += $config['priceSponsor'];
       }
 
-      $sql = "UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = '$userIdInternal'";
-      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = :userIdInternal');
-      $stmt->bindParam(':topay', $topay);
+      $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
       $stmt->bindParam(':userIdInternal', $userIdInternal);
       $stmt->execute();
 
@@ -314,7 +313,7 @@ Our registration team will now check your details. You will get another email ab
 It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
 It shouldn't take more than 24 hours.
 
-Your current status is: {$status[1]} - Regnumber $userId
+Your current status is: {$config['status'][1]} - Regnumber $userId
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
@@ -374,13 +373,14 @@ function confirmEmail($token) {
   return true;
 }
 
-function approveRegistration($userId) {
+function approveRegistration($userId, $approver) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = '$userId' AND status < 2";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = :userId AND status < 2');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver WHERE id = '$userId' AND status < 2";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver WHERE id = :userId AND status < 2');
     $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':approver', $approver);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Update', $config, $sql, $e);

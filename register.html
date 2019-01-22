@@ -30,6 +30,36 @@ if (empty($_SESSION['secret'])) {
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $head; ?>
+  <script>
+    function checkPass()
+    {
+      //Store the password field objects into variables ...
+      var pass1 = document.getElementById('password');
+      var pass2 = document.getElementById('passwordVerify');
+      //Store the Confimation Message Object ...
+      var message = document.getElementById('passwordMessage');
+      //Set the colors we will be using ...
+      var goodColor = null;
+      var badColor = "#ff6666";
+      //Compare the values in the password field
+      //and the confirmation field
+      if(pass1.value == pass2.value){
+        //The passwords match.
+        //Set the color to the good color and inform
+        //the user that they have entered the correct password
+        pass2.style.backgroundColor = goodColor;
+        message.style.color = goodColor;
+        message.innerHTML = ""
+      }else{
+        //The passwords do not match.
+        //Set the color to the bad color and
+        //notify the user.
+        pass2.style.backgroundColor = badColor;
+        message.style.color = badColor;
+        message.innerHTML = "Passwords Do Not Match!"
+      }
+    }
+  </script>
   </head>
   <body class="hasNav">
     <div id="app">
@@ -88,13 +118,13 @@ if (empty($_SESSION['secret'])) {
                     </div>
                     <div class="checkboxGroup VIP">
                       <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php if (isset($_GET['vip'])) echo 'checked'; ?>>
-                      <label for="sponsor">I want to upgrade to a VIP ticket</label>
+                      <label for="sponsor">I want to upgrade to a <a href="/#ticket" target="_blank">+15€ VIP ticket</a></label>
                     </div>
                   </div>
                   <div class="formRow">
                     <div class="inputWrapper">
                       <label for="dob"><span>Date of Birth</span></label>
-                      <input name="dob" id="dob" class="input" placeholder="YYYY-MM-DD" required>
+                      <input name="dob" id="dob" class="input" placeholder="DD.MM.YYYY" required>
                       <!--<input name="day" id="day" class="input" placeholder="23" required>
                       <select class="input" name="month">
                         <option value="01">January</option>
@@ -382,9 +412,10 @@ if (empty($_SESSION['secret'])) {
                     <div class="inputWrapper">
                       <label for="passwordVerify"><span>Re-enter Password</span></label>
                       <input name="passwordVerify" type="password" id="passwordVerify" class="input"
-                             placeholder="Re-enter your password" required/>
+                             placeholder="Re-enter your password" onkeyup="checkPass()" required/>
                     </div>
                   </div>
+                  <div id="passwordMessage" class="formRow"></div>
                   <div class="checkboxWrapper">
                     <div class="checkboxGroup">
                       <input name="tos" type="checkbox" id="tos" required>

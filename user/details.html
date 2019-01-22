@@ -147,14 +147,14 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
                 <input type="checkbox" name="fursuiter" id="fursuiter" <?php echo $fursuiter; ?> class="input">
                 <label for="fursuiter">I am a fursuiter</label>
               </div>
-              <div class="checkboxGroup VIP">
-                <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php echo $sponsor; ?>>
-                <label for="sponsor">I want to upgrade to a VIP ticket</label>
-              </div>
               <div class="checkboxGroup">
                 <input type="checkbox" name="publiclist" id="publiclist" class="input" <?php echo $publiclist; ?>>
                 <label for="publiclist">I want my nickname to be publicly listed on the <a href="/attendees" target="_blank">attendees</a>
                   list</label>
+              </div>
+              <div class="checkboxGroup VIP">
+                <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php echo $sponsor; ?>>
+                <label for="sponsor">I want to upgrade to a <a href="/#tickets">+15€ VIP ticket</a></label>
               </div>
             </div>
             <div class="inputWrapper">
@@ -166,7 +166,7 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
               <input name="passwordNewVerify" id="passwordNewVerify" type="password">
             </div>
             <div class="inputWrapper">
-              <label for="password"><span>Old Password</span></label>
+              <label for="password"><span>Current Password</span></label>
               <input name="password" id="password" type="password" required>
             </div>
             <button class="button buttonPrimary">Submit</button>
