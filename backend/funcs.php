@@ -287,8 +287,8 @@ function confirmRegistration($token) {
         $topay += $config['priceSponsor'];
       }
 
-      $sql = "UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = '$userIdInternal'";
-      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = :userIdInternal');
+      $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
       $stmt->bindParam(':topay', $topay);
       $stmt->bindParam(':userIdInternal', $userIdInternal);
       $stmt->execute();
