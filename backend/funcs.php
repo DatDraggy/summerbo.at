@@ -32,8 +32,8 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false)
 function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0');
+    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0 AND locked = 0";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0 AND locked = 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
