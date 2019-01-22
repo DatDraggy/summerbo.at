@@ -172,7 +172,7 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
           if (isset($_GET['reg'])) {
             echo '<div class="info-box-succ">' . $statusSession . '</div>';
           }
-          if (!empty($statusSession)) {
+          if (!empty($statusSession) && !isset($_GET['reg'])) {
             echo '<div class="info-box-err">' . $statusSession . '</div>';
           }
           if (!empty($status)) {
