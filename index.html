@@ -11,8 +11,8 @@ if(!empty($_GET['secret'])){
   header('Location: register');
   die();
 }
-/*$dbConnection = buildDatabaseConnection($config);
-if (isEarlyBird()) {*/
+$dbConnection = buildDatabaseConnection($config);
+if (isEarlyBird()) {
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
@@ -43,7 +43,7 @@ if (isEarlyBird()) {*/
           </p>
         </div>
         ';
-/*}
+}
 else {
   $earlyBirdTicket = '
         <div class="ticket ticketSecondary content content33">
@@ -75,7 +75,7 @@ else {
           </p>
         </div>
         ';
-}*/
+}
 
 ?>
 <!DOCTYPE html>
@@ -202,7 +202,7 @@ else {
       <div class="row">
         <?php echo $earlyBirdTicket; ?>
         <div class="ticket ticketTertiary content content33">
-          <h3 class="ticketName nomargin"><abbr title="Very Important Partyer">VIP</abbr> Upgrade</h3>
+          <h3 class="ticketName nomargin"><abbr title="Very Important Passanger">VIP</abbr> Upgrade</h3>
           <p class="ticketPrice heading2">+€15</p>
           <ul class="ticketItems">
             <li><strong>Upgrade your experience</strong></li>
