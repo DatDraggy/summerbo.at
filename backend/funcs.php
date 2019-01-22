@@ -180,7 +180,7 @@ function validatePassword($password) {
     $pwned = true;
   }
   if ($pwned) {
-    return 'Password was leaked before, Choose another one!';
+    return 'Password was leaked before, choose another one!';
   } else {
     return true;
   }
