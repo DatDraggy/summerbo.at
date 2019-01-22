@@ -34,7 +34,7 @@ Name: Edwin Verstaij
 Bank: Bunq
 IBAN: NL04 BUNQ 2290 9065 14
 IC/SWIFT: BUNQNL2AXXX
-Comment: $userId, $nickname
+Comment: $regnumber + $nickname
 
 Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
 
