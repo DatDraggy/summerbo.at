@@ -325,7 +325,7 @@ sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nicknam
 
 Thank you for your registration with the Summernights party.
 
-Your current status is: NEW - Regnumber $userId
+Your current status is: {$status[0]}
 
 You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
 Afterwards another mail will be sent.
