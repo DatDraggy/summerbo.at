@@ -373,13 +373,14 @@ function confirmEmail($token) {
   return true;
 }
 
-function approveRegistration($userId) {
+function approveRegistration($userId, $approver) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = '$userId' AND status < 2";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP() WHERE id = :userId AND status < 2');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver WHERE id = '$userId' AND status < 2";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver WHERE id = :userId AND status < 2');
     $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':approver', $approver);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Update', $config, $sql, $e);
