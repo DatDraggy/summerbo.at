@@ -213,7 +213,6 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
       </div>
     </section>
   </section> <!--pageWrapper -->
-  <?php echo $footer; ?>
   <script>
     function loginCheck(){
       if (!document.cookie.includes("cookieconsent_dismissed=yes")) {
@@ -223,5 +222,6 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
       }
     }
   </script>
+  <?php echo $footer; ?>
 </body>
 </html>
