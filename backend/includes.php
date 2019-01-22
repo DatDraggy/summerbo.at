@@ -110,6 +110,12 @@ $footer = '<section id="footer">
 </script>
 <script>
 function loginCheck() {
+    if (document.location.pathname === '/login' && !document.cookie.includes("cookieconsent_dismissed=yes")) {
+      document.getElementById("cc_accept").addEventListener("click", function(){
+        location.reload();
+      });
+    }
+    
 }
 </script>
 <script onload="loginCheck()" src="/js/cookie-consent/script.js"></script>';
