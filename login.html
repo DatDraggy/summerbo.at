@@ -215,7 +215,7 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
   </section> <!--pageWrapper -->
   <?php echo $footer; ?>
   <script>
-    if (document.cookie.includes("cookieconsent_dismissed=yes")) {
+    if (!document.cookie.includes("cookieconsent_dismissed=yes")) {
       document.getElementById("cc_accept").addEventListener("click", function(){
         location.reload();
       });
