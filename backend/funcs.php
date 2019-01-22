@@ -194,8 +194,8 @@ function requestEmailConfirm($userId, $parameter = false) {
     die();
   }
   try {
-    $sql = "SELECT id FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
+    $sql = "SELECT id_internal FROM users WHERE id_internal = $userId";
+    $stmt = $dbConnection->prepare('SELECT id_internal FROM users WHERE id_internal = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
@@ -269,15 +269,15 @@ function confirmRegistration($token) {
   global $dbConnection, $config;
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $sql = "SELECT email, nickname, users.id_internal, sponsor FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id_internal, sponsor FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
     if ($stmt->rowCount() === 1) {
       $email = $row['email'];
       $nickname = $row['nickname'];
-      $userId = $row['id'];
+      $userIdInternal = $row['id_internal'];
 
       $topay = $config['priceAttendee'];
       if (isEarlyBird()) {
@@ -287,10 +287,23 @@ function confirmRegistration($token) {
         $topay += $config['priceSponsor'];
       }
 
-      $sql = "UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = $topay  WHERE token = '$token'";
-      $stmt = $dbConnection->prepare('UPDATE users INNER JOIN email_tokens on users.id = email_tokens.id INNER JOIN balance on users.id = balance.id SET status = 1, topay = :topay WHERE token = :token');
+      $sql = "UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = '$userIdInternal'";
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, users.id = (SELECT max(id) + 1 FROM users) WHERE id_internal = :userIdInternal');
       $stmt->bindParam(':topay', $topay);
-      $stmt->bindParam(':token', $token);
+      $stmt->bindParam(':userIdInternal', $userIdInternal);
+      $stmt->execute();
+
+      $sql = "SELECT id FROM users WHERE id_internal = $userIdInternal";
+      $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id_internal = :userIdInternal');
+      $stmt->bindParam(':userIdInternal', $userIdInternal);
+      $stmt->execute();
+      $row = $stmt->fetch();
+      $userId = $row['id'];
+
+      $sql = "INSERT INTO balance(id, topay) VALUES ($userId, $topay)";
+      $stmt = $dbConnection->prepare('INSERT INTO balance(id, topay) VALUES (:userId, :topay)');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':topay', $topay);
       $stmt->execute();
 
       sendEmail($email, 'Email Confirmed', "Dear $nickname, 
@@ -301,18 +314,14 @@ Our registration team will now check your details. You will get another email ab
 It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
 It shouldn't take more than 24 hours.
 
-Your current status is: VERIFIED - Regnumber $userId
+Your current status is: {$status[1]} - Regnumber $userId
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
 ");
       sendStaffNotification($userId);
-      /*
 
-Your registration will be reviewed by our registration team after you have verified yourself.
-It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
-It shouldn't take more than 24 hours.*/
       $sql = "DELETE FROM email_tokens WHERE token = '$token'";
       $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
       $stmt->bindParam(':token', $token);
@@ -340,8 +349,8 @@ function confirmEmail($token) {
 
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -685,8 +694,8 @@ function getIdFromToken($token) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();

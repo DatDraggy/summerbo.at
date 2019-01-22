@@ -110,43 +110,36 @@ if (empty($_POST['sponsor'])) {
   $sponsorNew = true;
 }
 try {
-  $sql = "SELECT sponsor FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT sponsor FROM users WHERE id = :userId');
+  $sql = "SELECT id_internal, email, sponsor FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT id_internal, email, sponsor FROM users WHERE id = :userId');
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
 } catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
 }
-$sponsorOld = $row['sponsor'];
-
 // Sponsor Upgrade //
 /////////////////////
 
+$sponsorOld = $row['sponsor'];
+$oldEmail = $row['email'];
+$userIdInternal = $row['id_internal'];
+
 //////////////////
 // Email Change //
-try {
-  $sql = "SELECT email FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT email FROM users WHERE id = :userId');
-  $stmt->bindParam(':userId', $userId);
-  $stmt->execute();
-  $row = $stmt->fetch();
-} catch (PDOException $e) {
-  notifyOnException('Database Select', $config, $sql, $e);
-}
-$oldEmail = $row['email'];
 $confirmationLink = false;
 if ($oldEmail !== $newEmail) {
   try {
-    $sql = "SELECT email FROM users WHERE email = '$newEmail'";
-    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE email = :newEmail');
+    $sql = "SELECT email FROM users WHERE email = '$newEmail' OR email_new = '$newEmail'";
+    $stmt = $dbConnection->prepare('SELECT email FROM users WHERE email = :newEmail OR email_new = :newEmail2');
     $stmt->bindParam(':newEmail', $newEmail);
+    $stmt->bindParam(':newEmail2', $newEmail);
     $stmt->execute();
     $stmt->fetchAll();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if ($stmt->rowCount() > 1) {
+  if ($stmt->rowCount() > 0) {
     $status = 'This email address is already taken.';
     session_start();
     $_SESSION['status'] = $status;
@@ -165,7 +158,7 @@ if ($oldEmail !== $newEmail) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
     if ($stmt->rowCount() === 1) {
-      $confirmationLink = requestEmailConfirm($userId, 'email');
+      $confirmationLink = requestEmailConfirm($userIdInternal, 'email');
     }
   }
 }
