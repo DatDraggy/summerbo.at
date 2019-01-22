@@ -695,7 +695,9 @@ a.buttonSecondary {
 }
 
 .checkboxGroup input[type="checkbox"] {
-  visibility: hidden;
+  top:0;
+  left: 0;
+  opacity: 0;
   position: absolute;
 }
 
@@ -739,10 +741,14 @@ a.buttonSecondary {
 .checkboxGroup input[type=checkbox]:disabled + label {
   background-color: var(--colorToneHigh);
 }
+.checkboxGroup input[type=checkbox]:focus + label {
+  border: 2px solid var(--colorPurple)
+}
 
 .checkboxGroup label {
   background-color: #f3f3f3;
   color: black;
+  border: 2px solid transparent;
 }
 
 .checkboxGroup.VIP input[type=checkbox]:checked + label {
