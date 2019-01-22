@@ -233,16 +233,22 @@ a, a:link, a:visited {
   border: 2px solid rgba(255, 255, 255, .25);
 }
 
+.blankList li:last-child a:link, .blankList li:last-child a:visited {
+  margin-right: 0;
+}
+
 .blankList li a:hover {
   border: 2px solid white;
 }
 
 .blankList.inverse li a:link, .blankList.inverse li a:visited {
   color: var(--colorPurple);
-  border: 2px solid rgba(112, 39, 125,.25);
+  border: 2px solid var(--colorPurple);
+
 }
 .blankList.inverse li a:hover {
-  border: 2px solid var(--colorPurple);
+  border: 2px solid var(--colorPink);
+  color: var(--colorPink);
 }
 
 .la24:before {
@@ -677,7 +683,6 @@ a.buttonSecondary {
   flex-direction: column;
   border: 2px solid var(--colorPurple);
   border-radius: 8px;
-  align-items: center;
   margin-bottom: 2rem;
 }
 
@@ -764,7 +769,6 @@ a.buttonSecondary {
 .inputWrapper input:not([type="checkbox"]),
 .inputWrapper input:not([type="radio"]),
 .inputWrapper select, .inputWrapper input, .inputWrapper textarea {
-  transition: all 250ms var(--animNice);
   width: 100%;
   padding: 0;
   padding-left: 1rem;
@@ -777,7 +781,9 @@ a.buttonSecondary {
   height: 2.5rem;
   background-color: transparent;
 }
-
+.inputWrapper textarea {
+  padding-top: 1rem;
+}
 .inputWrapper select {
   width: calc(100% - 1rem);
   margin: 0 .5rem;
@@ -827,7 +833,10 @@ a.buttonSecondary {
   box-shadow: 0 0 4rem rgba(0, 0, 0, .125);
   margin-bottom: 2rem;
 }
-
+.teamMember > *:last-child {
+  flex: none;
+  margin-top: auto;
+}
 .teamMember p {
   font-size: .75rem;
   line-height: 1.25rem;
@@ -1054,7 +1063,9 @@ body.hasNav {
   .blankList {
     margin-bottom: 1rem;
   }
-
+  .blankList.centered {
+    justify-content: center;
+  }
   .blankList li a:link, .blankList li a:visited {
     margin-bottom: 0;
   }
