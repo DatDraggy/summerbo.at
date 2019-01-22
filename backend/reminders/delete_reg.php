@@ -8,6 +8,6 @@ require_once('../funcs.php');
 
 $dbConnection = buildDatabaseConnection($config);
 
-remindDeleteReg();
+//remindDeleteReg();
 
 mail($config['mail'], 'Enable Payment Check', 'Enable Cronjob daily');
