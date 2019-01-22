@@ -108,13 +108,4 @@ $footer = '<section id="footer">
     theme: \'light-floating\'
   };
 </script>
-<script>
-function loginCheck() {
-    if (document.location.pathname === "/login" && !document.cookie.includes("cookieconsent_dismissed=yes")) {
-      document.getElementById("cc_accept").addEventListener("click", function(){
-        location.reload();
-      });
-    }
-}
-</script>
-<script onload="loginCheck()" src="/js/cookie-consent/script.js"></script>';
+<script src="/js/cookie-consent/script.js"></script>';
