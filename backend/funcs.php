@@ -289,7 +289,6 @@ function confirmRegistration($token) {
 
       $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
       $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
-      $stmt->bindParam(':topay', $topay);
       $stmt->bindParam(':userIdInternal', $userIdInternal);
       $stmt->execute();
 
