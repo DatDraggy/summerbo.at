@@ -87,7 +87,8 @@ $footer = '<section id="footer">
             <li><a href="/tos#terms" class="unselectable flexCentered">Terms of Service</a></li>
             <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
             <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
-			<li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
+			      <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
+			      <li><a href="https://github.com/datdraggy/summerbo.at" class="unselectable flexCentered">Source</a></li>
           </ul>
           <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
         </div>
