@@ -96,10 +96,10 @@ $paymentsHtml .= '</table>';
           </div>
           <?php if ($leftToPay > 0) { ?>
             <div class="row">
-              <p>You still have some fees due. Please use the payment details below to pay your fees.</p>
+              <p>You still have some fees due. Please use the payment details below to pay them.</p>
             </div>
             <div class="row">
-              <p>We kindly ask for payments being made via bank transfer (SEPA). Please try to do it this way!
+              <p>We kindly ask to pay via bank transfer (SEPA). Please try to do it this way!
 		      If you really can't, please contact us for alternative payment methods.</p>
             </div>
             <!--<div class="row">
@@ -116,8 +116,7 @@ $paymentsHtml .= '</table>';
                   <strong>Name:</strong> Edwin Verstaij<br>
                   <strong>IBAN:</strong> DE68 7001 1110 6054 4164 13<br>
                   <strong>BIC/SWIFT:</strong> DEKTDE7GXXX<br>
-                  <strong>Currency:</strong> Euros<br>
-                  <strong>Amount:</strong> <?php echo $leftToPay; ?>€<br>
+                  <strong>Amount:</strong> <?php echo $leftToPay; ?> €<br>
                   <strong>Comment:</strong> <?php echo "$userId + $nickname"; ?><br><br>
                   <strong>Bank Address:</strong><br> Handelsbank<br>
                   Elsenheimer Str. 41<br>
