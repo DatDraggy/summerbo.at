@@ -181,13 +181,13 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
           <form class="formWrapper" id="login" method="post">
             <div class="inputWrapper">
               <label for="regnumber"><span>Registration Number</span></label>
-              <input name="regnumber" id="regnumber" class="input" placeholder="Regnumber" required/>
+              <input name="regnumber" id="regnumber" class="input" placeholder="Regnumber" autocomplete="username" required/>
             </div>
             <div class="formRow">
               <div class="inputWrapper">
                 <label for="password"><span>Password</span></label>
                 <input name="password" type="password" id="password" class="input" placeholder="Enter your password"
-                       required/>
+                       autocomplete="current-password" required/>
               </div>
             </div>
             <div class="formRow">
