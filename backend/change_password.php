@@ -1,6 +1,7 @@
 <?php
 require_once('config.php');
 require_once('funcs.php');
+header('Cache-Control: max-age=0');
 
 if (empty($_POST['token'])) {
   $status = 'something went wrong. No token set in form. Contact dev@summerbo.at';
