@@ -67,7 +67,8 @@ $paymentsHtml .= '</table>';
             <div class="row">
               <div style="color:white" class="content wsLarge">
                 <h1>User Area</h1>
-                <p class="textBig">Welcome <?php echo $nickname; ?>. This is your own user area with all information regarding your registration for the next party. On this page are your payment transactions. Your payment status is also visible below.</p>
+                <p class="textBig">Welcome <?php echo $nickname; ?>. This is your own user area with all information regarding
+			your registration for the next party. Look below to see your payment transactions and status details.</p>
                 <p>If you want to edit the rest of your details, please click on the button below to go to your details.</p>
                 <div class="buttonGroup">
                   <a class="button buttonUpgrade" href="details" title="Edit Details">Edit Details</a>
@@ -85,24 +86,29 @@ $paymentsHtml .= '</table>';
           <div class="row">
             <p>Your current registration status is
               <strong><?php echo $userStatus; ?></strong>.<br><?php if ($locked) { ?>
-                <span style="color:red">However, your account is locked, because we did not receive your payment in time! You do not have a slot reserved at the party until you pay. Once we receive your payment, your account will be unlocked. But keep in mind that if all slots are taken when the payment arrives, you won't be able to attend.</span>
-                <br><?php } ?> Below you can find all the payments you made to us and the amount connected to it.</p>
+                <!--never shown anyway!-->
+		<span style="color:red">
+	 	   However, your account is locked. You do <u>not</u> have a reserved seat.
+		</span><br>
+		If we're booked out, you unfortunately can't attend. However, if seats become available, we will let you
+		know to give you a second chance.<br><?php } ?>
+	      Below you can find all the payments we received.</p>
           </div>
           <?php if ($leftToPay > 0) { ?>
             <div class="row">
               <p>You still have some fees due. Please use the payment details below to pay your fees.</p>
             </div>
             <div class="row">
-              <p>We are happy to provide you a few options to pay for your ticket and upgrade. The easiest way would be to bank transfer to our bank account. 
-			  The other way is via a Transferwise account.</p>
+              <p>We kindly ask for payments being made via bank transfer (SEPA). Please try to do it this way!
+		      If you really can't, please contact us for alternative payment methods.</p>
             </div>
-            <div class="row">
+            <!--div class="row">
               <p><strong>How does Transferwise work?</strong></p>
             </div>
             <div class="row">
               <p>If you want to use one of the other payment options you do have to create an account at Transferwise. You can also use your Google or Facebook account for it.
                 There is no extra identy check needed if you want to send money to us. Simply click on Send Money and use our IBAN to make sure it goes to the right account. Check their <a"href="https://www.transferwise.com">website</a> for more information.</p>
-            </div>
+            </div-->
             <div class="row"><p>The bank details are:</p></div>
             <div class="row">
               <div>
@@ -113,7 +119,7 @@ $paymentsHtml .= '</table>';
                   <strong>Currency:</strong> Euros<br>
                   <strong>Amount:</strong> <?php echo $leftToPay; ?>€<br>
                   <strong>Comment:</strong> <?php echo "$userId + $nickname"; ?><br><br>
-                  <strong>Address:</strong><br> Handelsbank<br>
+                  <strong>Bank Address:</strong><br> Handelsbank<br>
                   Elsenheimer Str. 41<br>
                   80687 München<br>
                   Germany<br>
@@ -121,8 +127,10 @@ $paymentsHtml .= '</table>';
               </div>
             </div>
             <div class="row">
-              <p>Don't you see your payment below in the history? Normally we receive the money within a few working days. Due to international banking it can sometimes take a bit longer.
-                If after a week after paying nothing has been updated, make sure all the information you entered was correct. If it was correct, send us an email with a proof of payment to us so we can sort it out for you.
+              <p>Don't you see your payment below in the history? Normally we receive the money within a few working days.
+		 International transaction might need some more time. If you don't receive a payment confirmation within a week
+		 please check if all details were filled correctly, and if so, please send us an email with a proof of payment
+		 so we can sort it out for you.
               </p>
             </div>
           <?php } ?>
