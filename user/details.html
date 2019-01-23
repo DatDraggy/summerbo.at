@@ -191,11 +191,11 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
               <label for="passwordNew"><span>New Password</span></label>
               <input name="passwordNew" id="passwordNew" type="password" autocomplete="new-password">
             </div>
+            <div id="passwordMessage" class="formRow"></div>
             <div class="inputWrapper">
               <label for="passwordNewVerify"><span>Verify New Password</span></label>
               <input name="passwordNewVerify" id="passwordNewVerify" onkeyup="checkPass()" type="password" autocomplete="new-password">
             </div>
-            <div id="passwordMessage" class="formRow"></div>
             <div class="inputWrapper">
               <label for="password"><span>Current Password</span></label>
               <input name="password" id="password" type="password" autocomplete="current-password" required>
