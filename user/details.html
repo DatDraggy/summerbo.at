@@ -140,22 +140,26 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
             if ($topay == 0){
             ?>
                 <!-- Paid -->
-            <p>You have paid everything! Next step is waiting till the party. Have any questions in the mean time? Just contact us!</p>
-			<p>On this page you can edit the details from your registration. Just type in the new details and confirm with your current password.</p>
-			<p>You want to transfer your ticket or need to change your First/Last name or Date of Birth? Please send us an e-mail with the request.</p>
-            <p>Upgrading your ticket to a VIP ticket, attend as fursuiter or remove your name from the attendee list is of course also possible, just tick the box, enter your password and press Submit.</p>
-			<p>If it is about a transfer to someone else send also the details from the other person and let the other person send an email to confirm the transfer.</p>
+            <p>You have paid everything! Wait for the party day and check-in to get your badge! Have any questions in the mean time?
+		    	Just contact us!</p>
+		<p>On this page you can edit your registration details. Please confirm any change with your current password.</p>
+            	<p>You can also decide to upgrade your ticket to a VIP ticket, attend as fursuiter or remove your name from the
+		    attendee list.</p>
+		<p>Do you need to change your First/Last name or Date of Birth? Please send us an e-mail with the request.</p>
+		<p>Should you decide to transfer your ticket to someone else, please send an e-mail and include the new
+			passengers details. Also that other person should send an e-mail to confirm the transfer.</p>
             <?php } else { ?>
                 <!-- Not Paid -->
-			<p>On this page you can edit the details from your registration. Just type in the new details and confirm with your current password.</p>
-			<p>You want to transfer your ticket or need to change your First/Last name or Date of Birth? Please send us an e-mail with the request.
-			<p>If it is about a transfer to someone else send also the details from the other person and let the other person send an email to confirm the transfer.</p>
+		<p>On this page you can edit your registration details. Please confirm any change with your current password.</p>
+		<p>Do you need to change your First/Last name or Date of Birth? Please send us an e-mail with the request.</p>
+		<p>Should you decide to transfer your ticket to someone else, please send an e-mail and include the new
+			passengers details. Also that other person should send an e-mail to confirm the transfer.</p>
 
-			<p>You can find the payment details on the payment page of your account. Please wait a few days if you
-              just paid your ticket. We check manually the bankaccount and update your status.</p>
+		<p>You can find the payment details on the payment page of your account. Please wait a few days if you
+              just paid your ticket. Our treasurer will check the bankaccount frequently and update your status.</p>
 
             <?php } ?>
-            <p>If you have any questions about your account or payments. Please send us an e-mail to team@summerbo.at
+            <p>If you have any questions about your account or payments, please send us an e-mail to team@summerbo.at
               and include your name, nickname and regnumber.
             </p>
           </div>
