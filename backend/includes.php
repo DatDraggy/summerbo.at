@@ -48,9 +48,9 @@ $nav = '<nav id="nav" class="nav inactive">
           <div class="navItem">
             <a class="navLink" href="/#team">Team</a>
           </div>
-          <!--<div class="navItem">
+          <div class="navItem">
             <a class="navLink" href="/attendees" >Attendees</a>
-          </div>-->
+          </div>
           <div class="navItem">
             <a class="navLink" href="/tos#rules" >Conduct</a>
           </div>
