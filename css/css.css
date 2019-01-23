@@ -319,7 +319,7 @@ a, a:link, a:visited {
   /* flex-direction: row; */
   flex-direction: column;
   justify-content: flex-start;
-  /*height: 100vh;*/
+  height: 100%;
   /* transform: translateY(32px); */
 }
 
