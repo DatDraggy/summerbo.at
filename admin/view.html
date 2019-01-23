@@ -10,7 +10,7 @@ if (!empty($_SESSION['userId'])) {
   if (checkRegValid($requesterUserId)) {
     $rank = getUserRank($requesterUserId);
     $userId = $_GET['id'];
-    if ($rank == 2) {
+    if ($rank == 3) {
       if ($_GET['type'] === 'reg') {
         $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded, locked');
         if (is_array($details)) {
