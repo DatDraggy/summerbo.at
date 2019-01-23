@@ -1,6 +1,7 @@
 <?php
 require_once('backend/config.php');
 require_once('backend/funcs.php');
+header('Cache-Control: max-age=0');
 if (!empty($_GET['token'])) {
   $token = $_GET['token'];
   $dbConnection = buildDatabaseConnection($config);

@@ -2,6 +2,7 @@
 require_once('../backend/config.php');
 require_once('../backend/funcs.php');
 require_once('../backend/includes.php');
+header('Cache-Control: max-age=0');
 session_start();
 if (empty($_SESSION['userId'])) {
   session_commit();

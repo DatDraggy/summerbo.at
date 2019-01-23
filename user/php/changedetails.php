@@ -1,6 +1,7 @@
 <?php
 require_once('../../backend/config.php');
 require_once('../../backend/funcs.php');
+header('Cache-Control: max-age=0');
 session_start();
 if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password'])) {
   $status = 'Missing details. Check Nickname, Email and old Password.';
