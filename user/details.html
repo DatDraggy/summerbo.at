@@ -70,16 +70,12 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
 <head>
   <title>Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $head; ?>
-</head>
-<body class="hasNav">
-<div id="app">
-  <?php echo $nav; ?>
   <script>
     function checkPass()
     {
       //Store the password field objects into variables ...
-      var pass1 = document.getElementById('password');
-      var pass2 = document.getElementById('passwordVerify');
+      var pass1 = document.getElementById('passwordNew');
+      var pass2 = document.getElementById('passwordNewVerify');
       //Store the Confimation Message Object ...
       var message = document.getElementById('passwordMessage');
       //Set the colors we will be using ...
@@ -104,6 +100,10 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
       }
     }
   </script>
+</head>
+<body class="hasNav">
+<div id="app">
+  <?php echo $nav; ?>
   <section id="contentPage">
 
     <section id="about" class="ribbon" style="background-color: var(--colorPink)">
