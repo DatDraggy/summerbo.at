@@ -5,8 +5,14 @@ require_once('backend/includes.php');
 header('Cache-Control: max-age=0');
 
 $dbConnection = buildDatabaseConnection($config);
-$sql = "SELECT nickname, rank FROM users WHERE status > 1 AND list = true ORDER BY nickname";
-$stmt = $dbConnection->prepare('SELECT nickname, rank FROM users WHERE status > 1 AND list = true ORDER BY nickname');
+
+$showButtons = false;
+if (getConfirmedAttendees() < $config['attendeesMax']) {
+  $showButtons = true;
+}
+
+$sql = "SELECT nickname, `rank` FROM users WHERE status > 1 AND list = true ORDER BY nickname";
+$stmt = $dbConnection->prepare('SELECT nickname, `rank` FROM users WHERE status > 1 AND list = true ORDER BY nickname');
 $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
@@ -40,11 +46,12 @@ $attendees .= '</ul>';
               <div style="color:white" class="content wsLarge">
                 <h1>Attendee List</h1>
                 <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin. Don't see yourself yet?</p>
-				<div class="buttonGroup">
+				        <?php if($showButtons) { ?><div class="buttonGroup">
                   <a class="button buttonPrimary" href="register" title="Get a ticket">Register
                     Now</a>
                   <a class="button buttonUpgrade" href="register?vip" title="Upgrade to VIP">Upgrade to VIP</a>
                 </div>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -55,7 +62,7 @@ $attendees .= '</ul>';
         <h2 class="headline">Attendees</h2>
         </div>
           <div class="row" id="attendeeList">
-		<?php echo $attendees; ?>
+		      <?php echo $attendees; ?>
 		    </div>
         </section>
       </section> <!--pageWrapper -->
