@@ -30,18 +30,9 @@ if (isset($data['callback_query'])) {
         $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
-Your registration was confirmed by our registration team. Below you will find the bank details to send us the payment.
-
-Bank Details:
-Name: Edwin Verstaij
-IBAN: DE68 7001 1110 6054 4164 13
-BIC/SWIFT: DEKTDE7GXXX
-Comment: $regnumber + $nickname
-
-Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
-
-Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on <a href=\"https://summerbo.at/login\">https://summerbo.at/login</a>.
-Is it not possible to pay us via bank transfer? Please send us an email with your problem and we will try to help you.
+Your registration was confirmed by our registration team.
+You will receive from Eurofurence an email regarding the payment of your ticket. 
+More information about payments can be found on our website.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
