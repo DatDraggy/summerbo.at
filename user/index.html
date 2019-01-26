@@ -68,7 +68,7 @@ $paymentsHtml .= '</table>';
               <div style="color:white" class="content wsLarge">
                 <h1>User Area</h1>
                 <p class="textBig">Welcome <?php echo $nickname; ?>. This is your own user area with all information regarding
-			your registration for the next party. Look below to see your payment transactions and status details.</p>
+			your registration for the next party.</p>
                 <p>If you want to edit the rest of your details, please click on the button below to go to your details.</p>
                 <div class="buttonGroup">
                   <a class="button buttonUpgrade" href="details" title="Edit Details">Edit Details</a>
@@ -92,16 +92,16 @@ $paymentsHtml .= '</table>';
 		</span><br>
 		If we're booked out, you unfortunately can't attend. However, if seats become available, we will let you
 		know to give you a second chance.<br><?php } ?>
-	      Below you can find all the payments we received.</p>
+	      More information regarding payment will come within a few days.</p>
           </div>
           <?php if ($leftToPay > 0) { ?>
             <div class="row">
-              <p>You still have some fees due. Please use the payment details below to pay them.</p>
+              <p>More information regarding payment will come within a few days.</p>
             </div>
-            <div class="row">
+           <!--  <div class="row">
               <p>We kindly ask to pay via bank transfer (SEPA). Please try to do it this way!
 		      If you really can't, please contact us for alternative payment methods.</p>
-            </div>
+            </div> -->
             <!--<div class="row">
               <p><strong>How does Transferwise work?</strong></p>
             </div>
@@ -109,7 +109,7 @@ $paymentsHtml .= '</table>';
               <p>If you want to use one of the other payment options you do have to create an account at Transferwise. You can also use your Google or Facebook account for it.
                 There is no extra identy check needed if you want to send money to us. Simply click on Send Money and use our IBAN to make sure it goes to the right account. Check their <a"href="https://www.transferwise.com">website</a> for more information.</p>
             </div>-->
-            <div class="row"><p>The bank details are:</p></div>
+           <!--  <div class="row"><p>The bank details are:</p></div>
             <div class="row">
               <div>
                 <p class="team" style="padding-left: 2rem;padding-right: 2em;">
@@ -131,7 +131,7 @@ $paymentsHtml .= '</table>';
 		 please check if all details were filled correctly, and if so, please send us an email with a proof of payment
 		 so we can sort it out for you.
               </p>
-            </div>
+            </div> -->
           <?php } ?>
           <div class="row">
             <h2 id="payhis" class="headline">Payment History</h2>
