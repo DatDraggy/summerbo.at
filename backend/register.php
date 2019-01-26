@@ -305,7 +305,7 @@ if ($dbConnection === false) {
   die($status);
 }
 
-$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList);
+$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
   session_start();
