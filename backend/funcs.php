@@ -377,8 +377,8 @@ function approveRegistration($userId, $approver) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver WHERE id = '$userId' AND status < 2";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver WHERE id = :userId AND status < 2');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver, upgradedate = UNIX_TIMESTAMP() WHERE id = '$userId' AND status < 2";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver, upgradedate = UNIX_TIMESTAMP() WHERE id = :userId AND status < 2');
     $stmt->bindParam(':userId', $userId);
     $stmt->bindParam(':approver', $approver);
     $stmt->execute();
@@ -847,6 +847,7 @@ function remindLockReg() {
     $userId = $row['id'];
     $email = $row['email'];
     $nickname = $row['nickname'];
+    //ToDo: If paid is enough for topay - vip downgrade
     sendEmail($email, 'Summerbo.at No Payment Received', "Dear $nickname,
 
 Sadly we haven't received the payment for your ticket. Therefore we had to lock your account and invalidate your reservation.
