@@ -27,6 +27,7 @@ if (isset($data['callback_query'])) {
       if (approveRegistration($targetUserId, $senderUserId)) {
         answerCallbackQuery($queryId, 'Registration has been approved.');
         list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
+        $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
 Your registration was confirmed by our registration team. Below you will find the bank details to send us the payment.
