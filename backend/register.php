@@ -76,6 +76,16 @@ if (empty($_POST['nickname'])) {
 } else {
   $nicknamePost = $_POST['nickname'];
 }
+if (empty($_POST['efregid']) && !is_numeric($_POST['efregid'])) {
+  $status = 'An EF registration is required.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
+} else {
+  $efregid = $_POST['efregid'];
+}
 if (empty($_POST['dob'])) {
   $status = 'Birthday can\'t be empty.';
   session_start();

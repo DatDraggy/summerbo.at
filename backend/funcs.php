@@ -140,14 +140,14 @@ function isEarlyBird() {
   }
 }
 
-function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list) {
+function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list, $efregid) {
   global $dbConnection, $config;
   //ToDo: INSERT INTO users
   //ToDo: UPDATE Balance SET topay
 
   try {
-    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list)";
-    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list)');
+    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list, $efregid)";
+    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list, :efregid)');
     $stmt->bindParam(':nickname', $nickname);
     $stmt->bindParam(':firstName', $firstName);
     $stmt->bindParam(':lastName', $lastName);
@@ -160,6 +160,7 @@ function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sp
     $stmt->bindParam(':rank', $rank);
     $stmt->bindParam(':regdate', $regdate);
     $stmt->bindParam(':list', $list);
+    $stmt->bindParam(':efregid', $efregid);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
