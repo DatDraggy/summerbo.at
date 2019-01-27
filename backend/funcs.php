@@ -800,8 +800,8 @@ function insertToken($userId) {
 function getConfirmedAttendees() {
   global $dbConnection, $config;
   try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0');
+    $sql = 'SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0');
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
