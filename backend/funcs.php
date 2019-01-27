@@ -330,8 +330,7 @@ Your Boat Party Crew
       $data = array(
         'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
         'token'   => $token,
-        'server'  => $_SERVER,
-        'headers' => $http_response_header
+        'server'  => $_SERVER
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;
