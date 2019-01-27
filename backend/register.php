@@ -247,8 +247,8 @@ if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
 
 //Check for used email
 try{
-  $sql = "SELECT count(id) as count FROM users WHERE email = $email";
-  $stmt=$dbConnection->prepare('SELECT count(id) as count FROM users WHERE email = :email');
+  $sql = "SELECT count(id_internal) as count FROM users WHERE email = $email";
+  $stmt=$dbConnection->prepare('SELECT count(id_internal) as count FROM users WHERE email = :email');
   $stmt->bindParam(':email', $email);
   $stmt->execute();
   $row = $stmt->fetch();
