@@ -11,8 +11,8 @@ if (getConfirmedAttendees() < $config['attendeesMax']) {
   $showButtons = true;
 }
 
-$sql = "SELECT nickname, `rank` FROM users WHERE status > 1 AND list = true ORDER BY nickname";
-$stmt = $dbConnection->prepare('SELECT nickname, `rank` FROM users WHERE status > 1 AND list = true ORDER BY nickname');
+$sql = "SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname";
+$stmt = $dbConnection->prepare('SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname');
 $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
@@ -22,6 +22,8 @@ foreach ($rows as $row) {
     $nickname .= ' <span style="opacity:0.2">Crew</span>';
   } else if ($row['rank'] >= 2) {
     $nickname .= ' <span style="opacity:0.2">Staff</span>';
+  } else if ($row['sponsor'] == 1) {
+    $nickname .= ' <span style="opacity:0.2">VIP</span>';
   }
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
