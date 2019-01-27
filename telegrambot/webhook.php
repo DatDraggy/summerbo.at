@@ -32,8 +32,10 @@ if (isset($data['callback_query'])) {
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
 Your registration was confirmed by our registration team.
-You will receive from Eurofurence an email regarding the payment of your ticket. 
+You will receive an email from Eurofurence regarding the payment of your ticket. 
 More information about payments can be found on our website.
+
+Also, because this is our first time organizing this event, we would like to receive some feedback. Please take a minute to fill out this <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">form</a>.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
