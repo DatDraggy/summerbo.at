@@ -5,7 +5,7 @@ require_once('funcs.php');
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT id_internal, nickname, email FROM users WHERE id = 2';
+  $sql = 'SELECT id_internal, nickname, email FROM users WHERE status = 0 ';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
