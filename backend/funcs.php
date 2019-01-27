@@ -746,7 +746,7 @@ function requestPasswordReset($userId) {
 
   try {
     $sql = "SELECT email, id, nickname FROM users WHERE id = $userId AND status > 0";
-    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId AND status > 0');
+    $stmt = $dbConnection->prepare('SELECT email, id, nickname FROM users WHERE id = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
