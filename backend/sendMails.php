@@ -37,7 +37,7 @@ Your VIP status: $viptext </b>
  
 Are you a VIP or will you upgrade in the future? That'd be great! Here is how we handle the extra payment:
 
-To make 100% of the VIP profits available to Eurofurence Charity we want to avoid all transaction fees and expenses. At badge pickup, a Charity staff member will directly collect your 15 Euros (you can bring more of course) and you'll get upgraded on the spot! Sounds good? We think so! 
+To make 100% of the VIP profits available to Eurofurence Charity we want to avoid all transaction fees and expenses. At badge pickup, a Charity staff member will directly collect your 15 Euros (you can bring more of course) and you'll get upgraded on the spot!
  
 Your EF Regnumber is $efregid - please double check that this is correct BEFORE the 25th of March via <a href=\"https://summerbo.at/user/details\">summerbo.at</a>
   
