@@ -16,7 +16,7 @@ try {
   notifyOnException('Database Select', $config, $sql, $e);
 }
 
-//foreach ($rows as $row) {
+foreach ($rows as $row) {
   sendEmail($row['email'], 'About your registration', "Dear $nickname,
  
 Your registration was approved by our registration team.
@@ -37,4 +37,4 @@ If you have any questions, please send us a message. Reply to this e-mail or con
  
 Your Boat Party Crew
 ");
-//}
+}
