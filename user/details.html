@@ -40,12 +40,13 @@ if (!checkRegValid($userId)) {
 // Check Reg Validity //
 ////////////////////////
 
-$details = getRegDetails($userId, 'nickname, email, sponsor, fursuiter, list');
+$details = getRegDetails($userId, 'nickname, email, sponsor, fursuiter, list, efregid');
 if ($details == 'Not found') {
   mail($config['mail'], 'Weird Error', 'Uh, this shouldn\'t happen. No details for ' . $userId);
 }
 $nickname = $details['nickname'];
 $email = $details['email'];
+$efregid = $details['efregid'];
 if ($details['sponsor'] == 1) {
   $sponsor = 'checked disabled';
 } else {
@@ -178,7 +179,7 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
             </div>
             <div class="inputWrapper">
               <label for="efregid"><span>Eurofurence Registration Number</span></label>
-              <input name="efregid" id="efregid" value="<?php echo $email; ?>" type="text" required>
+              <input name="efregid" id="efregid" value="<?php echo $efregid; ?>" type="text" required>
             </div>
             <!-- ToDo: BoD, COuntry -->
             <div class="checkboxWrapper">
