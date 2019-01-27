@@ -84,7 +84,11 @@ if (empty($_SESSION['secret'])) {
               <?php
               $slotsLeft = $attendeesMax - $attendees;
               if ($slotsLeft <= 100) {
-                echo "<p>There are only $slotsLeft slots left!</p>";
+                if ($slotsLeft == 1) {
+                  echo "<p>There is only 1 slot left!</p>";
+                } else {
+                  echo "<p>There are only $slotsLeft slots left!</p>";
+                }
               }
               else if($slotsLeft <= 0){
                 echo "<p>All slots are taken! However some slots might free up because of canceled registrations, so remember to check back.</p>";
