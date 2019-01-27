@@ -641,8 +641,8 @@ function checkPassword($userId, $password) {
 function requestUnapproved($chatId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE status = 1";
-    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1");
+    $sql = "SELECT id FROM users WHERE status = 1 ORDER BY id ASC";
+    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1 ORDER BY id ASC");
     $stmt->execute();
     $rows = $stmt->fetchAll();
   } catch (PDOException $e) {
