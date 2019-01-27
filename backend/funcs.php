@@ -401,18 +401,6 @@ function recalculateTopay($userId) {
   } else {
     $topay = $config['priceAttendee'];
   }
-  try {
-    $sql = "SELECT sponsor FROM users WHERE id = $userId";
-    $stmt = $dbConnection->prepare('SELECT sponsor FROM users WHERE id = :userId');
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($row['sponsor'] == true) {
-    $topay += $config['priceSponsor'];
-  }
 
   try {
     $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
