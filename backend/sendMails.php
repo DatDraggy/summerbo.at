@@ -8,7 +8,7 @@ require_once('funcs.php');
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT email, nickname, users.id, efregid FROM users INNER JOIN balance ON balance.id = users.id WHERE status > 1 AND users.id = 12';
+  $sql = 'SELECT email, nickname, users.id, efregid, sponsor FROM users INNER JOIN balance ON balance.id = users.id WHERE status > 1 AND users.id = 12';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
@@ -19,13 +19,22 @@ try {
 foreach ($rows as $row) {
   $nickname = $row['nickname'];
   $efregid = $row['efregid'];
+  $topay = $config['priceAttendee'];
+  $viptext = 'No';
+  if($row['sponsor'] == 1){
+    $topay += $config['priceSponsor'];
+    $viptext = 'Yes';
+  }
   sendEmail($row['email'], 'About your registration', "Dear $nickname,
  
 Your registration was approved by our registration team.
   However, due to a technical difficulty, some people may have received a mail stating they got an Early Bird ticket instead of a Regular one. We would like to apologize for the inconvenience.
  
-<b>Your Registration = Regular Ticket, Ticket price 35 € EUR, excl. VIP.</b>
-  Payable via <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> starting the 25th of March. (Yes, we will send a reminder, no worries.)
+<b>Your Registration: Regular Ticket
+Ticket price: $topay EUR, excl. VIP
+Your VIP status: $viptext </b>
+
+  Ticket price payable via <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> <b>starting the 25th of March</b> (yes, we will send a reminder, no worries).
  
 Are you a VIP or will you upgrade in the future? That'd be great! Here is how we handle the extra payment:
 
