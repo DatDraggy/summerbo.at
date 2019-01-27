@@ -745,7 +745,7 @@ function requestPasswordReset($userId) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT email, nickname FROM users WHERE id = $userId AND status > 0";
+    $sql = "SELECT email, id, nickname FROM users WHERE id = $userId AND status > 0";
     $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
@@ -757,9 +757,11 @@ function requestPasswordReset($userId) {
   if ($stmt->rowCount() === 1) {
     $nickname = $row['nickname'];
     $email = $row['email'];
+    $userIdPub = $row['id'];
     $confirmationLink = requestEmailConfirm($userId, 'password');
     sendEmail($email, 'Password Reset', "Dear $nickname, 
 
+Registration number: $userIdPub 
 You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 Was it not you who requested this? Let us know!
 
