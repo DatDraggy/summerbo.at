@@ -37,7 +37,7 @@ if (!$result->success) {
 }*/
 
 $dbConnection = buildDatabaseConnection($config);
-if (!openSlots()) {
+if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
   $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will be freed up again.';
   session_start();
   $_SESSION['status'] = $status;
