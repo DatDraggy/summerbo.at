@@ -3,7 +3,7 @@ require_once('../../backend/config.php');
 require_once('../../backend/funcs.php');
 header('Cache-Control: max-age=0');
 session_start();
-if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password'])) {
+if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['efregid'])) {
   $status = 'Missing details. Check Nickname, Email and old Password.';
   session_start();
   $_SESSION['status'] = $status;
@@ -169,14 +169,15 @@ if ($oldEmail !== $newEmail) {
 /////////////////////////////////
 // Update Nickname and Fursuit //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash, efregid = $efregid WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash, efregid = :efregid WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
   $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
-  $stmt->bindParam(':userId', $userId);
+  $stmt->bindParam(':efregid', $efregid);
   $stmt->execute();
+  $stmt->bindParam(':userId', $userId);
 } catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
 }
