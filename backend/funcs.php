@@ -394,6 +394,38 @@ function approveRegistration($userId, $approver) {
   }
 }
 
+function recalculateTopay($userId) {
+  global $dbConnection, $config;
+
+  if (isEarlyBird()) {
+    $topay = $config['priceAttendeeEarly'];
+  } else {
+    $topay = $config['priceAttendee'];
+  }
+  try {
+    $sql = "SELECT sponsor FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT sponsor FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if ($row['sponsor'] == true) {
+    $topay += $config['priceSponsor'];
+  }
+
+  try {
+    $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
+    $stmt = $dbConnection->prepare('UPDATE balance SET topay = :topay WHERE id = :userId');
+    $stmt->bindParam(':topay', $topay);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+  }
+}
+
 function rejectRegistration($userId) {
   global $dbConnection, $config;
 
