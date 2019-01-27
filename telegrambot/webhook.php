@@ -35,7 +35,7 @@ Your registration was approved by our registration team.
 
 You are now able to login and manage your details on <a href=\"https://summerbo.at\">summerbo.at</a>
 
-Congratulations!You have managed to be an Early Bird . Your ticket price is $topay EUR - but wait, you don't have to pay yet. Starting on the 25th of March 2019 you will find your Early Bird Ticket directly in your <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> and can pay it in the same way you pay your EF Reg.
+Congratulations! You have managed to be an Early Bird . Your ticket price is $topay EUR - but wait, you don't have to pay yet. Starting on the 25th of March 2019 you will find your Early Bird Ticket directly in your <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> and can pay it in the same way you pay your EF Reg.
 
 Please make sure to provide your correct EF Regnumber BEFORE the 25th of March via <a href=\"https://summerbo.at/user/details\">summerbo.at</a>
 
