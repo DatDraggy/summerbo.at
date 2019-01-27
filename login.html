@@ -168,7 +168,6 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
       <div class="row">
         <div class="content">
           <h3>Login</h3>
-          <div class="info-box-err">Currently the login is disabled. Once your registration was approved manually, you will be able to login.</div>
           <?php
           if (isset($_GET['reg']) && !empty($statusSession)) {
             echo '<div class="info-box-succ">' . $statusSession . '</div>';
