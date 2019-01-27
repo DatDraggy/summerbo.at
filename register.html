@@ -99,7 +99,7 @@ if (empty($_SESSION['secret'])) {
                 echo '<div class="info-box-err">'.$status.'</div>';
               }?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
-                <?php if ($regOpen || $secret === $config['secret']) { ?>
+                <?php if (($regOpen || $secret === $config['secret']) && $slotsLeft <= 0) { ?>
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
