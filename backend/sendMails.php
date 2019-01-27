@@ -22,7 +22,6 @@ foreach ($rows as $row) {
   $topay = $config['priceAttendee'];
   $viptext = 'No';
   if($row['sponsor'] == 1){
-    $topay += $config['priceSponsor'];
     $viptext = 'Yes';
   }
   sendEmail($row['email'], 'About your registration', "Dear $nickname,
