@@ -8,7 +8,7 @@ require_once('funcs.php');
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT email, nickname, users.id, efregid, sponsor FROM users INNER JOIN balance ON balance.id = users.id WHERE status > 1 AND users.id = 3';
+  $sql = 'SELECT email, nickname, users.id, efregid, sponsor FROM users INNER JOIN balance ON balance.id = users.id WHERE status > 1 AND topay = 35';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
