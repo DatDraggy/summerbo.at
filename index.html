@@ -11,7 +11,7 @@ if(!empty($_GET['secret'])){
   die();
 }
 $dbConnection = buildDatabaseConnection($config);
-if (isEarlyBird()) {
+/*if (isEarlyBird()) {
   $earlyBirdTicket = '
         <div class="ticket ticketPrimary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
@@ -43,7 +43,7 @@ if (isEarlyBird()) {
         </div>
         ';
 }
-else {
+else {*/
   $earlyBirdTicket = '
         <div class="ticket ticketSecondary content content33">
           <h3 class="ticketName nomargin">Early Bird Ticket</h3>
@@ -74,7 +74,7 @@ else {
           </p>
         </div>
         ';
-}
+//}
 
 ?>
 <!DOCTYPE html>

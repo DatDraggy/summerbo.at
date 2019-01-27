@@ -176,7 +176,10 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
               <label for="email"><span>E-Mail</span></label>
               <input name="email" id="email" value="<?php echo $email; ?>" type="email" required>
             </div>
-
+            <div class="inputWrapper">
+              <label for="efregid"><span>Eurofurence Registration Number</span></label>
+              <input name="efregid" id="efregid" value="<?php echo $email; ?>" type="text" required>
+            </div>
             <!-- ToDo: BoD, COuntry -->
             <div class="checkboxWrapper">
               <div class="checkboxGroup">
