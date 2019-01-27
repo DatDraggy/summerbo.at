@@ -31,11 +31,17 @@ if (isset($data['callback_query'])) {
         $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
         sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
 
-Your registration was confirmed by our registration team.
-You will receive an email from Eurofurence regarding the payment of your ticket. 
-More information about payments can be found on our website.
+Your registration was approved by our registration team.
 
-Also, because this is our first time organizing this event, we would like to receive some feedback. Please take a minute to fill out this <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">form</a>.
+You are now able to login and manage your details on <a href=\"https://summerbo.at\">summerbo.at</a>
+
+Congratulations!You have managed to be an Early Bird . Your ticket price is $topay EUR - but wait, you don't have to pay yet. Starting on the 25th of March 2019 you will find your Early Bird Ticket directly in your <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> and can pay it in the same way you pay your EF Reg.
+
+Please make sure to provide your correct EF Regnumber BEFORE the 25th of March via <a href=\"https://summerbo.at/user/details\">summerbo.at</a>
+
+You will then also receive an email from Eurofurence regarding the payment of your ticket.
+
+Also, because this is our first time organizing this event, we would like to receive some feedback about the registration system. Please take a minute to fill this out <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">survey</a>.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
