@@ -46,7 +46,7 @@ Also, because this is our first time organizing this event, we would like to rec
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
-");
+", true);
       } else {
         answerCallbackQuery($queryId, 'Already approved, rejected or error.');
       }
