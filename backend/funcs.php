@@ -131,7 +131,7 @@ function hashPassword($password) {
 
 function isEarlyBird() {
   global $dbConnection, $config;
-  return true;
+  return false;
 
   $count = getConfirmedAttendees();
   if ($count < 100) {
