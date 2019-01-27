@@ -51,6 +51,18 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   die($status);
 }
 
+$efregidPost = $_POST['efregid'];
+if (is_numeric($efregidPost)) {
+  $efregid = $efregidPost;
+} else {
+  $status = 'Invalid EF Reg ID';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
+}
+
 /////////////////////
 // Password Verify //
 $hash = checkPassword($userId, $_POST['password']);
