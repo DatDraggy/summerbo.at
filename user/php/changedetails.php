@@ -188,8 +188,8 @@ try {
   $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
   $stmt->bindParam(':efregid', $efregid);
-  $stmt->execute();
   $stmt->bindParam(':userId', $userId);
+  $stmt->execute();
 } catch (PDOException $e) {
   notifyOnException('Database Select', $config, $sql, $e);
 }
