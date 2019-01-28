@@ -206,9 +206,9 @@ if ($sponsorNew === true && $sponsorOld == 0) {
   upgradeToSponsor($userId);
   sendStaffNotification($userId, "<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Attendee $userId</a> upgraded to sponsor.");
 }
-else if ($sponsorNew === false && $sponsorOld == 1){
+/*else if ($sponsorNew === false && $sponsorOld == 1){
   downgradeSponsor($userId);
-}
+}*/
 
 if ($confirmationLink !== false) {
   sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
