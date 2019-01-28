@@ -255,7 +255,7 @@ function downgradeSponsor($userId){
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, '`VIP Downgrade', "Dear $nickname,
+    sendEmail($email, 'VIP Downgrade', "Dear $nickname,
 
 Sorry to see you downgrade. You are no longer a VIP.
 
