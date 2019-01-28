@@ -232,6 +232,40 @@ function getFursuiters() {
   return $rows;
 }
 
+function downgradeSponsor($userId){
+  global $dbConnection, $config;
+  try {
+    $sql = "SELECT email, nickname FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() === 1) {
+    $email = $row['email'];
+    $nickname = $row['nickname'];
+    try {
+      $sql = "UPDATE users SET sponsor = 0, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET sponsor = 0, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Update', $config, $sql, $e);
+    }
+
+    sendEmail($email, '`VIP Downgrade', "Dear $nickname,
+
+Sorry to see you downgrade. You are no longer a VIP.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew
+");
+  }
+}
+
 function upgradeToSponsor($userId) {
   global $dbConnection, $config;
   try {
@@ -247,9 +281,8 @@ function upgradeToSponsor($userId) {
     $email = $row['email'];
     $nickname = $row['nickname'];
     try {
-      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceSponsor']}, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + :priceSponsor, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
-      $stmt->bindParam(':priceSponsor', $config['priceSponsor']);
+      $sql = "UPDATE users SET sponsor = 1, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET sponsor = 1, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
     } catch (PDOException $e) {
@@ -258,7 +291,8 @@ function upgradeToSponsor($userId) {
 
     sendEmail($email, '`VIP Upgrade', "Dear $nickname, 
 
-Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support. 
+Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support.
+But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
