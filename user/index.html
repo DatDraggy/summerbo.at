@@ -48,7 +48,7 @@ $nickname = $details['nickname'];
 $email = $details['email'];
 $efregid = $details['efregid'];
 if ($details['sponsor'] == 1) {
-  $sponsor = 'checked disabled';
+  $sponsor = 'checked';
 } else {
   $sponsor = '';
 }
@@ -189,7 +189,7 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
               </div>
               <div class="checkboxGroup VIP">
                 <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php echo $sponsor; ?>>
-                <label for="sponsor">I want to upgrade to a <a href="/#tickets">+15€ VIP ticket</a></label>
+                <label for="sponsor">I want to upgrade to a <a href="/#tickets">+15€ VIP ticket</a> (paid on-site)</label>
               </div>
             </div>
             <div class="inputWrapper">
