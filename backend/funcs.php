@@ -289,7 +289,7 @@ function upgradeToSponsor($userId) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, '`VIP Upgrade', "Dear $nickname, 
+    sendEmail($email, 'VIP Upgrade', "Dear $nickname, 
 
 Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support.
 But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
