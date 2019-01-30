@@ -37,7 +37,7 @@ if (!$result->success) {
 }*/
 
 $dbConnection = buildDatabaseConnection($config);
-if (!openSlots()) {
+if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
   $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will be freed up again.';
   session_start();
   $_SESSION['status'] = $status;
@@ -75,6 +75,16 @@ if (empty($_POST['nickname'])) {
   die($status);
 } else {
   $nicknamePost = $_POST['nickname'];
+}
+if (empty($_POST['efregid']) && !is_numeric($_POST['efregid'])) {
+  $status = 'An EF registration is required.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
+} else {
+  $efregid = $_POST['efregid'];
 }
 if (empty($_POST['dob'])) {
   $status = 'Birthday can\'t be empty.';
@@ -237,8 +247,8 @@ if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
 
 //Check for used email
 try{
-  $sql = "SELECT count(id) as count FROM users WHERE email = $email";
-  $stmt=$dbConnection->prepare('SELECT count(id) as count FROM users WHERE email = :email');
+  $sql = "SELECT count(id_internal) as count FROM users WHERE email = $email";
+  $stmt=$dbConnection->prepare('SELECT count(id_internal) as count FROM users WHERE email = :email');
   $stmt->bindParam(':email', $email);
   $stmt->execute();
   $row = $stmt->fetch();
@@ -295,7 +305,7 @@ if ($dbConnection === false) {
   die($status);
 }
 
-$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList);
+$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
   session_start();

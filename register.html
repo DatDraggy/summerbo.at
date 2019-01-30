@@ -83,8 +83,12 @@ if (empty($_SESSION['secret'])) {
 			<p>Every attendee gets a badge with his nickname, regnumber and country printed on it.</p>
               <?php
               $slotsLeft = $attendeesMax - $attendees;
-              if ($slotsLeft <= 100) {
-                echo "<p>There are only $slotsLeft slots left!</p>";
+              if ($slotsLeft <= 100 && $slotsLeft > 0) {
+                if ($slotsLeft == 1) {
+                  echo "<p>There is only 1 slot left!</p>";
+                } else {
+                  echo "<p>There are only $slotsLeft slots left!</p>";
+                }
               }
               else if($slotsLeft <= 0){
                 echo "<p>All slots are taken! However some slots might free up because of canceled registrations, so remember to check back.</p>";
@@ -110,6 +114,10 @@ if (empty($_SESSION['secret'])) {
                       <input name="lastname" id="lastname" class="input" placeholder="Last Name" required>
                     </div>
                   </div>
+                  <div class="inputWrapper">
+                    <label for="efregid"><span>Eurofurence Registration Number</span></label>
+                    <input name="efregid" id="efregid" class="input" placeholder="Number" required/>
+                  </div>
                   <div class="checkboxWrapper">
                     <div class="checkboxGroup">
                       <input type="checkbox" name="fursuiter" id="fursuiter" class="input">
@@ -117,7 +125,7 @@ if (empty($_SESSION['secret'])) {
                     </div>
                     <div class="checkboxGroup VIP">
                       <input type="checkbox" name="sponsor" id="sponsor" class="input" <?php if (isset($_GET['vip'])) echo 'checked'; ?>>
-                      <label for="sponsor">I want to upgrade to a <a href="/#tickets" target="_blank">+15€ VIP ticket</a></label>
+                      <label for="sponsor">I want to upgrade to a <a href="/#tickets" target="_blank">+15€ VIP ticket</a> (paid on-site)</label>
                     </div>
                   </div>
                   <div class="formRow">
@@ -427,32 +435,28 @@ if (empty($_SESSION['secret'])) {
                     </div>
                   </div>
                   <button class="button buttonPrimary">Submit</button>
-                <?php } else { echo 'Registration will open on Sunday the 27th January 2019, 11am CET<br>'; } ?>
+                <?php } else { echo '<!--Registration will open on Sunday the 27th January 2019, 11:00 CET<br>-->'; } ?>
               </form>
             </div>
           </div>
         </section>
       </section> <!--pageWrapper -->
       <?php if(!$regOpen && $secret !== $config['secret']) { ?>
-        <section id="count" class="countWrapperReg" style="text-align: center;">
+        <!--<section id="count" class="countWrapperReg" style="text-align: center;">
           <div class="wrapper">
             <div id="counters-min" class="row">
-              <!-- Item 1 -->
               <div class="content">
                 <span id="count-min-1" class="countNbr heading1">0</span><br>
                 <span class="countText">Days</span>
               </div>
-              <!-- Item 2 -->
               <div class="content">
                 <span id="count-min-2" class="countNbr heading1">0</span><br>
                 <span class="countText">Hours</span>
               </div>
-              <!-- Item 3 -->
               <div class="content">
                 <span id="count-min-3" class="countNbr heading1">0</span><br>
                 <span class="countText">Minutes</span>
               </div>
-              <!-- Item 4 -->
               <div class="content">
                 <span id="count-min-4" class="count-nbr heading1">0</span><br>
                 <span class="count-text">Seconds</span>
@@ -462,8 +466,8 @@ if (empty($_SESSION['secret'])) {
         </section>
         <script src="js/countdown.js"></script>
         <script>
-          CountDownTimer("2019-01-27T10:59:00");
-        </script>
+          CountDownTimer("2019-01-27T11:00:00");
+        </script>-->
       <?php } ?>
       <?php echo $footer; ?>
   </body>
