@@ -44,7 +44,7 @@ foreach ($rows as $row) {
   $label['country'][] = $row['country'];
 }
 
-$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age ORDER BY count DESC";
+$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age ORDER BY age ASC";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
