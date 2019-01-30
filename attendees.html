@@ -36,11 +36,8 @@ $rows = $stmt->fetchAll();
 
 $dataPoints = array();
 foreach ($rows as $row) {
-  /*$dataPoints[] = array(
-    "x" => $row['count'],
-    "y" => $row['country']
-  );*/
-  $dataPoints[] = $row['count'];
+  $data[] = $row['count'];
+  $label[] = $row['country'];
 }
 
 ?>
@@ -56,9 +53,25 @@ foreach ($rows as $row) {
     <script>
       window.onload = function () {
         var ctx = document.getElementById("attendanceByCountry");
-        var myBarChart = new Chart(ctx, {
-          type: 'horizontalBar',
-          data: <?= json_encode($dataPoints)?>
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: <?=$label?>,
+            datasets: [{
+              label: '# of Attendees',
+              data: <?=$data?>,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero:true
+                }
+              }]
+            }
+          }
         });
       }
     </script>
