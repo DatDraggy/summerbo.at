@@ -58,14 +58,14 @@ foreach ($rows as $row) {
           animationEnabled: true,
           theme: "light2",
           title: {
-            text: "Attendee"
+            text: "Country"
           },
           axisY: {
-            title: "Country"
+            title: "Attendees"
           },
           data: [{
             type: "column",
-            yValueFormatString: "#,##0.## tonnes",
+            yValueFormatString: "#,##0.## Attendees",
             dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
           }]
         });
