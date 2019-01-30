@@ -60,10 +60,19 @@ $stmt->execute();
 $row = $stmt->fetch();
 
 $data['fur'][] = $row['fursuiters'];
-$label['fur'][] = 'Fursuiter';
+$label['fur'][] = 'Fursuit';
 $data['fur'][] = $row['attendees'];
-$label['fur'][] = 'No Fursuiter';
+$label['fur'][] = 'No Fursuit';
 
+$sql = "SELECT (SELECT count(id) FROM users WHERE sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE sponsor = 0) as attendees";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetch();
+
+$data['fur'][] = $row['sponsors'];
+$label['fur'][] = 'VIP';
+$data['fur'][] = $row['attendees'];
+$label['fur'][] = 'No VIP';
 
 ?>
 <!DOCTYPE html>
@@ -78,7 +87,7 @@ $label['fur'][] = 'No Fursuiter';
     <script>
       window.onload = function () {
         var ctxCountry = document.getElementById("attendanceByCountry");
-        var ctxAge = document.getElementById("attendanceByCountry");
+        var ctxAge = document.getElementById("attendanceByAge");
         var ctxAttFur = document.getElementById("attendeeToFursuiter");
         var ctxAttVip = document.getElementById("attendeeToVip");
         var myChartCountry = new Chart(ctxCountry, {
@@ -289,7 +298,7 @@ $label['fur'][] = 'No Fursuiter';
                   </div>
                 </dd>
               </dl>
-              <!--<dl class="js-badger-accordion">
+              <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
                     Attendee to VIP Ratio
@@ -302,7 +311,7 @@ $label['fur'][] = 'No Fursuiter';
                     </div>
                   </div>
                 </dd>
-              </dl>-->
+              </dl>
             </div>
           </div>
           <div class="row">
