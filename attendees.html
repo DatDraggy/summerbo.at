@@ -142,12 +142,15 @@ $label['vip2'][] = 'No VIP';
               data: <?=json_encode($data['age'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(25,215,23, 0.2)'
+                'rgba(25,215,23, 1)'
               ]
             }]
           },
           options: {
             scales: {
+              ticks: {
+                stepSize: 1
+              },
               xAxes: [{
                 scaleLabel: {
                   display: true,
@@ -171,8 +174,8 @@ $label['vip2'][] = 'No VIP';
               data: <?=json_encode($data['fur'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(235,66,116, 0.2)',
-                'rgba(59,63,158, 0.2)'
+                'rgba(235,66,116, 1)',
+                'rgba(59,63,158, 1)'
               ]
             }]
           }
@@ -185,8 +188,8 @@ $label['vip2'][] = 'No VIP';
               data: <?=json_encode($data['vip'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(235,66,116, 0.2)',
-                'rgba(59,63,158, 0.2)'
+                'rgba(235,66,116, 1)',
+                'rgba(59,63,158, 1)'
               ]
             }]
           }
@@ -199,8 +202,8 @@ $label['vip2'][] = 'No VIP';
               data: <?=json_encode($data['vip2'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(235,66,116, 0.2)',
-                'rgba(59,63,158, 0.2)'
+                'rgba(235,66,116, 1)',
+                'rgba(59,63,158, 1)'
               ]
             }]
           }
