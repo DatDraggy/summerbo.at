@@ -123,14 +123,54 @@ $label['vip'][] = 'No VIP';
           }
         });
         var myChartAge = new Chart(ctxAge, {
-          type: 'bar',
+          type: 'scatter',
           data: {
             labels: <?=json_encode($label['age'])?>,
             datasets: [{
-              label: 'Attendees',
+              label: 'Ages',
               data: <?=json_encode($data['age'])?>,
               borderWidth: 1,
               backgroundColor: [
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)',
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)',
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)',
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)',
                 'rgba(25,215,23, 0.2)',
                 'rgba(11,214,148, 0.2)',
                 'rgba(194,190,204, 0.2)',
@@ -159,7 +199,6 @@ $label['vip'][] = 'No VIP';
           data: {
             labels: <?=json_encode($label['fur'])?>,
             datasets: [{
-              label: 'Attendees',
               data: <?=json_encode($data['fur'])?>,
               borderWidth: 1,
               backgroundColor: [
@@ -183,7 +222,6 @@ $label['vip'][] = 'No VIP';
           data: {
             labels: <?=json_encode($label['vip'])?>,
             datasets: [{
-              label: 'Attendees',
               data: <?=json_encode($data['vip'])?>,
               borderWidth: 1,
               backgroundColor: [
