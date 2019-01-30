@@ -51,7 +51,7 @@ $rows = $stmt->fetchAll();
 
 $label['age'][] = 'Ages';
 foreach ($rows as $row) {
-  $data['age'][] = array("x"=>$row['count'], "y"=>$row['age']);
+  $data['age'][] = array("x"=>$row['age'], "y"=>$row['count']);
 }
 
 $sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiters,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
@@ -188,7 +188,6 @@ $label['vip'][] = 'No VIP';
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
                 }
               }]
             }
