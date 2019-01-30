@@ -69,10 +69,10 @@ $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetch();
 
-$data['fur'][] = $row['sponsors'];
-$label['fur'][] = 'VIP';
-$data['fur'][] = $row['attendees'];
-$label['fur'][] = 'No VIP';
+$data['vip'][] = $row['sponsors'];
+$label['vip'][] = 'VIP';
+$data['vip'][] = $row['attendees'];
+$label['vip'][] = 'No VIP';
 
 ?>
 <!DOCTYPE html>
