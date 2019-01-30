@@ -142,15 +142,17 @@ $label['vip2'][] = 'No VIP';
               data: <?=json_encode($data['age'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(25,215,23, 1)'
+                'rgba(235,66,116, 1)'
               ]
             }]
           },
           options: {
-            scales: {
+            scale: {
               ticks: {
                 stepSize: 1
-              },
+              }
+            },
+            scales: {
               xAxes: [{
                 scaleLabel: {
                   display: true,
