@@ -54,12 +54,12 @@ foreach ($rows as $row) {
   $data['age'][] = array("x"=>$row['age'], "y"=>$row['count']);
 }
 
-$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiters,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
+$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiter,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetch();
 
-$data['fur'][] = $row['fursuiters'];
+$data['fur'][] = $row['fursuiter'];
 $label['fur'][] = 'Fursuit';
 $data['fur'][] = $row['attendees'];
 $label['fur'][] = 'No Fursuit';
@@ -73,6 +73,16 @@ $data['vip'][] = $row['sponsors'];
 $label['vip'][] = 'VIP';
 $data['vip'][] = $row['attendees'];
 $label['vip'][] = 'No VIP';
+
+$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1 AND sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE fursuiter = 1 AND sponsor = 0) as fursuiter";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetch();
+
+$data['vip2'][] = $row['sponsors'];
+$label['vip2'][] = 'VIP';
+$data['vip2'][] = $row['fursuiter'];
+$label['vip2'][] = 'No VIP';
 
 ?>
 <!DOCTYPE html>
@@ -90,6 +100,7 @@ $label['vip'][] = 'No VIP';
         var ctxAge = document.getElementById("attendanceByAge");
         var ctxAttFur = document.getElementById("attendeeToFursuiter");
         var ctxAttVip = document.getElementById("attendeeToVip");
+        var ctxFurVip = document.getElementById("fursuiterToVip");
         var myChartCountry = new Chart(ctxCountry, {
           type: 'bar',
           data: {
@@ -172,6 +183,20 @@ $label['vip'][] = 'No VIP';
             labels: <?=json_encode($label['vip'])?>,
             datasets: [{
               data: <?=json_encode($data['vip'])?>,
+              borderWidth: 1,
+              backgroundColor: [
+                'rgba(235,66,116, 0.2)',
+                'rgba(59,63,158, 0.2)'
+              ]
+            }]
+          }
+        });
+        var myChartFurVip = new Chart(ctxFurVip, {
+          type: 'pie',
+          data: {
+            labels: <?=json_encode($label['vip2'])?>,
+            datasets: [{
+              data: <?=json_encode($data['vip2'])?>,
               borderWidth: 1,
               backgroundColor: [
                 'rgba(235,66,116, 0.2)',
@@ -270,6 +295,20 @@ $label['vip'][] = 'No VIP';
                   <div class="js-badger-accordion-panel-inner">
                     <div class="chart-container" style="position: relative; height:400px; width:800px">
                       <canvas id="attendeeToVip"></canvas>
+                    </div>
+                  </div>
+                </dd>
+              </dl>
+              <dl class="js-badger-accordion">
+                <dt>
+                  <button class="buttonClr textBig js-badger-accordion-header">
+                    Fursuiter to VIP Ratio
+                  </button>
+                </dt>
+                <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
+                  <div class="js-badger-accordion-panel-inner">
+                    <div class="chart-container" style="position: relative; height:400px; width:800px">
+                      <canvas id="fursuiterToVip"></canvas>
                     </div>
                   </div>
                 </dd>
