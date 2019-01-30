@@ -51,26 +51,14 @@ foreach ($rows as $row) {
     <style>.rank {
         color: lightgrey
       }</style>
+    <script src="/js/chart.min.js"></script>
     <script>
       window.onload = function () {
-
-        var chart = new CanvasJS.Chart("attendanceByCountry", {
-          animationEnabled: true,
-          theme: "light2",
-          title: {
-            text: "Country"
-          },
-          axisY: {
-            title: "Attendees"
-          },
-          data: [{
-            type: "column",
-            yValueFormatString: "#,##0.## Attendees",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-          }]
+        var ctx = document.getElementById("attendanceByCountry");
+        var myBarChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: <?= json_encode($dataPoints)?>
         });
-        chart.render();
-
       }
     </script>
   </head>
@@ -134,6 +122,5 @@ foreach ($rows as $row) {
         </section>
       </section> <!--pageWrapper -->
       <?php echo $footer; ?>
-      <script src="/js/canvasjs/canvasjs.min.js"></script>
   </body>
 </html>
