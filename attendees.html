@@ -36,9 +36,11 @@ $rows = $stmt->fetchAll();
 
 $dataPoints = array();
 foreach ($rows as $row) {
-  $data[] = $row['count'];
-  $label[] = $row['country'];
+  $data['country'][] = $row['count'];
+  $label['country'][] = $row['country'];
 }
+
+$data['age'][] = 'a';
 
 ?>
 <!DOCTYPE html>
@@ -52,14 +54,113 @@ foreach ($rows as $row) {
     <script src="/js/chart.min.js"></script>
     <script>
       window.onload = function () {
-        var ctx = document.getElementById("attendanceByCountry");
-        var myChart = new Chart(ctx, {
+        var ctxCountry = document.getElementById("attendanceByCountry");
+        var ctxAge = document.getElementById("attendanceByCountry");
+        var ctxAttFur = document.getElementById("attendeeToFursuiter");
+        var ctxAttVip = document.getElementById("attendeeToVip");
+        var myChartCountry = new Chart(ctxCountry, {
           type: 'bar',
           data: {
-            labels: <?=json_encode($label)?>,
+            labels: <?=json_encode($label['country'])?>,
             datasets: [{
               label: 'Attendees',
-              data: <?=json_encode($data)?>,
+              data: <?=json_encode($data['country'])?>,
+              borderWidth: 1,
+              backgroundColor: [
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)'
+              ]
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+        var myChartAge = new Chart(ctxAge, {
+          type: 'bar',
+          data: {
+            labels: <?=json_encode($label['age'])?>,
+            datasets: [{
+              label: 'Attendees',
+              data: <?=json_encode($data['age'])?>,
+              borderWidth: 1,
+              backgroundColor: [
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)'
+              ]
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+        var myChartAttFur = new Chart(ctxAttFur, {
+          type: 'bar',
+          data: {
+            labels: <?=json_encode($label['fur'])?>,
+            datasets: [{
+              label: 'Attendees',
+              data: <?=json_encode($data['fur'])?>,
+              borderWidth: 1,
+              backgroundColor: [
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)'
+              ]
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+        var myChartAttVip = new Chart(ctxAttVip, {
+          type: 'bar',
+          data: {
+            labels: <?=json_encode($label['vip'])?>,
+            datasets: [{
+              label: 'Attendees',
+              data: <?=json_encode($data['vip'])?>,
               borderWidth: 1,
               backgroundColor: [
                 'rgba(25,215,23, 0.2)',
@@ -126,7 +227,7 @@ foreach ($rows as $row) {
               <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
-                    Attendance by country
+                    Attendance by Country
                   </button>
                 </dt>
                 <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
@@ -137,6 +238,48 @@ foreach ($rows as $row) {
                   </div>
                 </dd>
               </dl>
+              <dl class="js-badger-accordion">
+                <dt>
+                  <button class="buttonClr textBig js-badger-accordion-header">
+                    Attendance by Age
+                  </button>
+                </dt>
+                <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
+                  <div class="js-badger-accordion-panel-inner">
+                    <div class="chart-container" style="position: relative; height:400px; width:800px">
+                      <canvas id="attendanceByAge"></canvas>
+                    </div>
+                  </div>
+                </dd>
+              </dl>
+              <!--<dl class="js-badger-accordion">
+                <dt>
+                  <button class="buttonClr textBig js-badger-accordion-header">
+                    Attendee to Fursuiter Ratio
+                  </button>
+                </dt>
+                <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
+                  <div class="js-badger-accordion-panel-inner">
+                    <div class="chart-container" style="position: relative; height:400px; width:800px">
+                      <canvas id="attendeeToFursuiter"></canvas>
+                    </div>
+                  </div>
+                </dd>
+              </dl>
+              <dl class="js-badger-accordion">
+                <dt>
+                  <button class="buttonClr textBig js-badger-accordion-header">
+                    Attendee to VIP Ratio
+                  </button>
+                </dt>
+                <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
+                  <div class="js-badger-accordion-panel-inner">
+                    <div class="chart-container" style="position: relative; height:400px; width:800px">
+                      <canvas id="attendeeToVip"></canvas>
+                    </div>
+                  </div>
+                </dd>
+              </dl>-->
             </div>
           </div>
           <div class="row">
