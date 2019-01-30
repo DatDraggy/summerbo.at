@@ -11,8 +11,8 @@ if (getConfirmedAttendees() < $config['attendeesMax']) {
   $showButtons = true;
 }
 
-$sql = "SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname";
-$stmt = $dbConnection->prepare('SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname');
+$sql = 'SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname';
+$stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
@@ -28,32 +28,73 @@ foreach ($rows as $row) {
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
 $attendees .= '</ul>';
+
+$sql = "SELECT country, count(country) as count FROM users WHERE status > 1 group by country order by count DESC";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$rows = $stmt->fetchAll();
+
+$dataPoints = array();
+foreach ($rows as $row) {
+  $dataPoints[] = array(
+    "y" => $row['count'],
+    "label" => $row['country']
+  );
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <title>Hot Summer Nights: Furry Summerbo.at Party</title>
     <?php echo $head; ?>
-	  <style>.rank {color:lightgrey}</style>
+    <style>.rank {
+        color: lightgrey
+      }</style>
+    <script>
+      window.onload = function () {
+
+        var chart = new CanvasJS.Chart("attendanceByCountry", {
+          animationEnabled: true,
+          theme: "light2",
+          title: {
+            text: "Attendee"
+          },
+          axisY: {
+            title: "Country"
+          },
+          data: [{
+            type: "column",
+            yValueFormatString: "#,##0.## tonnes",
+            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+          }]
+        });
+        chart.render();
+
+      }
+    </script>
   </head>
   <body class="hasNav">
     <div id="app">
       <?php echo $nav; ?>
 
       <section id="contentPage">
-		<!-- ========== Info text ========== -->
+        <!-- ========== Info text ========== -->
 
         <section id="about" class="ribbon" style="background-color: var(--colorPink)">
           <div class="wrapper">
             <div class="row">
               <div style="color:white" class="content wsLarge">
                 <h1>Attendee List</h1>
-                <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin. Don't see yourself yet?</p>
-				        <?php if($showButtons) { ?><div class="buttonGroup">
-                  <a class="button buttonPrimary" href="register" title="Get a ticket">Register
-                    Now</a>
-                  <a class="button buttonUpgrade" href="register?vip" title="Upgrade to VIP">Upgrade to VIP</a>
-                </div>
+                <?php if ($showButtons) { ?>
+                  <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin. Don't see yourself yet?</p>
+                  <div class="buttonGroup">
+                    <a class="button buttonPrimary" href="register" title="Get a ticket">Register
+                      Now</a>
+                    <a class="button buttonUpgrade" href="register?vip" title="Upgrade to VIP">Upgrade to VIP</a>
+                  </div>
+                <?php } else { ?>
+                  <p class="textBig">The one and only crew list for the boatparty! All people on this list are going to party hard on the coolest ship of Berlin.</p>
                 <?php } ?>
               </div>
             </div>
@@ -61,14 +102,38 @@ $attendees .= '</ul>';
         </section>
 
         <section class="wrapper wsLarge">
-        <div class="row">
-        <h2 class="headline">Attendees</h2>
-        </div>
+          <section class="wrapper wsLarge">
+            <div class="row">
+              <div class="content">
+                <h2 id="faq" class="headline heading1">FAQ</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="content">
+                <dl class="js-badger-accordion">
+                  <dt>
+                    <button class="buttonClr textBig js-badger-accordion-header">
+                      Attendance by country
+                    </button>
+                  </dt>
+                  <dd class="badger-accordion__panel js-badger-accordion-panel">
+                    <div class="js-badger-accordion-panel-inner">
+                      <div id="attendanceByCountry" style="height: 370px; width: 100%;"></div>
+                    </div>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </section>
+          <div class="row">
+            <h2 class="headline">Attendees</h2>
+          </div>
           <div class="row" id="attendeeList">
-		      <?php echo $attendees; ?>
-		    </div>
+            <?php echo $attendees; ?>
+          </div>
         </section>
       </section> <!--pageWrapper -->
       <?php echo $footer; ?>
+      <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   </body>
 </html>
