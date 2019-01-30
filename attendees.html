@@ -56,10 +56,10 @@ foreach ($rows as $row) {
         var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: <?=$label?>,
+            labels: <?=json_encode($label)?>,
             datasets: [{
               label: '# of Attendees',
-              data: <?=$data?>,
+              data: <?=json_encode($data)?>,
               borderWidth: 1
             }]
           },
