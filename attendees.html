@@ -137,8 +137,16 @@ $label['vip'][] = 'No VIP';
           },
           options: {
             scales: {
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Amount'
+                }
+              }],
               yAxes: [{
-                ticks: {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Age'
                 }
               }]
             }
@@ -156,22 +164,6 @@ $label['vip'][] = 'No VIP';
                 'rgba(11,214,148, 0.2)'
               ]
             }]
-          },
-          options: {
-            scales: {
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Amount'
-                }
-              }],
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Age'
-                }
-              }]
-            }
           }
         });
         var myChartAttVip = new Chart(ctxAttVip, {
@@ -186,15 +178,6 @@ $label['vip'][] = 'No VIP';
                 'rgba(11,214,148, 0.2)'
               ]
             }]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
           }
         });
       }
