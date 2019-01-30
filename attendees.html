@@ -36,10 +36,11 @@ $rows = $stmt->fetchAll();
 
 $dataPoints = array();
 foreach ($rows as $row) {
-  $dataPoints[] = array(
+  /*$dataPoints[] = array(
     "x" => $row['count'],
     "y" => $row['country']
-  );
+  );*/
+  $dataPoints[] = ''
 }
 
 ?>
@@ -106,7 +107,7 @@ foreach ($rows as $row) {
                   </dt>
                   <dd class="badger-accordion__panel js-badger-accordion-panel">
                     <div class="js-badger-accordion-panel-inner">
-                      <div id="attendanceByCountry" style="height: 370px; width: 100%;"></div>
+                      <canvas id="attendanceByCountry" width="400" height="400"></canvas>
                     </div>
                   </dd>
                 </dl>
