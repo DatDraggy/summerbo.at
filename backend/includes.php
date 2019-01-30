@@ -48,9 +48,9 @@ $nav = '<nav id="nav" class="nav inactive">
           <div class="navItem">
             <a class="navLink" href="/#team">Team</a>
           </div>
-          <!--<div class="navItem">
+          <div class="navItem">
             <a class="navLink" href="/attendees" >Attendees</a>
-          </div>-->
+          </div>
           <div class="navItem">
             <a class="navLink" href="/tos#rules" >Conduct</a>
           </div>
@@ -88,7 +88,7 @@ $footer = '<section id="footer">
             <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
             <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
 			      <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
-			      <li><a href="https://github.com/datdraggy/summerbo.at" class="unselectable flexCentered">Source</a></li>
+			      <li><a href="https://github.com/datdraggy/summerbo.at" target="_blank" class="unselectable flexCentered">Source</a></li>
           </ul>
           <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
         </div>

@@ -3,7 +3,7 @@ require_once('../../backend/config.php');
 require_once('../../backend/funcs.php');
 header('Cache-Control: max-age=0');
 session_start();
-if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password'])) {
+if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['efregid'])) {
   $status = 'Missing details. Check Nickname, Email and old Password.';
   session_start();
   $_SESSION['status'] = $status;
@@ -44,6 +44,18 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   $newEmail = $newEmailPost;
 } else {
   $status = 'Invalid Email Format';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../details');
+  die($status);
+}
+
+$efregidPost = $_POST['efregid'];
+if (is_numeric($efregidPost)) {
+  $efregid = $efregidPost;
+} else {
+  $status = 'Invalid EF Reg ID';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
@@ -169,12 +181,13 @@ if ($oldEmail !== $newEmail) {
 /////////////////////////////////
 // Update Nickname and Fursuit //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash, efregid = $efregid WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash, efregid = :efregid WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
   $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
+  $stmt->bindParam(':efregid', $efregid);
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
 } catch (PDOException $e) {
@@ -193,6 +206,9 @@ if ($sponsorNew === true && $sponsorOld == 0) {
   upgradeToSponsor($userId);
   sendStaffNotification($userId, "<a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Attendee $userId</a> upgraded to sponsor.");
 }
+/*else if ($sponsorNew === false && $sponsorOld == 1){
+  downgradeSponsor($userId);
+}*/
 
 if ($confirmationLink !== false) {
   sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 

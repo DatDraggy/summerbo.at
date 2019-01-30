@@ -27,25 +27,26 @@ if (isset($data['callback_query'])) {
       if (approveRegistration($targetUserId, $senderUserId)) {
         answerCallbackQuery($queryId, 'Registration has been approved.');
         list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
-        sendEmail($email, 'Registration Confirmed - Payment Reminder', "Dear $nickname,
+        recalculateTopay($targetUserId);
+        $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
+        sendEmail($email, 'Registration Approved', "Dear $nickname,
 
-Your registration was confirmed by our registration team. Below you will find the bank details to send us the payment.
+Your registration was approved by our registration team.
 
-Bank Details:
-Name: Edwin Verstaij
-IBAN: DE68 7001 1110 6054 4164 13
-BIC/SWIFT: DEKTDE7GXXX
-Comment: $regnumber + $nickname
+You are now able to login and manage your details on <a href=\"https://summerbo.at\">summerbo.at</a>
 
-Put your regnumber ($regnumber) and nickname in the comment field of the transfer.
+Welcome aboard! Get ready to party with us on the Spree just before Eurofurence . Your ticket price is $topay EUR - but wait, you don't have to pay yet. Starting on the 25th of March 2019 you will find your Ticket directly in your <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> and can pay it in the same way you pay your EF Reg.
 
-Please pay within 14 days to make sure you will have a spot on the boat. If you want to change your membership or details, please login on <a href=\"https://summerbo.at/login\">https://summerbo.at/login</a>.
-Is it not possible to pay us via bank transfer? Please send us an email with your problem and we will try to help you.
+Please make sure to provide your correct EF Regnumber BEFORE the 25th of March via <a href=\"https://summerbo.at/user/details\">summerbo.at</a>
+
+You will then also receive an email from Eurofurence regarding the payment of your ticket.
+
+Also, because this is our first time organizing this event, we would like to receive some feedback about the registration system. Please take a minute to fill this out <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">survey</a>.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
 Your Boat Party Crew
-");
+", true);
       } else {
         answerCallbackQuery($queryId, 'Already approved, rejected or error.');
       }

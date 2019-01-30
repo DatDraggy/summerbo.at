@@ -1,9 +1,7 @@
 <?php
-require_once('backend/funcs.php');
 require_once('backend/config.php');
 require_once('backend/includes.php');
-//$startDate = date('Y-m-d', strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))));
-header('Cache-Control: max-age=0');
+
 if(!empty($_GET['secret'])){
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
@@ -11,80 +9,12 @@ if(!empty($_GET['secret'])){
   header('Location: register');
   die();
 }
-$dbConnection = buildDatabaseConnection($config);
-if (isEarlyBird()) {
-  $earlyBirdTicket = '
-        <div class="ticket ticketPrimary content content33">
-          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
-          <p class="ticketPrice heading2">€25</p>
-          <ul class="ticketItems">
-            <li><strong>Limited to 100 Spaces</strong></li>
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li>Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <a class="button buttonPrimary" href="register">Register</a>
-          </p>
-        </div>';
-  $standardTicket = '
-        <div class="ticket ticketSecondary content content33">
-          <h3 class="ticketName nomargin">Standard Ticket</h3>
-          <p class="ticketPrice heading2">€35</p>
-          <ul class="ticketItems">
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li class="strike">Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <button title="Not available yet. Get an early bird ticket!" disabled class="button disabled buttonPrimary">
-              Register
-            </button>
-          </p>
-        </div>
-        ';
-}
-else {
-  $earlyBirdTicket = '
-        <div class="ticket ticketSecondary content content33">
-          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
-          <p class="ticketPrice heading2">€25</p>
-          <ul class="ticketItems">
-            <li><strong>Limited to 100 Spaces</strong></li>
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li>Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <button title="Not available. Get a standard ticket!" disabled class="button disabled buttonPrimary">
-              Register
-            </button>
-          </p>
-        </div>';
-  $standardTicket = '
-        <div class="ticket ticketPrimary content content33">
-          <h3 class="ticketName nomargin">Standard Ticket</h3>
-          <p class="ticketPrice heading2">€35</p>
-          <ul class="ticketItems">
-            <li>1 (One) Awesome Badge</li>
-            <li>Full Access to the Party</li>
-            <li class="strike">Includes Limited Edition Wristband</li>
-          </ul>
-          <p class="flexStickyEnd">
-            <a class="button buttonPrimary" href="register">Register</a>
-          </p>
-        </div>
-        ';
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <title>Hot Summer Nights: Summerbo.at Furry Party</title>
     <?php echo $head; ?>
-    <!-- <link rel="stylesheet" href="css/css.css">
-    <link rel="stylesheet" href="/css/line-awesome.min.css"> -->
 </head>
 <body class="hasNav">
 <div id="app">
@@ -96,7 +26,7 @@ else {
           <h1><img alt="Hot Summer Nights" src="images/headerWhite@2x.png" data-src="images/headerWhite@2x.png"
                    class="heroFeature lazy"></h1>
           <h2 class="heading2 nomargin">Furry Boat Party</h2>
-          <p>Estrel Berlin &mdash; 13 August 2019 &mdash; Departure 7pm CEST</p>
+          <p>Estrel Berlin &mdash; 13 August 2019 &mdash; Departure 19:00 CEST</p>
           <div class="buttonGroup flexStickyEnd">
             <a href="register" class="button buttonPrimary">Register Now</a>
           </div>
@@ -157,39 +87,41 @@ else {
         <div class="row">
           <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">The Party</h4>
-            <p>The first edition of Hot Summer Nights will depart at 7pm CEST, starting from the Estrel hotel.
+            <p>The first edition of Hot Summer Nights will depart at 19:00 CEST, starting from the Estrel hotel.
 			For 4 hours we will entertain you with music, events and a beautiful sightseeing over the Spree river in Berlin.</p>
 			</div>
 		  <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">Location</h4>
             <p>The location is one of the larger ships of the Stern und Kreis Company. All ships are equipped with a bar,
-			outdoor area and plenty of space to chill, dance and suit. The specific boat will be announced later.</p>
+			outdoor area and plenty of space to chill, dance and suit.</p>
           </div>
 		  <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">Drinks</h4>
             <p>On the boat we have a fully equipped bar with all kinds of drinks available.
-			Want a drink after fursuiting or dancing? No problem!
-			But keep in mind that the bar takes cash only.</p>
+			Want a drink after fursuiting or dancing? No problem! But keep in mind that the bar takes cash only
+		        and is operated by the ship company &ndash; You can't bring your own drinks.</p>
           </div>
         </div>
 		<div class="row">
           <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">Fursuits</h4>
             <p>Do boats and fursuits work? Of course they do! We make sure that it's very easy to bring your stuff on the boat,
-			including a fursuitlounge with basic supplies. We do understand that you maybe don't want to suit during the whole trip.
-			Simply change out of suit and we keep guard. </p>
+			and we will have a fursuit lounge with basic supplies. Water for suiters is provided, but please don't
+		        bring your own drinks. We do understand that you maybe don't want to suit
+		        during the whole trip. Simply change out of suit and we keep guard. </p>
 			</div>
 		  <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">Transport</h4>
-            <p>For this party you don't have to travel at all! The boat will pick us up at the Estrel and at the end we are back at the same location.
-			For picking up your badge you also don't need to leave the hotel, more info about that will be released later.
+            <p>For this party you don't have to travel at all! The boat will depart from the Estrel, at the beergarden pier.
+		    Also it will bring us all back there. Please mind that check-in (getting your badge and goodies) will be
+		    done before boarding and also close to the hotel. More info about that will be released later.
 			</p>
           </div>
-		  <!--<div class="ticket ticketQuartery content content33">
+		  <div class="ticket ticketQuartery content content33">
 		  <h4 style="color:#fe316e">Charity</h4>
-            <p>All profits we make will be donated to the charity of Eurofurence. Think about the profits from the normal tickets but especially the VIP upgrade helps the charity a lot.
-			If you want you can also give money to charity on the boat itself.</p>
-          </div>-->
+            <p>All profits we make will be donated to the charity of Eurofurence. These are profits from the normal
+		tickets, but especially the VIP upgrade can help the charity a lot. </p>
+          </div>
         </div>
     </section>
 
@@ -200,22 +132,47 @@ else {
         </div>
       </div>
       <div class="row">
-        <?php echo $earlyBirdTicket; ?>
+        <div class="ticket ticketSecondary content content33">
+          <h3 class="ticketName nomargin">Early Bird Ticket</h3>
+          <p class="ticketPrice heading2">€25</p>
+          <ul class="ticketItems">
+            <li><strong>Limited to 100 Spaces</strong></li>
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li>Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">
+            <button title="Not available. Get a standard ticket!" disabled class="button disabled buttonPrimary">
+              Register
+            </button>
+          </p>
+        </div>
         <div class="ticket ticketTertiary content content33">
-          <h3 class="ticketName nomargin"><abbr title="Very Important Passanger">VIP</abbr> Upgrade</h3>
+          <h3 class="ticketName nomargin"><abbr title="Very Important Passenger">VIP</abbr> Upgrade</h3>
           <p class="ticketPrice heading2">+€15</p>
           <ul class="ticketItems">
             <li><strong>Upgrade your experience</strong></li>
             <li>A <abbr>free</abbr> Welcome Drink</li>
             <li>Special Gift</li>
             <li>Priority Boarding</li>
-            <!-- <li>Profit goes to Charity</li> -->
+            <li>Profits go to EF Charity</li>
           </ul>
           <p class="flexStickyEnd">
             <a class="button buttonUpgrade" href="register?vip">Upgrade Now</a>
           </p>
         </div>
-        <?php echo $standardTicket; ?>
+        <div class="ticket ticketPrimary content content33">
+          <h3 class="ticketName nomargin">Standard Ticket</h3>
+          <p class="ticketPrice heading2">€35</p>
+          <ul class="ticketItems">
+            <li>1 (One) Awesome Badge</li>
+            <li>Full Access to the Party</li>
+            <li class="strike">Includes Limited Edition Wristband</li>
+          </ul>
+          <p class="flexStickyEnd">
+            <a class="button buttonPrimary" href="register">Register</a>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -229,10 +186,12 @@ else {
         <div class="content">
           <?php
           if(1553472000 > time()) {
-            echo 'After registering it is possible to pay immediately but your payment is not required until the 25th of March. Until that date you will stay registered without having to pay.
-            After March 25th, you have 14 days to pay. </p>';
+            echo 'After your registration was approved by our staff you can pay immediately, but your payment is not required until the
+		  25th of March. Until that date you will stay registered without having to pay.
+            	  After March 25th, you have 14 days to pay. </p>';
           } else {
-            echo 'After registering you have 14 days to pay the fees. When everything is done you are successfully registered and ready to board the ship.</p>';
+            echo 'After your registration was approved by our staff you have 14 days to pay the fees.
+		  When everything is done you are successfully registered and ready for check-in.</p>';
           }
           ?>
           <p>The VIP upgrade is our name for the good old sponsor upgrade. With this upgrade you not only get special goodies, but you also support us so that we can make it the best party ever!
@@ -240,7 +199,8 @@ else {
           <p>Before you register it is important that you are familiar with our
             <a href="tos" title="Terms and Conditions"><em>Code of Conduct</em> and <em>Terms and Conditions</em></a>.
             They explain the rules for keeping it a fun and awesome party.</p>
-		  <p>Payments will be made via bank transfer. If that is no option for you we also support Transferwise. More information about Transferwise can be found on their <a href="https://www.transferwise.com">website</a>.</p>
+		 <!-- <p>Payments should be made via bank transfer (SEPA). Please try to do it this way! If you really can't,
+			  please contact us for alternative payment methods.</p> -->
           <p>Want to see who is going to party hard with us? Check out our <a href="attendees">Attendees List</a>!</p>
           <p>If you have any questions or can't wait until the party is starting, then join our Telegram group
             <strong><a href="https://t.me/summerboat" target="_blank">@summerboat</a></strong>.</p>
@@ -265,10 +225,11 @@ else {
             <dd class="badger-accordion__panel js-badger-accordion-panel">
               <div class="js-badger-accordion-panel-inner">
                 <p>
-                  We wanted to do something special for celebrating the 25th edition of Eurofurence and the 5th edition in Berlin,
-		  the cities that knows how to party! So why not on a boat? We can show you around Berlin via the beautiful Spree river
-		  and in the mean time chill, party and suit up. Basically we have a fursuitwalk (without walking) and party in one.
-		  Throw in a beautiful sunset and the best DJs and it's a perfect experience you don't want to miss.
+                  We wanted to do something special for celebrating the 25th edition of Eurofurence and the 5th edition
+ 		  in Berlin, the cities that knows how to party! So why not on a boat? We can show you around Berlin via
+		  the beautiful Spree river and in the mean time chill, party and suit up. Basically we have a fursuitwalk
+		  (without walking) and party in one. Throw in a beautiful sunset and the best DJs and it's a perfect
+		  experience you don't want to miss.
                 </p>
               </div>
             </dd>
@@ -317,7 +278,7 @@ else {
                 <p>
                   Yes! Simply login with your account details, go to 'Edit Details' and tick the box for VIP upgrade in the user area.
 		  Fill in your password below and click submit. You will receive an email as a confirmation. Payment of the VIP Upgrade
-		  will be required during Check-in, when you pick up your badge.
+		  will be required at our Check-in desk when you pick up your badge.
                 </p>
               </div>
             </dd>
@@ -333,6 +294,9 @@ else {
 		  In the evening you will find our Info & Check-in desk in the beergarden near the boat. Please make sure you
 	   	  bring your ID or Passport with you. The badge is your entrance to the party so please do not lose it.
 		  Keep in mind: you need your badge <u>before</u> you start boarding!
+                  On the day of the party you can pick up the badge inside the Estrel hotel during the afternoon or in
+                  the evening in the beergarden near the boat. Please make sure you bring your ID or Passport with you. The badge is
+                  your entrance to the party, so please do not lose it. There will be no tickets sold on the day itself.
                 </p>
               </div>
             </dd>
@@ -347,7 +311,9 @@ else {
             </dt>
             <dd class="badger-accordion__panel js-badger-accordion-panel">
               <div class="js-badger-accordion-panel-inner">
-                <p>All profits will go to charity! The more VIP upgrades we sell, the more we’ll be able to donate! Thank you for considering being generous!</p>
+                <p>All profits will go to charity! The more VIP upgrades we sell, the more we’ll be able to donate!
+		Thank you for considering being generous! The total amount of raised funds will be announced and
+		published by the end of Eurofurence 25.</p>
               </div>
             </dd>
             <dt>
@@ -377,8 +343,8 @@ else {
               <div class="js-badger-accordion-panel-inner">
                 <p>Expect all kinds of music for the perfect night of lounging and chilling. Think: "Beach Club in
                   Berlin". To get you in the mood we are creating a Spotify playlist you can listen to.
-				  The playlist is just a small peek into the music styles our DJs play. You can find more info about it later on our Twitter.
-				  You can find the playlist <a href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=MH-JeE9UQFuNXJyNQHFtbw" target="_blank">here</a>.</p>
+		  The playlist is just a small peek into the music styles our DJs play. We will keep you updated on our Twitter.
+		  You can find the playlist <a href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=MH-JeE9UQFuNXJyNQHFtbw" target="_blank">here</a>.</p>
               </div>
             </dd>
             <dt>
@@ -465,7 +431,8 @@ else {
           <h4 class="subheadline nomargin">Cubitus</h4>
             <h5 class="textSmall">Relations</h5>
           <p><img src="images/staff/cubitus.webp" alt="Cubitus"></p>
-          <p>A dog from Berlin that loves to organize stuff for furries. Active in Eurofurence staff as well. Very nice to talk to and can be critical in the good way. </p>
+          <p>Half dog half werewulf, living in Berlin and loves to organize things for (not only) furries.
+		  Active in Eurofurence staff as well. Very nice to talk to and can be critical in the good way.</p>
           <ul class="blankList centered textSmall inverse">
             <li><a href="https://twitter.com/cubitus" class="unselectable flexCentered"><i class="la la24 la-twitter-square"></i>@Cubitus</a></li>
           </ul>
@@ -492,20 +459,35 @@ else {
 
   </section> <!--pageWrapper -->
   <?php echo $footer; ?>
-<script src="js/countdown.js"></script>
   <script>
-    /*function httpGetAsync(theUrl, callback)
-    {
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-          callback(xmlHttp.responseText + "T20:00:00");
-      };
-      xmlHttp.open("GET", theUrl, true); // true for asynchronous
-      xmlHttp.send(null);
-    }
+    function CountDownTimer(dt) {
+      const end = new Date(dt);
 
-    httpGetAsync('https://isitef.com/?start', CountDownTimer);*/
+      const _second = 1000;
+      const _minute = _second * 60;
+      const _hour = _minute * 60;
+      const _day = _hour * 24;
+      let timer;
+
+      function showRemaining() {
+        const now = new Date(<?= time() * 1000; ?>);
+        const distance = end - now;
+        if (distance <= 0) {
+          clearInterval(timer);
+        }
+        const days = Math.floor(distance / _day);
+        const hours = Math.floor((distance % _day) / _hour);
+        const minutes = Math.floor((distance % _hour) / _minute);
+        const seconds = Math.floor((distance % _minute) / _second);
+
+        document.getElementById('count-min-1').innerHTML = days;
+        document.getElementById('count-min-2').innerHTML = hours;
+        document.getElementById('count-min-3').innerHTML = minutes;
+        document.getElementById('count-min-4').innerHTML = seconds;
+      }
+      showRemaining();
+      timer = setInterval(showRemaining, 1000);
+    }
     CountDownTimer('2019-08-13T19:00:00');
   </script>
 </body>
