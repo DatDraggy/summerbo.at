@@ -131,6 +131,7 @@ function hashPassword($password) {
 
 function isEarlyBird() {
   global $dbConnection, $config;
+  return false;
 
   $count = getConfirmedAttendees();
   if ($count < 100) {
@@ -140,14 +141,14 @@ function isEarlyBird() {
   }
 }
 
-function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list) {
+function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list, $efregid) {
   global $dbConnection, $config;
   //ToDo: INSERT INTO users
   //ToDo: UPDATE Balance SET topay
 
   try {
-    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list)";
-    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list)');
+    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list, $efregid)";
+    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list, :efregid)');
     $stmt->bindParam(':nickname', $nickname);
     $stmt->bindParam(':firstName', $firstName);
     $stmt->bindParam(':lastName', $lastName);
@@ -160,6 +161,7 @@ function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sp
     $stmt->bindParam(':rank', $rank);
     $stmt->bindParam(':regdate', $regdate);
     $stmt->bindParam(':list', $list);
+    $stmt->bindParam(':efregid', $efregid);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
@@ -230,6 +232,40 @@ function getFursuiters() {
   return $rows;
 }
 
+function downgradeSponsor($userId){
+  global $dbConnection, $config;
+  try {
+    $sql = "SELECT email, nickname FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+  }
+  if ($stmt->rowCount() === 1) {
+    $email = $row['email'];
+    $nickname = $row['nickname'];
+    try {
+      $sql = "UPDATE users SET sponsor = 0, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET sponsor = 0, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Update', $config, $sql, $e);
+    }
+
+    sendEmail($email, 'VIP Downgrade', "Dear $nickname,
+
+Sorry to see you downgrade. You are no longer a VIP.
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew
+");
+  }
+}
+
 function upgradeToSponsor($userId) {
   global $dbConnection, $config;
   try {
@@ -245,18 +281,18 @@ function upgradeToSponsor($userId) {
     $email = $row['email'];
     $nickname = $row['nickname'];
     try {
-      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + {$config['priceSponsor']}, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET topay = topay + :priceSponsor, sponsor = 1, status = 2, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
-      $stmt->bindParam(':priceSponsor', $config['priceSponsor']);
+      $sql = "UPDATE users SET sponsor = 1, upgradedate = UNIX_TIMESTAMP() WHERE users.id = $userId";
+      $stmt = $dbConnection->prepare('UPDATE users SET sponsor = 1, upgradedate = UNIX_TIMESTAMP() WHERE users.id = :userId');
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
     } catch (PDOException $e) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, '`VIP Upgrade', "Dear $nickname, 
+    sendEmail($email, 'VIP Upgrade', "Dear $nickname, 
 
-Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support. 
+Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a VIP, you get a special gift and badge as a thank you for the extra support.
+But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
@@ -329,8 +365,7 @@ Your Boat Party Crew
       $data = array(
         'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
         'token'   => $token,
-        'server'  => $_SERVER,
-        'headers' => $http_response_header
+        'server'  => $_SERVER
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;
@@ -377,8 +412,8 @@ function approveRegistration($userId, $approver) {
   global $dbConnection, $config;
 
   try {
-    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver WHERE id = '$userId' AND status < 2";
-    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver WHERE id = :userId AND status < 2');
+    $sql = "UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = $approver, upgradedate = UNIX_TIMESTAMP() WHERE id = '$userId' AND status < 2";
+    $stmt = $dbConnection->prepare('UPDATE users SET status = 2, approvedate = UNIX_TIMESTAMP(), approver = :approver, upgradedate = UNIX_TIMESTAMP() WHERE id = :userId AND status < 2');
     $stmt->bindParam(':userId', $userId);
     $stmt->bindParam(':approver', $approver);
     $stmt->execute();
@@ -390,6 +425,26 @@ function approveRegistration($userId, $approver) {
     return true;
   } else {
     return false;
+  }
+}
+
+function recalculateTopay($userId) {
+  global $dbConnection, $config;
+
+  if (isEarlyBird()) {
+    $topay = $config['priceAttendeeEarly'];
+  } else {
+    $topay = $config['priceAttendee'];
+  }
+
+  try {
+    $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
+    $stmt = $dbConnection->prepare('UPDATE balance SET topay = :topay WHERE id = :userId');
+    $stmt->bindParam(':topay', $topay);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
   }
 }
 
@@ -620,8 +675,8 @@ function checkPassword($userId, $password) {
 function requestUnapproved($chatId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE status = 1";
-    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1");
+    $sql = "SELECT id FROM users WHERE status = 1 ORDER BY id ASC";
+    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1 ORDER BY id ASC");
     $stmt->execute();
     $rows = $stmt->fetchAll();
   } catch (PDOException $e) {
@@ -713,8 +768,8 @@ function requestPasswordReset($userId) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT email, nickname FROM users WHERE id = $userId AND status > 0";
-    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId AND status > 0');
+    $sql = "SELECT email, id, nickname FROM users WHERE id_internal = $userId AND status > 0";
+    $stmt = $dbConnection->prepare('SELECT email, id, nickname FROM users WHERE id_internal = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -725,9 +780,11 @@ function requestPasswordReset($userId) {
   if ($stmt->rowCount() === 1) {
     $nickname = $row['nickname'];
     $email = $row['email'];
+    $userIdPub = $row['id'];
     $confirmationLink = requestEmailConfirm($userId, 'password');
     sendEmail($email, 'Password Reset', "Dear $nickname, 
 
+Registration number: $userIdPub 
 You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 Was it not you who requested this? Let us know!
 
@@ -768,8 +825,8 @@ function insertToken($userId) {
 function getConfirmedAttendees() {
   global $dbConnection, $config;
   try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status > 1 AND `rank` = 0 AND locked = 0');
+    $sql = 'SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0';
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0');
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
@@ -783,110 +840,3 @@ function getConfirmedAttendees() {
 /*
  * Reminders
  */
-
-function remindRemindReg() {
-  global $dbConnection, $config;
-
-  try {
-    $sql = 'SELECT users.id, email, nickname, topay - paid as remaining FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 604800 < UNIX_TIMESTAMP() AND reminded = false AND status < 3';
-    $stmt = $dbConnection->prepare($sql);
-    $stmt->execute();
-    $rows = $stmt->fetchAll();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-
-  foreach ($rows as $row) {
-    $userId = $row['id'];
-    $email = $row['email'];
-    $nickname = $row['nickname'];
-    $remaining = $row['remaining'];
-    sendEmail($email, 'Summerbo.at Payment Reminder', "Dear $nickname,
-
-Do you still want to join our party? Sadly we haven't received the payment for your ticket yet. Please make sure to pay within the coming 7 days to secure your spot on the deck. The total amount of $remaining €.- is still open. 
-Below you will find our bank details to transfer the money.
-
-Bank Details:
-Name: Edwin Verstaij
-IBAN: DE68 7001 1110 6054 4164 13
-BIC/SWIFT: DEKTDE7GXXX
-Comment: $userId + $nickname
-
-Did you already pay everything? Please ignore this email or send us a message.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
-", true);
-
-    try {
-      $sql = "UPDATE users SET reminded = true WHERE id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE users SET reminded = true WHERE id = :userId');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Update', $config, $sql, $e);
-    }
-    sleep(5);
-  }
-}
-
-function remindLockReg() {
-  global $config, $dbConnection;
-
-  try {
-    $sql = 'SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 1209600 < UNIX_TIMESTAMP() AND locked = false AND status < 3';
-    $stmt = $dbConnection->prepare($sql);
-    $stmt->execute();
-    $rows = $stmt->fetchAll();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-
-  foreach ($rows as $row) {
-    $userId = $row['id'];
-    $email = $row['email'];
-    $nickname = $row['nickname'];
-    sendEmail($email, 'Summerbo.at No Payment Received', "Dear $nickname,
-
-Sadly we haven't received the payment for your ticket. Therefore we had to lock your account and invalidate your reservation.
-
-Keep in mind that you do NOT have a reservation anymore, meaning that if you pay now but it doesn't arrive in the next 3 days, you will lose your money and not get a registration.
-
-In case you already paid and the payment arrives within 3 days, your account will be unlocked.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
-", true);
-
-    try {
-      $sql = "UPDATE users SET locked = true WHERE id = $userId";
-      $stmt = $dbConnection->prepare('UPDATE users SET locked = true WHERE id = :userId');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->execute();
-    } catch (PDOException $e) {
-      notifyOnException('Database Update', $config, $sql, $e);
-    }
-    sleep(5);
-  }
-}
-
-function remindDeleteReg() {
-  global $config, $dbConnection;
-
-  try {
-    $sql = "SELECT users.id, email, nickname FROM users INNER JOIN balance ON users.id = balance.id WHERE upgradedate + 1468800 < UNIX_TIMESTAMP() AND locked = true AND status < 3";
-    $stmt = $dbConnection->prepare($sql);
-    $stmt->execute();
-    $rows = $stmt->fetchAll();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-
-  foreach ($rows as $row) {
-    $userId = $row['id'];
-    rejectRegistration($userId);
-    sleep(5);
-  }
-}
