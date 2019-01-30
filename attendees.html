@@ -64,7 +64,7 @@ $label['fur'][] = 'Fursuit';
 $data['fur'][] = $row['attendees'];
 $label['fur'][] = 'No Fursuit';
 
-$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 0 AND sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE fursuiter = 0 AND sponsor = 0) as attendees";
+$sql = "SELECT (SELECT count(id) FROM users WHERE sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE sponsor = 0) as attendees";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetch();
@@ -73,16 +73,6 @@ $data['vip'][] = $row['sponsors'];
 $label['vip'][] = 'VIP';
 $data['vip'][] = $row['attendees'];
 $label['vip'][] = 'No VIP';
-
-$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1 AND sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE fursuiter = 1 AND sponsor = 0) as fursuiter";
-$stmt = $dbConnection->prepare($sql);
-$stmt->execute();
-$row = $stmt->fetch();
-
-$data['vip2'][] = $row['sponsors'];
-$label['vip2'][] = 'VIP';
-$data['vip2'][] = $row['fursuiter'];
-$label['vip2'][] = 'No VIP';
 
 ?>
 <!DOCTYPE html>
@@ -194,20 +184,6 @@ $label['vip2'][] = 'No VIP';
             }]
           }
         });
-        var myChartFurVip = new Chart(ctxFurVip, {
-          type: 'pie',
-          data: {
-            labels: <?=json_encode($label['vip2'])?>,
-            datasets: [{
-              data: <?=json_encode($data['vip2'])?>,
-              borderWidth: 1,
-              backgroundColor: [
-                'rgba(235,66,116, 1)',
-                'rgba(59,63,158, 1)'
-              ]
-            }]
-          }
-        });
       }
     </script>
   </head>
@@ -298,20 +274,6 @@ $label['vip2'][] = 'No VIP';
                   <div class="js-badger-accordion-panel-inner">
                     <div class="chart-container" style="position: relative; height:200px; width:400px">
                       <canvas id="attendeeToVip"></canvas>
-                    </div>
-                  </div>
-                </dd>
-              </dl>
-              <dl class="js-badger-accordion">
-                <dt>
-                  <button class="buttonClr textBig js-badger-accordion-header">
-                    Fursuiter to Fursuiter VIP Ratio
-                  </button>
-                </dt>
-                <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none; overflow: auto;">
-                  <div class="js-badger-accordion-panel-inner">
-                    <div class="chart-container" style="position: relative; height:200px; width:400px">
-                      <canvas id="fursuiterToVip"></canvas>
                     </div>
                   </div>
                 </dd>
