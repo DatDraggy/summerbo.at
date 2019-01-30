@@ -44,7 +44,7 @@ foreach ($rows as $row) {
   $label['country'][] = $row['country'];
 }
 
-$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age";
+$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age ORDER BY count DESC";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
@@ -164,15 +164,7 @@ $label['vip'][] = 'No VIP';
               borderWidth: 1,
               backgroundColor: [
                 'rgba(25,215,23, 0.2)',
-                'rgba(11,214,148, 0.2)',
-                'rgba(194,190,204, 0.2)',
-                'rgba(24,84,204, 0.2)',
-                'rgba(165,148,170, 0.2)',
-                'rgba(145,226,48, 0.2)',
-                'rgba(29,249,242, 0.2)',
-                'rgba(70,45,235, 0.2)',
-                'rgba(242,28,143, 0.2)',
-                'rgba(85,138,246, 0.2)'
+                'rgba(11,214,148, 0.2)'
               ]
             }]
           },
@@ -187,7 +179,7 @@ $label['vip'][] = 'No VIP';
           }
         });
         var myChartAttVip = new Chart(ctxAttVip, {
-          type: 'bar',
+          type: 'pie',
           data: {
             labels: <?=json_encode($label['vip'])?>,
             datasets: [{
@@ -196,15 +188,7 @@ $label['vip'][] = 'No VIP';
               borderWidth: 1,
               backgroundColor: [
                 'rgba(25,215,23, 0.2)',
-                'rgba(11,214,148, 0.2)',
-                'rgba(194,190,204, 0.2)',
-                'rgba(24,84,204, 0.2)',
-                'rgba(165,148,170, 0.2)',
-                'rgba(145,226,48, 0.2)',
-                'rgba(29,249,242, 0.2)',
-                'rgba(70,45,235, 0.2)',
-                'rgba(242,28,143, 0.2)',
-                'rgba(85,138,246, 0.2)'
+                'rgba(11,214,148, 0.2)'
               ]
             }]
           },
