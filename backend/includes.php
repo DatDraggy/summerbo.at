@@ -2,6 +2,10 @@
 
 $head = '<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Hot Summer Nights // Furry Boat Party" />
+  <meta property="og:description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin!" />
+  <meta property="og:url" content="https://summerbo.at" />
+  <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
