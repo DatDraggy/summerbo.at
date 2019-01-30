@@ -29,7 +29,7 @@ foreach ($rows as $row) {
 }
 $attendees .= '</ul>';
 
-$sql = "SELECT country, count(country) as count FROM users WHERE status > 1 GROUP BY country ORDER BY count DESC LIMIT 10";
+$sql = "SELECT country, count(country) as count FROM users WHERE status > 1 GROUP BY country ORDER BY count DESC";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
@@ -126,7 +126,7 @@ foreach ($rows as $row) {
               <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
-                    Attendance by country (Top 10)
+                    Attendance by country
                   </button>
                 </dt>
                 <dd class="badger-accordion__panel js-badger-accordion-panel" style="max-width: none">
