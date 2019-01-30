@@ -37,8 +37,8 @@ $rows = $stmt->fetchAll();
 $dataPoints = array();
 foreach ($rows as $row) {
   $dataPoints[] = array(
-    "y" => $row['count'],
-    "label" => $row['country']
+    "x" => $row['count'],
+    "y" => $row['country']
   );
 }
 
