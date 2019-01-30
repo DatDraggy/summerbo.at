@@ -29,22 +29,51 @@ foreach ($rows as $row) {
 }
 $attendees .= '</ul>';
 
-$sql = "SELECT country, count(country) as count FROM users WHERE status > 1 GROUP BY country ORDER BY count DESC";
-$stmt = $dbConnection->prepare($sql);
-$stmt->execute();
-$rows = $stmt->fetchAll();
-
 $data['country'] = array();
 $label['country'] = array();
 $data['age'] = array();
 $label['age'] = array();
+
+$sql = "SELECT country, count(country) as count FROM users WHERE status > 1 GROUP BY country ORDER BY count DESC";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$rows = $stmt->fetchAll();
 
 foreach ($rows as $row) {
   $data['country'][] = $row['count'];
   $label['country'][] = $row['country'];
 }
 
-$data['age'][] = 'a';
+$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS Age FROM users) as Z GROUP BY age";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$rows = $stmt->fetchAll();
+
+foreach ($rows as $row) {
+  $data['age'][] = $row['count'];
+  $label['age'][] = $row['age'];
+}
+
+$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS Age FROM users) as Z GROUP BY age";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$rows = $stmt->fetchAll();
+
+foreach ($rows as $row) {
+  $data['age'][] = $row['count'];
+  $label['age'][] = $row['age'];
+}
+
+$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiters,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
+$stmt = $dbConnection->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetch();
+
+$data['fur'][] = $row['fursuiters'];
+$label['fur'][] = 'Fursuiter';
+$data['fur'][] = $row['attendees'];
+$label['fur'][] = 'No Fursuiter';
+
 
 ?>
 <!DOCTYPE html>
@@ -127,7 +156,7 @@ $data['age'][] = 'a';
           }
         });
         var myChartAttFur = new Chart(ctxAttFur, {
-          type: 'bar',
+          type: 'pie',
           data: {
             labels: <?=json_encode($label['fur'])?>,
             datasets: [{
@@ -256,7 +285,7 @@ $data['age'][] = 'a';
                   </div>
                 </dd>
               </dl>
-              <!--<dl class="js-badger-accordion">
+              <dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
                     Attendee to Fursuiter Ratio
@@ -270,7 +299,7 @@ $data['age'][] = 'a';
                   </div>
                 </dd>
               </dl>
-              <dl class="js-badger-accordion">
+              <!--<dl class="js-badger-accordion">
                 <dt>
                   <button class="buttonClr textBig js-badger-accordion-header">
                     Attendee to VIP Ratio
