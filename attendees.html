@@ -19,11 +19,11 @@ $attendees = '<ul>';
 foreach ($rows as $row) {
   $nickname = htmlspecialchars($row['nickname']);
   if ($row['rank'] == 1) {
-    $nickname .= ' <span style="opacity:0.2">Crew</span>';
+    $nickname .= ' <span class="rank">Crew</span>';
   } else if ($row['rank'] >= 2) {
-    $nickname .= ' <span style="opacity:0.2">Staff</span>';
+    $nickname .= ' <span class="rank">Staff</span>';
   } else if ($row['sponsor'] == 1) {
-    $nickname .= ' <span style="opacity:0.2">VIP</span>';
+    $nickname .= ' <span class="rank">VIP</span>';
   }
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
@@ -34,6 +34,7 @@ $attendees .= '</ul>';
   <head>
     <title>Hot Summer Nights: Furry Summerbo.at Party</title>
     <?php echo $head; ?>
+	  <style>.rank {color:lightrey}</style>
   </head>
   <body class="hasNav">
     <div id="app">
