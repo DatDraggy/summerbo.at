@@ -64,7 +64,7 @@ $label['fur'][] = 'Fursuit';
 $data['fur'][] = $row['attendees'];
 $label['fur'][] = 'No Fursuit';
 
-$sql = "SELECT (SELECT count(id) FROM users WHERE sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE sponsor = 0) as attendees";
+$sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 0 AND sponsor = 1) as sponsors,(SELECT count(id) FROM users WHERE fursuiter = 0 AND sponsor = 0) as attendees";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $row = $stmt->fetch();
