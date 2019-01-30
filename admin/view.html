@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/../backend/funcs.php');
 require_once(__DIR__ . '/../backend/config.php');
+header('Cache-Control: max-age=0');
 session_start();
 if (!empty($_SESSION['userId'])) {
   $requesterUserId = $_SESSION['userId'];
@@ -10,9 +11,9 @@ if (!empty($_SESSION['userId'])) {
   if (checkRegValid($requesterUserId)) {
     $rank = getUserRank($requesterUserId);
     $userId = $_GET['id'];
-    if ($rank == 2) {
+    if ($rank == 3) {
       if ($_GET['type'] === 'reg') {
-        $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded, locked');
+        $details = getRegDetails($userId, 'id, nickname, first_name, last_name, dob, country, email, sponsor, fursuiter, status, regdate, approvedate, list, reminded, locked, efregid');
         if (is_array($details)) {
           echo $details['id'] . '<br>';
           echo 'Nickname: ' . htmlspecialchars($details['nickname']) . '<br>';
@@ -29,6 +30,7 @@ if (!empty($_SESSION['userId'])) {
           echo 'Public List: ' . $details['list'] . '<br>';
           echo 'Reminded: ' . $details['reminded'] . '<br>';
           echo 'Locked: ' . $details['locked'] . '<br>';
+          echo 'EF Reg ID: ' . $details['efregid'] . '<br>';
         } else {
           echo 'Deleted Reg or not found';
         }
