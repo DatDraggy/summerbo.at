@@ -34,7 +34,11 @@ $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
 
-$dataPoints = array();
+$data['country'] = array();
+$label['country'] = array();
+$data['age'] = array();
+$label['age'] = array();
+
 foreach ($rows as $row) {
   $data['country'][] = $row['count'];
   $label['country'][] = $row['country'];
