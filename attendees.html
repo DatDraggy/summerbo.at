@@ -147,10 +147,21 @@ $label['vip'][] = 'No VIP';
               display: false
             },
             scales: {
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Country'
+                }
+              }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Amount'
                 }
+
               }]
             }
           }
