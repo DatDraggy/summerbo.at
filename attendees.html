@@ -164,9 +164,19 @@ $label['vip'][] = 'No VIP';
           },
           options: {
             scales: {
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Age (on departure day)'
+                }
+              }],
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Amount'
+                  }
                 }
               }]
             }
