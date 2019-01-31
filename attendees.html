@@ -193,11 +193,6 @@ $label['vip'][] = 'No VIP';
             }
           }
         });
-        while (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length){
-          myChartAge.data.datasets[0].backgroundColor.push('rgba(25,215,23, 0.2)','rgba(11,214,148, 0.2)','rgba(194,190,204, 0.2)','rgba(24,84,204, 0.2)','rgba(165,148,170, 0.2)', 'rgba(145,226,48, 0.2)')
-        }
-        myChartAge.update();
-
         var myChartAttFur = new Chart(ctxAttFur, {
           type: 'pie',
           data: {
@@ -226,6 +221,19 @@ $label['vip'][] = 'No VIP';
             }]
           }
         });
+
+        const colors = ['rgba(235,66,116, 1)','rgba(59,63,158, 1)','rgba(12,204,157, 1)','rgba(220,184,0, 1)','rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
+
+        while (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length){
+          myChartAge.data.datasets[0].backgroundColor.push(colors)
+        }
+        myChartAge.update();
+
+
+        while (myChartCountry.data.datasets[0].data.length > myChartCountry.data.datasets[0].backgroundColor.length){
+          myChartCountry.data.datasets[0].backgroundColor.push(colors);
+        }
+        myChartCountry.update();
       }
     </script>
   </head>
