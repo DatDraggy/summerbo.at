@@ -179,8 +179,7 @@ $label['vip'][] = 'No VIP';
               label: 'Attendees',
               data: <?=json_encode($data['age'])?>,
               borderWidth: 1,
-              backgroundColor: [
-              ]
+              backgroundColor: []
             }]
           },
           options: {
@@ -222,17 +221,24 @@ $label['vip'][] = 'No VIP';
           }
         });
 
-        const colors = ['rgba(235,66,116, 1)','rgba(59,63,158, 1)','rgba(12,204,157, 1)','rgba(220,184,0, 1)','rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
-
-        while (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length){
-          myChartAge.data.datasets[0].backgroundColor.push(colors)
-        }
+        const colors = ['rgba(235,66,116, 1)', 'rgba(59,63,158, 1)', 'rgba(12,204,157, 1)', 'rgba(220,184,0, 1)', 'rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
+        
+        colors.some(function (color) {
+          if (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length) {
+            myChartAge.data.datasets[0].backgroundColor.push(color);
+          } else {
+            return true;
+          }
+        });
         myChartAge.update();
 
-
-        while (myChartCountry.data.datasets[0].data.length > myChartCountry.data.datasets[0].backgroundColor.length){
-          myChartCountry.data.datasets[0].backgroundColor.push(colors);
-        }
+        colors.some(function (color) {
+          if (myChartCountry.data.datasets[0].data.length > myChartCountry.data.datasets[0].backgroundColor.length) {
+            myChartCountry.data.datasets[0].backgroundColor.push(color);
+          } else {
+            return true;
+          }
+        });
         myChartCountry.update();
       }
     </script>
