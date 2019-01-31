@@ -109,6 +109,16 @@ $label['vip'][] = 'No VIP';
                 'rgba(29,249,242, 0.2)',
                 'rgba(70,45,235, 0.2)',
                 'rgba(242,28,143, 0.2)',
+                'rgba(85,138,246, 0.2)',
+                'rgba(25,215,23, 0.2)',
+                'rgba(11,214,148, 0.2)',
+                'rgba(194,190,204, 0.2)',
+                'rgba(24,84,204, 0.2)',
+                'rgba(165,148,170, 0.2)',
+                'rgba(145,226,48, 0.2)',
+                'rgba(29,249,242, 0.2)',
+                'rgba(70,45,235, 0.2)',
+                'rgba(242,28,143, 0.2)',
                 'rgba(85,138,246, 0.2)'
               ]
             }]
@@ -123,7 +133,7 @@ $label['vip'][] = 'No VIP';
             }
           }
         });
-        var myChartAge = new Chart(ctxAge, {
+        /*var myChartAge = new Chart(ctxAge, {
           type: 'scatter',
           data: {
             labels: <?=json_encode($label['age'])?>,
@@ -144,7 +154,7 @@ $label['vip'][] = 'No VIP';
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: 'Age'
+                  labelString: 'Age (on departure day)'
                 }
               }],
               yAxes: [{
@@ -155,7 +165,37 @@ $label['vip'][] = 'No VIP';
               }]
             }
           }
+        });*/
+        var myChartAge = new Chart(ctxAge, {
+          type: 'bar',
+          data: {
+            labels: <?=json_encode($label['age'])?>,
+            datasets: [{
+              label: 'Attendees',
+              data: <?=json_encode($data['age'])?>,
+              borderWidth: 1,
+              backgroundColor: [
+              ]
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
         });
+        myChartAge.data.datasets[0].data.forEach(function (element) {
+          myChartAge.data.datasets[0].backgroundColor =
+        });
+        while (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length){
+          myChartAge.data.datasets[0].backgroundColor.push('rgba(25,215,23, 0.2)','rgba(11,214,148, 0.2)','rgba(194,190,204, 0.2)','rgba(24,84,204, 0.2)','rgba(165,148,170, 0.2)', 'rgba(145,226,48, 0.2)')
+        }
+        myChartAge.update();
+        
         var myChartAttFur = new Chart(ctxAttFur, {
           type: 'pie',
           data: {
