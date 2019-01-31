@@ -188,14 +188,11 @@ $label['vip'][] = 'No VIP';
             }
           }
         });
-        myChartAge.data.datasets[0].data.forEach(function (element) {
-          myChartAge.data.datasets[0].backgroundColor =
-        });
         while (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length){
           myChartAge.data.datasets[0].backgroundColor.push('rgba(25,215,23, 0.2)','rgba(11,214,148, 0.2)','rgba(194,190,204, 0.2)','rgba(24,84,204, 0.2)','rgba(165,148,170, 0.2)', 'rgba(145,226,48, 0.2)')
         }
         myChartAge.update();
-        
+
         var myChartAttFur = new Chart(ctxAttFur, {
           type: 'pie',
           data: {
