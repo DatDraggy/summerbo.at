@@ -54,10 +54,45 @@ foreach ($rows as $row) {
   $data['age'][] = array("x"=>$row['age'], "y"=>$row['count']);
 }*/
 
-foreach ($rows as $row){
+/*foreach ($rows as $row){
   $data['age'][] = $row['count'];
   $label['age'][] = $row['age'];
+}*/
+
+$eighteen = 0;
+$twentyone = 0;
+$twentysix = 0;
+$thirtyone = 0;
+$thirtysix = 0;
+$fourtyone = 0;
+$fourtyfive = 0;
+foreach ($rows as $row){
+  switch (true){
+    case($row['age'] >= 18 && $row['age'] <= 20):
+      $eighteen += $row['count'];
+      break;
+    case ($row['age'] >= 21 && $row['age'] <= 25):
+      $twentyone += $row['count'];
+      break;
+    case ($row['age'] >= 26 && $row['age'] <= 30):
+      $twentysix += $row['count'];
+      break;
+    case ($row['age'] >= 31 && $row['age'] <= 35):
+      $thirtyone += $row['count'];
+      break;
+    case ($row['age'] >= 36 && $row['age'] <= 40):
+      $thirtysix += $row['count'];
+      break;
+    case ($row['age'] >= 41 && $row['age'] <= 45):
+      $fourtyone += $row['count'];
+      break;
+    case ($row['age'] >= 46):
+      $fourtyfive += $row['count'];
+      break;
+  }
 }
+$label['age'] = ['18-20', '21-25', '26-30', '31-35', '36-40', '41-45', '46+'];
+$data['age'] = [$eighteen, $twentyone, $twentysix, $thirtyone, $thirtysix, $fourtyone, $fourtyfive];
 
 $sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiter,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
 $stmt = $dbConnection->prepare($sql);
@@ -215,7 +250,6 @@ $label['vip'][] = 'No VIP';
         const colors = ['rgba(254,218,33, 1)', 'rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
 
         do {
-
           colors.some(function (color) {
             if (myChartAge.data.datasets[0].data.length > myChartAge.data.datasets[0].backgroundColor.length) {
               myChartAge.data.datasets[0].backgroundColor.push(color);
