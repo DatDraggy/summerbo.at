@@ -49,9 +49,14 @@ $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
 
-$label['age'][] = 'Ages';
+/*$label['age'][] = 'Ages';
 foreach ($rows as $row) {
   $data['age'][] = array("x"=>$row['age'], "y"=>$row['count']);
+}*/
+
+foreach ($rows as $row){
+  $data['age'][] = $row['count'];
+  $label['age'][] = $row['age'];
 }
 
 $sql = "SELECT (SELECT count(id) FROM users WHERE fursuiter = 1) as fursuiter,(SELECT count(id) FROM users WHERE fursuiter = 0) as attendees";
