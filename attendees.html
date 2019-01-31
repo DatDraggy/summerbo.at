@@ -139,8 +139,7 @@ $label['vip'][] = 'No VIP';
               label: 'Attendees',
               data: <?=json_encode($data['country'])?>,
               borderWidth: 1,
-              backgroundColor: [
-              ]
+              backgroundColor: []
             }]
           },
           options: {
@@ -244,6 +243,14 @@ $label['vip'][] = 'No VIP';
                 'rgba(59,63,158, 1)'
               ]
             }]
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            tooltips: {
+              display: false
+            }
           }
         });
 
