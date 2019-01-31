@@ -143,6 +143,9 @@ $label['vip'][] = 'No VIP';
             }]
           },
           options: {
+            legend: {
+              display: true
+            },
             scales: {
               yAxes: [{
                 ticks: {
@@ -152,39 +155,6 @@ $label['vip'][] = 'No VIP';
             }
           }
         });
-        /*var myChartAge = new Chart(ctxAge, {
-          type: 'scatter',
-          data: {
-            labels: <?=json_encode($label['age'])?>,
-            datasets: [{
-              label: 'Age',
-              data: <?=json_encode($data['age'])?>,
-              borderWidth: 1,
-              backgroundColor: [
-                'rgba(235,66,116, 1)'
-              ]
-            }]
-          },
-          options: {
-            scales: {
-              xAxes: [{
-                ticks: {
-                  stepSize: 1
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Age (on departure day)'
-                }
-              }],
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Amount'
-                }
-              }]
-            }
-          }
-        });*/
         var myChartAge = new Chart(ctxAge, {
           type: 'bar',
           data: {
@@ -197,6 +167,9 @@ $label['vip'][] = 'No VIP';
             }]
           },
           options: {
+            legend: {
+              display: true
+            },
             scales: {
               xAxes: [{
                 scaleLabel: {
@@ -243,15 +216,15 @@ $label['vip'][] = 'No VIP';
                 'rgba(59,63,158, 1)'
               ]
             }]
-          }/*,
+          },
           options: {
             legend: {
-              display: false
+              display: true
             },
             tooltips: {
               display: false
             }
-          }*/
+          }
         });
 
         const colors = ['rgba(254,218,33, 1)', 'rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
