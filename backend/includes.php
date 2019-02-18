@@ -2,10 +2,26 @@
 
 $head = '<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Hot Summer Nights // Furry Boat Party" />
-  <meta property="og:description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
+  <meta name="keywords" content="Hot Summer Nights, Summerboat, Summerbo.at, Party, Furry, Furry Party" />
+  <meta name="author" content="web@summerbo.at" />
+  <meta name="rating" content="general" />
   <meta property="og:url" content="https://summerbo.at" />
   <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
+  <meta property="og:type" content="website" />
+  
+	<meta property="og:site_name" content="Hot Summer Nights 1" />
+	<meta itemprop="name" content="Hot Summer Nights 1" />
+	<meta itemprop="description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
+	<meta itemprop="startDate" content="2019-08-13" />
+	<meta itemprop="endDate" content="2019-08-13" />
+	
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@summerbo_at" />
+	<meta name="twitter:creator" content="@summerbo_at" />
+	<meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
+	<base href="https://summerbo.at/" />
+
+
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -58,7 +74,8 @@ $head = '<meta charset="utf-8">
 			"logo": "https://summerbo.at/android-icon-192x192.png",
 			"sameAs": [
 				"https://twitter.com/summerbo_at",
-				"https://t.me/summerboat"
+				"https://t.me/summerboat",
+				"https://instagram.com/Summerbo_at"
 			]
 		}
 	</script>
