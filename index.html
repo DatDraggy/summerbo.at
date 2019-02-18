@@ -9,8 +9,8 @@ if (!empty($_GET['secret'])) {
   header('Location: register');
   die();
 }
-if ($_SERVER['PHP_SELF'] === '/index' || $_SERVER['PHP_SELF'] === '/index.html') {
-  //header('Location: /');
+if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.html') {
+  header('Location: /');
 }
 ?>
 <!DOCTYPE html>
