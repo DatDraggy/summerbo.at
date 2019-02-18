@@ -2,12 +2,15 @@
 require_once('backend/config.php');
 require_once('backend/includes.php');
 
-if(!empty($_GET['secret'])){
+if (!empty($_GET['secret'])) {
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
   session_commit();
   header('Location: register');
   die();
+}
+if ($_SERVER['PHP_SELF'] === '/index' || $_SERVER['PHP_SELF'] === '/index.html') {
+  header('Location: /');
 }
 ?>
 <!DOCTYPE html>
