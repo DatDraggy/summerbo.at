@@ -15,7 +15,22 @@ if(!empty($_GET['secret'])){
   <head>
     <title>Hot Summer Nights: Summerbo.at Furry Party</title>
     <?php echo $head; ?>
-</head>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://summerbo.at/",
+            "name": "Hot Summer Nights 1"
+          }
+        }]
+      }
+    </script>
+
+  </head>
 <body class="hasNav">
 <div id="app">
   <?php echo $nav; ?>
@@ -74,7 +89,7 @@ if(!empty($_GET['secret'])){
       <div class="wrapper">
         <div class="row">
           <div style="color:white" class="content wsLarge">
-            <h2 class="headline" id="about" style="color:white">An exclusive Boat party departing from the Estrel</h2>
+            <h2 class="headline" id="about" style="color:white">An exclusive boat party departing from the Estrel</h2>
             <p class="textBig"><em>Hot Summer Nights</em> is an <em>exclusive</em> party on a large boat.
 			From the Estrel dock to the Spree and back, through the German Capital, take in the sunset
               and mingle on the upper deck, retreat to the lounge and dancefloor with live DJs.</p>

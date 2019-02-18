@@ -26,7 +26,43 @@ $head = '<meta charset="utf-8">
   <script src="/js/yall-2.2.0.min.js"></script>
   <link rel="stylesheet" href="/css/css.css">
   <link rel="stylesheet" href="/css/badger-accordion.css">
-  <link rel="stylesheet" href="/css/line-awesome.min.css">';
+  <link rel="stylesheet" href="/css/line-awesome.min.css">
+	<script type=\'application/ld+json\'> 
+		{
+			"@context": "http://www.schema.org",
+			"@type": "Event",
+			"name": "Hot Summer Nights 1",
+			"url": "https://summerbo.at",
+			"description": "The 1st \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+			"startDate": "2019-08-13",
+			"endDate": "2019-08-13",
+			"location": {
+			"@type": "Place",
+			"name": "Estrel Hotel Biergarten",
+			"sameAs": "http://www.estrel.com",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Ziegrastraße 44",
+				"addressLocality": "Berlin",
+				"postalCode": "12057",
+				"addressCountry": "Germany"
+		   }
+		}}
+	</script>
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "Organization",
+			"name": "Summerbo.at",
+			"url": "https://summerbo.at",
+			"logo": "https://summerbo.at/android-icon-192x192.png",
+			"sameAs": [
+				"https://twitter.com/summerbo_at",
+				"https://t.me/summerboat"
+			]
+		}
+	</script>
+';
 
 $nav = '<nav id="nav" class="nav inactive">
     <div class="wrapper">

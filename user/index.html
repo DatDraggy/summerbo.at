@@ -69,8 +69,36 @@ $topay = getBalanceDetails($userId, 'topay - paid as remaining')['remaining'];
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <title>User Area &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $head; ?>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://summerbo.at/",
+          "name": "Hot Summer Nights 1"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://summerbo.at/user/",
+          "name": "User Area"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https://summerbo.at/user/index",
+          "name": "User Area"
+        }
+      }]
+    }
+  </script>
   <script>
     function checkPass()
     {

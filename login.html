@@ -130,7 +130,7 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <title>Login &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $recaptcha; ?>
   <script>
     /*if ('yes' === Cookies.get('cookieconsent_dismissed')) {
@@ -151,6 +151,27 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
     }
   </script>
   <?php echo $head; ?>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://summerbo.at/",
+          "name": "Hot Summer Nights 1"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://summerbo.at/login",
+          "name": "Login"
+        }
+      }]
+    }
+  </script>
 </head>
 <body class="hasNav">
 <div id="app">
