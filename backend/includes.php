@@ -2,7 +2,6 @@
 
 $head = '<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="Hot Summer Nights, Summerboat, Summerbo.at, Party, Furry, Furry Party" />
   <meta name="author" content="web@summerbo.at" />
   <meta name="rating" content="general" />
   <meta property="og:url" content="https://summerbo.at" />
@@ -16,11 +15,15 @@ $head = '<meta charset="utf-8">
 	<meta itemprop="endDate" content="2019-08-13" />
 	<meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 	
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:site" content="@summerbo_at" />
+	<meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@summerbo_at">
+  <meta name="twitter:title" content="Hot Summer Nights 1">
+  <meta name="twitter:description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
+  <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
+  <meta name="twitter:image:alt" content="Summerbo.at Logo">
 	<meta name="twitter:creator" content="@summerbo_at" />
+	
 	<base href="https://summerbo.at/" />
-
 
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
