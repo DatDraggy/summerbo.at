@@ -46,7 +46,7 @@ $head = '<meta charset="utf-8">
   <link rel="stylesheet" href="/css/css.css">
   <link rel="stylesheet" href="/css/badger-accordion.css">
   <link rel="stylesheet" href="/css/line-awesome.min.css">
-	<script type=\'application/ld+json\'> 
+	<script type="application/ld+json"> 
 		{
 			"@context": "http://www.schema.org",
 			"@type": "Event",
