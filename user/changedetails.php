@@ -1,6 +1,6 @@
 <?php
-require_once('../../backend/config.php');
-require_once('../../backend/funcs.php');
+require_once('../backend/config.php');
+require_once('../backend/funcs.php');
 header('Cache-Control: max-age=0');
 session_start();
 if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['efregid'])) {
@@ -8,7 +8,7 @@ if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['ema
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../details');
+  header('Location: ./');
   die($status);
 }
 
@@ -34,7 +34,7 @@ if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../details');
+  header('Location: ./');
   die($status);
 } else {
   $nickname = $nicknamePost;
@@ -47,7 +47,7 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../details');
+  header('Location: ./');
   die($status);
 }
 
@@ -59,7 +59,7 @@ if (is_numeric($efregidPost)) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../details');
+  header('Location: ./');
   die($status);
 }
 
@@ -72,7 +72,7 @@ if ($hash === false) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../details');
+  header('Location: ./');
   die($status);
 }
 // Password Verify //
@@ -87,7 +87,7 @@ if (!empty($_POST['passwordNew'])) {
     session_start();
     $_SESSION['status'] = $status;
     session_commit();
-    header('Location: ../details');
+    header('Location: ./');
     die($status);
   }
   $valid = validatePassword($passwordNew);
@@ -96,7 +96,7 @@ if (!empty($_POST['passwordNew'])) {
     session_start();
     $_SESSION['status'] = $status;
     session_commit();
-    header('Location: ../details');
+    header('Location: ./');
     die($status);
   }
   $hash = hashPassword($passwordNew);
@@ -157,7 +157,7 @@ if ($oldEmail !== $newEmail) {
     session_start();
     $_SESSION['status'] = $status;
     session_commit();
-    header('Location: ../details');
+    header('Location: ./');
     die($status);
   }
   else {
@@ -200,7 +200,7 @@ $status = 'Details changed successfully.';
 session_start();
 $_SESSION['statusSuccess'] = $status;
 session_commit();
-header('Location: ../details');
+header('Location: ./');
 
 if ($sponsorNew === true && $sponsorOld == 0) {
   upgradeToSponsor($userId);
