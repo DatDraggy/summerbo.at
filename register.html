@@ -28,8 +28,32 @@ if (empty($_SESSION['secret'])) {
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <title>Register &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $head; ?>
+  <meta property="og:title" content="Register" />
+  <meta property="og:description" content="Registration page for Attendees" />
+  <meta name="description" content="Registration page for Attendees" />
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://summerbo.at/",
+          "name": "Hot Summer Nights 1"
+        }
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://summerbo.at/register",
+          "name": "Registration"
+        }
+      }]
+    }
+  </script>
   <script>
     function checkPass()
     {

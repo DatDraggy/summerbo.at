@@ -53,14 +53,38 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+    <title>Contact &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
     <?php echo $recaptcha; ?>
     <script>
       function onSubmit(token) {
-        document.getElementById("login").submit();
+        document.getElementById("contact").submit();
       }
     </script>
     <?php echo $head; ?>
+    <meta property="og:title" content="Contact" />
+    <meta property="og:description" content="Contact the Summerbo.at Team or ask a question." />
+    <meta name="description" content="Contact the Summerbo.at Team or ask a question." />
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://summerbo.at/",
+            "name": "Hot Summer Nights 1"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://summerbo.at/contact",
+            "name": "Contact"
+          }
+        }]
+      }
+    </script>
   </head>
   <body class="hasNav">
     <div id="app">

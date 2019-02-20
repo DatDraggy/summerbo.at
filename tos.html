@@ -4,8 +4,32 @@ require_once('backend/includes.php');
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <title>Hot Summer Nights: Furry Summerbo.at Party</title>
+  <title>ToS, Privacy, CoC &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
   <?php echo $head; ?>
+  <meta property="og:title" content="ToS, Privacy, CoC" />
+  <meta property="og:description" content="Information regarding our terms of service, privacy agreement and code of conduct." />
+  <meta name="description" content="Information regarding our terms of service, privacy agreement and code of conduct." />
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://summerbo.at/",
+            "name": "Hot Summer Nights 1"
+          }
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://summerbo.at/tos",
+            "name": "Terms of Service, Privacy and Code of Conduct"
+          }
+        }]
+    }
+  </script>
   </head>
   <body class="hasNav">
     <div id="app">

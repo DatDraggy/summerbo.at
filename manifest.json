@@ -1,5 +1,7 @@
 {
- "name": "Summerbo.at Party",
+ "name": "Hot Summer Nights Summerbo.at Party",
+ "short_name": "Summerbo.at Party",
+ "theme_color": "#1afbc4",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

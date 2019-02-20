@@ -232,7 +232,7 @@ function getFursuiters() {
   return $rows;
 }
 
-function downgradeSponsor($userId){
+function downgradeSponsor($userId) {
   global $dbConnection, $config;
   try {
     $sql = "SELECT email, nickname FROM users WHERE id = $userId";
@@ -363,9 +363,9 @@ Your Boat Party Crew
       $stmt->execute();
     } else {
       $data = array(
-        'ip'      => $_SERVER["HTTP_CF_CONNECTING_IP"],
-        'token'   => $token,
-        'server'  => $_SERVER
+        'ip'     => $_SERVER["HTTP_CF_CONNECTING_IP"],
+        'token'  => $token,
+        'server' => $_SERVER
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
       return false;

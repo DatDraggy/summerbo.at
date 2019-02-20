@@ -2,20 +2,41 @@
 require_once('backend/config.php');
 require_once('backend/includes.php');
 
-if(!empty($_GET['secret'])){
+if (!empty($_GET['secret'])) {
   session_start();
   $_SESSION['secret'] = $_GET['secret'];
   session_commit();
   header('Location: register');
   die();
 }
+if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.html') {
+  header('Location: /');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>Hot Summer Nights: Summerbo.at Furry Party</title>
+    <title>Hot Summer Nights: Furry Summerbo.at Party</title>
     <?php echo $head; ?>
-</head>
+    <meta property="og:title" content="Hot Summer Nights: Furry Summerbo.at Party" />
+    <meta property="og:description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
+    <meta name="description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://summerbo.at/",
+            "name": "Hot Summer Nights 1"
+          }
+        }]
+      }
+    </script>
+
+  </head>
 <body class="hasNav">
 <div id="app">
   <?php echo $nav; ?>
@@ -74,7 +95,7 @@ if(!empty($_GET['secret'])){
       <div class="wrapper">
         <div class="row">
           <div style="color:white" class="content wsLarge">
-            <h2 class="headline" id="about" style="color:white">An exclusive Boat party departing from the Estrel</h2>
+            <h2 class="headline" id="about" style="color:white">An exclusive boat party departing from the Estrel</h2>
             <p class="textBig"><em>Hot Summer Nights</em> is an <em>exclusive</em> party on a large boat.
 			From the Estrel dock to the Spree and back, through the German Capital, take in the sunset
               and mingle on the upper deck, retreat to the lounge and dancefloor with live DJs.</p>

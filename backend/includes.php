@@ -2,10 +2,29 @@
 
 $head = '<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Hot Summer Nights // Furry Boat Party" />
-  <meta property="og:description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
+  <meta name="author" content="web@summerbo.at" />
+  <meta name="rating" content="general" />
   <meta property="og:url" content="https://summerbo.at" />
   <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
+  <meta property="og:type" content="website" />
+  
+	<meta property="og:site_name" content="Hot Summer Nights 1" />
+	<meta itemprop="name" content="Hot Summer Nights 1" />
+	<meta itemprop="description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
+	<meta itemprop="startDate" content="2019-08-13" />
+	<meta itemprop="endDate" content="2019-08-13" />
+	<meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
+	
+	<meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@summerbo_at">
+  <meta name="twitter:title" content="Hot Summer Nights 1">
+  <meta name="twitter:description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
+  <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
+  <meta name="twitter:image:alt" content="Summerbo.at Logo">
+	<meta name="twitter:creator" content="@summerbo_at" />
+	
+	<base href="https://summerbo.at/" />
+
   <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -26,7 +45,44 @@ $head = '<meta charset="utf-8">
   <script src="/js/yall-2.2.0.min.js"></script>
   <link rel="stylesheet" href="/css/css.css">
   <link rel="stylesheet" href="/css/badger-accordion.css">
-  <link rel="stylesheet" href="/css/line-awesome.min.css">';
+  <link rel="stylesheet" href="/css/line-awesome.min.css">
+	<script type="application/ld+json"> 
+		{
+			"@context": "http://www.schema.org",
+			"@type": "Event",
+			"name": "Hot Summer Nights 1",
+			"url": "https://summerbo.at",
+			"description": "The 1st \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+			"startDate": "2019-08-13",
+			"endDate": "2019-08-13",
+			"location": {
+			"@type": "Place",
+			"name": "Estrel Hotel Biergarten",
+			"sameAs": "http://www.estrel.com",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Ziegrastraße 44",
+				"addressLocality": "Berlin",
+				"postalCode": "12057",
+				"addressCountry": "Germany"
+		   }
+		}}
+	</script>
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "Organization",
+			"name": "Summerbo.at",
+			"url": "https://summerbo.at",
+			"logo": "https://summerbo.at/android-icon-192x192.png",
+			"sameAs": [
+				"https://twitter.com/summerbo_at",
+				"https://t.me/summerboat",
+				"https://instagram.com/Summerbo_at"
+			]
+		}
+	</script>
+';
 
 $nav = '<nav id="nav" class="nav inactive">
     <div class="wrapper">
