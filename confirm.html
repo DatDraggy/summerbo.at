@@ -11,7 +11,7 @@ if (!empty($_GET['token'])) {
       session_start();
       $status = 'Email changed';
       $_SESSION['status'] = $status;
-      header('Location: user/details');
+      header('Location: user/');
       //Email Changed, Goto login
       die($status);
     }
