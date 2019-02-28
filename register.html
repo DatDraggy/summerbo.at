@@ -502,6 +502,7 @@ if (empty($_SESSION['secret'])) {
               const now = new Date(<?= time() * 1000; ?> + counter * 1000);
               const distance = end - now;
               if (distance <= 0) {
+                document.getElementById('count').style.display = 'none';
                 clearInterval(timer);
               }
               const days = Math.floor(distance / _day);
