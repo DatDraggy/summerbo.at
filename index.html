@@ -484,8 +484,8 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
       const _day = _hour * 24;
       let timer;
 
-      function showRemaining() {
-        const now = new Date(<?= time() * 1000; ?>);
+      function showRemaining(counter) {
+        const now = new Date(<?= time() * 1000; ?> + counter * 1000);
         const distance = end - now;
         if (distance <= 0) {
           clearInterval(timer);
@@ -500,8 +500,9 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
         document.getElementById('count-min-3').innerHTML = minutes;
         document.getElementById('count-min-4').innerHTML = seconds;
       }
-      showRemaining();
-      timer = setInterval(showRemaining, 1000);
+      let counter = 0;
+      showRemaining(counter);
+      timer = setInterval(function(){counter += 1;showRemaining(counter)}, 1000);
     }
     CountDownTimer('2019-08-13T19:00:00');
   </script>
