@@ -2,7 +2,7 @@
 
 $head = '<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="web@summerbo.at" />
+  <!--<meta name="author" content="web@summerbo.at" />-->
   <meta name="rating" content="general" />
   <meta property="og:url" content="https://summerbo.at" />
   <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
