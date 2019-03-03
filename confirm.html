@@ -16,7 +16,7 @@ if (!empty($_GET['token'])) {
       die($status);
     }
     else {
-      echo 'Something went wrong.';
+      $_SESSION['status'] = 'Something went wrong';
     }
   }
   else if(isset($_GET['emailold'])){
@@ -29,7 +29,7 @@ if (!empty($_GET['token'])) {
       die($status);
     }
     else {
-      echo 'Something went wrong.';
+      $_SESSION['status'] = 'Something went wrong';
     }
   }
   else if(isset($_GET['password'])){

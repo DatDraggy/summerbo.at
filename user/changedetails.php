@@ -141,6 +141,7 @@ $userIdInternal = $row['id_internal'];
 //////////////////
 // Email Change //
 $confirmationLink = false;
+$emailText = '';
 if ($oldEmail !== $newEmail) {
   try {
     $sql = "SELECT email FROM users WHERE email = '$newEmail' OR email_new = '$newEmail'";
@@ -172,6 +173,7 @@ if ($oldEmail !== $newEmail) {
     }
     if ($stmt->rowCount() === 1) {
       $confirmationLink = requestEmailConfirm($userIdInternal, 'emailold');
+      $emailText = '. Check your old email.';
     }
   }
 }
@@ -196,7 +198,7 @@ try {
 // Update Nickname and Fursuit //
 /////////////////////////////////
 
-$status = 'Details changed successfully.';
+$status = 'Details changed successfully' . $emailText;
 session_start();
 $_SESSION['statusSuccess'] = $status;
 session_commit();
