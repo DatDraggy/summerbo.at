@@ -10,7 +10,7 @@ if (!empty($_GET['token'])) {
     if (confirmEmail($token)) {
       session_start();
       $status = 'Email changed';
-      $_SESSION['status'] = $status;
+      $_SESSION['statusSuccess'] = $status;
       header('Location: user/');
       //Email Changed, Goto login
       die($status);
@@ -23,7 +23,7 @@ if (!empty($_GET['token'])) {
     if (confirmNewEmail($token)) {
       session_start();
       $status = 'A confirmation has been sent to the new email';
-      $_SESSION['status'] = $status;
+      $_SESSION['statusSuccess'] = $status;
       header('Location: user/');
       //Email Changed, Goto login
       die($status);
