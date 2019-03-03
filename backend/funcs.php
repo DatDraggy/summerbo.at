@@ -408,6 +408,52 @@ function confirmEmail($token) {
   return true;
 }
 
+function confirmNewEmail($token) {
+  global $dbConnection, $config;
+
+  try {
+    $dbConnection->beginTransaction();
+    $sql = "SELECT users.id_internal, email_new, nickname FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id_internal, email_new, nickname FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
+    $stmt->bindParam(':token', $token);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if ($stmt->rowCount() === 1) {
+      $userIdInternal = $row['id_internal'];
+      $newEmail = $row['email_new'];
+      $nickname = $row['nickname'];
+
+      $sql = "DELETE FROM email_tokens WHERE token = '$token'";
+      $stmt = $dbConnection->prepare('DELETE FROM email_tokens WHERE token = :token');
+      $stmt->bindParam(':token', $token);
+      $stmt->execute();
+    }
+    $dbConnection->commit();
+  } catch (PDOException $e) {
+    notifyOnException('Database Transaction', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    $confirmationLink = requestEmailConfirm($userIdInternal, 'email');
+
+    if ($confirmationLink !== false) {
+      sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname, 
+
+You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+
+Your Boat Party Crew
+");
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+  return true;
+}
+
 function approveRegistration($userId, $approver) {
   global $dbConnection, $config;
 

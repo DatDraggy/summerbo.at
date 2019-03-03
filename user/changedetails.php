@@ -171,7 +171,7 @@ if ($oldEmail !== $newEmail) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
     if ($stmt->rowCount() === 1) {
-      $confirmationLink = requestEmailConfirm($userIdInternal, 'email');
+      $confirmationLink = requestEmailConfirm($userIdInternal, 'emailold');
     }
   }
 }
@@ -213,7 +213,7 @@ if ($sponsorNew === true && $sponsorOld == 0) {
 if ($confirmationLink !== false) {
   sendEmail($oldEmail, 'Email Change Confirmation', "Dear $nickname, 
 
-You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+You requested to change your email. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
