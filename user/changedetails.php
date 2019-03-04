@@ -50,7 +50,35 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   header('Location: ./');
   die($status);
 }
-
+if (empty($_POST['dob'])) {
+  $status = 'Birthday can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
+} /*
+if (!empty($_POST['day'])) {
+  $dayofbirthPost = $_POST['day'];
+}
+if (!empty($_POST['month'])) {
+  $monthofbirthPost = $_POST['month'];
+}
+if (!empty($_POST['year'])) {
+  $yearofbirthPost = $_POST['year'];
+}*/ else {
+  $dobPost = $_POST['dob'];
+}
+if (empty($_POST['country'])) {
+  $status = 'Country can\'t be empty.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
+} else {
+  $countryPost = $_POST['country'];
+}
 $efregidPost = $_POST['efregid'];
 if (is_numeric($efregidPost)) {
   $efregid = $efregidPost;
@@ -114,7 +142,26 @@ if (empty($_POST['publiclist'])) {
 } else {
   $list = true;
 }
+$dobStamp = strtotime($dobPost);
+if ($dobStamp === false) {
+  $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ./');
+  die($status);
+}
+$dob = date('Y-m-d', $dobStamp);
 
+$country = preg_replace('/[^A-Z]/', '', $countryPost);
+if (strlen($country) != 2) {
+  $status = 'Invalid country';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ./');
+  die($status);
+}
 /////////////////////
 // Sponsor Upgrade //
 if (empty($_POST['sponsor'])) {
@@ -181,12 +228,14 @@ if ($oldEmail !== $newEmail) {
 //////////////////
 
 /////////////////////////////////
-// Update Nickname and Fursuit //
+// Update Nickname, Fursuit, Country and DoB //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, list = :list, hash = $hash, efregid = $efregid WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, list = :list, hash = :hash, efregid = :efregid WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, country = $country, dob = $dob, list = :list, hash = $hash, efregid = $efregid WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, country = :country, dob = :dob, list = :list, hash = :hash, efregid = :efregid WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
+  $stmt->bindParam(':country', $country);
+  $stmt->bindParam(':dob', $dob);
   $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
   $stmt->bindParam(':efregid', $efregid);
