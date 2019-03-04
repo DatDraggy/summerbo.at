@@ -225,7 +225,7 @@ if ($dobStamp === false) {
 }
 $dob = date('Y-m-d', $dobStamp);
 
-if (strtotime('-1 day', strtotime(file_get_contents('https://isitef.com/?start'))) < strtotime('+18 years', strtotime($dob))) {
+if (strtotime($config['start']) < strtotime('+18 years', strtotime($dob))) {
   $status = 'You have to be at least 18 years old on the day of the party.';
   session_start();
   $_SESSION['status'] = $status;

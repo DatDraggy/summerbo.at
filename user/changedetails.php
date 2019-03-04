@@ -153,6 +153,15 @@ if ($dobStamp === false) {
 }
 $dob = date('Y-m-d', $dobStamp);
 
+if (strtotime($config['start']) < strtotime('+18 years', strtotime($dob))) {
+  $status = 'You have to be at least 18 years old on the day of the party.';
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ./');
+  die($status);
+}
+
 $country = preg_replace('/[^A-Z]/', '', $countryPost);
 if (strlen($country) != 2) {
   $status = 'Invalid country';

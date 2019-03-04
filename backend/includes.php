@@ -11,8 +11,8 @@ $head = '<meta charset="utf-8">
 	<meta property="og:site_name" content="summerbo.at" />
 	<meta itemprop="name" content="Hot Summer Nights 1" />
 	<meta itemprop="description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
-	<meta itemprop="startDate" content="2019-08-13" />
-	<meta itemprop="endDate" content="2019-08-13" />
+	<meta itemprop="startDate" content="' . $config['start'] . '" />
+	<meta itemprop="endDate" content="' . $config['start'] . '" />
 	<meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 	
 	<meta name="twitter:card" content="summary">
@@ -53,8 +53,8 @@ $head = '<meta charset="utf-8">
 			"name": "Hot Summer Nights 1",
 			"url": "https://summerbo.at",
 			"description": "The 1st \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
-			"startDate": "2019-08-13",
-			"endDate": "2019-08-13",
+			"startDate": "' . $config['start'] . '",
+			"endDate": "' . $config['start'] . '",
 			"location": {
 			"@type": "Place",
 			"name": "Estrel Hotel Biergarten",
