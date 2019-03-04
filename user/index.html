@@ -124,13 +124,6 @@ if ($details['list'] == 1) {
         message.innerHTML = "Passwords Do Not Match!"
       }
     }
-    SelectElement("country", "<?=$country?>");
-
-    function SelectElement(id, valueToSelect)
-    {
-      var element = document.getElementById(id);
-      element.value = valueToSelect;
-    }
   </script>
 </head>
 <body class="hasNav">
@@ -253,5 +246,14 @@ if ($details['list'] == 1) {
       </form>
     </section>
     <?=$footer?>
+    <script>
+      SelectElement("country", "<?=$country?>");
+
+      function SelectElement(id, valueToSelect)
+      {
+        var element = document.getElementById(id);
+        element.value = valueToSelect;
+      }
+    </script>
 </body>
 </html>
