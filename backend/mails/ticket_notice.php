@@ -21,7 +21,7 @@ foreach ($rows as $row) {
   $efregid = $row['efregid'];
   $topay = $config['priceAttendee'];
   $viptext = 'No';
-  if($row['sponsor'] == 1){
+  if ($row['sponsor'] == 1) {
     $viptext = 'Yes';
   }
   sendEmail($row['email'], 'About your registration', "Dear $nickname,
