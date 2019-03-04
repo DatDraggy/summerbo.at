@@ -32,15 +32,16 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false)
 function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE id = $userId AND status > 0 AND locked = 0";
-    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId AND status > 0 AND locked = 0');
+    $sql = "SELECT id, hash FROM users WHERE id = $userId AND status > 0 AND locked = 0";
+    $stmt = $dbConnection->prepare('SELECT id, hash FROM users WHERE id = :userId AND status > 0 AND locked = 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
+    $row = $stmt->fetch();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
     die();
   }
-  if ($stmt->rowCount() === 1) {
+  if ($stmt->rowCount() === 1 && $row['hash'] == $_SESSION['hash']) {
     //Already logged in
     return true;
   } else {
