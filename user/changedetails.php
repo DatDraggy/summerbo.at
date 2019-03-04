@@ -259,6 +259,7 @@ try {
 $status = 'Details changed successfully' . $emailText;
 session_start();
 $_SESSION['statusSuccess'] = $status;
+$_SESSION['hash'] = $hash;
 session_commit();
 header('Location: ./');
 
