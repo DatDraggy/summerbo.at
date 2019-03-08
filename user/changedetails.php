@@ -55,7 +55,7 @@ if (empty($_POST['dob'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../register');
+  header('Location: ./');
   die($status);
 } /*
 if (!empty($_POST['day'])) {
@@ -74,7 +74,7 @@ if (empty($_POST['country'])) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../register');
+  header('Location: ./');
   die($status);
 } else {
   $countryPost = $_POST['country'];
