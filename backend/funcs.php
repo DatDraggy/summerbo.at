@@ -441,6 +441,7 @@ function confirmNewEmail($token) {
       sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname, 
 
 You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
+If the change of email is the result of a transfered registration, please check all details in the login area.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 
