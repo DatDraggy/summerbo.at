@@ -6,9 +6,10 @@ header('Cache-Control: max-age=0');
 session_start();
 $status = '';
 $statusSession = '';
+$statusSessionSucc = '';
 
 if (!empty($_SESSION['statusSuccess'])) {
-  $statusSession = $_SESSION['statusSuccess'];
+  $statusSessionSucc = $_SESSION['statusSuccess'];
   $_SESSION['statusSuccess'] = '';
 }
 if (!empty($_SESSION['status'])) {
