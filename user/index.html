@@ -10,20 +10,8 @@ if (empty($_SESSION['userId'])) {
   die();
 }
 
-$statusSession = '';
-if (!empty($_SESSION['status'])) {
-  $statusSession = $_SESSION['status'];
-  $_SESSION['status'] = '';
-}
-
-$statusSessionSuccess = '';
-if (!empty($_SESSION['statusSuccess'])) {
-  $statusSessionSuccess = $_SESSION['statusSuccess'];
-  $_SESSION['statusSuccess'] = '';
-}
-
 $userId = $_SESSION['userId'];
-session_commit();
+
 $dbConnection = buildDatabaseConnection($config);
 
 ////////////////////////
@@ -39,6 +27,20 @@ if (!checkRegValid($userId)) {
 }
 // Check Reg Validity //
 ////////////////////////
+
+$statusSession = '';
+if (!empty($_SESSION['status'])) {
+  $statusSession = $_SESSION['status'];
+  $_SESSION['status'] = '';
+}
+
+$statusSessionSuccess = '';
+if (!empty($_SESSION['statusSuccess'])) {
+  $statusSessionSuccess = $_SESSION['statusSuccess'];
+  $_SESSION['statusSuccess'] = '';
+}
+
+session_commit();
 
 $details = getRegDetails($userId, 'nickname, email, sponsor, fursuiter, list, efregid, country, dob');
 if ($details == 'Not found') {
