@@ -738,13 +738,14 @@ function requestUnapproved($chatId) {
 }
 
 function sendEmail($address, $subject, $text, $internal = false) {
-  global $config;
+  global $dbConnection, $config;
   if ($internal === false) {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
     $text .= "
 --
 The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   }
+  $body = nl2br($text);
 
   $mail = new PHPMailer(true); // create a new object
   try {
@@ -758,12 +759,23 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
     $mail->Password = $config['mailPassword'];
     $mail->SetFrom('team@summerbo.at', 'Summerbo.at Team');
     $mail->Subject = $subject;
-    $mail->Body = nl2br($text);
+    $mail->Body = $body;
     $mail->AddAddress($address);
     $mail->IsHTML(true);
     $mail->send();
   } catch (Exception $e) {
     mail('admin@kieran.de', 'Error Sending mail', $mail->ErrorInfo);
+  }
+  try {
+    $sql = "INSERT INTO mail_log(receiver, subject, text) VALUES ($address, $subject, $body)";
+    $stmt = $dbConnection->prepare('INSERT INTO mail_log(receiver, subject, text) VALUES (:receiver, :subject, :text)');
+    $stmt->bindParam(':receiver', $address);
+    $stmt->bindParam(':subject', $subject);
+    $stmt->bindParam(':text', $text);
+    $stmt->execute();
+  }
+  catch (PDOException $e){
+    notifyOnException('Database Select', $config, $sql, $e);
   }
 }
 
