@@ -23,10 +23,10 @@ if (!empty($_SESSION['status'])) {
     header('Location: user/');
     die();
   } else {
-    if (isset($_COOKIE[session_name()])) {
+    /*if (isset($_COOKIE[session_name()])) {
       setcookie(session_name(), '', time() - 3600, '/');
     }
-    session_destroy();
+    session_destroy();*/
   }
 } else if (!empty($_POST['regnumber']) && !empty($_POST['password'])) {
   if (!empty($_POST['g-recaptcha-response'])) {
