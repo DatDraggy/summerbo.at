@@ -55,7 +55,7 @@ if (!empty($_SESSION['userId'])) {
   $status = 'You are not logged in.';
   $_SESSION['status'] = $status;
   session_commit();
-  header('Location: ../login.html');
+  header('Location: ../login');
   die($status);
 }
 ?>

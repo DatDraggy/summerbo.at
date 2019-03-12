@@ -18,11 +18,11 @@ $userId = $_SESSION['userId'];
 // Check Reg Validity //
 if (!checkRegValid($userId)) {
   //If invalid, kill that bih
-  if (isset($_COOKIE[session_name()])) {
+  /*if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');
   }
-  session_destroy();
-  header('Location: ../login.html');
+  session_destroy();*/
+  header('Location: ../login');
   die();
 }
 // Check Reg Validity //
