@@ -6,10 +6,14 @@ header('Cache-Control: max-age=0');
 session_start();
 $status = '';
 $statusSession = '';
+
+if (!empty($_SESSION['statusSuccess'])) {
+  $statusSession = $_SESSION['statusSuccess'];
+  $_SESSION['statusSuccess'] = '';
+}
 if (!empty($_SESSION['status'])) {
   $statusSession = $_SESSION['status'];
   $_SESSION['status'] = '';
-  session_commit();
 } else if (!empty($_SESSION['userId'])) {
   $userId = $_SESSION['userId'];
   $dbConnection = buildDatabaseConnection($config);
@@ -121,6 +125,7 @@ if (!empty($_SESSION['status'])) {
     $status = 'If there is an account linked to the provided email, a password reset link has been sent.';
   }
 }
+
 $recaptcha = '';
 if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismissed'] === 'yes') {
   $recaptcha = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
@@ -199,6 +204,9 @@ if (isset($_COOKIE['cookieconsent_dismissed']) && $_COOKIE['cookieconsent_dismis
           }
           if (!empty($statusSession) && !isset($_GET['reg'])) {
             echo '<div class="info-box-err">' . $statusSession . '</div>';
+          }
+          if (!empty($statusSessionSucc) && !isset($_GET['reg'])) {
+            echo '<div class="info-box-succ">' . $statusSessionSucc . '</div>';
           }
           if (!empty($status)) {
             echo '<div class="info-box-err">' . $status . '</div>';
