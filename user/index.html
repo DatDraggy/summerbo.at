@@ -28,6 +28,13 @@ if (!checkRegValid($userId)) {
 // Check Reg Validity //
 ////////////////////////
 
+if(!empty($_SESSION['location'])){
+  $location = $_SESSION['location'];
+  $_SESSION['location'] = '';
+  session_commit();
+  header('Location: ' . $location);
+}
+
 $statusSession = '';
 if (!empty($_SESSION['status'])) {
   $statusSession = $_SESSION['status'];

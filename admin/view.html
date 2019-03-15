@@ -5,6 +5,7 @@ header('Cache-Control: max-age=0');
 session_start();
 if (!empty($_SESSION['userId'])) {
   $requesterUserId = $_SESSION['userId'];
+  $_SESSION['location'] = $_SERVER['REQUEST_URI'];
   session_commit();
   $dbConnection = buildDatabaseConnection($config);
 
