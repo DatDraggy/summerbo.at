@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../backend/funcs.php');
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);
 $dump = print_r($data, true);
-mail($config['mail'], 'Debug', $dump);
+
 if (isset($data['callback_query'])) {
   $chatId = $data['callback_query']['message']['chat']['id'];
   $queryId = $data['callback_query']['id'];
