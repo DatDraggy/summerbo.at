@@ -810,12 +810,39 @@ function returnResponse(){
   flush();
 }
 
-function addUserToKnownUsers($chatId, $userId) {
+function addUserToNewUsers($chatId, $userId) {
   $users = json_decode(file_get_contents('users.json'), true);
   if (empty($users[$chatId][$userId])) {
-    $users[$chatId][$userId] = time();
+    $users[$chatId][$userId]['time'] = time();
+    $users[$chatId][$userId]['posted'] = false;
     file_put_contents('users.json', json_encode($users));
   }
+}
+
+function isNewUser($chatId, $userId) {
+  if (json_decode(file_get_contents('users.json'), true)[$chatId][$userId]['time'] < time() + 1800) {
+    return true;
+  }
+  return false;
+}
+
+function isNewUsersFirstMessage($chatId, $userId) {
+  $users = json_decode(file_get_contents('users.json'), true);
+  if ($users[$chatId][$userId]['posted'] == false) {
+    $users = json_decode(file_get_contents('users.json'), true);
+    $users[$chatId][$userId]['posted'] = true;
+    file_put_contents('users.json', json_encode($users));
+
+    return true;
+  }
+  return false;
+}
+
+function kickUser($chatId, $userId, $length = 40) {
+  global $config;
+  $until = time() + $length;
+  $response = file_get_contents($config['url'] . "kickChatMember?chat_id=$chatId&user_id=$userId&until_date=$until");
+  //Might use http_build_query in the future
 }
 
 function answerCallbackQuery($queryId, $text = '') {
