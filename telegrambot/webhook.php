@@ -112,7 +112,7 @@ if (isset($data['message']['text'])) {
 }
 
 if($chatId == '-1001182844773'){
-  if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] !== 1) {
+  if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $name = $data['message']['new_chat_participant']['first_name'];
     $userId = $data['message']['new_chat_participant']['id'];
     if (isset($data['message']['new_chat_participant']['last_name'])) {
