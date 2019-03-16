@@ -136,6 +136,7 @@ Follow the /rules and enjoy your stay~";
       }
     }
   }
+  die();
 }
 
 
