@@ -791,6 +791,12 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   return json_decode($response, true)['result'];
 }
 
+function deleteMessage($chatId, $messageId){
+  global $config;
+  $response = file_get_contents($config['url'] . "deleteMessage?chat_id=$chatId&message_id=$messageId");
+  //Might use http_build_query in the future
+}
+
 function returnResponse(){
   ignore_user_abort(true);
   ob_start();
@@ -804,10 +810,10 @@ function returnResponse(){
   flush();
 }
 
-function addUserToKnownUsers($userId) {
+function addUserToKnownUsers($chatId, $userId) {
   $users = json_decode(file_get_contents('users.json'));
-  if (empty($users[$userId])) {
-    $users[$userId] = time();
+  if (empty($users[$chatId][$userId])) {
+    $users[$chatId][$userId] = time();
     file_put_contents('users.json', json_encode($users));
   }
 }

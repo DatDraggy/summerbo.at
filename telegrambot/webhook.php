@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../backend/funcs.php');
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);
 $dump = print_r($data, true);
-mail($config['mail'], 'Summerboat Debug', $dump);
+
 if (isset($data['callback_query'])) {
   $chatId = $data['callback_query']['message']['chat']['id'];
   $queryId = $data['callback_query']['id'];
@@ -97,6 +97,7 @@ if (!isset($data['message'])) {
 }
 $chatId = $data['message']['chat']['id'];
 $chatType = $data['message']['chat']['type'];
+$messageId = $data['message']['message_id'];
 $senderUserId = preg_replace("/[^0-9]/", "", $data['message']['from']['id']);
 $senderUsername = NULL;
 if (isset($data['message']['from']['username'])) {
@@ -110,7 +111,7 @@ if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
 }
 
-if($chatId == '-1001203230309'){
+if($chatId == '-1001182844773'){
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] !== 1) {
     $name = $data['message']['new_chat_participant']['first_name'];
     $userId = $data['message']['new_chat_participant']['id'];
@@ -119,15 +120,21 @@ if($chatId == '-1001203230309'){
     }
     $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
 Follow the /rules and enjoy your stay~";
-    addUserToKnownUsers($userId);
+    addUserToKnownUsers($chatId, $userId);
     returnResponse();
     $message = sendMessage($chatId, $rules);
     die();
   }
-  $userId = $data['message']['from']['id'];
-  addUserToKnownUsers($userId);
-  if (json_decode(file_get_contents('users.json'))[$userId] < time() + 1800){
-
+  addUserToKnownUsers($chatId, $senderUserId);
+  if (json_decode(file_get_contents('users.json'))[$senderUserId] < time() + 1800){
+    if(!empty($data['message']['entities'])){
+      foreach ($data['message']['entities'] as $entity) {
+        if($entity['type'] == 'url'){
+          deleteMessage($chatId, $messageId);
+          break;
+        }
+      }
+    }
   }
 }
 
