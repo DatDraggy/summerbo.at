@@ -820,7 +820,8 @@ function addUserToNewUsers($chatId, $userId) {
 }
 
 function isNewUser($chatId, $userId) {
-  if (json_decode(file_get_contents('users.json'), true)[$chatId][$userId]['time'] < time() + 1800) {
+  $time = json_decode(file_get_contents('users.json'), true)[$chatId][$userId]['time'];
+  if (!empty($time) && $time < time() + 1800) {
     return true;
   }
   return false;

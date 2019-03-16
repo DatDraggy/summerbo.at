@@ -121,27 +121,26 @@ if($chatId == '-1001182844773'){
     $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
 Follow the /rules and enjoy your stay~";
     addUserToNewUsers((string)$chatId, $userId);
-    returnResponse();
     $message = sendMessage($chatId, $rules);
-    die();
-  }
-  //addUserToNewUsers((string)$chatId, $senderUserId);
-  //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
-  if (isNewUser((string)$chatId, $senderUserId)) {
-    if(!empty($data['message']['entities'])){
-      foreach ($data['message']['entities'] as $entity) {
-        if($entity['type'] == 'url'){
-          deleteMessage($chatId, $messageId);
-          if(isNewUsersFirstMessage((string)$chatId, $senderUserId)){
-            kickUser($chatId, $senderUserId, 0);
+
+  }else {
+    //addUserToNewUsers((string)$chatId, $senderUserId);
+    //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
+    if (isNewUser((string)$chatId, $senderUserId)) {
+      if (!empty($data['message']['entities'])) {
+        foreach ($data['message']['entities'] as $entity) {
+          if ($entity['type'] == 'url') {
+            deleteMessage($chatId, $messageId);
+            if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+              kickUser($chatId, $senderUserId, 0);
+            }
+            break;
           }
-          break;
         }
       }
+      isNewUsersFirstMessage((string)$chatId, $senderUserId);
     }
-    isNewUsersFirstMessage((string)$chatId, $senderUserId);
   }
-  die();
 }
 
 
