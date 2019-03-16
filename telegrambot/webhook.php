@@ -127,19 +127,19 @@ Follow the /rules and enjoy your stay~";
   }
   //addUserToNewUsers((string)$chatId, $senderUserId);
   //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
-  if (isNewUser($chatId, $senderUserId)) {
+  if (isNewUser((string)$chatId, $senderUserId)) {
     if(!empty($data['message']['entities'])){
       foreach ($data['message']['entities'] as $entity) {
         if($entity['type'] == 'url'){
           deleteMessage($chatId, $messageId);
-          if(isNewUsersFirstMessage($chatId, $senderUserId)){
+          if(isNewUsersFirstMessage((string)$chatId, $senderUserId)){
             kickUser($chatId, $senderUserId, 0);
           }
           break;
         }
       }
     }
-    isNewUsersFirstMessage($chatId, $senderUserId);
+    isNewUsersFirstMessage((string)$chatId, $senderUserId);
   }
   die();
 }
