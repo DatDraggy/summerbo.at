@@ -120,13 +120,13 @@ if($chatId == '-1001182844773'){
     }
     $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
 Follow the /rules and enjoy your stay~";
-    addUserToKnownUsers($chatId, $userId);
+    addUserToKnownUsers((string)$chatId, $userId);
     returnResponse();
     $message = sendMessage($chatId, $rules);
     die();
   }
-  addUserToKnownUsers($chatId, $senderUserId);
-  if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
+  addUserToKnownUsers((string)$chatId, $senderUserId);
+  if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] > time() + 1800){
     if(!empty($data['message']['entities'])){
       foreach ($data['message']['entities'] as $entity) {
         if($entity['type'] == 'url'){
