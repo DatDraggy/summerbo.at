@@ -126,7 +126,7 @@ Follow the /rules and enjoy your stay~";
     die();
   }
   addUserToKnownUsers($chatId, $senderUserId);
-  if (json_decode(file_get_contents('users.json'))[$senderUserId] < time() + 1800){
+  if (json_decode(file_get_contents('users.json'), true)[$senderUserId] < time() + 1800){
     if(!empty($data['message']['entities'])){
       foreach ($data['message']['entities'] as $entity) {
         if($entity['type'] == 'url'){
