@@ -811,7 +811,7 @@ function returnResponse(){
 }
 
 function addUserToKnownUsers($chatId, $userId) {
-  $users = json_decode(file_get_contents('users.json'));
+  $users = json_decode(file_get_contents('users.json'), true);
   if (empty($users[$chatId][$userId])) {
     $users[$chatId][$userId] = time();
     file_put_contents('users.json', json_encode($users));
