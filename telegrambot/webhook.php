@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../backend/funcs.php');
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);
 $dump = print_r($data, true);
-
+mail($config['mail'], 'Summerboat Debug', $dump);
 if (isset($data['callback_query'])) {
   $chatId = $data['callback_query']['message']['chat']['id'];
   $queryId = $data['callback_query']['id'];
@@ -108,6 +108,27 @@ if (isset($data['message']['from']['last_name'])) {
 }
 if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
+}
+
+if($chatId == '-1001203230309'){
+  if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] !== 1) {
+    $name = $data['message']['new_chat_participant']['first_name'];
+    $userId = $data['message']['new_chat_participant']['id'];
+    if (isset($data['message']['new_chat_participant']['last_name'])) {
+      $name .= ' ' . $data['message']['new_chat_participant']['last_name'];
+    }
+    $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
+Follow the /rules and enjoy your stay~";
+    addUserToKnownUsers($userId);
+    returnResponse();
+    $message = sendMessage($chatId, $rules);
+    die();
+  }
+  $userId = $data['message']['from']['id'];
+  addUserToKnownUsers($userId);
+  if (json_decode(file_get_contents('users.json'))[$userId] < time() + 1800){
+
+  }
 }
 
 

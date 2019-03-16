@@ -791,6 +791,27 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   return json_decode($response, true)['result'];
 }
 
+function returnResponse(){
+  ignore_user_abort(true);
+  ob_start();
+// do initial processing here
+  header('Connection: close');
+  header('Content-Length: '.ob_get_length());
+  header("Content-Encoding: none");
+  header("Status: 200");
+  ob_end_flush();
+  ob_flush();
+  flush();
+}
+
+function addUserToKnownUsers($userId) {
+  $users = json_decode(file_get_contents('users.json'));
+  if (empty($users[$userId])) {
+    $users[$userId] = time();
+    file_put_contents('users.json', json_encode($users));
+  }
+}
+
 function answerCallbackQuery($queryId, $text = '') {
   global $config;
   $response = file_get_contents($config['url'] . "answerCallbackQuery?callback_query_id=$queryId&text=" . urlencode($text));
