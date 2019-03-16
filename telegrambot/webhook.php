@@ -122,7 +122,7 @@ if($chatId == '-1001182844773'){
 Follow the /rules and enjoy your stay~";
     addUserToNewUsers((string)$chatId, $userId);
     $message = sendMessage($chatId, $rules);
-
+    die();
   }else {
     //addUserToNewUsers((string)$chatId, $senderUserId);
     //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
@@ -141,6 +141,7 @@ Follow the /rules and enjoy your stay~";
       isNewUsersFirstMessage((string)$chatId, $senderUserId);
     }
   }
+  die();
 }
 
 
