@@ -9,16 +9,16 @@ $head = '<meta charset="utf-8">
   <meta property="og:type" content="website" />
   
 	<meta property="og:site_name" content="summerbo.at" />
-	<meta itemprop="name" content="Hot Summer Nights 1" />
-	<meta itemprop="description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
+	<meta itemprop="name" content="Hot Summer Nights 2019" />
+	<meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
 	<meta itemprop="startDate" content="' . $config['start'] . '" />
 	<meta itemprop="endDate" content="' . $config['start'] . '" />
 	<meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 	
 	<meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@summerbo_at">
-  <meta name="twitter:title" content="Hot Summer Nights 1">
-  <meta name="twitter:description" content="Hot Summer Nights 1 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
+  <meta name="twitter:title" content="Hot Summer Nights 2019">
+  <meta name="twitter:description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
   <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
   <meta name="twitter:image:alt" content="Summerbo.at Logo">
 	<meta name="twitter:creator" content="@summerbo_at" />
@@ -50,9 +50,9 @@ $head = '<meta charset="utf-8">
 		{
 			"@context": "http://www.schema.org",
 			"@type": "Event",
-			"name": "Hot Summer Nights 1",
+			"name": "Hot Summer Nights 2019",
 			"url": "https://summerbo.at",
-			"description": "The 1st \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+			"description": "The 1st \'Summerbo.at Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
 			"startDate": "' . $config['start'] . '",
 			"endDate": "' . $config['start'] . '",
 			"location": {
