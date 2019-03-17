@@ -224,7 +224,7 @@ function getFursuiters() {
 
   try {
     $sql = 'SELECT nickname, email FROM users WHERE list = 1 AND fursuiter = 1';
-    $stmt = $dbConnection->prepare('SELECT nickname, email FROM users WHERE list = 1 AND fursuiter = 1 ORDER BY id ASC');
+    $stmt = $dbConnection->prepare('SELECT nickname, email FROM users WHERE list = 1 AND fursuiter = 1 ORDER BY nickname');
     $stmt->execute();
     $rows = $stmt->fetchAll();
   } catch (PDOException $e) {
