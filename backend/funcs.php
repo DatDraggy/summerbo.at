@@ -853,6 +853,99 @@ function answerCallbackQuery($queryId, $text = '') {
   return json_decode($response, true)['result'];
 }
 
+function restrictChatMember($chatId, $userId, $until = 0, $sendMessages = false, $sendMedia = false, $sendOther = false, $sendWebPreview = false) {
+  global $config;
+  $untilTimestamp = time() + $until;
+  $response = file_get_contents($config['url'] . "restrictChatMember?chat_id=$chatId&user_id=$userId&until_date=$untilTimestamp&can_send_messages=$sendMessages&can_send_media_messages=$sendMedia&can_send_other_messages=$sendOther&can_add_web_page_previews=$sendWebPreview");
+  //Might use http_build_query in the future
+  return json_decode($response, true)['result'];
+}
+
+function editMessageText($chatId, $messageId, $text, $replyMarkup = '', $inlineMessageId = '') {
+  global $config;
+
+  $url = $config['url'] . "editMessageText";
+
+  if (empty($inlineMessageId)) {
+    $data = array(
+      'chat_id' => $chatId,
+      'message_id' => $messageId,
+      'text' => $text,
+      'parse_mode' => 'html',
+      'disable_web_page_preview' => true,
+      'reply_markup' => $replyMarkup
+    );
+  } else {
+    $data = array(
+      'inline_message_id' => $inlineMessageId,
+      'text' => $text,
+      'parse_mode' => 'html',
+      'disable_web_page_preview' => true,
+      'reply_markup' => $replyMarkup
+    );
+  }
+  $options = array(
+    'http' => array(
+      'header' => "Content-type: application/json\r\n",
+      'method' => 'POST',
+      'content' => json_encode($data)
+    )
+  );
+  $context = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+}
+
+function unrestrictUser($chatId, $userId, $welcomeMsgId, $welcomeMsgText){
+  removeMessageHistory($chatId, $userId);
+  restrictChatMember($chatId, $userId, 0, true, true, true, true);
+  editMessageText($chatId, $welcomeMsgId, $welcomeMsgText);
+}
+
+function addMessageToHistory($chatId, $userId, $messageId) {
+  global $config;
+  $dbConnection = buildDatabaseConnection($config);
+
+  try {
+    $sql = "SELECT id FROM telegram_messages WHERE chat_id = '$chatId' AND user_id = '$userId' AND message_id = '$messageId'";
+    $stmt = $dbConnection->prepare("SELECT id FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId AND message_id = :messageId");
+    $stmt->bindParam(':chatId', $chatId);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':messageId', $messageId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  if (!$row) {
+    try {
+      $sql = "INSERT INTO telegram_messages(chat_id, user_id, message_id) VALUES ($chatId, $userId, $messageId)";
+      $stmt = $dbConnection->prepare("INSERT INTO telegram_messages(chat_id, user_id, message_id) VALUES (:chatId, :userId,:messageId)");
+      $stmt->bindParam(':chatId', $chatId);
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':messageId', $messageId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Insert', $config, $sql, $e);
+    }
+  }
+}
+
+function removeMessageHistory($chatId, $userId) {
+  global $config;
+
+  $dbConnection = buildDatabaseConnection($config);
+
+  try{
+    $sql = "DELETE FROM telegram_messages WHERE chat_id = $chatId AND user_id = $userId";
+    $stmt = $dbConnection->prepare('DELETE FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId');
+    $stmt->bindParam(':chatId', $chatId);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  }catch (PDOException $e){
+    notifyOnException('Database Insert', $config, $sql, $e);
+  }
+}
+
 function sendVenue($chatId, $latitude, $longitude, $title, $address) {
   global $config;
   $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=" . urlencode($title) . "&address=" . urlencode($address));

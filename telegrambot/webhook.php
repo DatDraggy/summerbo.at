@@ -13,23 +13,32 @@ $dump = print_r($data, true);
 if (isset($data['callback_query'])) {
   $chatId = $data['callback_query']['message']['chat']['id'];
   $queryId = $data['callback_query']['id'];
-  if (!in_array($chatId, $config['telegramAdmins'])) {
-    die();
-  }
   $chatType = $data['callback_query']['message']['chat']['type'];
   $callbackData = $data['callback_query']['data'];
   $senderUserId = $data['callback_query']['from']['id'];
+  if ($chatId == '-1001182844773') {
+    list($targetUserId, $status) = explode('|', $callbackData);
 
-  if (stripos($callbackData, '|') !== false) {
-    list($targetUserId, $status, $confirm, $time) = explode('|', $callbackData);
-    $dbConnection = buildDatabaseConnection($config);
-    if ($status === 'approve') {
-      if (approveRegistration($targetUserId, $senderUserId)) {
-        answerCallbackQuery($queryId, 'Registration has been approved.');
-        list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
-        recalculateTopay($targetUserId);
-        $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
-        sendEmail($email, 'Registration Approved', "Dear $nickname,
+    if($targetUserId == $senderUserId){
+      unrestrictUser($chatId, $senderUserId, $data['callback_query']['message']['message_id'], $data['callback_query']['message']['text']);
+      answerCallbackQuery($queryId, 'Accepted.');
+      die();
+    }
+    answerCallbackQuery($queryId);
+  } else {
+    if (!in_array($chatId, $config['telegramAdmins'])) {
+      die();
+    }
+    if (stripos($callbackData, '|') !== false) {
+      list($targetUserId, $status, $confirm, $time) = explode('|', $callbackData);
+      $dbConnection = buildDatabaseConnection($config);
+      if ($status === 'approve') {
+        if (approveRegistration($targetUserId, $senderUserId)) {
+          answerCallbackQuery($queryId, 'Registration has been approved.');
+          list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
+          recalculateTopay($targetUserId);
+          $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
+          sendEmail($email, 'Registration Approved', "Dear $nickname,
 
 Your registration was approved by our registration team.
 
@@ -47,50 +56,51 @@ If you have any questions, please send us a message. Reply to this e-mail or con
 
 Your Boat Party Crew
 ", true);
-      } else {
-        answerCallbackQuery($queryId, 'Already approved, rejected or error.');
-      }
-    } else if ($status === 'reject') {
-      if ($confirm == 1 && $time + 10 >= time()) {
-        if (rejectRegistration($targetUserId)) {
-          answerCallbackQuery($queryId, 'Registration has been rejected.');
         } else {
-          answerCallbackQuery($queryId, 'Already rejected or error');
+          answerCallbackQuery($queryId, 'Already approved, rejected or error.');
         }
-      } else {
-        $replyMarkup = array(
-          'inline_keyboard' => array(
-            array(
+      } else if ($status === 'reject') {
+        if ($confirm == 1 && $time + 10 >= time()) {
+          if (rejectRegistration($targetUserId)) {
+            answerCallbackQuery($queryId, 'Registration has been rejected.');
+          } else {
+            answerCallbackQuery($queryId, 'Already rejected or error');
+          }
+        } else {
+          $replyMarkup = array(
+            'inline_keyboard' => array(
               array(
-                'text'          => 'Yes',
-                'callback_data' => $targetUserId . '|reject|1|' . time()
-              ),
-              array(
-                'text'          => 'No',
-                'callback_data' => 'no'
+                array(
+                  'text'          => 'Yes',
+                  'callback_data' => $targetUserId . '|reject|1|' . time()
+                ),
+                array(
+                  'text'          => 'No',
+                  'callback_data' => 'no'
+                )
               )
             )
-          )
-        );
-        answerCallbackQuery($queryId);
-        sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
-      }
-    } else if ($status === 'handled') {
-      answerCallbackQuery($queryId);
-      if (isset($data['callback_query']['from']['username'])) {
-        $handleName = $data['callback_query']['from']['username'];
-      } else {
-        $handleName = $data['callback_query']['from']['first_name'];
-        if (isset($data['callback_query']['from']['last_name'])) {
-          $handleName .= ' ' . $data['callback_query']['from']['last_name'];
+          );
+          answerCallbackQuery($queryId);
+          sendMessage($chatId, "Are you sure you want to cancel the registration for $targetUserId?", json_encode($replyMarkup));
         }
+      } else if ($status === 'handled') {
+        answerCallbackQuery($queryId);
+        if (isset($data['callback_query']['from']['username'])) {
+          $handleName = $data['callback_query']['from']['username'];
+        } else {
+          $handleName = $data['callback_query']['from']['first_name'];
+          if (isset($data['callback_query']['from']['last_name'])) {
+            $handleName .= ' ' . $data['callback_query']['from']['last_name'];
+          }
+        }
+        sendStaffNotification(0, 'Application from ' . $confirm . ' was handled by ' . $handleName . '.');
       }
-      sendStaffNotification(0, 'Application from ' . $confirm . ' was handled by ' . $handleName . '.');
+    } else {
+      answerCallbackQuery($queryId);
     }
-  } else {
-    answerCallbackQuery($queryId);
+    die();
   }
-  die();
 }
 if (!isset($data['message'])) {
   die();
@@ -111,19 +121,32 @@ if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
 }
 
-if($chatId == '-1001182844773'){
+if ($chatId == '-1001182844773') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
-    $name = $data['message']['new_chat_participant']['first_name'];
     $userId = $data['message']['new_chat_participant']['id'];
+    restrictChatMember($chatId, $userId, 1800);
+    $name = $data['message']['new_chat_participant']['first_name'];
     if (isset($data['message']['new_chat_participant']['last_name'])) {
       $name .= ' ' . $data['message']['new_chat_participant']['last_name'];
     }
     $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
 Follow the /rules and enjoy your stay~";
     addUserToNewUsers((string)$chatId, $userId);
-    $message = sendMessage($chatId, $rules);
+    $replyMarkup = array(
+      'inline_keyboard' => array(
+        array(
+          array(
+            "text" => "Press if you're not a bot!",
+            "callback_data"  => $userId.'|bot'
+          )
+        )
+      )
+    );
+    $message = sendMessage($chatId, $rules, json_encode($replyMarkup));
+    addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $messageId);
+    addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $message['message_id']);
     die();
-  }else {
+  } else {
     //addUserToNewUsers((string)$chatId, $senderUserId);
     //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
     if (isNewUser((string)$chatId, $senderUserId)) {
