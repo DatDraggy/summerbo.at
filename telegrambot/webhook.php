@@ -143,7 +143,7 @@ Follow the /rules and enjoy your stay~";
       )
     );
     $message = sendMessage($chatId, $rules, json_encode($replyMarkup));
-    addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $messageId);
+    addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $messageId, time());
     addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $message['message_id']);
     die();
   } else {
