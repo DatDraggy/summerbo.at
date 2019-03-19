@@ -923,6 +923,7 @@ function addMessageToHistory($chatId, $userId, $messageId, $time = 0) {
       $stmt->bindParam(':chatId', $chatId);
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':messageId', $messageId);
+      $stmt->bindParam(':time', $time);
       $stmt->execute();
     } catch (PDOException $e) {
       notifyOnException('Database Insert', $config, $sql, $e);
