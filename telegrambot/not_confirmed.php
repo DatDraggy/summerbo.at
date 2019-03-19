@@ -12,4 +12,8 @@ $rows = $stmt->fetchAll();
 foreach ($rows as $row){
   kickUser($row['chat_id'], $row['user_id']);
   deleteMessages($row['chat_id'], $row['user_id']);
+  $stmt = $dbConnection->prepare('DELETE FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId');
+  $stmt->bindParam(':chatId', $row['chat_id']);
+  $stmt->bindParam(':userId', $row['user_id']);
+  $stmt->execute();
 }
