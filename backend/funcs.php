@@ -901,7 +901,7 @@ function unrestrictUser($chatId, $userId, $welcomeMsgId, $welcomeMsgText){
   editMessageText($chatId, $welcomeMsgId, $welcomeMsgText);
 }
 
-function addMessageToHistory($chatId, $userId, $messageId) {
+function addMessageToHistory($chatId, $userId, $messageId, $time = 0) {
   global $config;
   $dbConnection = buildDatabaseConnection($config);
 
@@ -918,14 +918,45 @@ function addMessageToHistory($chatId, $userId, $messageId) {
   }
   if (!$row) {
     try {
-      $sql = "INSERT INTO telegram_messages(chat_id, user_id, message_id) VALUES ($chatId, $userId, $messageId)";
-      $stmt = $dbConnection->prepare("INSERT INTO telegram_messages(chat_id, user_id, message_id) VALUES (:chatId, :userId,:messageId)");
+      $sql = "INSERT INTO telegram_messages(chat_id, user_id, message_id, time) VALUES ($chatId, $userId, $messageId, $time)";
+      $stmt = $dbConnection->prepare("INSERT INTO telegram_messages(chat_id, user_id, message_id, time) VALUES (:chatId, :userId,:messageId, :time)");
       $stmt->bindParam(':chatId', $chatId);
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':messageId', $messageId);
       $stmt->execute();
     } catch (PDOException $e) {
       notifyOnException('Database Insert', $config, $sql, $e);
+    }
+  }
+}
+
+function deleteMessages($chatId, $userId){
+  global $config;
+  $dbConnection = buildDatabaseConnection($config);
+
+  try{
+    $sql = "SELECT message_id FROM telegram_messages WHERE chat_id = '$chatId' AND user_id = '$userId'";
+    $stmt = $dbConnection->prepare("SELECT message_id FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId");
+    $stmt->bindParam(':chatId', $chatId);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+
+  foreach($rows as $row){
+    $messageId = $row['message_id'];
+    deleteMessage($chatId, $messageId);
+    try{
+      $sql = "DELETE FROM telegram_messages WHERE chat_id = '$chatId' AND user_id = '$userId' AND message_id = '$messageId'";
+      $stmt = $dbConnection->prepare("DELETE FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId AND message_id = :messageId");
+      $stmt->bindParam(':chatId', $chatId);
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':messageId', $messageId);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Delete', $config, $sql, $e);
     }
   }
 }
