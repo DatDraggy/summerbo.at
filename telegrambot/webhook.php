@@ -124,7 +124,7 @@ if (isset($data['message']['text'])) {
 if ($chatId == '-1001182844773') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
-    restrictChatMember($chatId, $userId, 1800);
+    restrictChatMember($chatId, $userId, 3600);
     $name = $data['message']['new_chat_participant']['first_name'];
     if (isset($data['message']['new_chat_participant']['last_name'])) {
       $name .= ' ' . $data['message']['new_chat_participant']['last_name'];
