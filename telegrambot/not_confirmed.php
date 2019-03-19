@@ -11,5 +11,5 @@ $rows = $stmt->fetchAll();
 
 foreach ($rows as $row){
   kickUser($row['chat_id'], $row['user_id']);
-  deleteMessage($row['chat_id'], $row['user_id']);
+  deleteMessages($row['chat_id'], $row['user_id']);
 }
