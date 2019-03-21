@@ -19,7 +19,7 @@ if (isset($data['callback_query'])) {
   if ($chatId == '-1001182844773') {
     list($targetUserId, $status) = explode('|', $callbackData);
 
-    if($targetUserId == $senderUserId){
+    if ($targetUserId == $senderUserId) {
       unrestrictUser($chatId, $senderUserId, $data['callback_query']['message']['message_id'], $data['callback_query']['message']['text']);
       answerCallbackQuery($queryId, 'Accepted.');
       die();
@@ -71,11 +71,11 @@ Your Boat Party Crew
             'inline_keyboard' => array(
               array(
                 array(
-                  'text'          => 'Yes',
+                  'text' => 'Yes',
                   'callback_data' => $targetUserId . '|reject|1|' . time()
                 ),
                 array(
-                  'text'          => 'No',
+                  'text' => 'No',
                   'callback_data' => 'no'
                 )
               )
@@ -137,7 +137,7 @@ Follow the /rules and enjoy your stay~";
         array(
           array(
             "text" => "Press if you're not a bot!",
-            "callback_data"  => $userId.'|bot'
+            "callback_data" => $userId . '|bot'
           )
         )
       )
@@ -147,26 +147,36 @@ Follow the /rules and enjoy your stay~";
     addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $message['message_id']);
     die();
   } else {
-    //addUserToNewUsers((string)$chatId, $senderUserId);
-    //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
-    if (isNewUser((string)$chatId, $senderUserId)) {
-      if (!empty($data['message']['entities'])) {
-        foreach ($data['message']['entities'] as $entity) {
-          if ($entity['type'] == 'url') {
-            deleteMessage($chatId, $messageId);
-            if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-              kickUser($chatId, $senderUserId, 0);
+    if (isset($text)) {
+      if (substr($text, '0', '1') == '/') {
+        $messageArr = explode(' ', $text);
+        $command = explode('@', $messageArr[0])[0];
+        if ($messageArr[0] == '/start' && isset($messageArr[1])) {
+          $command = '/' . $messageArr[1];
+        }
+      } else {
+        //addUserToNewUsers((string)$chatId, $senderUserId);
+        //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
+        if (isNewUser((string)$chatId, $senderUserId)) {
+          if (!empty($data['message']['entities'])) {
+            foreach ($data['message']['entities'] as $entity) {
+              if ($entity['type'] == 'url') {
+                deleteMessage($chatId, $messageId);
+                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  kickUser($chatId, $senderUserId, 0);
+                }
+                break;
+              }
             }
-            break;
           }
+          isNewUsersFirstMessage((string)$chatId, $senderUserId);
         }
       }
-      isNewUsersFirstMessage((string)$chatId, $senderUserId);
+      die();
     }
-  }
-  die();
-}
 
+  }
+}
 
 if (isset($text)) {
   if (substr($text, '0', '1') == '/') {
@@ -208,7 +218,7 @@ ID: /id
             'inline_keyboard' => array(
               array(
                 array(
-                  'text'          => 'Handled',
+                  'text' => 'Handled',
                   'callback_data' => $chatId . '|handled|' . $saveName . '|0'
                 )
               )
