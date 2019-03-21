@@ -151,8 +151,18 @@ Follow the /rules and enjoy your stay~";
       if (substr($text, '0', '1') == '/') {
         $messageArr = explode(' ', $text);
         $command = explode('@', $messageArr[0])[0];
-        if ($messageArr[0] == '/start' && isset($messageArr[1])) {
-          $command = '/' . $messageArr[1];
+        $command = strtolower($command);
+        switch (true) {
+          case ($command === '/rules'):
+            sendMessage($chatId, '1. Apply common sense
+2. Don\'t spam. Neither stickers nor GIFs nor memes nor pictures.
+3. Keep it English, other languages are not allowed
+4. Keep it PG-13
+5. No hate-speech, harassment, illegal stuff or insults.
+6. No talk about Piracy (Pirates in general are allowed)
+7. Keep your swim vest near you at all times
+8. Thank the captain and listen to the boat crew');
+          break;
         }
       } else {
         //addUserToNewUsers((string)$chatId, $senderUserId);
