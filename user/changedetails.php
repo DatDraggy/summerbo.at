@@ -277,7 +277,5 @@ if ($confirmationLink !== false) {
 You requested to change your email. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
 }

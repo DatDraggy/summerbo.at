@@ -53,8 +53,6 @@ You will then also receive an email from Eurofurence regarding the payment of yo
 Also, because this is our first time organizing this event, we would like to receive some feedback about the registration system. Please take a minute to fill this out <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">survey</a>.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ", true);
         } else {
           answerCallbackQuery($queryId, 'Already approved, rejected or error.');

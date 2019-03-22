@@ -341,6 +341,4 @@ You first have to verify your email address and confirm your registration by cli
 Afterwards another mail will be sent.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ", true);

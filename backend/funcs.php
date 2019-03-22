@@ -261,8 +261,6 @@ function downgradeSponsor($userId) {
 Sorry to see you downgrade. You are no longer a VIP.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
   }
 }
@@ -296,8 +294,6 @@ Thank you for your upgrade! You are now a VIP for Hot Summer Nights 2019. As a V
 But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
   }
 }
@@ -353,8 +349,6 @@ It shouldn't take more than 24 hours.
 Your current status is: {$config['status'][1]} - Regnumber $userId
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
       sendStaffNotification($userId);
 
@@ -444,8 +438,6 @@ You requested to change your email to $newEmail. Please follow this link to conf
 If the change of email is the result of a transfered registration, please reset your password and check all details in the login area.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
     } else {
       return false;
@@ -526,9 +518,7 @@ Sadly we have to inform you that your registration has been deleted.
 
 If you believe this was a mistake, please send us an email. It can be that there is still space. We will inform you with more information after checking the system. 
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew", true);
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.", true);
     return true;
   } else {
     return false;
@@ -666,8 +656,6 @@ Welcome aboard! Your payment of $amount €,- has been received. Below you find 
 <a href=\"https://summerbo.at/#faq\">https://summerbo.at/#faq</a>
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ", true);
         return true;
       } else if ($status == 2) {
@@ -677,8 +665,6 @@ Your payment of $amount €,- has been received. However, for some reason, this 
 Please pay the rest of the amount as well to make sure you are fully registered. If you think this is a mistake, let us know via email.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ", true);
         return false;
       } else {
@@ -688,8 +674,6 @@ Your payment of $amount €,- has been received. However, there were no more ope
 We're sorry and apologize for any inconvenience.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ", true);
         return false;
       }
@@ -737,7 +721,7 @@ function requestUnapproved($chatId) {
   sendMessage($chatId, 'Done.');
 }
 
-function sendEmail($address, $subject, $text, $internal = false) {
+function sendEmailB($address, $subject, $text, $internal = false) {
   global $dbConnection, $config;
   if ($internal === false) {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
@@ -746,6 +730,51 @@ function sendEmail($address, $subject, $text, $internal = false) {
 The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   }
   $body = nl2br($text);
+
+  $mail = new PHPMailer(true); // create a new object
+  try {
+    $mail->IsSMTP(); // enable SMTP
+    $mail->SMTPDebug = false; // debugging: 1 = errors and messages, 2 = messages only
+    $mail->SMTPAuth = true; // authentication enabled
+    $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED
+    $mail->Host = 'mail.summerbo.at';
+    $mail->Port = 465; // or 587
+    $mail->Username = 'team';
+    $mail->Password = $config['mailPassword'];
+    $mail->SetFrom('team@summerbo.at', 'Summerbo.at Team');
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+    $mail->AddAddress($address);
+    $mail->IsHTML(true);
+    $mail->send();
+  } catch (Exception $e) {
+    mail('admin@kieran.de', 'Error Sending mail', $mail->ErrorInfo);
+  }
+  try {
+    $sql = "INSERT INTO mail_log(receiver, subject, text) VALUES ($address, $subject, $body)";
+    $stmt = $dbConnection->prepare('INSERT INTO mail_log(receiver, subject, text) VALUES (:receiver, :subject, :text)');
+    $stmt->bindParam(':receiver', $address);
+    $stmt->bindParam(':subject', $subject);
+    $stmt->bindParam(':text', $text);
+    $stmt->execute();
+  }
+  catch (PDOException $e){
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+}
+
+function sendEmail($address, $subject, $text, $internal = false) {
+  global $dbConnection, $config;
+  if ($internal === false) {
+    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    $ipNotice = "--
+The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
+  } else {
+    $ipNotice = '';
+  }
+  require_once('email.php');
+
+  $body = $email['top'] . nl2br($text) . $email['bottom'];
 
   $mail = new PHPMailer(true); // create a new object
   try {
@@ -1029,8 +1058,6 @@ You requested to change your password. Please follow this link to confirm: <a hr
 Was it not you who requested this? Let us know!
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-
-Your Boat Party Crew
 ");
     return true;
   }

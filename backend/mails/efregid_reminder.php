@@ -31,7 +31,5 @@ This is a reminder for you to please update your Eurofurence registartion number
 Payments will be processed by EF to make things easier for you. 
 
 If you have any questions or do not have an EF registration, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
- 
-Your Boat Party Crew
 ", true);
 }

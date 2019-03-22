@@ -42,7 +42,5 @@ To make 100% of the VIP profits available to Eurofurence Charity we want to avoi
 Your EF Regnumber is $efregid - please double check that this is correct BEFORE the 25th of March via <a href=\"https://summerbo.at/user/\">summerbo.at</a>
   
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
- 
-Your Boat Party Crew
 ", true);
 }
