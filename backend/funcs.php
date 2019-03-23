@@ -1,6 +1,7 @@
 <?php
 require_once('/var/libraries/PHPMailer/PHPMailer.php');
 require_once('/var/libraries/PHPMailer/SMTP.php');
+require_once('email.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -772,7 +773,6 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
   } else {
     $ipNotice = '';
   }
-  require_once('email.php');
 
   $body = $email['top'] . nl2br($text) . $email['bottom'];
 
