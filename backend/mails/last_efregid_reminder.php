@@ -8,7 +8,7 @@ require_once('../funcs.php');
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT email, nickname FROM users WHERE efregid >= 10000';
+  $sql = 'SELECT email, nickname FROM users WHERE efregid >= 9998';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
