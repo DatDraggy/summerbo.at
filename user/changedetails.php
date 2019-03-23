@@ -29,7 +29,7 @@ if (!checkRegValid($userId)) {
 ////////////////////////
 session_commit();
 $nicknamePost = $_POST['nickname'];
-if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
+if (preg_match('/[^\w\-. ~]/', $nicknamePost) === 1) {
   $status = 'Illegal character in Nickname';
   session_start();
   $_SESSION['status'] = $status;

@@ -16,7 +16,7 @@ if (isset($data['callback_query'])) {
   $chatType = $data['callback_query']['message']['chat']['type'];
   $callbackData = $data['callback_query']['data'];
   $senderUserId = $data['callback_query']['from']['id'];
-  if ($chatId == '-1001182844773') {
+  if ($chatId == '-1001203230309') {
     list($targetUserId, $status) = explode('|', $callbackData);
 
     if ($targetUserId == $senderUserId) {
