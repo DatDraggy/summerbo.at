@@ -14,6 +14,7 @@ $head = '<meta charset="utf-8">
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
+    <meta itemprop="address" content="Ziegrastraße 44, 12057 Berlin" />
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
