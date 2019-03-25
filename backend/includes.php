@@ -6,24 +6,24 @@ $head = '<meta charset="utf-8">
     <meta name="rating" content="general" />
     <meta property="og:url" content="https://summerbo.at" />
     <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
-    <meta property="og:type" content="website" />  
-	  <meta property="og:site_name" content="summerbo.at" />
-	
-	
-  	<meta itemprop="name" content="Hot Summer Nights 2019" />
-  	<meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
-	  <meta itemprop="startDate" content="' . $config['start'] . '" />
-	  <meta itemprop="endDate" content="' . $config['start'] . '" />
-	  <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
-	
-	  <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="summerbo.at" />
+  
+  
+    <meta itemprop="name" content="Hot Summer Nights 2019" />
+    <meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
+    <meta itemprop="startDate" content="' . $config['start'] . '" />
+    <meta itemprop="endDate" content="' . $config['start'] . '" />
+    <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
+  
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
     <meta name="twitter:title" content="Hot Summer Nights 2019">
     <meta name="twitter:description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
     <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
-	  <meta name="twitter:creator" content="@summerbo_at" />
-	  
+    <meta name="twitter:creator" content="@summerbo_at" />
+    
     <base href="https://summerbo.at/" />
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
@@ -47,42 +47,42 @@ $head = '<meta charset="utf-8">
     <link rel="stylesheet" href="/css/css.css">
     <link rel="stylesheet" href="/css/badger-accordion.css">
     <link rel="stylesheet" href="/css/line-awesome.min.css">
-	  <script type="application/ld+json"> 
-		  {
-			  "@context": "http://www.schema.org",
-			  "@type": "Event",
-			  "name": "Hot Summer Nights 2019",
-			  "url": "https://summerbo.at",
-			  "description": "The 1st Summerbo.at \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
-			  "startDate": "' . $config['start'] . '",
-			  "endDate": "' . $config['start'] . '",
-			  "location": {
-			  "@type": "Place",
-			  "name": "Estrel Hotel Biergarten",
-			  "sameAs": "http://www.estrel.com",
-			  "address": {
-				  "@type": "PostalAddress",
-				  "streetAddress": "Ziegrastraße 44",
-				  "addressLocality": "Berlin",
-				  "postalCode": "12057",
-				  "addressCountry": "Germany"
-		    }
-		  }}
-	  </script>
-	  <script type="application/ld+json">
-		  {
-			  "@context": "http://schema.org",
-			  "@type": "Organization",
-			  "name": "Summerbo.at",
-			  "url": "https://summerbo.at",
-			  "logo": "https://summerbo.at/android-icon-192x192.png",
-			  "sameAs": [
-				  "https://twitter.com/summerbo_at",
-				  "https://t.me/summerboat",
-				  "https://instagram.com/Summerbo_at"
-			  ]
-		  }
-	  </script>
+    <script type="application/ld+json"> 
+      {
+        "@context": "http://www.schema.org",
+        "@type": "Event",
+        "name": "Hot Summer Nights 2019",
+        "url": "https://summerbo.at",
+        "description": "The 1st Summerbo.at \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+        "startDate": "' . $config['start'] . '",
+        "endDate": "' . $config['start'] . '",
+        "location": {
+        "@type": "Place",
+        "name": "Estrel Hotel Biergarten",
+        "sameAs": "http://www.estrel.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Ziegrastraße 44",
+          "addressLocality": "Berlin",
+          "postalCode": "12057",
+          "addressCountry": "Germany"
+        }
+      }}
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Summerbo.at",
+        "url": "https://summerbo.at",
+        "logo": "https://summerbo.at/android-icon-192x192.png",
+        "sameAs": [
+          "https://twitter.com/summerbo_at",
+          "https://t.me/summerboat",
+          "https://instagram.com/Summerbo_at"
+        ]
+      }
+    </script>
 ';
 
 $nav = '<nav id="nav" class="nav inactive">
@@ -140,16 +140,16 @@ $footer = '<section id="footer">
             <li><a class="unselectable flexCentered" href="https://t.me/summerboat" target="_blank"><i class="la la24 la-paper-plane"></i> @summerboat</a></li>
             <li><a class="unselectable flexCentered" href="https://twitter.com/summerbo_at" target="_blank"><i class="la la24 la-twitter-square"></i> @summerbo_at</a></li>
             <li><a class="unselectable flexCentered" href="mailto:team@summerbo.at" target="_blank"><i class="la la24 la-envelope"></i> team@summerbo.at</a></li>
-			<li><a class="unselectable flexCentered" href="https://t.me/summerboatinfo" target="_blank"><i class="la la24 la-info"></i> @summerboatinfo</a></li>
-			<li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
+      <li><a class="unselectable flexCentered" href="https://t.me/summerboatinfo" target="_blank"><i class="la la24 la-info"></i> @summerboatinfo</a></li>
+      <li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
           </ul>
           <ul class="blankList textSmall" style="margin-bottom: 2rem">
             <li><a href="contact" class="unselectable flexCentered" >Contact Us</a></li>
             <li><a href="/tos#terms" class="unselectable flexCentered">Terms of Service</a></li>
             <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
             <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
-			      <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
-			      <li><a href="https://github.com/datdraggy/summerbo.at" target="_blank" class="unselectable flexCentered">Source</a></li>
+            <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
+            <li><a href="https://github.com/datdraggy/summerbo.at" target="_blank" class="unselectable flexCentered">Source</a></li>
           </ul>
           <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
         </div>
