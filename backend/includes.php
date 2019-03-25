@@ -52,7 +52,7 @@ $head = '<meta charset="utf-8">
 			"@type": "Event",
 			"name": "Hot Summer Nights 2019",
 			"url": "https://summerbo.at",
-			"description": "The 1st \'Summerbo.at Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+			"description": "The 1st Summerbo.at \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
 			"startDate": "' . $config['start'] . '",
 			"endDate": "' . $config['start'] . '",
 			"location": {

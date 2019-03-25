@@ -316,9 +316,6 @@ function confirmRegistration($token) {
       if (isEarlyBird()) {
         $topay = $config['priceAttendeeEarly'];
       }
-      if ($row['sponsor']) {
-        $topay += $config['priceSponsor'];
-      }
 
       $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
       $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
