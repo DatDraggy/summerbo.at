@@ -56,17 +56,45 @@ $head = '<meta charset="utf-8">
         "startDate": "' . $config['start'] . '",
         "endDate": "' . $config['start'] . '",
         "location": {
-        "@type": "Place",
-        "name": "Estrel Hotel Biergarten",
-        "sameAs": "http://www.estrel.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Ziegrastraße 44",
-          "addressLocality": "Berlin",
-          "postalCode": "12057",
-          "addressCountry": "Germany"
-        }
-      }}
+          "@type": "Place",
+          "name": "Estrel Hotel Biergarten",
+          "sameAs": "http://www.estrel.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Ziegrastraße 44",
+            "addressLocality": "Berlin",
+            "postalCode": "12057",
+            "addressCountry": "Germany"
+          }
+        },
+        "image": "https://summerbo.at/images/headerWhite@2x.png",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://summerbo.at/#tickets",
+          "price": "35",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/OutOfStock",
+          "validFrom": "2019-01-27T11:00"
+        },
+        "performers": [
+          {
+            "@type": "Person",
+            "name": "BigBlueFox"
+          },
+          {
+            "@type": "Person",
+            "name": "Hausken"
+          },
+          {
+            "@type": "Person",
+            "name": "Gorsh"
+          },
+          {
+            "@type": "Person",
+            "name": "NeonKana"
+          }
+        ]
+      }
     </script>
     <script type="application/ld+json">
       {
