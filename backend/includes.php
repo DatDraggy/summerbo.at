@@ -13,11 +13,8 @@ $head = '<meta charset="utf-8">
     <meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
-    <meta itemprop="location" />
-      <meta itemprop="name" content="Estrel Hotel, Berlin, Germany">
-      <meta itemprop="address" content="Ziegrastraße 44, 12057 Berlin" />
-    </meta>
-    
+    <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
     <meta name="twitter:title" content="Hot Summer Nights 2019">
