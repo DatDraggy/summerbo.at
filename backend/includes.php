@@ -8,14 +8,13 @@ $head = '<meta charset="utf-8">
     <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="summerbo.at" />
-  
-  
+
     <meta itemprop="name" content="Hot Summer Nights 2019" />
     <meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
-  
+
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
     <meta name="twitter:title" content="Hot Summer Nights 2019">
@@ -23,7 +22,7 @@ $head = '<meta charset="utf-8">
     <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
-    
+
     <base href="https://summerbo.at/" />
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
