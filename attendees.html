@@ -116,10 +116,10 @@ $label['vip'][] = 'No VIP';
 
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html itemscope itemtype="http://schema.org/Event" prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
   <head>
     <title>Attendees &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
-    <?php echo $head; ?>
+    <?=$head?>
     <meta property="og:title" content="Attendees" />
     <meta property="og:description" content="Overview and statistics about our attendees" />
     <meta name="description" content="Overview and statistics about our attendees" />
@@ -282,7 +282,7 @@ $label['vip'][] = 'No VIP';
   </head>
   <body class="hasNav">
     <div id="app">
-      <?php echo $nav; ?>
+      <?=$nav?>
 
       <section id="contentPage">
         <!-- ========== Info text ========== -->
@@ -381,6 +381,6 @@ $label['vip'][] = 'No VIP';
           </div>
         </section>
       </section> <!--pageWrapper -->
-      <?php echo $footer; ?>
+      <?=$footer?>
   </body>
 </html>

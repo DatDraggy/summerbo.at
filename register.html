@@ -26,10 +26,10 @@ if (empty($_SESSION['secret'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html itemscope itemtype="http://schema.org/Event" prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
 <head>
   <title>Register &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
-  <?php echo $head; ?>
+  <?=$head?>
   <meta property="og:title" content="Register" />
   <meta property="og:description" content="Registration page for Attendees" />
   <meta name="description" content="Registration page for Attendees" />
@@ -87,7 +87,7 @@ if (empty($_SESSION['secret'])) {
   </head>
   <body class="hasNav">
     <div id="app">
-      <?php echo $nav; ?>
+      <?=$nav?>
 
       <section id="contentPage" class="noHeader wrapper wrapperCentered" >
         <section>
@@ -272,6 +272,6 @@ if (empty($_SESSION['secret'])) {
           CountDownTimer('2019-01-27T11:00:00');
         </script>-->
       <?php } ?>
-      <?php echo $footer; ?>
+      <?=$footer?>
   </body>
 </html>

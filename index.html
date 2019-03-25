@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html itemscope itemtype="http://schema.org/Event" prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
   <head>
     <title>Hot Summer Nights: Furry Summerbo.at Party</title>
-    <?php echo $head; ?>
+    <?=$head?>
     <meta property="og:title" content="Hot Summer Nights: Furry Summerbo.at Party" />
     <meta property="og:description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
     <meta name="description" content="Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019" />
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
   </head>
 <body class="hasNav">
 <div id="app">
-  <?php echo $nav; ?>
+  <?=$nav?>
   <section id="hero" class="hero lazy-bg">
     <div class="wrapper">
       <div class="row">
@@ -468,7 +468,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
     </section>
 
   </section> <!--pageWrapper -->
-  <?php echo $footer; ?>
+  <?=$footer?>
   <script>function CountDownTimer(a){function b(a){const b=new Date(<?= time() * 1000; ?>+1e3*a),i=c-b;0>=i&&(document.getElementById("count").style.display="none",clearInterval(h));const j=Math.floor(i/g),k=Math.floor(i%g/f),l=Math.floor(i%f/e),m=Math.floor(i%e/d);document.getElementById("count-min-1").innerHTML=j,document.getElementById("count-min-2").innerHTML=k,document.getElementById("count-min-3").innerHTML=l,document.getElementById("count-min-4").innerHTML=m}const c=new Date(a),d=1e3,e=60*d,f=60*e,g=24*f;let h,i=0;b(i),h=setInterval(function(){i+=1,b(i)},1e3)}CountDownTimer("<?=$config['start']?>T19:00:00");</script>
   <!--<script>
     function CountDownTimer(dt) {

@@ -6,9 +6,10 @@ $head = '<meta charset="utf-8">
   <meta name="rating" content="general" />
   <meta property="og:url" content="https://summerbo.at" />
   <meta property="og:image" content="https://summerbo.at/apple-icon-152x152.png" />
-  <meta property="og:type" content="website" />
-  
+  <meta property="og:type" content="website" />  
 	<meta property="og:site_name" content="summerbo.at" />
+	
+	
 	<meta itemprop="name" content="Hot Summer Nights 2019" />
 	<meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
 	<meta itemprop="startDate" content="' . $config['start'] . '" />

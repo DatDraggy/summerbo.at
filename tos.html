@@ -3,10 +3,10 @@ require_once('backend/config.php');
 require_once('backend/includes.php');
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html itemscope itemtype="http://schema.org/Event" prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
 <head>
   <title>ToS, Privacy, CoC &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
-  <?php echo $head; ?>
+  <?=$head?>
   <meta property="og:title" content="ToS, Privacy, CoC" />
   <meta property="og:description" content="Information regarding our terms of service, privacy agreement and code of conduct." />
   <meta name="description" content="Information regarding our terms of service, privacy agreement and code of conduct." />
@@ -34,7 +34,7 @@ require_once('backend/includes.php');
   </head>
   <body class="hasNav">
     <div id="app">
-      <?php echo $nav; ?>
+      <?=$nav?>
 
       <section id="contentPage">
 		<!-- ========== Info text ========== -->
@@ -269,6 +269,6 @@ require_once('backend/includes.php');
           <a class="button navItemButton buttonSecondary" href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-caret-square-o-up"></i>To the top</a>
         </div>
       </section> <!--pageWrapper -->
-      <?php echo $footer; ?>
+      <?=$footer?>
   </body>
 </html>
