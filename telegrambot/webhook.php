@@ -124,13 +124,13 @@ if ($chatId == '-1001203230309') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
     restrictChatMember($chatId, $userId, 3600);
+    addUserToNewUsers((string)$chatId, $userId);
     $name = $data['message']['new_chat_participant']['first_name'];
     if (isset($data['message']['new_chat_participant']['last_name'])) {
       $name .= ' ' . $data['message']['new_chat_participant']['last_name'];
     }
     $rules = "Welcome to the Summerbo.at Group, <a href=\"tg://user?id=$userId\">$name</a>!
 Follow the /rules and enjoy your stay~";
-    addUserToNewUsers((string)$chatId, $userId);
     $replyMarkup = array(
       'inline_keyboard' => array(
         array(
