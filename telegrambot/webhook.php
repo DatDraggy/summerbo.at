@@ -21,6 +21,7 @@ if (isset($data['callback_query'])) {
 
     if ($targetUserId == $senderUserId) {
       unrestrictUser($chatId, $senderUserId, $data['callback_query']['message']['message_id'], $data['callback_query']['message']['text']);
+
       answerCallbackQuery($queryId, 'Accepted.');
       die();
     }
@@ -160,13 +161,15 @@ Follow the /rules and enjoy your stay~";
 6. No talk about Piracy (Pirates in general are allowed)
 7. Keep your swim vest near you at all times
 8. Thank the captain and listen to the boat crew');
-          break;
+            break;
         }
       } else {
         //addUserToNewUsers((string)$chatId, $senderUserId);
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
-          if (!empty($data['message']['entities'])) {
+          if (!hasUserClickedButton($chatId, $senderUserId)) {
+            deleteMessage($chatId, $messageId);
+          } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
