@@ -816,6 +816,14 @@ function getRandomString($length = 40) {
 
 function sendMessage($chatId, $text, $replyMarkup = '') {
   global $config;
+  $data = array(
+    'disable_web_page_preview' => true,
+    'parse_mode' => 'html',
+    'chat_id' => $chatId,
+    'text' => $text,
+    'reply_markup' => $replyMarkup
+  );
+  return makeApiRequest('sendMessage', $data);
   $response = file_get_contents($config['url'] . "sendMessage?disable_web_page_preview=true&parse_mode=html&chat_id=$chatId&text=" . urlencode($text) . "&reply_markup=$replyMarkup");
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
@@ -823,6 +831,8 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
 
 function deleteMessage($chatId, $messageId){
   global $config;
+  $data = array('chat_id'=>$chatId, 'message_id'=>$messageId);
+  return makeApiRequest('deleteMessage', $data);
   $response = file_get_contents($config['url'] . "deleteMessage?chat_id=$chatId&message_id=$messageId");
   //Might use http_build_query in the future
 }
@@ -892,12 +902,16 @@ function isNewUsersFirstMessage($chatId, $userId) {
 function kickUser($chatId, $userId, $length = 40) {
   global $config;
   $until = time() + $length;
+  $data = array('chat_id'=>$chatId, 'user_id'=>$userId,'until_date'=>$until);
+  return makeApiRequest('kickChatMember', $data);
   $response = file_get_contents($config['url'] . "kickChatMember?chat_id=$chatId&user_id=$userId&until_date=$until");
   //Might use http_build_query in the future
 }
 
 function answerCallbackQuery($queryId, $text = '') {
   global $config;
+  $data = array('callback_query_id'=>$queryId, 'text'=>$text);
+  return makeApiRequest('answerCallbackQuery', $data);
   $response = file_get_contents($config['url'] . "answerCallbackQuery?callback_query_id=$queryId&text=" . urlencode($text));
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
@@ -906,6 +920,16 @@ function answerCallbackQuery($queryId, $text = '') {
 function restrictChatMember($chatId, $userId, $until = 0, $sendMessages = false, $sendMedia = false, $sendOther = false, $sendWebPreview = false) {
   global $config;
   $untilTimestamp = time() + $until;
+  $data = array(
+    'chat_id' => $chatId,
+    'user_id' => $userId,
+    'until_date' => $until,
+    'can_send_messages' => $sendMessages,
+    'can_send_media_messages' => $sendMedia,
+    'can_send_other_messages' => $sendOther,
+    'can_add_web_page_previews' => $sendWebPreview
+  );
+  return makeApiRequest('restrictChatMember', $data);
   $response = file_get_contents($config['url'] . "restrictChatMember?chat_id=$chatId&user_id=$userId&until_date=$untilTimestamp&can_send_messages=$sendMessages&can_send_media_messages=$sendMedia&can_send_other_messages=$sendOther&can_add_web_page_previews=$sendWebPreview");
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
@@ -934,6 +958,7 @@ function editMessageText($chatId, $messageId, $text, $replyMarkup = '', $inlineM
       'reply_markup' => $replyMarkup
     );
   }
+  return makeApiRequest('editMessageText', $data);
   $options = array(
     'http' => array(
       'header' => "Content-type: application/json\r\n",
@@ -1030,6 +1055,8 @@ function removeMessageHistory($chatId, $userId) {
 
 function sendVenue($chatId, $latitude, $longitude, $title, $address) {
   global $config;
+  $data = array('chat_id'=>$chatId, 'latitude'=>$latitude, 'longitude'=>$longitude, 'title'=>$title, 'address'=>$address);
+  return makeApiRequest('sendVenue', $data);
   $response = file_get_contents($config['url'] . "sendVenue?chat_id=$chatId&latitude=$latitude&longitude=$longitude&title=" . urlencode($title) . "&address=" . urlencode($address));
   //Might use http_build_query in the future
   return json_decode($response, true)['result'];
@@ -1128,3 +1155,18 @@ function getConfirmedAttendees() {
 /*
  * Reminders
  */
+
+function makeApiRequest($method, $data){
+  global $config;
+  $url = $config['url'] . $method;
+
+  $options = array(
+    'http' => array(
+      'header' => "Content-type: application/json\r\n",
+      'method' => 'POST',
+      'content' => json_encode($data)
+    )
+  );
+  $context = stream_context_create($options);
+  return json_decode(file_get_contents($url, false, $context), true)['result'];
+}
