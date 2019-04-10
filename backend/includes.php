@@ -8,7 +8,7 @@ $head = '<meta charset="utf-8">
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="summerbo.at" />
     
-    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:image" content="https://summerbo.at/images/og-image.jpg">
     <meta property="og:image:width" content="1415">
     <meta property="og:image:height" content="741">
     <meta property="og:url" content="https://summerbo.at/">
@@ -23,7 +23,7 @@ $head = '<meta charset="utf-8">
     <meta name="twitter:site" content="@summerbo_at">
     <meta name="twitter:title" content="Hot Summer Nights 2019">
     <meta name="twitter:description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019.">
-    <meta name="twitter:image" content="https://summerbo.at/android-icon-192x192.png">
+    <meta name="twitter:image" content="https://summerbo.at/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
 
