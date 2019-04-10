@@ -39,6 +39,9 @@ $head = '<meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="apple-mobile-web-app-title" content="Hot Summer Nights 2019 Summerbo.at Party">
+    <meta name="application-name" content="Hot Summer Nights 2019 Summerbo.at Party">
     <meta name="msapplication-TileColor" content="#1afbc4">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#1afbc4">

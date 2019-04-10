@@ -1,5 +1,5 @@
 {
- "name": "Hot Summer Nights Summerbo.at Party",
+ "name": "Hot Summer Nights 2019 Summerbo.at Party",
  "short_name": "Summerbo.at Party",
  "theme_color": "#1afbc4",
  "icons": [
@@ -38,6 +38,11 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
+  },
+  {
+   "src": "/android-chrome-512x512.png",
+   "sizes": "512x512",
+   "type": "image/png"
   }
  ]
 }
