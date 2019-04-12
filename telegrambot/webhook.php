@@ -123,7 +123,33 @@ if (isset($data['message']['text'])) {
 if ($chatId == '-1001203230309') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
-    restrictChatMember($chatId, $userId, 3600);
+    //restrictChatMember($chatId, $userId, 3600);
+
+
+    ignore_user_abort(true);
+    set_time_limit(0);
+
+    ob_start();
+    $untilTimestamp = time() + 3600;
+    $data = array(
+      'method' => 'restrictChatMember',
+      'chat_id' => $chatId,
+      'user_id' => $userId,
+      'until_date' => $untilTimestamp,
+      'can_send_messages' => false,
+      'can_send_media_messages' => false,
+      'can_send_other_messages' => false,
+      'can_add_web_page_previews' => false
+    );
+    echo json_encode($data);
+    header('Content-type: application/json');
+    header('Connection: close');
+    header('Content-Length: '.ob_get_length());
+    ob_end_flush();
+    ob_flush();
+    flush();
+
+
     addUserToNewUsers((string)$chatId, $userId);
     $name = $data['message']['new_chat_participant']['first_name'];
     if (isset($data['message']['new_chat_participant']['last_name'])) {
