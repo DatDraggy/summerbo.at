@@ -908,7 +908,7 @@ function restrictChatMember($chatId, $userId, $until = 0, $sendMessages = false,
   $data = array(
     'chat_id' => $chatId,
     'user_id' => $userId,
-    'until_date' => $until,
+    'until_date' => $untilTimestamp,
     'can_send_messages' => $sendMessages,
     'can_send_media_messages' => $sendMedia,
     'can_send_other_messages' => $sendOther,
