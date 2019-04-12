@@ -131,7 +131,7 @@ if ($chatId == '-1001203230309') {
 
     ob_start();
     $untilTimestamp = time() + 3600;
-    $data = array(
+    $returndata = array(
       'method' => 'restrictChatMember',
       'chat_id' => $chatId,
       'user_id' => $userId,
@@ -141,7 +141,7 @@ if ($chatId == '-1001203230309') {
       'can_send_other_messages' => false,
       'can_add_web_page_previews' => false
     );
-    echo json_encode($data);
+    echo json_encode($returndata);
     header('Content-type: application/json');
     header('Connection: close');
     header('Content-Length: '.ob_get_length());
