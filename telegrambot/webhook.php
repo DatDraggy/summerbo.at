@@ -235,9 +235,7 @@ To get a command overview, send /help.');
     case ($command === '/help'):
       sendMessage($chatId, 'Applying for Volunteer: /apply
 Location: /venue
-Badge pickup: /badge
-ID: /id
-');
+Badge pickup: /badge');
       break;
     case ($command === '/id'):
       sendMessage($chatId, $chatId . ' ' . $senderUserId);
