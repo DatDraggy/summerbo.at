@@ -188,6 +188,12 @@ Follow the /rules and enjoy your stay~";
 7. Keep your swim vest near you at all times
 8. Thank the captain and listen to the boat crew');
             break;
+          case ($command === '/venue'):
+            sendVenue($chatId, 52.473208, 13.458217, 'Estrel Sommergarten', 'Ziegrastraße 44, 12057 Berlin');
+            break;
+          case ($command === '/badge'):
+            sendMessage($chatId, 'On the day of the party you can pick up the badge inside the Estrel Hotel during the afternoon or in the evening in the Biergarten near the boat. Please make sure you bring your ID or Passport with you. The badge is your entrance to the party so please do not lose it. There will be no tickets sold on the day itself.');
+            break;
         }
       } else {
         //addUserToNewUsers((string)$chatId, $senderUserId);
