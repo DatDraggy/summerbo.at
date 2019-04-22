@@ -199,6 +199,7 @@ Follow the /rules and enjoy your stay~";
         //addUserToNewUsers((string)$chatId, $senderUserId);
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
+          mail($config['mail'], 'Summerboat Dump', $dump);
           if (!hasUserClickedButton($chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
           } else if (!empty($data['message']['entities'])) {
@@ -210,6 +211,11 @@ Follow the /rules and enjoy your stay~";
                 }
                 break;
               }
+            }
+          } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE){
+            deleteMessage($chatId, $messageId);
+            if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+              kickUser($chatId, $senderUserId, 0);
             }
           }
           isNewUsersFirstMessage((string)$chatId, $senderUserId);
