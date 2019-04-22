@@ -16,7 +16,7 @@ if (isset($data['callback_query'])) {
   $chatType = $data['callback_query']['message']['chat']['type'];
   $callbackData = $data['callback_query']['data'];
   $senderUserId = $data['callback_query']['from']['id'];
-  if ($chatId == '-1001203230309') {
+  if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
     list($targetUserId, $status) = explode('|', $callbackData);
 
     if ($targetUserId == $senderUserId) {
@@ -120,7 +120,7 @@ if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
 }
 
-if ($chatId == '-1001203230309') {
+if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
     //restrictChatMember($chatId, $userId, 3600);
