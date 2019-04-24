@@ -170,6 +170,9 @@ Follow the /rules and enjoy your stay~";
     $message = sendMessage($chatId, $rules, json_encode($replyMarkup));
     addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $messageId, time());
     addMessageToHistory($chatId, $data['message']['new_chat_participant']['id'], $message['message_id']);
+    if ($name == 'Bot Notification') {
+      kickUser($chatId, $userId, '0');
+    }
     die();
   } else {
     if (isset($text)) {
