@@ -213,8 +213,9 @@ Follow the /rules and enjoy your stay~";
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
-                if (isNewUsersFirstMessage((string)$chatId, $senderUserId) == true) {
-                  mail($config['mail'], 'Debug', print_r(kickUser($chatId, $senderUserId, 0), true));
+                mail($config['mail'], 'Debug', print_r(isNewUsersFirstMessage((string)$chatId, $senderUserId), true));
+                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  kickUser($chatId, $senderUserId, 0);
                 }
                 break;
               }
