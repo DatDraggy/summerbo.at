@@ -206,14 +206,17 @@ Follow the /rules and enjoy your stay~";
         //addUserToNewUsers((string)$chatId, $senderUserId);
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
-          mail($config['mail'], 'Summerboat Dump', $dump);
+          $status = 1;
           if (!hasUserClickedButton((string)$chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
+            $status .= 2;
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
+                $status.= 3;
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  $status .=4;
                   kickUser($chatId, $senderUserId, 0);
                 }
                 break;
@@ -222,8 +225,10 @@ Follow the /rules and enjoy your stay~";
           } else if (!empty($data['message']['caption_entities'])) {
             foreach ($data['message']['caption_entities'] as $entity) {
               if ($entity['type'] == 'url') {
+                $status .= 5;
                 deleteMessage($chatId, $messageId);
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  $status .= 6;
                   kickUser($chatId, $senderUserId, 0);
                 }
                 break;
@@ -231,11 +236,13 @@ Follow the /rules and enjoy your stay~";
             }
           } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE) {
             deleteMessage($chatId, $messageId);
+            $status .= 7;
             if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-              kickUser($chatId, $senderUserId, 0);
+              $status .= 8;kickUser($chatId, $senderUserId, 0);
             }
           }
           isNewUsersFirstMessage((string)$chatId, $senderUserId);
+          mail($config['mail'], 'Summerboat Dump', $status . $dump);
         }
       }
       die();
