@@ -209,6 +209,7 @@ Follow the /rules and enjoy your stay~";
           $status = 1;
           if (!hasUserClickedButton((string)$chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
+            kickUser($chatId, $senderUserId, 0);
             $status .= 2;
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
