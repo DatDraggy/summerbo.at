@@ -118,6 +118,8 @@ if (isset($data['message']['from']['last_name'])) {
 }
 if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
+} else if (isset($data['message']['caption'])) {
+  $text = $data['message']['caption'];
 }
 
 mail($config['mail'], 'Summerboat Dump', $dump);
