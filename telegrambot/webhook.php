@@ -122,7 +122,6 @@ if (isset($data['message']['text'])) {
   $text = $data['message']['caption'];
 }
 
-mail($config['mail'], 'Summerboat Dump', $dump);
 if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
@@ -206,18 +205,15 @@ Follow the /rules and enjoy your stay~";
         //addUserToNewUsers((string)$chatId, $senderUserId);
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
-          $status = 1;
+          mail($config['mail'], 'Summerboat Dump', $dump);
           if (!hasUserClickedButton((string)$chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
             kickUser($chatId, $senderUserId, 0);
-            $status .= 2;
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
-                $status.= 3;
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-                  $status .=4;
                   kickUser($chatId, $senderUserId, 0);
                 }
                 break;
@@ -226,10 +222,8 @@ Follow the /rules and enjoy your stay~";
           } else if (!empty($data['message']['caption_entities'])) {
             foreach ($data['message']['caption_entities'] as $entity) {
               if ($entity['type'] == 'url') {
-                $status .= 5;
                 deleteMessage($chatId, $messageId);
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-                  $status .= 6;
                   kickUser($chatId, $senderUserId, 0);
                 }
                 break;
@@ -237,13 +231,11 @@ Follow the /rules and enjoy your stay~";
             }
           } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE) {
             deleteMessage($chatId, $messageId);
-            $status .= 7;
             if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-              $status .= 8;kickUser($chatId, $senderUserId, 0);
+              kickUser($chatId, $senderUserId, 0);
             }
           }
           isNewUsersFirstMessage((string)$chatId, $senderUserId);
-          mail($config['mail'], 'Summerboat Dump', $status . $dump);
         }
       }
       die();
