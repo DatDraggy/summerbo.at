@@ -207,13 +207,12 @@ Follow the /rules and enjoy your stay~";
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
           mail($config['mail'], 'Summerboat Dump', $dump);
-          if (!hasUserClickedButton($chatId, $senderUserId)) {
+          if (!hasUserClickedButton((string)$chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
-                mail($config['mail'], 'Debug', print_r(isNewUsersFirstMessage((string)$chatId, $senderUserId), true));
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
                   kickUser($chatId, $senderUserId, 0);
                 }
