@@ -120,6 +120,7 @@ if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
 }
 
+mail($config['mail'], 'Summerboat Dump', $dump);
 if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
   if (isset($data['message']['new_chat_participant']) && $data['message']['new_chat_participant']['is_bot'] != 1) {
     $userId = $data['message']['new_chat_participant']['id'];
