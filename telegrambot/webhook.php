@@ -219,7 +219,17 @@ Follow the /rules and enjoy your stay~";
                 break;
               }
             }
-          } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE){
+          } else if (!empty($data['message']['caption_entities'])) {
+            foreach ($data['message']['caption_entities'] as $entity) {
+              if ($entity['type'] == 'url') {
+                deleteMessage($chatId, $messageId);
+                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  kickUser($chatId, $senderUserId, 0);
+                }
+                break;
+              }
+            }
+          } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE) {
             deleteMessage($chatId, $messageId);
             if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
               kickUser($chatId, $senderUserId, 0);
