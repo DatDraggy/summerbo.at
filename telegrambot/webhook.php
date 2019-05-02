@@ -214,7 +214,7 @@ Follow the /rules and enjoy your stay~";
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
                 if (isNewUsersFirstMessage((string)$chatId, $senderUserId) == true) {
-                  kickUser($chatId, $senderUserId, 0);
+                  mail($config['mail'], 'Debug', print_r(kickUser($chatId, $senderUserId, 0), true));
                 }
                 break;
               }
