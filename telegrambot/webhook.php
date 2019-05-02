@@ -21,7 +21,7 @@ if (isset($data['callback_query'])) {
 
     if ($targetUserId == $senderUserId) {
       unrestrictUser($chatId, $senderUserId, $data['callback_query']['message']['message_id'], $data['callback_query']['message']['text']);
-      userClickedButton($chatId, $senderUserId);
+      userClickedButton((string)$chatId, $senderUserId);
       answerCallbackQuery($queryId, 'Accepted.');
       die();
     }
