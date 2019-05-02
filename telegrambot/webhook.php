@@ -213,7 +213,7 @@ Follow the /rules and enjoy your stay~";
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
                 deleteMessage($chatId, $messageId);
-                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                if (isNewUsersFirstMessage((string)$chatId, $senderUserId) == true) {
                   kickUser($chatId, $senderUserId, 0);
                 }
                 break;
