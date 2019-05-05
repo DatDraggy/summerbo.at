@@ -5,6 +5,8 @@ if (php_sapi_name() != "cli") {
 require_once('../config.php');
 require_once('../funcs.php');
 
+$dbConnection = buildDatabaseConnection($config);
+
 $email = '';
 $nickname = '';
 sendEmail($email, 'Your Summerbo.at Registration has been canceled', "Dear $nickname,
