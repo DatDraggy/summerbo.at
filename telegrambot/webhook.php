@@ -21,7 +21,7 @@ if (isset($data['callback_query'])) {
 
     if ($targetUserId == $senderUserId) {
       unrestrictUser($chatId, $senderUserId, $data['callback_query']['message']['message_id'], $data['callback_query']['message']['text']);
-      userClickedButton($chatId, $senderUserId);
+      userClickedButton((string)$chatId, $senderUserId);
       answerCallbackQuery($queryId, 'Accepted.');
       die();
     }
@@ -118,6 +118,8 @@ if (isset($data['message']['from']['last_name'])) {
 }
 if (isset($data['message']['text'])) {
   $text = $data['message']['text'];
+} else if (isset($data['message']['caption'])) {
+  $text = $data['message']['caption'];
 }
 
 if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
@@ -204,8 +206,9 @@ Follow the /rules and enjoy your stay~";
         //if (json_decode(file_get_contents('users.json'), true)[$chatId][$senderUserId] < time() + 1800){
         if (isNewUser((string)$chatId, $senderUserId)) {
           mail($config['mail'], 'Summerboat Dump', $dump);
-          if (!hasUserClickedButton($chatId, $senderUserId)) {
+          if (!hasUserClickedButton((string)$chatId, $senderUserId)) {
             deleteMessage($chatId, $messageId);
+            kickUser($chatId, $senderUserId, 0);
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
@@ -216,7 +219,17 @@ Follow the /rules and enjoy your stay~";
                 break;
               }
             }
-          } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE){
+          } else if (!empty($data['message']['caption_entities'])) {
+            foreach ($data['message']['caption_entities'] as $entity) {
+              if ($entity['type'] == 'url') {
+                deleteMessage($chatId, $messageId);
+                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                  kickUser($chatId, $senderUserId, 0);
+                }
+                break;
+              }
+            }
+          } else if (stripos($text, 'http') !== FALSE || stripos($text, 'https') !== FALSE) {
             deleteMessage($chatId, $messageId);
             if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
               kickUser($chatId, $senderUserId, 0);
