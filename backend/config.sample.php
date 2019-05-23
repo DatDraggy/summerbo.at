@@ -18,6 +18,7 @@ $config['regOpen'] = false;
 $config['captchaSecret'] = '';
 $config['attendeesMax'] = 300;
 $config['secret'] = '';
+$config['permitted_domains'] = ['google.com'];
 
 $status[0] = 'NEW - New registration';
 $status[1] = 'VERIFIED - Email address verified';
