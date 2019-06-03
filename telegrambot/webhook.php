@@ -5,6 +5,8 @@ if (stripos($_SERVER['REQUEST_URI'], $config['secretPath']) === false) {
   die('Get Lost.');
 }
 require_once(__DIR__ . '/../backend/funcs.php');
+require_once('/var/libraries/composer/vendor/autoload.php');
+//^ guzzlehttp
 
 $response = file_get_contents('php://input');
 $data = json_decode($response, true);

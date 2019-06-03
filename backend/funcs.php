@@ -1121,23 +1121,18 @@ function getConfirmedAttendees() {
  * Reminders
  */
 
-function makeApiRequest($method, $data){
-  global $config;
-  $url = $config['url'] . $method;
-
-  $options = array(
-    'http' => array(
-      'header' => "Content-type: application/json\r\n",
-      'method' => 'POST',
-      'content' => json_encode($data)
-    )
-  );
-  $context = stream_context_create($options);
-  $return = json_decode(file_get_contents($url, false, $context), true);
-  if ($return['ok'] != 1){
-    mail($config['mail'], 'Error', print_r($return, true) . "\n" . print_r($options, true) . "\n" . __FILE__);
+function makeApiRequest($method, $data) {
+  global $config, $client;
+  if (!($client instanceof \GuzzleHttp\Client)) {
+    $client = new \GuzzleHttp\Client(['base_uri' => $config['url']]);
   }
-  return $return['result'];
+  try {
+    $response = $client->request('POST', $method, array('json' => $data));
+  } catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    $body = $e->getResponse()->getBody();
+    mail($config['mail'], 'Error', print_r($body->getContents(), true) . "\n" . print_r($data, true) . "\n" . __FILE__);
+  }
+  return json_decode($response->getBody(), true)['result'];
 }
 
 function striposa($haystack, $needles = array(), $offset = 0) {
