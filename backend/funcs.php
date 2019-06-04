@@ -1131,6 +1131,7 @@ function makeApiRequest($method, $data) {
   } catch (\GuzzleHttp\Exception\BadResponseException $e) {
     $body = $e->getResponse()->getBody();
     mail($config['mail'], 'Error', print_r($body->getContents(), true) . "\n" . print_r($data, true) . "\n" . __FILE__);
+    return false;
   }
   return json_decode($response->getBody(), true)['result'];
 }
