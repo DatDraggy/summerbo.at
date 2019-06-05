@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . '/../backend/config.php');
 require_once(__DIR__ . '/../backend/funcs.php');
+require_once('/var/libraries/composer/vendor/autoload.php');
+//^ guzzlehttp
 
 $dbConnection = buildDatabaseConnection($config);
 
