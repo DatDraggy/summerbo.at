@@ -127,7 +127,7 @@ if (empty($_SESSION['secret'])) {
               if (!empty($status)) {
                 echo '<div class="info-box-err">' . $status . '</div>';
               } ?>
-                <?php if ($regOpen || $secret === $config['secret']) { ?>
+              <?php if ($regOpen || $secret === $config['secret']) { ?>
               <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
@@ -214,7 +214,7 @@ if (empty($_SESSION['secret'])) {
                   </div>
                   <button class="button buttonPrimary">Submit</button>
               </form>
-                <?php } else { /*echo '<div class="formWrapper"></div>'; */} ?>
+              <?php } else { echo '<div class="formWrapper"></div>'; } ?>
             </div>
           </div>
         </section>
