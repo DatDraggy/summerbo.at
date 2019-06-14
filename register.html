@@ -100,11 +100,11 @@ if (empty($_SESSION['secret'])) {
         <section id="registration-form">
           <div class="row">
             <div class="content">
-              <h3>Registration</h3>
               <?php
               $slotsLeft = $attendeesMax - $attendees;
               if ($slotsLeft > 0) {
                 ?>
+                <h3>Registration</h3>
                 <p>Please fill in all details because everything is required to register succesfully.</p>
                 <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and
                   <em>Terms and Conditions</em>. You
@@ -119,7 +119,10 @@ if (empty($_SESSION['secret'])) {
                   }
                 }
               } else {
-                echo "<h4>Sorry, all slots are taken!</h4>";
+                echo "
+              <h3>Registration Closed</h3>
+              <br>
+              <p><b>Sorry, all slots are taken!</b></p>";
               }
               if (!empty($status)) {
                 echo '<div class="info-box-err">' . $status . '</div>';
