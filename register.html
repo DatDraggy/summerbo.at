@@ -101,29 +101,31 @@ if (empty($_SESSION['secret'])) {
           <div class="row">
             <div class="content">
               <h3>Registration</h3>
-			  <p>Please fill in all details because everything is required to register succesfully.</p>
-            <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and <em>Terms and Conditions</em>. You
-              can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
-			<p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
               <?php
               $slotsLeft = $attendeesMax - $attendees;
-              if ($slotsLeft <= 100 && $slotsLeft > 0) {
-                if ($slotsLeft == 1) {
-                  echo "<p>There is only 1 slot left!</p>";
-                } else {
-                  echo "<p>There are only $slotsLeft slots left!</p>";
+              if ($slotsLeft > 0) {
+                ?>
+                <p>Please fill in all details because everything is required to register succesfully.</p>
+                <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and
+                  <em>Terms and Conditions</em>. You
+                  can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
+                <p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
+                <?php
+                if ($slotsLeft <= 100 && $slotsLeft > 0) {
+                  if ($slotsLeft == 1) {
+                    echo "<p>There is only 1 slot left!</p>";
+                  } else {
+                    echo "<p>There are only $slotsLeft slots left!</p>";
+                  }
                 }
+              } else {
+                echo "<p>All slots are taken!</p>";
               }
-              else if($slotsLeft <= 0){
-                echo "<p>All slots are taken! However some slots might free up because of canceled registrations, so remember to check back.</p>";
-              }
-              ?>
-              <?php
-              if(!empty($status)){
-                echo '<div class="info-box-err">'.$status.'</div>';
-              }?>
-              <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
+              if (!empty($status)) {
+                echo '<div class="info-box-err">' . $status . '</div>';
+              } ?>
                 <?php if ($regOpen || $secret === $config['secret']) { ?>
+              <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
                     <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
@@ -208,8 +210,8 @@ if (empty($_SESSION['secret'])) {
                     </div>
                   </div>
                   <button class="button buttonPrimary">Submit</button>
-                <?php } else { echo '<!--Registration will open on Sunday the 27th January 2019, 11:00 CET<br>-->'; } ?>
               </form>
+                <?php } else { echo '<div class="formWrapper"></div>'; } ?>
             </div>
           </div>
         </section>
