@@ -1147,7 +1147,7 @@ function searchForAttendee($userId, $search) {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  if ($stmt->rowCount() === 0) {
+  if ($stmt->rowCount() == 0) {
     try {
       $sql = "INSERT INTO search_log(`user_id`, `search`, `time`) VALUES($userId, $search, UNIX_TIMESTAMP())";
       $stmt = $dbConnection->prepare('INSERT INTO search_log(`user_id`, `search`, `time`) VALUES(:userId, :search, UNIX_TIMESTAMP())');
