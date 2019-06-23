@@ -55,8 +55,12 @@ if (!empty($_SESSION['userId'])) {
 
       <div class="row">
         <div class="content">
-          <h2 id="adminresults" class="headline">Search</h2>
+          <h2 id="adminsearch" class="headline">Search</h2>
           <p>Do not search for date of birth, favorite color or species.</p>
+        </div>
+		<div class="content">
+          <h2 id="adminresults" class="headline">Search results</h2>
+          <p>Please only select the person that needs to be checked in. Once checked in, it's not possible to check out anymore. Aka, Hotel California effect.</p>
         </div>
 	  </div>
 	  <div class="row">
@@ -71,12 +75,8 @@ if (!empty($_SESSION['userId'])) {
                       data-callback="onSubmit">Search
               </button>
             </div>
+		 </form>
 	    </div>
-      
-        <div class="content">
-          <h2 id="adminresults" class="headline">Search results</h2>
-          <p>Please only select the person that needs to be checked in. Once checked in, it's not possible to check out anymore. Aka, Hotel California effect.</p>
-        </div>
 	   </div>
 
     </section>
