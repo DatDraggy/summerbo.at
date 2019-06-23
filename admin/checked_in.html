@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../backend/funcs.php');
 require_once(__DIR__ . '/../backend/config.php');
-require_once(__DIR__ . '/../backend/includes.php');
+require_once(__DIR__ . '/../backend/includesAdmin.php');
 header('Cache-Control: max-age=0');
 session_start();
 if (!empty($_SESSION['userId'])) {
@@ -34,9 +34,11 @@ if (!empty($_SESSION['userId'])) {
   <title>Summerbo.at Admin: Badge Pickup</title>
   <?=$head?>
 </head>
-<body>
+<body class="hasNav">
+<div id="app">
+  <?=$nav?>
 
 
-<?=$footer?>
+  <?=$footer?>
 </body>
 </html>
