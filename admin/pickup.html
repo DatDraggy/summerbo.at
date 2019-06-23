@@ -14,6 +14,15 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
+    $searchResults = '
+            <tr style="text-align: center">
+              <td>Test Dragon</td>
+              <td>Sir Lanzelot von Adel</td>
+              <td>321</td>
+              <td>123</td>
+              <td><input disabled type="checkbox" name="sponsor" id="sponsor" class="input" checked></td>
+              <td><input disabled type="checkbox" name="earlybird" id="earlybird" class="input"></td>
+            </tr>';
   }
 } else {
   /*if (isset($_COOKIE[session_name()])) {
@@ -33,6 +42,22 @@ if (!empty($_SESSION['userId'])) {
 <head>
   <title>Summerbo.at Admin: Badge Pickup</title>
   <?= $head ?>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
 </head>
 <body class="hasNav">
 <div id="app">
@@ -82,16 +107,7 @@ if (!empty($_SESSION['userId'])) {
               <th><label for="sponsor">VIP</label></th>
               <th><label for="earlybird">Early Bird</label></th>
             </tr>
-            <tr>
-              <td>Test Dragon</td>
-              <td>Sir Lanzelot von Adel</td>
-              <td>321</td>
-              <td>123</td>
-              <td><div class="checkboxWrapper">
-                  <div class="checkboxGroup VIP">
-                    <input type="checkbox" name="sponsor" id="sponsor" class="input" checked></div></div></td>
-              <td><div class="checkboxWrapper"><div class="checkboxGroup"><input disabled type="checkbox" name="earlybird" id="earlybird" class="input"></div></div></td>
-            </tr>
+            <?=$searchResults?>
           </table>
         </div>
       </div>
