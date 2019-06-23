@@ -14,7 +14,6 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
-    mail($config['mail'], 'Debug', print_r($_POST, true));
     $status = '';
     $searchResults = '';
     if (isset($_POST['searchadminfield'])) {

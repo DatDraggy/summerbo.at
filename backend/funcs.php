@@ -1147,6 +1147,7 @@ function searchForAttendee($userId, $search) {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
+  mail($config['mail'], 'Debug', $stmt->rowCount());
   if ($stmt->rowCount() == 0) {
     try {
       $sql = "INSERT INTO search_log(`user_id`, `search`, `time`) VALUES($userId, $search, UNIX_TIMESTAMP())";
@@ -1168,6 +1169,8 @@ function searchForAttendee($userId, $search) {
     } catch (PDOException $e) {
       notifyOnException('Database Select', $config, $sql, $e);
     }
+
+    mail($config['mail'], 'Debug', print_r($rows, true));
     $searchResults = '';
     foreach ($rows as $row){
       $searchResults .= '
