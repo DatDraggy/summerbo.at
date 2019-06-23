@@ -52,12 +52,16 @@ if (!empty($_SESSION['userId'])) {
 	<section>
       <div class="row">
         <div class="content">
-          <h2 id="adminsearch" class="headline">Search</h2>
-          <p>Do not search for date of birth, favorite color or species.</p>
-        </div>
-		<div class="content">
-          <h2 id="adminresults" class="headline">Search results</h2>
-          <p>Please only select the person that needs to be checked in. Once checked in, it's not possible to check out anymore. Aka, Hotel California effect.</p>
+          <h2 id="adminresultlist" class="headline">Attendee List</h2>
+          <p>The complete list of all people, use the filters for different views.</p>
+		  <form class="formWrapper" id="adminsearch" method="post">
+		   <div class="formRow">
+              <button class="button buttonPrimary" data-callback="onSubmit">All</button>
+			  <button class="button buttonPrimary" data-callback="onSubmit">Checked In</button>
+			  <button class="button buttonPrimary" data-callback="onSubmit">Absent</button>
+			  <button class="button buttonPrimary" data-callback="onSubmit">VIP's</button>
+            </div>
+		  </form>
         </div>
 	  </div>
 	  </section>
