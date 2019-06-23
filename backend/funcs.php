@@ -1204,7 +1204,7 @@ function getAttendeesAdmin($userId, $filter) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
 
-  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early, CASE checked_in WHEN NOT NULL THEN 'checked' END as checked_in FROM users INNER JOIN balance b on users.id = b.id";
+  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early, CASE checked_in WHEN NULL THEN '' ELSE checked_in END as checked_in FROM users INNER JOIN balance b on users.id = b.id";
   if ($filter === 'checkedin') {
     $sql = $sql . ' WHERE checked_in IS NOT NULL';
   } else if ($filter === 'absent') {
@@ -1228,7 +1228,7 @@ function getAttendeesAdmin($userId, $filter) {
               <td>' . $row['efregid'] . '</td>
               <td><input type="checkbox" name="sponsor" id="sponsor" class="input" ' . $row['sponsor'] . '></td>
               <td><input type="checkbox" name="earlybird" id="earlybird" class="input" ' . $row['early'] . '></td>
-              <td><input type="checkbox" name="checkedin" id="checkedin" class="input" ' . $row['checked_in'] . '></td>
+              <td>' . date('Y-m-d H:i', $row['checked_in']) . '></td>
             </tr>';
   }
   return $attendeeList;
