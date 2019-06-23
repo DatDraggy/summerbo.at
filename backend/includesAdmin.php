@@ -41,30 +41,19 @@ $nav = '<nav id="nav" class="nav inactive">
               <p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/#about">About</a>
+            <a class="navLink" href="/pickup">Check-in</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/#tickets">Tickets</a>
+            <a class="navLink" href="/list">Attendee List</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/#faq">FAQ</a>
+            <a class="navLink" href="/stats">Statistics</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/#team">Team</a>
-          </div>
-          <div class="navItem">
-            <a class="navLink" href="/attendees" >Attendees</a>
-          </div>
-          <div class="navItem">
-            <a class="navLink" href="/tos#rules" >Conduct</a>
+            <a class="navLink" href="/help">Help</a>
           </div>
         </div>
-        <div class="navButtons">
-          <div class="navItem">
-            <a class="button navItemButton buttonPrimary" href="/register"><i
-                      style="font-size: 24px; margin-right: .5rem; margin-top:-4px;"
-                      class="la la-ticket"></i>Register</a>
-          </div>
+       
           <div class="navItem">
             <a class="button navItemButton buttonSecondary" href="/login"><i
                       style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
