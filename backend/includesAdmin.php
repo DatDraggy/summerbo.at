@@ -53,12 +53,6 @@ $nav = '<nav id="nav" class="nav inactive">
             <a class="navLink" href="/admin/help">Help</a>
           </div>
         </div>
-       
-          <div class="navItem">
-            <a class="button navItemButton buttonSecondary" href="/login"><i
-                      style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-key"></i>Login</a>
-          </div>
-        </div>
       </div>
     </div>
   </nav>';
