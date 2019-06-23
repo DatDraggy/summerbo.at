@@ -60,7 +60,7 @@ if (!empty($_SESSION['userId'])) {
           <form class="formWrapper" id="adminsearch" method="post">
             <div class="inputWrapper">
               <label for="searchadminfield"><span>Summerbo.at Check-in</span></label>
-              <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Name, Nickname, REG ID, EF ID" required/>
+              <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Name, Nickname, Boat ID, EF ID" required/>
             </div>
             <div class="formRow">
               <button class="button buttonPrimary"
@@ -73,6 +73,26 @@ if (!empty($_SESSION['userId'])) {
           <h2 id="adminresults" class="headline">Search results</h2>
           <p>Please only select the person that needs to be checked in. Once checked in, it's not possible to check out
             anymore. Aka, Hotel California effect.</p>
+          <table>
+            <tr>
+              <th>Nickname</th>
+              <th>Real Name</th>
+              <th>Boat ID</th>
+              <th>EF ID</th>
+              <th><label for="sponsor">VIP</label></th>
+              <th><label for="earlybird">Early Bird</label></th>
+            </tr>
+            <tr>
+              <td>Test Dragon</td>
+              <td>Sir Lanzelot von Adel</td>
+              <td>321</td>
+              <td>123</td>
+              <td><div class="checkboxWrapper">
+                  <div class="checkboxGroup VIP">
+                    <input type="checkbox" name="sponsor" id="sponsor" class="input" checked></div></div></td>
+              <td><div class="checkboxWrapper"><div class="checkboxGroup"><input type="checkbox" name="earlybird" id="earlybird" class="input"></div></td>
+            </tr>
+          </table>
         </div>
       </div>
     </section>
