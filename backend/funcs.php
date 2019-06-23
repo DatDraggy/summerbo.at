@@ -1121,7 +1121,7 @@ function checkInAttendee($userId, $regId) {
   global $dbConnection, $config;
   try {
     $sql = "UPDATE users SET checked_in = UNIX_TIMESTAMP(), checked_in_by = $userId WHERE id = $regId";
-    $stmt = $dbConnection->prepare('UPDATE test_checkin SET checked_in = UNIX_TIMESTAMP(), checked_in_by = :userId WHERE id = :regId');
+    $stmt = $dbConnection->prepare('UPDATE users SET checked_in = UNIX_TIMESTAMP(), checked_in_by = :userId WHERE id = :regId');
     $stmt->bindParam(':regId', $regId);
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
@@ -1147,7 +1147,7 @@ function searchForAttendee($userId, $search) {
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
-  mail($config['mail'], 'Debug', $stmt->rowCount());
+
   if ($stmt->rowCount() == 0) {
     try {
       $sql = "INSERT INTO search_log(`user_id`, `search`, `time`) VALUES($userId, $search, UNIX_TIMESTAMP())";
