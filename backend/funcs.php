@@ -1231,6 +1231,7 @@ function getAttendeesAdmin($userId, $filter) {
               <td><input type="checkbox" name="checkedin" id="checkedin" class="input" ' . $row['checked_in'] . '></td>
             </tr>';
   }
+  return $attendeeList;
 }
 
 /*
