@@ -17,7 +17,7 @@ if (!empty($_SESSION['userId'])) {
     $status = '';
     $attendeeList = '';
     if (!empty($_GET['filter'])) {
-      $attendeeList = getAttendeesAdmin($requesterUserId, $_GET['filter']);
+      list($attendeeList, $rowCount) = getAttendeesAdmin($requesterUserId, $_GET['filter']);
     }
   }
 } else {
@@ -93,6 +93,7 @@ if (!empty($_SESSION['userId'])) {
       </div>
       <div class="row">
         <div class="content">
+          <?=$rowCount?> rows returned
           <table>
             <tr>
               <th>Nickname</th>
