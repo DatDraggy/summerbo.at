@@ -19,8 +19,12 @@ if (!empty($_SESSION['userId'])) {
     if (isset($_POST['searchadminfield'])) {
       $search = $_POST['searchadminfield'];
       $searchResults = searchForAttendee($requesterUserId, $search);
-    }
-    else if (isset($_POST['regid'])) {
+      if ($searchResults === false) {
+        $status = 'Cooldown! Please wait 30 seconds.';
+      } else if (empty($searchResults)) {
+        $status = 'No results.';
+      }
+    } else if (isset($_POST['regid'])) {
       $regId = $_POST['regid'];
       if (checkInAttendee($requesterUserId, $regId)) {
         $status = $_POST['regid'] . ' checked in.';
