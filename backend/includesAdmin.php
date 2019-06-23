@@ -41,16 +41,16 @@ $nav = '<nav id="nav" class="nav inactive">
               <p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/pickup">Check-in</a>
+            <a class="navLink" href="/admin/pickup">Check-in</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/list">Attendee List</a>
+            <a class="navLink" href="/admin/list">Attendee List</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/stats">Statistics</a>
+            <a class="navLink" href="/admin/stats">Statistics</a>
           </div>
           <div class="navItem">
-            <a class="navLink" href="/help">Help</a>
+            <a class="navLink" href="/admin/help">Help</a>
           </div>
         </div>
        
