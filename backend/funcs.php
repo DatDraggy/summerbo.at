@@ -1231,7 +1231,28 @@ function getAttendeesAdmin($userId, $filter) {
               <td>' . date('Y-m-d H:i', $row['checked_in']) . '</td>
             </tr>';
   }
-  return [$attendeeList, $stmt->rowCount()];
+  return [
+    $attendeeList,
+    $stmt->rowCount()
+  ];
+}
+
+function getAdminStats() {
+  global $dbConnection, $config;
+  try {
+    $sql = 'SELECT (SELECT COUNT(id) FROM users) as total, (SELECT COUNT(id) FROM users WHERE checked_in IS NOT NULL) as checked_in, (SELECT COUNT(id) FROM users WHERE checked_in IS NULL) as absent, (SELECT COUNT(id) FROM users WHERE sponsor = 1) as vip';
+    $stmt = $dbConnection->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  return [
+    $row['total'],
+    $row['checked_in'],
+    $row['absent'],
+    $row['vip']
+  ];
 }
 
 /*

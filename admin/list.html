@@ -20,6 +20,7 @@ if (!empty($_SESSION['userId'])) {
     if (!empty($_GET['filter'])) {
       list($attendeeList, $rowCount) = getAttendeesAdmin($requesterUserId, $_GET['filter']);
     }
+    list($attendeesTotal, $attendeesCheckedIn, $attendeesAbsent, $attendeesVip) = getAdminStats();
   }
 } else {
   /*if (isset($_COOKIE[session_name()])) {
@@ -75,7 +76,26 @@ if (!empty($_SESSION['userId'])) {
         </div>
       </div>
     </section>
-
+    <section>
+      <div class="row">
+        <div class="content">
+          <table>
+            <tr>
+              <th>Total</th>
+              <th>Checked-In</th>
+              <th>Absent</th>
+              <th>VIP</th>
+            </tr>
+            <tr>
+              <td><?= $attendeesTotal ?></td>
+              <td><?= $attendeesCheckedIn ?></td>
+              <td><?= $attendeesAbsent ?></td>
+              <td><?= $attendeesVip ?></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
     <section>
       <div class="row">
         <div class="content">
@@ -94,7 +114,7 @@ if (!empty($_SESSION['userId'])) {
       </div>
       <div class="row">
         <div class="content">
-          <?=$rowCount?> rows returned
+          <?= $rowCount ?> rows returned
           <table>
             <tr>
               <th>Nickname</th>
