@@ -14,19 +14,18 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
-    if(isset($_POST['regid'])){
-      echo $_POST['regid'];
+    if (isset($_POST['regid'])) {
+      $regId = $_POST['regid'];
+      if (checkInAttendee($requesterUserId, $regId)) {
+        $status = $_POST['regid'] . ' checked in.';
+      } else {
+        $status = 'An error occured. Please contact the administrator.';
+      }
+    } else if (isset($_POST['searchadminfield'])) {
+      $search = $_POST['searchadminfield'];
+
+      $searchResults = searchForAttendee($requesterUserId, $search);
     }
-    $searchResults = '
-            <tr style="text-align: center">
-              <td>Test Dragon</td>
-              <td>Sir Lanzelot von Adel</td>
-              <td>321</td>
-              <td>123</td>
-              <td><input disabled type="checkbox" name="sponsor" id="sponsor" class="input" checked></td>
-              <td><input disabled type="checkbox" name="earlybird" id="earlybird" class="input"></td>
-              <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="321">Check-In</button></div></form></td>
-            </tr>';
   }
 } else {
   /*if (isset($_COOKIE[session_name()])) {
@@ -84,6 +83,10 @@ if (!empty($_SESSION['userId'])) {
     <section>
       <div class="row">
         <div class="content">
+          <?php
+          if (!empty($status)) {
+            echo '<div class="info-box-succ">' . $status . '</div>';
+          } ?>
           <h2 id="adminsearch" class="headline">Search</h2>
           <p>Do not search for date of birth, favorite color or species.</p>
           <form class="formWrapper" id="adminsearch" method="post">
