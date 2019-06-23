@@ -1120,7 +1120,7 @@ function getConfirmedAttendees() {
 function checkInAttendee($userId, $regId) {
   global $dbConnection, $config;
   try {
-    $sql = "UPDATE test_checkin SET checked_in = UNIX_TIMESTAMP(), checked_in_by = $userId WHERE id = $regId";
+    $sql = "UPDATE users SET checked_in = UNIX_TIMESTAMP(), checked_in_by = $userId WHERE id = $regId";
     $stmt = $dbConnection->prepare('UPDATE test_checkin SET checked_in = UNIX_TIMESTAMP(), checked_in_by = :userId WHERE id = :regId');
     $stmt->bindParam(':regId', $regId);
     $stmt->bindParam(':userId', $userId);

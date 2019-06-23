@@ -14,6 +14,7 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
+    $status = '';
     if (isset($_POST['regid'])) {
       $regId = $_POST['regid'];
       if (checkInAttendee($requesterUserId, $regId)) {
@@ -23,7 +24,6 @@ if (!empty($_SESSION['userId'])) {
       }
     } else if (isset($_POST['searchadminfield'])) {
       $search = $_POST['searchadminfield'];
-
       $searchResults = searchForAttendee($requesterUserId, $search);
     }
   }
