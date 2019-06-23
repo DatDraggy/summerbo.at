@@ -11,7 +11,7 @@ if (!empty($_SESSION['userId'])) {
   $rank = 0;
   if (checkRegValid($requesterUserId)) {
     $rank = getUserRank($requesterUserId);
-    if($rank < 3){
+    if ($rank < 3) {
       die('Insufficient Permissions');
     }
   }
@@ -32,41 +32,43 @@ if (!empty($_SESSION['userId'])) {
 <html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
 <head>
   <title>Summerbo.at Admin: Badge Pickup</title>
-  <?=$head?>
+  <?= $head ?>
 </head>
 <body class="hasNav">
 <div id="app">
-  <?=$nav?>
+  <?= $nav ?>
   <section id="contentPage">
-  <section class="ribbon" style="background-color: var(--colorPink)">
+    <section class="ribbon" style="background-color: var(--colorPink)">
       <div class="wrapper">
         <div class="row">
           <div style="color:white" class="content wsLarge">
             <h1 id="legal">Check-in List</h1>
-            <p class="textBig">This page is only available for the crew of Summerboat. Please login to use all abilities.</p>
+            <p class="textBig">This page is only available for the crew of Summerboat. Please login to use all
+              abilities.</p>
           </div>
         </div>
       </div>
     </section>
-	
-	<section>
+
+    <section>
       <div class="row">
         <div class="content">
           <h2 id="adminresultlist" class="headline">Attendee List</h2>
-          <p>The complete list of all people, use the filters for different views. If it's not giving any results, please poke the dragon.</p>
-		  <form class="formWrapper" id="adminsearch" method="post">
-		   <div class="formRow">
-              <button class="button buttonPrimary" data-callback="onSubmit">All</button>
-			  <button class="button buttonPrimary" data-callback="onSubmit">Checked In</button>
-			  <button class="button buttonPrimary" data-callback="onSubmit">Absent</button>
-			  <button class="button buttonPrimary" data-callback="onSubmit">VIP's</button>
-            </div>
-		  </form>
+          <p>The complete list of all people, use the filters for different views. If it's not giving any results,
+            please poke the dragon.</p>
         </div>
-	  </div>
-	  </section>
+      </div>
+      <div class="row">
+        <div class="content">
+          <a class="button buttonPrimary" data-callback="onSubmit">All</a>
+          <a class="button buttonPrimary" data-callback="onSubmit">Checked In</a>
+          <a class="button buttonPrimary" data-callback="onSubmit">Absent</a>
+          <a class="button buttonPrimary" data-callback="onSubmit">VIP's</a>
+        </div>
+      </div>
+    </section>
   </section>
 
-  <?=$footer?>
+  <?= $footer ?>
 </body>
 </html>
