@@ -1154,6 +1154,7 @@ function searchForAttendee($userId, $search) {
       $stmt = $dbConnection->prepare('INSERT INTO search_log(`user_id`, `search`, `time`) VALUES(:userId, :search, UNIX_TIMESTAMP())');
       $stmt->bindParam(':userId', $userId);
       $stmt->bindParam(':search', $search);
+      $stmt->execute();
     } catch (PDOException $e) {
       notifyOnException('Database Insert', $config, $sql, $e);
     }
@@ -1162,8 +1163,11 @@ function searchForAttendee($userId, $search) {
       $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early FROM users INNER JOIN balance b on users.id = b.id WHERE nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search'";
       $stmt = $dbConnection->prepare("SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early 
             FROM users INNER JOIN balance b on users.id = b.id 
-            WHERE nickname LIKE ':search' OR CONCAT(first_name, ' ', last_name) LIKE ':search' OR users.id LIKE ':search' OR efregid LIKE ':search'");
-      $stmt->bindParam(':search', $search);
+            WHERE nickname LIKE ':search1' OR CONCAT(first_name, ' ', last_name) LIKE ':search2' OR users.id LIKE ':search3' OR efregid LIKE ':search4'");
+      $stmt->bindParam(':search1', $search);
+      $stmt->bindParam(':search2', $search);
+      $stmt->bindParam(':search3', $search);
+      $stmt->bindParam(':search4', $search);
       $stmt->execute();
       $rows = $stmt->fetchAll();
     } catch (PDOException $e) {
