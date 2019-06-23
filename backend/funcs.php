@@ -1160,10 +1160,10 @@ function searchForAttendee($userId, $search) {
     }
     $search = '%' . $search . '%';
     try {
-      $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early FROM users INNER JOIN balance b on users.id = b.id WHERE nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search'";
+      $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early FROM users INNER JOIN balance b on users.id = b.id WHERE (nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search') AND checked_in IS NULL";
       $stmt = $dbConnection->prepare("SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early 
             FROM users INNER JOIN balance b on users.id = b.id 
-            WHERE nickname LIKE :search1 OR CONCAT(first_name, ' ', last_name) LIKE :search2 OR users.id LIKE :search3 OR efregid LIKE :search4
+            WHERE (nickname LIKE :search1 OR CONCAT(first_name, ' ', last_name) LIKE :search2 OR users.id LIKE :search3 OR efregid LIKE :search4)
             AND checked_in IS NULL");
       $stmt->bindParam(':search1', $search);
       $stmt->bindParam(':search2', $search);
