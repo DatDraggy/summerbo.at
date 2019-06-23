@@ -1187,7 +1187,7 @@ function searchForAttendee($userId, $search) {
               <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="'.$row['id'].'">Check-In</button></div></form></td>
             </tr>';
     }
-    return [$searchResults, $stmt->rowCount()];
+    return $searchResults;
   }
   return false;
 }
@@ -1231,7 +1231,7 @@ function getAttendeesAdmin($userId, $filter) {
               <td>' . date('Y-m-d H:i', $row['checked_in']) . '</td>
             </tr>';
   }
-  return $attendeeList;
+  return [$attendeeList, $stmt->rowCount()];
 }
 
 /*

@@ -16,6 +16,7 @@ if (!empty($_SESSION['userId'])) {
     }
     $status = '';
     $attendeeList = '';
+    $rowCount = 0;
     if (!empty($_GET['filter'])) {
       list($attendeeList, $rowCount) = getAttendeesAdmin($requesterUserId, $_GET['filter']);
     }
