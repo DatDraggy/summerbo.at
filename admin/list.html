@@ -14,6 +14,11 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
+    $status = '';
+    $attendeeList = '';
+    if (!empty($_GET['filter'])) {
+      $attendeeList = getAttendeesAdmin($requesterUserId, $_GET['filter']);
+    }
   }
 } else {
   /*if (isset($_COOKIE[session_name()])) {
@@ -60,10 +65,26 @@ if (!empty($_SESSION['userId'])) {
       </div>
       <div class="row">
         <div class="content" style="display: contents">
-          <a class="button buttonPrimary" href="?all">All</a>
-          <a class="button buttonPrimary" href="?checkedin">Checked In</a>
-          <a class="button buttonPrimary" href="?absent">Absent</a>
-          <a class="button buttonPrimary" href="?vip">VIP's</a>
+          <a class="button buttonPrimary" href="/admin/list?filter=all">All</a>
+          <a class="button buttonPrimary" href="/admin/list?filter=checkedin">Checked In</a>
+          <a class="button buttonPrimary" href="/admin/list?filter=absent">Absent</a>
+          <a class="button buttonPrimary" href="/admin/list?filter=vip">VIP's</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="content">
+          <table>
+            <tr>
+              <th>Nickname</th>
+              <th>Real Name</th>
+              <th>Boat ID</th>
+              <th>EF ID</th>
+              <th><label for="sponsor">VIP</label></th>
+              <th><label for="earlybird">Early</label></th>
+              <th><label for="checkedin">Checked In</label></th>
+            </tr>
+            <?= $attendeeList ?>
+          </table>
         </div>
       </div>
     </section>

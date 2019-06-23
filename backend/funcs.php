@@ -1192,6 +1192,47 @@ function searchForAttendee($userId, $search) {
   return false;
 }
 
+function getAttendeesAdmin($userId, $filter) {
+  global $dbConnection, $config;
+  try {
+    $sql = "INSERT INTO search_log(user_id, search, time) VALUES ($userId, CONCAT('list ', $filter), UNIX_TIMESTAMP())";
+    $stmt = $dbConnection->prepare("INSERT INTO search_log(user_id, search, time) VALUES (:userId, CONCAT('list ', :filter), UNIX_TIMESTAMP())");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':filter', $filter);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+
+  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early, CASE checked_in WHEN NOT NULL THEN 'checked' END as checked_in FROM users INNER JOIN balance b on users.id = b.id";
+  if ($filter === 'checkedin') {
+    $sql = $sql . ' WHERE checked_in IS NOT NULL';
+  } else if ($filter === 'absent') {
+    $sql = $sql . ' WHERE checked_in IS NULL';
+  } else if ($filter === 'vip') {
+    $sql = $sql . ' WHERE sponsor = 1';
+  }
+  try {
+    $stmt = $dbConnection->prepare($sql);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  $attendeeList = '';
+  foreach ($rows as $row) {
+    $attendeeList .= '<tr>
+              <td>' . $row['nickname'] . '</td>
+              <td>' . $row['name'] . '</td>
+              <td>' . $row['id'] . '</td>
+              <td>' . $row['efregid'] . '</td>
+              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" ' . $row['sponsor'] . '></td>
+              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" ' . $row['early'] . '></td>
+              <td><input type="checkbox" name="checkedin" id="checkedin" class="input" ' . $row['checked_in'] . '></td>
+            </tr>';
+  }
+}
+
 /*
  * Reminders
  */
