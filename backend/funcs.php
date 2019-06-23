@@ -1228,7 +1228,7 @@ function getAttendeesAdmin($userId, $filter) {
               <td>' . $row['efregid'] . '</td>
               <td><input type="checkbox" name="sponsor" id="sponsor" class="input" ' . $row['sponsor'] . '></td>
               <td><input type="checkbox" name="earlybird" id="earlybird" class="input" ' . $row['early'] . '></td>
-              <td>' . date('Y-m-d H:i', $row['checked_in']) . '></td>
+              <td>' . date('Y-m-d H:i', $row['checked_in']) . '</td>
             </tr>';
   }
   return $attendeeList;
