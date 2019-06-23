@@ -1182,8 +1182,8 @@ function searchForAttendee($userId, $search) {
               <td>'.$row['name'].'</td>
               <td>'.$row['id'].'</td>
               <td>'.$row['efregid'].'</td>
-              <td><input disabled type="checkbox" name="sponsor" id="sponsor" class="input" '.$row['sponsor'].'></td>
-              <td><input disabled type="checkbox" name="earlybird" id="earlybird" class="input" '.$row['early'].'></td>
+              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" '.$row['sponsor'].'></td>
+              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" '.$row['early'].'></td>
               <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="'.$row['id'].'">Check-In</button></div></form></td>
             </tr>';
     }
