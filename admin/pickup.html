@@ -58,9 +58,18 @@ if (!empty($_SESSION['userId'])) {
         <div class="content">
           <h2 id="terms" class="headline">Search attendee</h2>
           <p><strong>Please use nickname, real name, reg id or ef reg id</strong></p>
-
         </div>
-
+        <div class="content">
+		 <form class="formWrapper" id="adminsearch" method="post">
+		 <div class="inputWrapper">
+              <label for="searchadminfield"><span>Summerbo.at Registration Number</span></label>
+              <input name="regnumber" id="regnumber" class="input" placeholder="Name, Nickname, REG ID, EF ID" autocomplete="username" required/>
+         </div>
+		 <div class="formRow">
+              <button class="button buttonPrimary"
+                      data-callback="onSubmit">Login
+              </button>
+            </div>
       </div>
 
     </section>
