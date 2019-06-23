@@ -1183,6 +1183,7 @@ function searchForAttendee($userId, $search) {
     }
     return $searchResults;
   }
+  return false;
 }
 
 /*

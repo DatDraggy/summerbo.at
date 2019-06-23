@@ -14,17 +14,20 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
+    mail($config['mail'], 'Debug', print_r($_POST, true));
     $status = '';
-    if (isset($_POST['regid'])) {
+    $searchResults = '';
+    if (isset($_POST['searchadminfield'])) {
+      $search = $_POST['searchadminfield'];
+      $searchResults = searchForAttendee($requesterUserId, $search);
+    }
+    else if (isset($_POST['regid'])) {
       $regId = $_POST['regid'];
       if (checkInAttendee($requesterUserId, $regId)) {
         $status = $_POST['regid'] . ' checked in.';
       } else {
         $status = 'An error occured. Please contact the administrator.';
       }
-    } else if (isset($_POST['searchadminfield'])) {
-      $search = $_POST['searchadminfield'];
-      $searchResults = searchForAttendee($requesterUserId, $search);
     }
   }
 } else {
