@@ -11,4 +11,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to test appropriately.
 
 ## License
-[MIT](LICSENSE.md)
+[MIT](LICENSE.md)
