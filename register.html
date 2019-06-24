@@ -307,7 +307,8 @@ if (empty($_SESSION['secret'])) {
       <?=$footer?>
       <script>document.getElementById('GoodForm').addEventListener('submit', function(e){
           e.preventDefault();
-          if (getAge(document.getElementById('dob').value) < 18) {
+          const dateArr = document.getElementById('dob').value.split('.');
+          if (getAge(dateArr[2]+'-'+dateArr[1]+'-'+dateArr[0]) < 18) {
             document.getElementById('passwordMessage').innerHTML = "You have to be at least 18 years old on the day of the party.";
             document.getElementById('passwordMessage').style.color = "#ff6666";
           }
