@@ -94,7 +94,7 @@ if (empty($_SESSION['secret'])) {
         document.getElementById('passwordMessage').style.color = "#ff6666";
         document.getElementById('passwordMessage').innerHTML = "Password was <a href=\"https://haveibeenpwned.com/Passwords\">leaked</a> before, choose another one and change it on all sites!";
       } else {
-        //document.getElementById('GoodForm').submit();
+        document.getElementById('GoodForm').submit();
         document.getElementById('passwordMessage').style.color = "#ff6666";
         document.getElementById('passwordMessage').innerHTML = "Good pass";
       }
@@ -296,7 +296,7 @@ if (empty($_SESSION['secret'])) {
       <?=$footer?>
       <script>document.getElementById('GoodForm').addEventListener('submit', function(e){
           e.preventDefault();
-          hibpCheck(document.getElementById('password'));
+          hibpCheck(document.getElementById('password').value);
         });</script>
   </body>
 </html>
