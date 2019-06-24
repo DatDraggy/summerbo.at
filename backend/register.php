@@ -254,7 +254,7 @@ try{
   $row = $stmt->fetch();
 }catch (PDOException $e){
   notifyOnException('Database Insert', $config, $sql, $e);
-  $status = 'Unknown Error in Registration. Administrator has been notified';
+  $status = 'Unknown Error in Registration. Administrator has been notified.';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
@@ -297,7 +297,7 @@ if (strlen($countryPost) == 2) {
 }
 
 if ($dbConnection === false) {
-  $status = 'Database Connection Broken. Notifications have been sent.';
+  $status = 'Database Connection Broken. Administrator has been notified.';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
