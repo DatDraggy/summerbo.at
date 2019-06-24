@@ -10,6 +10,7 @@ if (!empty($_GET['token'])) {
 
   if (isset($_GET['email'])) {
     if (confirmEmail($token)) {
+      //Confirm new email
       session_start();
       $status = 'Email changed';
       $_SESSION['statusSuccess'] = $status;
@@ -25,6 +26,7 @@ if (!empty($_GET['token'])) {
     }
   } else if (isset($_GET['emailold'])) {
     if (confirmNewEmail($token)) {
+      //Confirm old email for new email
       session_start();
       $status = 'A confirmation has been sent to the new email';
       $_SESSION['statusSuccess'] = $status;
@@ -39,8 +41,10 @@ if (!empty($_GET['token'])) {
       die($status);
     }
   } else if (isset($_GET['password'])) {
+    //Password forgotten
     header('Location: password?token=' . $token);
   } else {
+    //Confirmation link from first email after reg
     session_start();
     $status = 'Registration Successful';
     $_SESSION['status'] = $status;

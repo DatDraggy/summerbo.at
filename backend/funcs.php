@@ -313,9 +313,6 @@ function confirmRegistration($token) {
       $userIdInternal = $row['id_internal'];
 
       $topay = $config['priceAttendee'];
-      if (isEarlyBird()) {
-        $topay = $config['priceAttendeeEarly'];
-      }
 
       $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
       $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
@@ -340,8 +337,9 @@ function confirmRegistration($token) {
 You have successfully verified your email. 
 
 Our registration team will now check your details. You will get another email about this soon.
-It can take a couple of hours before your registration is accepted. You should receive another mail from us about the next step after being accepted.
-It shouldn't take more than 24 hours.
+You won't be able to login to your account yet, and it can take a couple of hours before your registration is accepted. 
+You should receive another mail from us about the next step after being accepted.
+However, it shouldn't take more than 24 hours.
 
 Your current status is: {$config['status'][1]} - Regnumber $userId
 
