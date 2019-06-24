@@ -1117,6 +1117,144 @@ function getConfirmedAttendees() {
   return $row['count'];
 }
 
+function checkInAttendee($userId, $regId) {
+  global $dbConnection, $config;
+  try {
+    $sql = "UPDATE users SET checked_in = UNIX_TIMESTAMP(), checked_in_by = $userId WHERE id = $regId";
+    $stmt = $dbConnection->prepare('UPDATE users SET checked_in = UNIX_TIMESTAMP(), checked_in_by = :userId WHERE id = :regId');
+    $stmt->bindParam(':regId', $regId);
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Update', $config, $sql, $e);
+    return false;
+  }
+  if ($stmt->rowCount() === 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function searchForAttendee($userId, $search) {
+  global $dbConnection, $config;
+  try {
+    $sql = "SELECT time FROM search_log WHERE time + 30 > UNIX_TIMESTAMP() AND user_id = $userId";
+    $stmt = $dbConnection->prepare('SELECT time FROM search_log WHERE time + 30 > UNIX_TIMESTAMP() AND user_id = :userId');
+    $stmt->bindParam(':userId', $userId);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+
+  if ($stmt->rowCount() == 0) {
+    try {
+      $sql = "INSERT INTO search_log(`user_id`, `search`, `time`) VALUES($userId, $search, UNIX_TIMESTAMP())";
+      $stmt = $dbConnection->prepare('INSERT INTO search_log(`user_id`, `search`, `time`) VALUES(:userId, :search, UNIX_TIMESTAMP())');
+      $stmt->bindParam(':userId', $userId);
+      $stmt->bindParam(':search', $search);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Insert', $config, $sql, $e);
+    }
+    $search = '%' . $search . '%';
+    try {
+      $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early FROM users INNER JOIN balance b on users.id = b.id WHERE (nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search') AND checked_in IS NULL";
+      $stmt = $dbConnection->prepare("SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early 
+            FROM users INNER JOIN balance b on users.id = b.id 
+            WHERE (nickname LIKE :search1 OR CONCAT(first_name, ' ', last_name) LIKE :search2 OR users.id LIKE :search3 OR efregid LIKE :search4)
+            AND checked_in IS NULL");
+      $stmt->bindParam(':search1', $search);
+      $stmt->bindParam(':search2', $search);
+      $stmt->bindParam(':search3', $search);
+      $stmt->bindParam(':search4', $search);
+      $stmt->execute();
+      $rows = $stmt->fetchAll();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+    }
+    $searchResults = '';
+    foreach ($rows as $row){
+      $searchResults .= '
+            <tr>
+              <td>'.$row['nickname'].'</td>
+              <td>'.$row['name'].'</td>
+              <td>'.$row['id'].'</td>
+              <td>'.$row['efregid'].'</td>
+              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" '.$row['sponsor'].'></td>
+              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" '.$row['early'].'></td>
+              <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="'.$row['id'].'">Check-In</button></div></form></td>
+            </tr>';
+    }
+    return $searchResults;
+  }
+  return false;
+}
+
+function getAttendeesAdmin($userId, $filter) {
+  global $dbConnection, $config;
+  try {
+    $sql = "INSERT INTO search_log(user_id, search, time) VALUES ($userId, CONCAT('list ', $filter), UNIX_TIMESTAMP())";
+    $stmt = $dbConnection->prepare("INSERT INTO search_log(user_id, search, time) VALUES (:userId, CONCAT('list ', :filter), UNIX_TIMESTAMP())");
+    $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':filter', $filter);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+
+  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE topay WHEN 25 THEN 'checked' ELSE '' END as early, CASE checked_in WHEN NULL THEN '' ELSE checked_in END as checked_in FROM users INNER JOIN balance b on users.id = b.id";
+  if ($filter === 'checkedin') {
+    $sql = $sql . ' WHERE checked_in IS NOT NULL';
+  } else if ($filter === 'absent') {
+    $sql = $sql . ' WHERE checked_in IS NULL';
+  } else if ($filter === 'vip') {
+    $sql = $sql . ' WHERE sponsor = 1';
+  }
+  try {
+    $stmt = $dbConnection->prepare($sql);
+    $stmt->execute();
+    $rows = $stmt->fetchAll();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  $attendeeList = '';
+  foreach ($rows as $row) {
+    $attendeeList .= '<tr>
+              <td>' . $row['nickname'] . '</td>
+              <td>' . $row['name'] . '</td>
+              <td>' . $row['id'] . '</td>
+              <td>' . $row['efregid'] . '</td>
+              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" ' . $row['sponsor'] . '></td>
+              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" ' . $row['early'] . '></td>
+              <td>' . date('Y-m-d H:i', $row['checked_in']) . '</td>
+            </tr>';
+  }
+  return [
+    $attendeeList,
+    $stmt->rowCount()
+  ];
+}
+
+function getAdminStats() {
+  global $dbConnection, $config;
+  try {
+    $sql = 'SELECT (SELECT COUNT(id) FROM users) as total, (SELECT COUNT(id) FROM users WHERE checked_in IS NOT NULL) as checked_in, (SELECT COUNT(id) FROM users WHERE checked_in IS NULL) as absent, (SELECT COUNT(id) FROM users WHERE sponsor = 1) as vip';
+    $stmt = $dbConnection->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+  }
+  return [
+    $row['total'],
+    $row['checked_in'],
+    $row['absent'],
+    $row['vip']
+  ];
+}
+
 /*
  * Reminders
  */

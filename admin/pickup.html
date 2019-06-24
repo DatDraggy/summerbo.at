@@ -1,0 +1,137 @@
+<?php
+require_once(__DIR__ . '/../backend/funcs.php');
+require_once(__DIR__ . '/../backend/config.php');
+require_once(__DIR__ . '/../backend/includesAdmin.php');
+header('Cache-Control: max-age=0');
+session_start();
+if (!empty($_SESSION['userId'])) {
+  $requesterUserId = $_SESSION['userId'];
+  session_commit();
+  $dbConnection = buildDatabaseConnection($config);
+  $rank = 0;
+  if (checkRegValid($requesterUserId)) {
+    $rank = getUserRank($requesterUserId);
+    if ($rank < 3) {
+      die('Insufficient Permissions');
+    }
+    $status = '';
+    $searchResults = '';
+    if (isset($_POST['searchadminfield'])) {
+      $search = $_POST['searchadminfield'];
+      $searchResults = searchForAttendee($requesterUserId, $search);
+      if ($searchResults === false) {
+        $status = 'Cooldown! Please wait 30 seconds.';
+      } else if (empty($searchResults)) {
+        $status = 'No results.';
+      }
+    } else if (isset($_POST['regid'])) {
+      $regId = $_POST['regid'];
+      if (checkInAttendee($requesterUserId, $regId)) {
+        $status = $_POST['regid'] . ' checked in.';
+      } else {
+        $status = 'An error occured. Please contact the administrator.';
+      }
+    }
+  }
+} else {
+  /*if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();*/
+  $status = 'You are not logged in.';
+  $_SESSION['status'] = $status;
+  $_SESSION['location'] = $_SERVER['REQUEST_URI'];
+  session_commit();
+  header('Location: ../login');
+  die($status);
+}
+?>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
+<head>
+  <title>Summerbo.at Admin: Badge Pickup</title>
+  <?= $head ?>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    input[type=checkbox] {
+      transform: scale(2);
+    }
+  </style>
+</head>
+<body class="hasNav">
+<div id="app">
+  <?= $nav ?>
+  <section id="contentPage">
+    <!-- ========== Info text ========== -->
+
+    <section class="ribbon" style="background-color: var(--colorPink)">
+      <div class="wrapper">
+        <div class="row">
+          <div style="color:white" class="content wsLarge">
+            <h1 id="legal">Check-in</h1>
+            <p class="textBig">This page is only available for the crew of Summerboat. Please login to use all
+              abilities.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="row">
+        <div class="content">
+          <?php
+          if (!empty($status)) {
+            echo '<div class="info-box-succ">' . $status . '</div>';
+          } ?>
+          <h2 id="adminsearch" class="headline">Search</h2>
+          <p>Do not search for date of birth, favorite color or species.</p>
+          <form class="formWrapper" id="adminsearch" method="post">
+            <div class="inputWrapper">
+              <label for="searchadminfield"><span>Summerbo.at Check-in</span></label>
+              <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Name, Nickname, Boat ID, EF ID" required/>
+            </div>
+            <div class="formRow">
+              <button class="button buttonPrimary"
+                      data-callback="onSubmit">Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="content">
+          <h2 id="adminresults" class="headline">Search results</h2>
+          <p>Please only select the person that needs to be checked in. Once checked in, it's not possible to check out
+            anymore. Aka, Hotel California effect.</p>
+          <table>
+            <tr>
+              <th>Nickname</th>
+              <th>Real Name</th>
+              <th>Boat ID</th>
+              <th>EF ID</th>
+              <th><label for="sponsor">VIP</label></th>
+              <th><label for="earlybird">Early</label></th>
+              <th>Check-In</th>
+            </tr>
+            <?=$searchResults?>
+          </table>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <?= $footer ?>
+</body>
+</html>

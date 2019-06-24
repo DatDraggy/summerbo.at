@@ -1,0 +1,44 @@
+<?php
+require_once(__DIR__ . '/../backend/funcs.php');
+require_once(__DIR__ . '/../backend/config.php');
+require_once(__DIR__ . '/../backend/includesAdmin.php');
+header('Cache-Control: max-age=0');
+session_start();
+if (!empty($_SESSION['userId'])) {
+  $requesterUserId = $_SESSION['userId'];
+  session_commit();
+  $dbConnection = buildDatabaseConnection($config);
+  $rank = 0;
+  if (checkRegValid($requesterUserId)) {
+    $rank = getUserRank($requesterUserId);
+    if($rank < 3){
+      die('Insufficient Permissions');
+    }
+  }
+} else {
+  /*if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();*/
+  $status = 'You are not logged in.';
+  $_SESSION['status'] = $status;
+  $_SESSION['location'] = $_SERVER['REQUEST_URI'];
+  session_commit();
+  header('Location: ../login');
+  die($status);
+}
+?>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
+<head>
+  <title>Summerbo.at Admin: Badge Pickup</title>
+  <?=$head?>
+</head>
+<body class="hasNav">
+<div id="app">
+  <?=$nav?>
+
+
+  <?=$footer?>
+</body>
+</html>
