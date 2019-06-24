@@ -92,11 +92,11 @@ if (empty($_SESSION['secret'])) {
     document.addEventListener('hibpCheck', function (e) {
       if(e.detail){
         document.getElementById('passwordMessage').style.color = "#ff6666";
-        document.getElementById('passwordMessage').innerHTML = "Password was <a href=\"https://haveibeenpwned.com/Passwords\">leaked</a> before, choose another one and change it on all sites!";
+        document.getElementById('passwordMessage').innerHTML = "Password was <a target=\"_blank\" href=\"https://haveibeenpwned.com/Passwords\">leaked</a> before, choose another one and change it on all sites!";
       } else {
+        document.getElementById('passwordMessage').style.color = null;
+        document.getElementById('passwordMessage').innerHTML = "";
         document.getElementById('GoodForm').submit();
-        document.getElementById('passwordMessage').style.color = "#ff6666";
-        document.getElementById('passwordMessage').innerHTML = "Good pass";
       }
     });
   </script>
