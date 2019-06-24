@@ -91,9 +91,12 @@ if (empty($_SESSION['secret'])) {
     // When the result is ready check if the password was found or not
     document.addEventListener('hibpCheck', function (e) {
       if(e.detail){
+        document.getElementById('passwordMessage').style.color = "#ff6666";
         document.getElementById('passwordMessage').innerHTML = "Password was <a href=\"https://haveibeenpwned.com/Passwords\">leaked</a> before, choose another one and change it on all sites!";
       } else {
-        document.getElementById('GoodForm').submit();
+        //document.getElementById('GoodForm').submit();
+        document.getElementById('passwordMessage').style.color = "#ff6666";
+        document.getElementById('passwordMessage').innerHTML = "Good pass";
       }
     });
   </script>
@@ -290,10 +293,10 @@ if (empty($_SESSION['secret'])) {
           CountDownTimer('2019-01-27T11:00:00');
         </script>-->
       <?php } ?>
+      <?=$footer?>
       <script>document.getElementById('GoodForm').addEventListener('submit', function(e){
           e.preventDefault();
           hibpCheck(document.getElementById('password'));
         });</script>
-      <?=$footer?>
   </body>
 </html>
