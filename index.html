@@ -453,7 +453,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
 
   </section> <!--pageWrapper -->
   <?=$footer?>
-  <script>function CountDownTimer(a){function b(){const a=new Date,b=c-a;0>=b&&(document.getElementById("count").style.display="none",clearInterval(h));const i=Math.floor(b/g),j=Math.floor(b%g/f),k=Math.floor(b%f/e),l=Math.floor(b%e/d);document.getElementById("count-min-1").innerHTML=i,document.getElementById("count-min-2").innerHTML=j,document.getElementById("count-min-3").innerHTML=k,document.getElementById("count-min-4").innerHTML=l}const c=new Date(a),d=1e3,e=60*d,f=60*e,g=24*f;let h;b(),h=setInterval(function(){b()},1e3)}CountDownTimer("<?=$config['start']?>T19:00:00");</script>
+  <script>function CountDownTimer(a){function b(){const a=new Date,b=c-a;864e5>=b&&(document.getElementById("count").style.display="none",clearInterval(h));const i=Math.floor(b/g),j=Math.floor(b%g/f),k=Math.floor(b%f/e),l=Math.floor(b%e/d);document.getElementById("count-min-1").innerHTML=i,document.getElementById("count-min-2").innerHTML=j,document.getElementById("count-min-3").innerHTML=k,document.getElementById("count-min-4").innerHTML=l}const c=new Date(a),d=1e3,e=60*d,f=60*e,g=24*f;let h;b(),h=setInterval(function(){b()},1e3)}CountDownTimer("<?=$config['start']?>T19:00:00");</script>
   <!--<script>
     function CountDownTimer(dt) {
       const end = new Date(dt);
@@ -467,7 +467,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
       function showRemaining(counter) {
         const now = new Date(<?= time() * 1000; ?> + counter * 1000);
         const distance = end - now;
-        if (distance <= 0) {
+        if (distance <= 86400000) {
           document.getElementById('count').style.display = 'none';
           clearInterval(timer);
         }
