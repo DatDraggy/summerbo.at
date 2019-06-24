@@ -57,7 +57,7 @@ if (empty($_SESSION['secret'])) {
   </script>
   <script>
     function getAge(DOB) {
-      var today = new Date(<?=$config['start']?>);
+      var today = new Date('<?=$config['start']?>');
       var birthDate = new Date(DOB);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
