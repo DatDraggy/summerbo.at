@@ -55,8 +55,7 @@ if (empty($_SESSION['secret'])) {
     }
   </script>
   <script>
-    function checkPass()
-    {
+    function checkPass() {
       //Store the password field objects into variables ...
       var pass1 = document.getElementById('password');
       var pass2 = document.getElementById('passwordVerify');
@@ -67,20 +66,25 @@ if (empty($_SESSION['secret'])) {
       var badColor = "#ff6666";
       //Compare the values in the password field
       //and the confirmation field
-      if(pass1.value == pass2.value){
+      if (pass1.value == pass2.value) {
         //The passwords match.
         //Set the color to the good color and inform
         //the user that they have entered the correct password
         pass2.style.backgroundColor = goodColor;
         message.style.color = goodColor;
         message.innerHTML = ""
-      }else{
+      } else {
         //The passwords do not match.
         //Set the color to the bad color and
         //notify the user.
         pass2.style.backgroundColor = badColor;
         message.style.color = badColor;
         message.innerHTML = "Passwords Do Not Match!"
+      }
+      if (pass1.value.length < 8) {
+        //pass2.style.backgroundColor = badColor;
+        message.style.color = badColor;
+        message.innerHTML = "Password must be 8 characters long!"
       }
     }
   </script>

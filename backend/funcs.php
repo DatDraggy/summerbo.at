@@ -183,7 +183,7 @@ function validatePassword($password) {
     $pwned = true;
   }
   if ($pwned) {
-    return 'Password was leaked before, choose another one!';
+    return 'Password was <a href="https://haveibeenpwned.com/Passwords">leaked</a> before, choose another one and change it on all sites!';
   } else {
     return true;
   }
