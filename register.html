@@ -91,15 +91,11 @@ if (empty($_SESSION['secret'])) {
     // When the result is ready check if the password was found or not
     document.addEventListener('hibpCheck', function (e) {
       if(e.detail){
-        alert('Found');
+        document.getElementById('passwordMessage').innerHTML = "Password was <a href=\"https://haveibeenpwned.com/Passwords\">leaked</a> before, choose another one and change it on all sites!";
       } else {
-        alert('Not Found');
+        document.getElementById('GoodForm').submit();
       }
     });
-    document.getElementById('GoodForm').addEventListener('submit', function(evt){
-      evt.preventDefault();
-      hibpCheck(document.getElementById('password'));
-    })
   </script>
   </head>
   <body class="hasNav">
@@ -259,7 +255,11 @@ if (empty($_SESSION['secret'])) {
             </div>
           </div>
         </section>
-        <script>function CountDownTimer(a){function b(a){const b=new Date(<?= time() * 1000; ?>+1e3*a),i=c-b;0>=i&&(document.getElementById("count").style.display="none",clearInterval(h));const j=Math.floor(i/g),k=Math.floor(i%g/f),l=Math.floor(i%f/e),m=Math.floor(i%e/d);document.getElementById("count-min-1").innerHTML=j,document.getElementById("count-min-2").innerHTML=k,document.getElementById("count-min-3").innerHTML=l,document.getElementById("count-min-4").innerHTML=m}const c=new Date(a),d=1e3,e=60*d,f=60*e,g=24*f;let h,i=0;b(i),h=setInterval(function(){i+=1,b(i)},1e3)}CountDownTimer("2019-01-27T11:00:00");</script>
+        <script>function CountDownTimer(a){function b(a){const b=new Date(<?= time() * 1000; ?>+1e3*a),i=c-b;0>=i&&(document.getElementById("count").style.display="none",clearInterval(h));const j=Math.floor(i/g),k=Math.floor(i%g/f),l=Math.floor(i%f/e),m=Math.floor(i%e/d);document.getElementById("count-min-1").innerHTML=j,document.getElementById("count-min-2").innerHTML=k,document.getElementById("count-min-3").innerHTML=l,document.getElementById("count-min-4").innerHTML=m}const c=new Date(a),d=1e3,e=60*d,f=60*e,g=24*f;let h,i=0;b(i),h=setInterval(function(){i+=1,b(i)},1e3)}CountDownTimer("2019-01-27T11:00:00");
+        document.getElementById('GoodForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            hibpCheck(document.getElementById('password'));
+          });</script>
         <!--<script>
           function CountDownTimer(dt) {
             const end = new Date(dt);
