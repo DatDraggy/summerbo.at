@@ -56,6 +56,17 @@ if (empty($_SESSION['secret'])) {
     }
   </script>
   <script>
+    function getAge(DOB) {
+      var today = new Date(<?=$config['start']?>);
+      var birthDate = new Date(DOB);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age = age - 1;
+      }
+      return age;
+    }
+
     function checkPass() {
       //Store the password field objects into variables ...
       var pass1 = document.getElementById('password');
@@ -296,7 +307,13 @@ if (empty($_SESSION['secret'])) {
       <?=$footer?>
       <script>document.getElementById('GoodForm').addEventListener('submit', function(e){
           e.preventDefault();
-          hibpCheck(document.getElementById('password').value);
+          if (getAge(document.getElementById('dob').value) < 18) {
+            document.getElementById('passwordMessage').innerHTML = "You have to be at least 18 years old on the day of the party.";
+            document.getElementById('passwordMessage').style.color = "#ff6666";
+          }
+          else {
+            hibpCheck(document.getElementById('password').value);
+          }
         });</script>
   </body>
 </html>
