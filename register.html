@@ -33,6 +33,7 @@ if (empty($_SESSION['secret'])) {
   <meta property="og:title" content="Register" />
   <meta property="og:description" content="Registration page for Attendees" />
   <meta name="description" content="Registration page for Attendees" />
+  <script src="js/hibp.min.js"></script>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -66,7 +67,7 @@ if (empty($_SESSION['secret'])) {
       var badColor = "#ff6666";
       //Compare the values in the password field
       //and the confirmation field
-      if (pass1.value == pass2.value) {
+      if (pass1.value === pass2.value) {
         //The passwords match.
         //Set the color to the good color and inform
         //the user that they have entered the correct password
@@ -87,6 +88,18 @@ if (empty($_SESSION['secret'])) {
         message.innerHTML = "Password must be 8 characters long!"
       }
     }
+    // When the result is ready check if the password was found or not
+    document.addEventListener('hibpCheck', function (e) {
+      if(e.detail){
+        alert('Found');
+      } else {
+        alert('Not Found');
+      }
+    });
+    document.getElementById('GoodForm').addEventListener('submit', function(evt){
+      evt.preventDefault();
+      hibpCheck(document.getElementById('password'));
+    })
   </script>
   </head>
   <body class="hasNav">
