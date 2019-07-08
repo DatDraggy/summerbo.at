@@ -509,9 +509,9 @@ function rejectRegistration($userId) {
   if ($stmt->rowCount() === 1) {
     sendEmail($email, 'Registration Canceled', "Dear $nickname,
 
-Sadly we have to inform you that your registration has been deleted.
+We regret to inform you that your registration has been canceled and deleted.
 
-If you believe this was a mistake, please send us an email. It can be that there is still space. We will inform you with more information after checking the system. 
+If you believe this was a mistake, please send us an email. We will inform you about the situation after checking the system. 
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.", true);
     return true;
