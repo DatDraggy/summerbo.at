@@ -7,6 +7,9 @@ require_once('../funcs.php');
 
 $dbConnection = buildDatabaseConnection($config);
 
+if(empty($argv[1])){
+  die('Argument 1 Missing');
+}
 $regId = $argv[1];
 
 try {
@@ -20,11 +23,10 @@ try {
 
 if ($stmt->rowCount() === 1) {
   try {
-    echo 'worked';
-/*    $sql = "DELETE FROM users WHERE id = $regId";
+    $sql = "DELETE FROM users WHERE id = $regId";
     $stmt = $dbConnection->prepare('DELETE FROM users WHERE id = :regId');
     $stmt->bindParam(':regId', $regId);
-    $stmt->execute();*/
+    $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Insert', $config, $sql, $e);
   }
