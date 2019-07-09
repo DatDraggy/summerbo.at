@@ -31,8 +31,8 @@ if ($stmt->rowCount() === 1) {
     notifyOnException('Database Insert', $config, $sql, $e);
   }
   try {
-    $sql = "SELECT nickname, email FROM users_deleted WHERE id = $regId";
-    $stmt = $dbConnection->prepare('SELECT nickname, email FROM users_deleted WHERE id = :regId');
+    $sql = "SELECT id_internal, efregid, nickname, email FROM users_deleted WHERE id = $regId";
+    $stmt = $dbConnection->prepare('SELECT id_internal, efregid, nickname, email FROM users_deleted WHERE id = :regId');
     $stmt->bindParam(':regId', $regId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -42,6 +42,20 @@ if ($stmt->rowCount() === 1) {
 
   $nickname = $row['nickname'];
   $email = $row['email'];
+  $idInternal = $row['id_internal'];
+  $efregid = $row['efregid'];
+
+  try {
+    $sql = "INSERT INTO users_deleted_reasons VALUES ($idInternal, $regId, $efregid, 'Canceled via Script')";
+    $stmt = $dbConnection->prepare('INSERT INTO users_deleted_reasons VALUES (:idInternal, :regId, :efregid, \'Canceled via Script\')');
+    $stmt->bindParam(':idInternal', $idInternal);
+    $stmt->bindParam(':regId', $regId);
+    $stmt->bindParam(':efregid', $efregid);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+  }
+
 
   sendEmail($email, 'Registration Canceled', "Dear $nickname,
 
