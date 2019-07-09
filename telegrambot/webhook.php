@@ -293,7 +293,7 @@ $application", $replyMarkup);
           mail('team@summerbo.at', 'New Application!', "By: $saveName
 Message: $application");
         } else {
-          sendMessage($chatId, 'Sorry, something went wrong. Perhaps you already applied?');
+          sendMessage($chatId, 'Sorry, something went wrong.');
         }
       } else {
         sendMessage($chatId, '<b>How to apply as a volunteer:</b>
