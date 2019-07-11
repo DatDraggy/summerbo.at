@@ -144,8 +144,6 @@ function isEarlyBird() {
 
 function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list, $efregid) {
   global $dbConnection, $config;
-  //ToDo: INSERT INTO users
-  //ToDo: UPDATE Balance SET topay
 
   try {
     $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list, $efregid)";

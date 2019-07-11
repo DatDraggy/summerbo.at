@@ -167,7 +167,6 @@ if (empty($_POST['tos'])) {
 $publicList = empty($_POST['publicList']) ? false : true;
 
 /*if (preg_match('/[^\sa-zA-Z]/', $firstNamePost) === 1) {
-  //ToDo: Test pregmatch
   $status = 'Illegal character in First Name.';
   session_start();
   $_SESSION['status'] = $status;
