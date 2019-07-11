@@ -260,7 +260,7 @@ if ($details['list'] == 1) {
             <div id="passwordMessage" class="formRow"></div>
             <div class="inputWrapper">
               <label for="passwordNewVerify"><span>Verify New Password</span></label>
-              <input name="passwordNewVerify" id="passwordNewVerify" onkeyup="checkPass()" type="password" autocomplete="new-password">
+              <input name="passwordNewVerify" id="passwordNewVerify" type="password" autocomplete="new-password">
             </div>
             <div class="inputWrapper">
               <label for="password"><span>Current Password</span></label>
@@ -275,14 +275,18 @@ if ($details['list'] == 1) {
     <script>
       SelectElement("country", "<?=$country?>");
 
-      function SelectElement(id, valueToSelect)
-      {
+      function SelectElement(id, valueToSelect) {
         var element = document.getElementById(id);
         element.value = valueToSelect;
       }
-    document.getElementById('details').addEventListener('submit', function(e){
+
+      document.getElementById('details').addEventListener('submit', function (e) {
         e.preventDefault();
         hibpCheck(document.getElementById('passwordNew').value);
-      });</script>
+      });
+      document.getElementById('passwordNewVerify').addEventListener('change', function (e) {
+        checkPass(document.getElementById('passwordNewVerify').value);
+      });
+    </script>
 </body>
 </html>
