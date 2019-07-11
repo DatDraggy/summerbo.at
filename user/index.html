@@ -147,7 +147,7 @@ if ($details['list'] == 1) {
       } else {
         document.getElementById('passwordMessage').style.color = null;
         document.getElementById('passwordMessage').innerHTML = "";
-        document.getElementById('login').submit();
+        document.getElementById('details').submit();
       }
     });
   </script>
@@ -178,7 +178,7 @@ if ($details['list'] == 1) {
       if(!empty($statusSessionSuccess)){
         echo '<div class="info-box-succ">' . $statusSessionSuccess . '</div>';
       }?>
-      <form method="post" action="/user/changedetails.php">
+      <form method="post" id="details" action="/user/changedetails.php">
         <div class="row">
           <div class="content">
             <h1 class="headline">Your details</h1>
@@ -280,9 +280,9 @@ if ($details['list'] == 1) {
         var element = document.getElementById(id);
         element.value = valueToSelect;
       }
-    document.getElementById('login').addEventListener('submit', function(e){
+    document.getElementById('details').addEventListener('submit', function(e){
         e.preventDefault();
-        hibpCheck(document.getElementById('password').value);
+        hibpCheck(document.getElementById('passwordNew').value);
       });</script>
 </body>
 </html>
