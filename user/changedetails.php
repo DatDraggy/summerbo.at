@@ -12,6 +12,11 @@ if (empty($_SESSION['userId']) || empty($_POST['nickname']) || empty($_POST['ema
   die($status);
 }
 
+if($config['readOnly'] === true){
+  $status = 'Read-Only Mode Activated.';
+  onError($status);
+}
+
 $dbConnection = buildDatabaseConnection($config);
 $userId = $_SESSION['userId'];
 ////////////////////////
@@ -31,11 +36,7 @@ session_commit();
 $nicknamePost = $_POST['nickname'];
 if (preg_match('/[^\w\-. ~]/', $nicknamePost) === 1) {
   $status = 'Illegal character in Nickname';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 } else {
   $nickname = $nicknamePost;
 }
@@ -44,19 +45,11 @@ if (filter_var($newEmailPost, FILTER_VALIDATE_EMAIL)) {
   $newEmail = $newEmailPost;
 } else {
   $status = 'Invalid Email Format';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 if (empty($_POST['dob'])) {
   $status = 'Birthday can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 } /*
 if (!empty($_POST['day'])) {
   $dayofbirthPost = $_POST['day'];
@@ -71,11 +64,7 @@ if (!empty($_POST['year'])) {
 }
 if (empty($_POST['country'])) {
   $status = 'Country can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 } else {
   $countryPost = $_POST['country'];
 }
@@ -84,11 +73,7 @@ if (is_numeric($efregidPost)) {
   $efregid = $efregidPost;
 } else {
   $status = 'Invalid EF Reg ID';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 
 /////////////////////
@@ -97,11 +82,7 @@ $hash = checkPassword($userId, $_POST['password']);
 
 if ($hash === false) {
   $status = 'Incorrect Password';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 // Password Verify //
 /////////////////////
@@ -112,20 +93,12 @@ if (!empty($_POST['passwordNew'])) {
   $passwordNew = $_POST['passwordNew'];
   if (empty($_POST['passwordNewVerify']) || $passwordNew !== $_POST['passwordNewVerify']) {
     $status = 'Passwords do not match';
-    session_start();
-    $_SESSION['status'] = $status;
-    session_commit();
-    header('Location: ./');
-    die($status);
+    onError($status);
   }
   $valid = validatePassword($passwordNew);
   if ($valid !== true) {
     $status = $valid;
-    session_start();
-    $_SESSION['status'] = $status;
-    session_commit();
-    header('Location: ./');
-    die($status);
+    onError($status);
   }
   $hash = hashPassword($passwordNew);
 }
@@ -145,31 +118,19 @@ if (empty($_POST['publiclist'])) {
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
   $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 $dob = date('Y-m-d', $dobStamp);
 
 if (strtotime($config['start']) < strtotime('+18 years', strtotime($dob))) {
   $status = 'You have to be at least 18 years old on the day of the party.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 
 $country = preg_replace('/[^A-Z]/', '', $countryPost);
 if (strlen($country) != 2) {
   $status = 'Invalid country';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ./');
-  die($status);
+  onError($status);
 }
 /////////////////////
 // Sponsor Upgrade //
@@ -278,4 +239,12 @@ You requested to change your email. Please follow this link to confirm: <a href=
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
+}
+
+function onError($status){
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ./');
+  die($status);
 }

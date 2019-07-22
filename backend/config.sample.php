@@ -26,3 +26,4 @@ $status[2] = 'APPROVED - Confirmed by staff';
 $status[3] = 'PAID - Fee was paid';
 
 $config['start'] = '2019-08-13';
+$config['readOnly'] = false;
