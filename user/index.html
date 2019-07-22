@@ -265,7 +265,7 @@ if ($details['list'] == 1) {
               <label for="password"><span>Current Password</span></label>
               <input name="password" id="password" type="password" autocomplete="current-password" required>
             </div>
-            <?php if ($config['readOnly' === true]) { ?>
+            <?php if ($config['readOnly'] === true) { ?>
               <button disabled class="button buttonPrimary">Read-Only Mode</button>
             <?php } else { ?>
               <button class="button buttonPrimary">Submit</button>
