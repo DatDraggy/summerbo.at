@@ -46,8 +46,8 @@ if ($stmt->rowCount() === 1) {
   $efregid = $row['efregid'];
 
   try {
-    $sql = "INSERT INTO users_deleted_reasons VALUES ($idInternal, $regId, $efregid, 'Canceled via Script')";
-    $stmt = $dbConnection->prepare('INSERT INTO users_deleted_reasons VALUES (:idInternal, :regId, :efregid, \'Canceled via Script\')');
+    $sql = "UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = $regId AND id_internal = $idInternal AND efregid = $efregid";
+    $stmt = $dbConnection->prepare("UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = :regId AND id_internal = :idInternal AND efregid = :efregid");
     $stmt->bindParam(':idInternal', $idInternal);
     $stmt->bindParam(':regId', $regId);
     $stmt->bindParam(':efregid', $efregid);
