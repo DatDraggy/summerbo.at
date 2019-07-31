@@ -8,7 +8,7 @@ $texts = array(
   [
     2,
     'DatDraggy',
-    'staff'
+    'guest'
   ],
   [
     4,
