@@ -18,8 +18,8 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
     ImageTTFText($im, 100, 0, 212, 2605, $white, '../../webfonts/TideSans-700Mondo.ttf', $data[1]);
     ImageTTFText($im, 160, 0, 205, 2925, $white, '../../webfonts/TideSans-700Mondo.ttf', '#' . $data[0]);
 
-    ImagePng($im, "images/{$data[0]}_{$data[1]}_a.png");
-    copy("source/{$data[2]}_back.png", "images/{$data[0]}_{$data[1]}_b.png");
+    ImagePng($im, "badge_files/{$data[0]}_{$data[1]}_a.png");
+    copy("source/{$data[2]}_back.png", "badge_files/{$data[0]}_{$data[1]}_b.png");
     $loops += 1;
   }
   fclose($handle);
