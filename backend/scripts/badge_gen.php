@@ -1,9 +1,17 @@
 <?php
+if (!file_exists('badge_files')) {
+  mkdir('badge_files');
+}
+
 $loops = 0;
 //for testing, only first 5 badges
 if (($handle = fopen("badges.csv", "r")) !== FALSE) {
   while (($data = fgetcsv($handle, 50, ",")) !== FALSE && $loops < 5) {
-    $im = imagecreatefrompng("source/{$data[2]}_front.png");
+    $sourceFile = "source/{$data[2]}_front.png";
+    if (!file_exists($sourceFile)) {
+      die('Source ' . $sourceFile . ' not found.');
+    }
+    $im = imagecreatefrompng($sourceFile);
     $white = ImageColorAllocate($im, 255, 255, 255);
     $black = ImageColorAllocate($im, 0, 0, 0);
 
@@ -15,6 +23,8 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
     $loops += 1;
   }
   fclose($handle);
+} else {
+  echo 'Error opening file badges.csv';
 }
 
 /*$texts = array(
