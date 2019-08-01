@@ -20,7 +20,7 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
 
     ImagePng($im, "badge_files/{$data[0]}_{$data[1]}_a.png");
     copy("source/{$data[2]}_back.png", "badge_files/{$data[0]}_{$data[1]}_b.png");
-    $loops += 1;
+    //$loops += 1;
   }
   fclose($handle);
 } else {
