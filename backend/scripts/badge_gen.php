@@ -27,8 +27,8 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
     $white = ImageColorAllocate($im, 255, 255, 255);
     $black = ImageColorAllocate($im, 0, 0, 0);
 
-    ImageTTFText($im, 100, 0, 212, 2605, $white, '../../webfonts/TideSans-700Mondo.ttf', $data[1]);
-    ImageTTFText($im, 160, 0, 205, 2925, $white, '../../webfonts/TideSans-700Mondo.ttf', '#' . $data[0]);
+    ImageTTFText($im, 34, 0, 71, 870, $white, '../../webfonts/TideSans-700Mondo.ttf', $data[1]);
+    ImageTTFText($im, 60, 0, 66, 973, $white, '../../webfonts/TideSans-700Mondo.ttf', '#' . $data[0]);
 
     $data[1] = preg_replace('/[^\w\- ]/', '', $data[1]);
 
