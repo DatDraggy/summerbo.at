@@ -3,6 +3,12 @@ if (!file_exists('badge_files')) {
   mkdir('badge_files');
 }
 
+$toGen = array(
+  'vip' => true,
+  'guest' => true,
+  'crew' => true
+);
+
 $loops = 0;
 //for testing, only first 5 badges
 if (($handle = fopen("badges.csv", "r")) !== FALSE) {
@@ -11,13 +17,19 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
     if (!file_exists($sourceFile)) {
       die('Source ' . $sourceFile . ' not found.');
     }
+
+    //If current type is false, skip
+    if (!$toGen[$data[2]]) {
+      continue;
+    }
+
     $im = imagecreatefrompng($sourceFile);
     $white = ImageColorAllocate($im, 255, 255, 255);
     $black = ImageColorAllocate($im, 0, 0, 0);
 
     ImageTTFText($im, 100, 0, 212, 2605, $white, '../../webfonts/TideSans-700Mondo.ttf', $data[1]);
     ImageTTFText($im, 160, 0, 205, 2925, $white, '../../webfonts/TideSans-700Mondo.ttf', '#' . $data[0]);
-    
+
     $data[1] = preg_replace('/[^\w\- ]/', '', $data[1]);
 
     ImagePng($im, "badge_files/{$data[0]}_{$data[1]}_a.png");
