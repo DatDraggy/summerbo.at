@@ -6,7 +6,8 @@ if (!file_exists('badge_files')) {
 $toGen = array(
   'vip' => true,
   'guest' => true,
-  'crew' => true
+  'crew' => true,
+  'security' => true
 );
 
 $loops = 0;
