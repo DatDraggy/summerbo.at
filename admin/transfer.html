@@ -6,7 +6,6 @@ header('Cache-Control: max-age=0');
 session_start();
 if (!empty($_SESSION['userId'])) {
   $requesterUserId = $_SESSION['userId'];
-  session_commit();
   $dbConnection = buildDatabaseConnection($config);
   $rank = 0;
   if (checkRegValid($requesterUserId)) {
@@ -14,9 +13,18 @@ if (!empty($_SESSION['userId'])) {
     if ($rank < 3) {
       die('Insufficient Permissions');
     }
-    $status = '';
-    $searchResults = '';
-
+    if(isset($_POST['regid']) && isset($_POST['firstname']) && isset($_POST['lastname'])){
+/*ToDo
+ * - Validation
+ * - Insert into users_deleted
+ * - Change reason
+ * - Send transfer email
+ */
+    } else{
+      $status = 'Missing details';
+      $_SESSION['status'] = $status;
+    }
+      session_commit();
   }
 } else {
   /*if (isset($_COOKIE[session_name()])) {
@@ -83,7 +91,7 @@ if (!empty($_SESSION['userId'])) {
                 echo '<div class="info-box-succ">' . $status . '</div>';
               } ?>
               <h2 id="adminsearch" class="headline">Transfer</h2>
-              <p>Enter the Boat ID and new details.</p>
+              <p>Enter the Boat ID and new details. Nickname and EF Reg ID are optional.</p>
               <form class="formWrapper" id="transfer" method="post">
                 <div class="inputWrapper">
                   <label for="regid"><span>Boat ID</span></label>
@@ -94,15 +102,22 @@ if (!empty($_SESSION['userId'])) {
                   <input name="nickname" id="nickname" class="input" placeholder="Nickname"/>
                 </div>
                 <div class="formRow">
-                  <label for="firstname"><span>First Name</span></label>
-                  <input name="firstname" id="firstname" class="input" placeholder="First Name" required/>
-
-                  <label for="searchadminfield"><span>Last Name</span></label>
-                  <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Last Name" required/>
+                  <div class="inputWrapper">
+                    <label for="firstname"><span>First Name</span></label>
+                    <input name="firstname" id="firstname" class="input" placeholder="First Name" required/>
+                  </div>
+                  <div class="inputWrapper">
+                    <label for="searchadminfield"><span>Last Name</span></label>
+                    <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Last Name" required/>
+                  </div>
                 </div>
                 <div class="inputWrapper">
                   <label for="email"><span>E-Mail</span></label>
                   <input name="email" id="email" class="input" placeholder="E-Mail" required/>
+                </div>
+                <div class="inputWrapper">
+                  <label for="efregid"><span>EF Reg ID</span></label>
+                  <input name="efregid" id="efregid" class="input" placeholder="EF Reg ID"/>
                 </div>
                 <div class="formRow">
                   <button class="button buttonPrimary"
