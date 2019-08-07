@@ -29,7 +29,7 @@ The weather forecast tells us that there might be a little rain scattered across
 However, bringing an umbrella for the boarding area might be a smart idea.
 
 <h4>VIP Upgrade</h4>
-If you selected the VIP upgrade for your summerbo.at registration, please don't forget to bring the 15€ <b>in cash</b> to the badge pickup area.
+If you selected the VIP upgrade for your summerbo.at registration, please don't forget to bring the 15&euro; <b>in cash</b> to the badge pickup area.
 We opted for the cash payment, because it makes it easier to donate the money to the EF charity. It will be much less paperwork this way.
 
 <h4>Badge Pickup</h4>
@@ -51,6 +51,6 @@ That means you will receive headphones and listen to the music on those.
 If you're in a fursuit, make sure to bring 3.5mm in-ear pods so that you can connect those with a receiver.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-", true);
+", true, false);
   sleep(10);
 }

@@ -351,8 +351,8 @@ If you have any questions, please send us a message. Reply to this e-mail or con
       $stmt->execute();
     } else {
       $data = array(
-        'ip'     => $_SERVER["HTTP_CF_CONNECTING_IP"],
-        'token'  => $token,
+        'ip' => $_SERVER["HTTP_CF_CONNECTING_IP"],
+        'token' => $token,
         'server' => $_SERVER
       );
       mail($config['mail'], 'Potentially Malicious Reg-Confirm Attempt', print_r($data, true));
@@ -564,11 +564,11 @@ function buildApproveMarkup($userId) {
     'inline_keyboard' => array(
       array(
         array(
-          'text'          => 'Approve',
+          'text' => 'Approve',
           'callback_data' => $userId . '|approve|0'
         ),
         array(
-          'text'          => 'Reject',
+          'text' => 'Reject',
           'callback_data' => $userId . '|reject|0'
         )
       )
@@ -750,13 +750,12 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
     $stmt->bindParam(':subject', $subject);
     $stmt->bindParam(':text', $text);
     $stmt->execute();
-  }
-  catch (PDOException $e){
+  } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
 }
 
-function sendEmail($address, $subject, $text, $internal = false) {
+function sendEmail($address, $subject, $text, $internal = false, $log = true) {
   global $dbConnection, $config;
   if ($internal === false) {
     $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
@@ -768,7 +767,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
 
   $email = array();
   $email['top'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Hot Summer Nights 2019 - Summerbo.at</title> </head> <body bgcolor="#eee" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background: #eeee;width: 100% !important;"> <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; margin: 0;padding: 0;height: 100% !important;width: 100% !important; background: #eeeeee;" width="100%"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="40" cellspacing="0" id="contentWrapper" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="background-color: #FFFFFF;" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="border-bottom:1px solid #eee; padding:0 16px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <a href="https://summerbo.at"><span class="sg-image"><img alt="Summerbo.at" height="32" src="https://summerbo.at/favicon-32x32.png" style="width: 32px; height: 32px;" width="32"/></span></a> </td><td style="text-align: right;">&nbsp;</td></tr></tbody> </table> </td></tr><tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="padding:0 16px 10px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;">';
-  $email['bottom'] = '</span> <p><span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif;line-height:1.35;"> Kind regards,<br/> Your Boat Party Crew </span> </p><span style="font-size:16px;color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;"> '.nl2br($ipNotice).' </span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <table border="0" cellpadding="5" cellspacing="0" id="templateFooterWrap" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="0" cellspacing="0" id="templateFooter" width="480"> <tbody> <tr> <td valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td valign="middle" width="520"> <div style="color: #b3b3b3;font-family: Helvetica, Arial;font-size: 11px;line-height: 125%;text-align: center;">&nbsp;&nbsp;</div></td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <br/> </td></tr></tbody> </table> </td></tr></tbody> </table> </body></html>';
+  $email['bottom'] = '</span> <p><span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif;line-height:1.35;"> Kind regards,<br/> Your Boat Party Crew </span> </p><span style="font-size:16px;color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;"> ' . nl2br($ipNotice) . ' </span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <table border="0" cellpadding="5" cellspacing="0" id="templateFooterWrap" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="0" cellspacing="0" id="templateFooter" width="480"> <tbody> <tr> <td valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td valign="middle" width="520"> <div style="color: #b3b3b3;font-family: Helvetica, Arial;font-size: 11px;line-height: 125%;text-align: center;">&nbsp;&nbsp;</div></td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <br/> </td></tr></tbody> </table> </td></tr></tbody> </table> </body></html>';
 
 
   $body = $email['top'] . nl2br($text) . $email['bottom'];
@@ -792,16 +791,17 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
   } catch (Exception $e) {
     mail('admin@kieran.de', 'Error Sending mail', $mail->ErrorInfo);
   }
-  try {
-    $sql = "INSERT INTO mail_log(receiver, subject, text) VALUES ($address, $subject, $body)";
-    $stmt = $dbConnection->prepare('INSERT INTO mail_log(receiver, subject, text) VALUES (:receiver, :subject, :text)');
-    $stmt->bindParam(':receiver', $address);
-    $stmt->bindParam(':subject', $subject);
-    $stmt->bindParam(':text', $text);
-    $stmt->execute();
-  }
-  catch (PDOException $e){
-    notifyOnException('Database Select', $config, $sql, $e);
+  if ($log) {
+    try {
+      $sql = "INSERT INTO mail_log(receiver, subject, text) VALUES ($address, $subject, $body)";
+      $stmt = $dbConnection->prepare('INSERT INTO mail_log(receiver, subject, text) VALUES (:receiver, :subject, :text)');
+      $stmt->bindParam(':receiver', $address);
+      $stmt->bindParam(':subject', $subject);
+      $stmt->bindParam(':text', $text);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+    }
   }
 }
 
@@ -821,17 +821,20 @@ function sendMessage($chatId, $text, $replyMarkup = '') {
   return makeApiRequest('sendMessage', $data);
 }
 
-function deleteMessage($chatId, $messageId){
-  $data = array('chat_id'=>$chatId, 'message_id'=>$messageId);
+function deleteMessage($chatId, $messageId) {
+  $data = array(
+    'chat_id' => $chatId,
+    'message_id' => $messageId
+  );
   return makeApiRequest('deleteMessage', $data);
 }
 
-function returnResponse(){
+function returnResponse() {
   ignore_user_abort(true);
   ob_start();
-// do initial processing here
+  // do initial processing here
   header('Connection: close');
-  header('Content-Length: '.ob_get_length());
+  header('Content-Length: ' . ob_get_length());
   header("Content-Encoding: none");
   header("Status: 200");
   ob_end_flush();
@@ -890,12 +893,19 @@ function isNewUsersFirstMessage($chatId, $userId) {
 
 function kickUser($chatId, $userId, $length = 40) {
   $until = time() + $length;
-  $data = array('chat_id'=>$chatId, 'user_id'=>$userId,'until_date'=>$until);
+  $data = array(
+    'chat_id' => $chatId,
+    'user_id' => $userId,
+    'until_date' => $until
+  );
   return makeApiRequest('kickChatMember', $data);
 }
 
 function answerCallbackQuery($queryId, $text = '') {
-  $data = array('callback_query_id'=>$queryId, 'text'=>$text);
+  $data = array(
+    'callback_query_id' => $queryId,
+    'text' => $text
+  );
   return makeApiRequest('answerCallbackQuery', $data);
 }
 
@@ -935,7 +945,7 @@ function editMessageText($chatId, $messageId, $text, $replyMarkup = '', $inlineM
   return makeApiRequest('editMessageText', $data);
 }
 
-function unrestrictUser($chatId, $userId, $welcomeMsgId, $welcomeMsgText){
+function unrestrictUser($chatId, $userId, $welcomeMsgId, $welcomeMsgText) {
   removeMessageHistory($chatId, $userId);
   restrictChatMember($chatId, $userId, 0, true, true, true, true);
   editMessageText($chatId, $welcomeMsgId, $welcomeMsgText);
@@ -971,11 +981,11 @@ function addMessageToHistory($chatId, $userId, $messageId, $time = 0) {
   }
 }
 
-function deleteMessages($chatId, $userId){
+function deleteMessages($chatId, $userId) {
   global $config;
   $dbConnection = buildDatabaseConnection($config);
 
-  try{
+  try {
     $sql = "SELECT message_id FROM telegram_messages WHERE chat_id = '$chatId' AND user_id = '$userId'";
     $stmt = $dbConnection->prepare("SELECT message_id FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId");
     $stmt->bindParam(':chatId', $chatId);
@@ -986,10 +996,10 @@ function deleteMessages($chatId, $userId){
     notifyOnException('Database Select', $config, $sql, $e);
   }
 
-  foreach($rows as $row){
+  foreach ($rows as $row) {
     $messageId = $row['message_id'];
     deleteMessage($chatId, $messageId);
-    try{
+    try {
       $sql = "DELETE FROM telegram_messages WHERE chat_id = '$chatId' AND user_id = '$userId' AND message_id = '$messageId'";
       $stmt = $dbConnection->prepare("DELETE FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId AND message_id = :messageId");
       $stmt->bindParam(':chatId', $chatId);
@@ -1007,19 +1017,25 @@ function removeMessageHistory($chatId, $userId) {
 
   $dbConnection = buildDatabaseConnection($config);
 
-  try{
+  try {
     $sql = "DELETE FROM telegram_messages WHERE chat_id = $chatId AND user_id = $userId";
     $stmt = $dbConnection->prepare('DELETE FROM telegram_messages WHERE chat_id = :chatId AND user_id = :userId');
     $stmt->bindParam(':chatId', $chatId);
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-  }catch (PDOException $e){
+  } catch (PDOException $e) {
     notifyOnException('Database Insert', $config, $sql, $e);
   }
 }
 
 function sendVenue($chatId, $latitude, $longitude, $title, $address) {
-  $data = array('chat_id'=>$chatId, 'latitude'=>$latitude, 'longitude'=>$longitude, 'title'=>$title, 'address'=>$address);
+  $data = array(
+    'chat_id' => $chatId,
+    'latitude' => $latitude,
+    'longitude' => $longitude,
+    'title' => $title,
+    'address' => $address
+  );
   return makeApiRequest('sendVenue', $data);
 }
 
@@ -1171,16 +1187,16 @@ function searchForAttendee($userId, $search) {
       notifyOnException('Database Select', $config, $sql, $e);
     }
     $searchResults = '';
-    foreach ($rows as $row){
+    foreach ($rows as $row) {
       $searchResults .= '
             <tr>
-              <td>'.$row['nickname'].'</td>
-              <td>'.$row['name'].'</td>
-              <td>'.$row['id'].'</td>
-              <td>'.$row['efregid'].'</td>
-              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" '.$row['sponsor'].'></td>
-              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" '.$row['early'].'></td>
-              <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="'.$row['id'].'">Check-In</button></div></form></td>
+              <td>' . $row['nickname'] . '</td>
+              <td>' . $row['name'] . '</td>
+              <td>' . $row['id'] . '</td>
+              <td>' . $row['efregid'] . '</td>
+              <td><input type="checkbox" name="sponsor" id="sponsor" class="input" ' . $row['sponsor'] . '></td>
+              <td><input type="checkbox" name="earlybird" id="earlybird" class="input" ' . $row['early'] . '></td>
+              <td><form method="post"><div class="formRow"><button class="button buttonPrimary" name="regid" data-callback="onSubmit" value="' . $row['id'] . '">Check-In</button></div></form></td>
             </tr>';
     }
     return $searchResults;
