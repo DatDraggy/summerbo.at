@@ -52,5 +52,7 @@ If you're in a fursuit, make sure to bring 3.5mm in-ear pods so that you can con
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true, false);
+  echo $nickname . ' ' . $row['email'];
   sleep(10);
+
 }
