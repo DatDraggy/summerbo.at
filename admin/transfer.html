@@ -1,0 +1,120 @@
+<?php
+require_once(__DIR__ . '/../backend/funcs.php');
+require_once(__DIR__ . '/../backend/config.php');
+require_once(__DIR__ . '/../backend/includesAdmin.php');
+header('Cache-Control: max-age=0');
+session_start();
+if (!empty($_SESSION['userId'])) {
+  $requesterUserId = $_SESSION['userId'];
+  session_commit();
+  $dbConnection = buildDatabaseConnection($config);
+  $rank = 0;
+  if (checkRegValid($requesterUserId)) {
+    $rank = getUserRank($requesterUserId);
+    if ($rank < 3) {
+      die('Insufficient Permissions');
+    }
+    $status = '';
+    $searchResults = '';
+
+  }
+} else {
+  /*if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 3600, '/');
+  }
+  session_destroy();*/
+  $status = 'You are not logged in.';
+  $_SESSION['status'] = $status;
+  $_SESSION['location'] = $_SERVER['REQUEST_URI'];
+  session_commit();
+  header('Location: ../login');
+  die($status);
+}
+?>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
+  <head>
+    <title>Summerbo.at Admin: Registration Transfer</title>
+    <?= $head ?>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+
+      input[type=checkbox] {
+        transform: scale(2);
+      }
+    </style>
+  </head>
+  <body class="hasNav">
+    <div id="app">
+      <?= $nav ?>
+      <section id="contentPage">
+        <!-- ========== Info text ========== -->
+
+        <section class="ribbon" style="background-color: var(--colorPink)">
+          <div class="wrapper">
+            <div class="row">
+              <div style="color:white" class="content wsLarge">
+                <h1 id="legal">Check-in</h1>
+                <p class="textBig">This page is only available for the crew of Summerboat. Please login to use all
+                  abilities.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="row">
+            <div class="content">
+              <?php
+              if (!empty($status)) {
+                echo '<div class="info-box-succ">' . $status . '</div>';
+              } ?>
+              <h2 id="adminsearch" class="headline">Transfer</h2>
+              <p>Enter the Boat ID and new details.</p>
+              <form class="formWrapper" id="transfer" method="post">
+                <div class="inputWrapper">
+                  <label for="regid"><span>Boat ID</span></label>
+                  <input name="regid" id="regid" class="input" placeholder="Boat ID" required/>
+                </div>
+                <div class="inputWrapper">
+                  <label for="nickname"><span>Nickname</span></label>
+                  <input name="nickname" id="nickname" class="input" placeholder="Nickname"/>
+                </div>
+                <div class="formRow">
+                  <label for="firstname"><span>First Name</span></label>
+                  <input name="firstname" id="firstname" class="input" placeholder="First Name" required/>
+
+                  <label for="searchadminfield"><span>Last Name</span></label>
+                  <input name="searchadminfield" id="searchadminfield" class="input" placeholder="Last Name" required/>
+                </div>
+                <div class="inputWrapper">
+                  <label for="email"><span>E-Mail</span></label>
+                  <input name="email" id="email" class="input" placeholder="E-Mail" required/>
+                </div>
+                <div class="formRow">
+                  <button class="button buttonPrimary"
+                          data-callback="onSubmit">Transfer
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <?= $footer ?>
+  </body>
+</html>
