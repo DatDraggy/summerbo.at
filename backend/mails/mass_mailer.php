@@ -8,7 +8,7 @@ require_once('../funcs.php');
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT email, nickname FROM users WHERE id = 2';
+  $sql = 'SELECT email, nickname FROM users';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
