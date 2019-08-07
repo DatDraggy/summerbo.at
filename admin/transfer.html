@@ -5,27 +5,41 @@ require_once(__DIR__ . '/../backend/includesAdmin.php');
 header('Cache-Control: max-age=0');
 session_start();
 if (!empty($_SESSION['userId'])) {
-  $requesterUserId = $_SESSION['userId'];
-  $dbConnection = buildDatabaseConnection($config);
-  $rank = 0;
-  if (checkRegValid($requesterUserId)) {
-    $rank = getUserRank($requesterUserId);
-    if ($rank < 3) {
-      die('Insufficient Permissions');
-    }
-    if(isset($_POST['regid']) && isset($_POST['firstname']) && isset($_POST['lastname'])){
-/*ToDo
- * - Validation
- * - Insert into users_deleted
- * - Change reason
- * - Send transfer email
- */
-    } else{
-      $status = 'Missing details';
-      $_SESSION['status'] = $status;
-    }
-      session_commit();
+$requesterUserId = $_SESSION['userId'];
+session_commit();
+$dbConnection = buildDatabaseConnection($config);
+$rank = 0;
+if (checkRegValid($requesterUserId)) {
+  $rank = getUserRank($requesterUserId);
+  if ($rank < 3) {
+    die('Insufficient Permissions');
   }
+  if (isset($_POST['regid']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email'])) {
+    /*ToDo
+     * - Validation
+     * - Insert into users_deleted
+     * - Change reason
+     * - Send transfer email
+     */
+    if (is_int($_POST['regid'])) {
+      $regId = $_POST['regid'];
+    } else {
+      header('Location: ./transfer');
+    }
+    $efregid = $_POST['efregid'];
+    $nickname = '';
+    $emailPost = strtolower($_POST['email']);
+    if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
+      $email = $emailPost;
+    } else {
+      header('Location: ./transfer');
+    }
+    if (isset($_POST['nickname'])) {
+      $nickname = substr($_POST['nickname'], 0, 20);
+    }
+  }
+  $firstName = htmlspecialchars($_POST['firstname']);
+  $lastName = htmlspecialchars($_POST['lastname']);
 } else {
   /*if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time() - 3600, '/');

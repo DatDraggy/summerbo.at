@@ -199,7 +199,7 @@ $publicList = empty($_POST['publicList']) ? false : true;
   header('Location: ../register');
   die($status);
 } else {*/
-$nickname = substr($nicknamePost, 0, 30);
+$nickname = substr($nicknamePost, 0, 20);
 /*}*/
 
 /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
