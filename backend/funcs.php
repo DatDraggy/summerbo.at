@@ -1151,7 +1151,7 @@ function checkInAttendee($userId, $regId) {
 function searchForAttendee($userId, $search) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT time FROM search_log WHERE time + 30 > UNIX_TIMESTAMP() AND user_id = $userId";
+    $sql = "SELECT time FROM search_log WHERE time + 1 > UNIX_TIMESTAMP() AND user_id = $userId";
     $stmt = $dbConnection->prepare('SELECT time FROM search_log WHERE time + 30 > UNIX_TIMESTAMP() AND user_id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();

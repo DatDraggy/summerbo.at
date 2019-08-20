@@ -4,10 +4,10 @@ if (!file_exists('badge_files')) {
 }
 
 $toGen = array(
-  'vip' => true,
+  'vip' => false,
   'guest' => true,
-  'crew' => true,
-  'security' => true
+  'crew' => false,
+  'security' => false
 );
 
 $loops = 0;
@@ -34,7 +34,7 @@ if (($handle = fopen("badges.csv", "r")) !== FALSE) {
     $data[1] = preg_replace('/[^\w\- ]/', '', $data[1]);
 
     ImagePng($im, "badge_files/{$data[0]}_{$data[1]}_a.png");
-    copy("source/{$data[2]}_back.png", "badge_files/{$data[0]}_{$data[1]}_b.png");
+    //copy("source/{$data[2]}_back.png", "badge_files/{$data[0]}_{$data[1]}_b.png");
     //$loops += 1;
   }
   fclose($handle);
