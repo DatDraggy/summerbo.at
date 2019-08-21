@@ -139,13 +139,12 @@ if (empty($_SESSION['secret'])) {
                   can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
                 <p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
                 <?php
-                if ($slotsLeft <= 100 && $slotsLeft > 0) {
                   if ($slotsLeft == 1) {
                     echo "<p>There is only 1 slot left!</p>";
                   } else {
                     echo "<p>There are only $slotsLeft slots left!</p>";
                   }
-                }
+
               } else {
                 echo "
               <h3>Registration Closed</h3>
@@ -242,7 +241,7 @@ if (empty($_SESSION['secret'])) {
                   </div>
                   <button class="button buttonPrimary">Submit</button>
               </form>
-              <?php } else { echo '<div class="formWrapper"></div>'; } ?>
+              <?php } else { echo '<div class="formWrapper"><h3>Registration Closed</h3></div>'; } ?>
             </div>
           </div>
         </section>
