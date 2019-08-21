@@ -129,6 +129,12 @@ if (empty($_SESSION['secret'])) {
           <div class="row">
             <div class="content">
               <?php
+              /*
+               * TODO
+               *
+               * REBUILD THIS SHIT SHOW WTF WERE YOU THINKING
+               *
+               */
               $slotsLeft = $attendeesMax - $attendees;
               if ($slotsLeft > 0) {
                 ?>
@@ -139,12 +145,13 @@ if (empty($_SESSION['secret'])) {
                   can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
                 <p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
                 <?php
+                if($regOpen) {
                   if ($slotsLeft == 1) {
                     echo "<p>There is only 1 slot left!</p>";
                   } else {
                     echo "<p>There are only $slotsLeft slots left!</p>";
                   }
-
+                }
               } else {
                 echo "
               <h3>Registration Closed</h3>
