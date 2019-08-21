@@ -20,7 +20,7 @@ if (!empty($_SESSION['userId'])) {
       $search = $_POST['searchadminfield'];
       $searchResults = searchForAttendee($requesterUserId, $search);
       if ($searchResults === false) {
-        $status = 'Cooldown! Please wait 1 second.';
+        $status = 'Cooldown! Please wait 5 second.';
       } else if (empty($searchResults)) {
         $status = 'No results.';
       }
