@@ -35,8 +35,10 @@ $texts['afterPartyPoll'] = 'first of all, we hope you had a super amazing and fu
 
 Yes, there have been a couple of implications on Tuesday, however we\'re certain that everyone had a good time regardless!
 
-To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of. 
+To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of.
+
 <a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs"><img style="width: 64px" alt="Google Docs Forms" src="https://img.kieran.de/LwMcN33.png"></a>
+
 To send us your feedback, simply fill out as much of this form as you like: <a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs">https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs</a>
 Thank you for your time and see you next year!
 
