@@ -37,9 +37,7 @@ Yes, there have been a couple of implications on Tuesday, however we\'re certain
 
 To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of.
 
-<a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs"><img style="width: 64px" alt="Google Docs Forms" src="https://img.kieran.de/LwMcN33.png"></a>
-
-To send us your feedback, simply fill out as much of this form as you like: <a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs">https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs</a>
+If you want to send us your feedback, simply fill out as much of this form as you like: <a href="https://forms.gle/wkZwSwBSV8nT8LP46">https://forms.gle/wkZwSwBSV8nT8LP46</a>
 Thank you for your time and see you next year!
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.';
