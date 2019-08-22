@@ -31,14 +31,13 @@ If you\'re in a fursuit, make sure to bring 3.5mm in-ear pods so that you can co
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.';
 
-$texts['afterPartyPoll'] = 'First of all, we hope you had an awesome party.
+$texts['afterPartyPoll'] = 'first of all, we hope you had a super amazing and fun party. 
 
-A couple of implications occured on Tuesday, however we\'re certain that everyone had fun regardless!
-To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of.
+Yes, there have been a couple of implications on Tuesday, however we\'re certain that everyone had a good time regardless!
 
-<a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs"><img alt="Google Docs Forms" src="https://i0.wp.com/it-antwort.de/wp-content/uploads/2016/11/original_images-Forms-e1479575810465.png?fit=400%2C400&ssl=1"></a>
-
-To send us your feedback, simply fill out this form: <a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs">https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs</a>
-Thanks and see you next time!
+To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of. 
+<a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs"><img style="width: 64px" alt="Google Docs Forms" src="https://img.kieran.de/LwMcN33.png"></a>
+To send us your feedback, simply fill out as much of this form as you like: <a href="https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs">https://docs.google.com/forms/d/11USYKjss2_FNv7KTp0lEXQoHhru1G1mrdaH8Cpxf7Xs</a>
+Thank you for your time and see you next year!
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.';

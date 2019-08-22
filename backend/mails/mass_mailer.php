@@ -20,11 +20,11 @@ try {
 }
 
 foreach ($rows as $row) {
+  sleep(10);
   $nickname = $row['nickname'];
 
-  sendEmail($row['email'], 'Summerbo.at Party Information', "Dear $nickname.
+  sendEmail($row['email'], 'Summerbo.at Party Information', "Dear $nickname,
 
 " . $texts['afterPartyPoll'], true, false);
   echo $nickname . ' ' . $row['email'] . "\n";
-  sleep(10);
 }
