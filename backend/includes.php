@@ -123,7 +123,7 @@ $head = '<meta charset="utf-8">
       _paq.push([\'requireConsent\']);
       _paq.push([\'trackPageView\']);
       _paq.push([\'enableLinkTracking\']);
-      _paq.push([\'rememberConsentGiven\']);
+      /*_paq.push([\'rememberConsentGiven\']);*/
       (function() {
         var u="//stats.summerbo.at/";
         _paq.push([\'setTrackerUrl\', u+\'matomo.php\']);
