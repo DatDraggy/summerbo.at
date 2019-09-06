@@ -116,11 +116,14 @@ $head = '<meta charset="utf-8">
       }
     </script>
     <!-- Matomo -->
-    <!--<script type="text/javascript">
+    <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      // require user consent before processing data
+      _paq.push([\'requireConsent\']);
       _paq.push([\'trackPageView\']);
       _paq.push([\'enableLinkTracking\']);
+      _paq.push([\'rememberConsentGiven\']);
       (function() {
         var u="//stats.summerbo.at/";
         _paq.push([\'setTrackerUrl\', u+\'matomo.php\']);
@@ -128,7 +131,7 @@ $head = '<meta charset="utf-8">
         var d=document, g=d.createElement(\'script\'), s=d.getElementsByTagName(\'script\')[0];
         g.type=\'text/javascript\'; g.async=true; g.defer=true; g.src=u+\'matomo.js\'; s.parentNode.insertBefore(g,s);
       })();
-    </script>-->
+    </script>
     <!-- End Matomo Code -->
 ';
 
