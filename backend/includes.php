@@ -213,9 +213,9 @@ $footer = '<section id="footer">
 <!-- Start Cookie Plugin -->
 <script>
   window.cookieconsent_options = {
-    message: \'This website uses cookies to fully function. To login, you will have to allow them.\',
+    message: \'This website uses cookies and anonymous tracking to fully function.\',
     dismiss: \'Ok, I accept\',
-    learnMore: \'More infos about our cookies\',
+    learnMore: \'More infos about our cookies and usage\',
     link: \'https://summerbo.at/tos\',
     theme: \'light-floating\'
   };
