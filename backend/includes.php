@@ -11,8 +11,8 @@ $head = '<meta charset="utf-8">
     <meta property="og:image" content="https://summerbo.at/images/og-image.jpg">
     <meta property="og:image:width" content="1415">
     <meta property="og:image:height" content="741">
-    <meta property="og:url" content="https://summerbo.at/">
 
+    <!-- ToDo: Move itemprop name and description to individual pages -->
     <meta itemprop="name" content="Hot Summer Nights 2019" />
     <meta itemprop="description" content="Hot Summer Nights 2019 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 13 August 2019." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
@@ -119,8 +119,10 @@ $head = '<meta charset="utf-8">
     <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      /*consent remembered upon click of cookie notice
       // require user consent before processing data
       _paq.push([\'requireConsent\']);
+//change up integration of script*/
       _paq.push([\'trackPageView\']);
       _paq.push([\'enableLinkTracking\']);
       /*_paq.push([\'rememberConsentGiven\']);*/
