@@ -29,7 +29,7 @@ Just like on the upper deck of our boat, we will host a <i>silent</i> party!
 That means you will receive headphones and listen to the music on those.
 If you\'re in a fursuit, make sure to bring 3.5mm in-ear pods so that you can connect those with a receiver.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.';
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
 
 $texts['afterPartyPoll'] = 'first of all, we hope you had a super amazing and fun party. 
 
@@ -37,7 +37,8 @@ Yes, there have been a couple of implications on Tuesday, however we\'re certain
 
 To improve and make next years party even more amazing, we would like to ask you to give us some feedback about anything you can think of.
 
-If you want to send us your feedback, simply fill out as much of this form as you like: <a href="https://forms.gle/wkZwSwBSV8nT8LP46">https://forms.gle/wkZwSwBSV8nT8LP46</a>
+If you want to send us your feedback, simply fill out as much of this form as you like: <a href="https://forms.gle/uesQrMYhiiC7LAZC8">https://forms.gle/uesQrMYhiiC7LAZC8</a>
+
 Thank you for your time and see you next year!
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.';
+If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
