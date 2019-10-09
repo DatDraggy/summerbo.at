@@ -11,7 +11,6 @@ $config['token'] = '123456:aefAOIEFjoauenfseljnFOUnoEAF';
 $config['url'] = 'https://api.telegram.org/bot' . $config['token'] . '/';
 $config['secretPath'] = 'aDOINauiwdnUdbwniUABdiuabwidu';
 $config['priceSponsor'] = 15;
-$config['priceAttendeeEarly'] = 25;
 $config['priceAttendee'] = 35;
 $config['mailPassword'] = 'pass';
 $config['regOpen'] = false;
