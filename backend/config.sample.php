@@ -25,5 +25,5 @@ $status[1] = 'VERIFIED - Email address verified';
 $status[2] = 'APPROVED - Confirmed by staff';
 $status[3] = 'PAID - Fee was paid';
 
-$config['start'] = '2019-08-13';
+$config['start'] = '2020-08-18';
 $config['readOnly'] = false;

@@ -45,7 +45,7 @@ foreach ($rows as $row) {
   $label['country'][] = $row['country'];
 }
 
-$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR('2019-08-13') - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT('2019-08-13', 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age ORDER BY age ASC";
+$sql = "SELECT age, COUNT(id) AS count FROM (SELECT id, YEAR({$config['start']}) - YEAR(STR_TO_DATE(dob, '%Y-%m-%d')) - (RIGHT({$config['start']}, 5) < RIGHT(STR_TO_DATE(dob, '%Y-%m-%d'), 5)) AS age FROM users) as Z GROUP BY age ORDER BY age ASC";
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
@@ -122,8 +122,10 @@ $label['vip'][] = 'No VIP';
     <title>Attendees &mdash; Hot Summer Nights: Furry Summerbo.at Party</title>
     <?=$head?>
     <meta property="og:title" content="Attendees" />
-    <meta property="og:description" content="Overview and statistics about our attendees" />
-    <meta name="description" content="Overview and statistics about our attendees" />
+    <meta property="og:description" content="Overview and statistics about our attendees." />
+    <meta itemprop="name" content="Attendees" />
+    <meta itemprop="description" content="Overview and statistics about our attendees." />
+    <meta name="description" content="Overview and statistics about our attendees." />
     <script type="application/ld+json">
       {
         "@context": "http://schema.org",
@@ -133,7 +135,7 @@ $label['vip'][] = 'No VIP';
           "position": 1,
           "item": {
             "@id": "https://summerbo.at/",
-            "name": "Hot Summer Nights 2019"
+            "name": "Hot Summer Nights 2020"
           }
         },{
           "@type": "ListItem",
