@@ -38,9 +38,12 @@ if (isset($data['callback_query'])) {
       if ($status === 'approve') {
         if (approveRegistration($targetUserId, $senderUserId)) {
           answerCallbackQuery($queryId, 'Registration has been approved.');
-          list($email, $nickname, $regnumber) = getRegDetails($targetUserId, 'email, nickname, id');
-          recalculateTopay($targetUserId);
-          $topay = getBalanceDetails($targetUserId, 'topay - paid as topay')['topay'];
+          list($email, $nickname, $regnumber, $sponsor) = getRegDetails($targetUserId, 'email, nickname, id, sponsor');
+          if ($sponsor === 1) {
+            $topay = $config['priceSponsor'];
+          } else {
+            $topay = $config['priceAttendee'];
+          }
           sendEmail($email, 'Registration Approved', "Dear $nickname,
 
 Your registration was approved by our registration team.
@@ -148,7 +151,7 @@ if ($chatId == '-1001203230309' || $chatId == '-1001182844773') {
     echo json_encode($returndata);
     header('Content-type: application/json');
     header('Connection: close');
-    header('Content-Length: '.ob_get_length());
+    header('Content-Length: ' . ob_get_length());
     ob_end_flush();
     ob_flush();
     flush();
@@ -214,24 +217,26 @@ Follow the /rules and enjoy your stay~";
           } else if (!empty($data['message']['entities'])) {
             foreach ($data['message']['entities'] as $entity) {
               if ($entity['type'] == 'url') {
-                if(striposa(mb_substr($text, $entity['offset'], $entity['length']), $config['permitted_domains']) !== false){}else{
-                deleteMessage($chatId, $messageId);
-                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-                  kickUser($chatId, $senderUserId, 0);
+                if (striposa(mb_substr($text, $entity['offset'], $entity['length']), $config['permitted_domains']) === false) {
+                  deleteMessage($chatId, $messageId);
+                  if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                    kickUser($chatId, $senderUserId, 0);
+                  }
+                  break;
                 }
-                break;
-              }}
+              }
             }
           } else if (!empty($data['message']['caption_entities'])) {
             foreach ($data['message']['caption_entities'] as $entity) {
               if ($entity['type'] == 'url') {
-                if(striposa(mb_substr($text, $entity['offset'], $entity['length']), $config['permitted_domains']) !== false){}else{
-                deleteMessage($chatId, $messageId);
-                if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
-                  kickUser($chatId, $senderUserId, 0);
+                if (striposa(mb_substr($text, $entity['offset'], $entity['length']), $config['permitted_domains']) === false) {
+                  deleteMessage($chatId, $messageId);
+                  if (isNewUsersFirstMessage((string)$chatId, $senderUserId)) {
+                    kickUser($chatId, $senderUserId, 0);
+                  }
+                  break;
                 }
-                break;
-              }}
+              }
             }
           }
           isNewUsersFirstMessage((string)$chatId, $senderUserId);
@@ -256,10 +261,6 @@ if (isset($text)) {
 
   $command = strtolower($command);
   switch (true) {
-    case ($command === '/start'):
-      sendMessage($chatId, 'Hello! I\'m the Summerbo.at Bot.
-To get a command overview, send /help.');
-      break;
     case ($command === '/help'):
       sendMessage($chatId, 'Applying for Volunteer: /apply
 Location: /venue
@@ -326,42 +327,6 @@ Approved: $approvedate");
     case ($command == '/getunconfirmed' && isTelegramAdmin($chatId)):
       $dbConnection = buildDatabaseConnection($config);
       requestUnapproved($chatId);
-      break;
-    case ($command === '/payment' && isTelegramAdmin($chatId)):
-      if (isset($messageArr[1])) {
-        $dbConnection = buildDatabaseConnection($config);
-        if ($messageArr[1] === 'status') {
-          if (isset($messageArr[2])) {
-            $details = getPaymentDetails($messageArr[2], 'users.id, approvedate, amount, topay');
-            if ($details === false) {
-              sendMessage($chatId, 'No Payments');
-            } else {
-              foreach ($details as $detail) {
-                $payByDate = date('Y-m-d', strtotime('+2 weeks', $details['approvedate']));
-                sendMessage($chatId, "
-Regnumber: {$detail['id']}
-Until: $payByDate
-Paid: {$detail['amount']}
-To pay: {$detail['topay']}");
-              }
-            }
-          } else {
-            sendMessage($chatId, 'Please supply a regnumber.');
-          }
-        } else if (is_numeric($messageArr[1])) {
-          if (isset($messageArr[2])) {
-            $status = (approvePayment($messageArr[2], $senderUserId, $messageArr[1]) ? 'yes' : 'no');
-            sendMessage($chatId, 'Updated. Payment completed: ' . $status);
-          } else {
-            sendMessage($chatId, 'Please supply a regnumber.');
-          }
-        } else {
-          sendMessage($chatId, 'The given amount is not numeric.');
-        }
-      } else {
-        sendMessage($chatId, 'Usage:
-<code>/payment</code> <b>amount</b> <b>regnumber</b>');
-      }
       break;
     case ($command === '/venue'):
       sendVenue($chatId, 52.473208, 13.458217, 'Estrel Sommergarten', 'Ziegrastraße 44, 12057 Berlin');

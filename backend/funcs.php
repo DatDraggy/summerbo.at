@@ -69,44 +69,6 @@ function getRegDetails($userId, $columns = '*') {
   }
 }
 
-function getPaymentDetails($userId, $columns = '*') {
-  global $dbConnection, $config;
-
-  try {
-    $sql = "SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id INNER JOIN balance ON payments.user_id = balance.id WHERE users.id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT $columns FROM payments INNER JOIN users ON users.id = payments.user_id INNER JOIN balance ON payments.user_id = balance.id WHERE users.id = :userId");
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-    $row = $stmt->fetchAll();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($stmt->rowCount() > 0) {
-    return $row;
-  } else {
-    return false;
-  }
-}
-
-function getBalanceDetails($userId, $columns = '*') {
-  global $dbConnection, $config;
-
-  try {
-    $sql = "SELECT $columns FROM balance WHERE id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT $columns FROM balance WHERE id = :userId");
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-  }
-  if ($stmt->rowCount() === 1) {
-    return $row;
-  } else {
-    return false;
-  }
-}
-
 function getUserRank($userId) {
   global $dbConnection, $config;
 
@@ -312,12 +274,6 @@ function confirmRegistration($token) {
       $row = $stmt->fetch();
       $userId = $row['id'];
 
-      $sql = "INSERT INTO balance(id, topay) VALUES ($userId, $topay)";
-      $stmt = $dbConnection->prepare('INSERT INTO balance(id, topay) VALUES (:userId, :topay)');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->bindParam(':topay', $topay);
-      $stmt->execute();
-
       sendEmail($email, 'Email Confirmed', "Dear $nickname, 
 
 You have successfully verified your email. 
@@ -449,22 +405,6 @@ function approveRegistration($userId, $approver) {
   }
 }
 
-function recalculateTopay($userId) {
-  global $dbConnection, $config;
-
-  $topay = $config['priceAttendee'];
-
-  try {
-    $sql = "UPDATE balance SET topay = $topay WHERE id = $userId";
-    $stmt = $dbConnection->prepare('UPDATE balance SET topay = :topay WHERE id = :userId');
-    $stmt->bindParam(':topay', $topay);
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-  } catch (PDOException $e) {
-    notifyOnException('Database Update', $config, $sql, $e);
-  }
-}
-
 function rejectRegistration($userId) {
   global $dbConnection, $config;
 
@@ -575,93 +515,6 @@ function openSlots() {
   return true;
 }
 
-function approvePayment($userId, $approver, $amount) {
-  global $dbConnection, $config;
-
-  try {
-    $dbConnection->beginTransaction();
-    $sql = "SELECT topay, paid, nickname, email, locked FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = '$userId'";
-    $stmt = $dbConnection->prepare("SELECT topay, paid, nickname, email, locked FROM users INNER JOIN balance ON users.id = balance.id WHERE users.id = :userId");
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-    $row = $stmt->fetch();
-
-    if ($stmt->rowCount() === 1) {
-      $email = $row['email'];
-      $nickname = $row['nickname'];
-      $topay = $row['topay'];
-      $paid = $row['paid'];
-      $locked = $row['locked'];
-
-      if ($topay <= $amount + $paid) {
-        $status = 3;
-      } else {
-        $status = 2;
-      }
-
-      $sql = "UPDATE balance INNER JOIN users on balance.id = users.id SET status = '$status', paid = paid + $amount WHERE users.id = '$userId'";
-      $stmt = $dbConnection->prepare('UPDATE balance INNER JOIN users on balance.id = users.id SET status = :status, paid = paid + :amount WHERE users.id = :userId');
-      $stmt->bindParam(':status', $status);
-      $stmt->bindParam(':amount', $amount);
-      $stmt->bindParam(':userId', $userId);
-      $stmt->execute();
-      $openSlots = openSlots();
-      if ($status == 3 && $locked != 0 && $openSlots) {
-        $sql = "UPDATE users SET locked = 0 WHERE id = $userId";
-        $stmt = $dbConnection->prepare('UPDATE users SET locked = 0 WHERE id = :userId');
-        $stmt->bindParam(':userId', $userId);
-        $stmt->execute();
-      }
-      if ($locked != 0 && !$openSlots) {
-        $status = 1;
-      }
-
-      $sql = "INSERT INTO payments(user_id, date, approver_id, amount) VALUES ($userId, UNIX_TIMESTAMP(), $approver, $amount)";
-      $stmt = $dbConnection->prepare('INSERT INTO payments(user_id, date, approver_id, amount) VALUES (:userId, UNIX_TIMESTAMP(), :approver, :amount)');
-      $stmt->bindParam(':userId', $userId);
-      $stmt->bindParam(':approver', $approver);
-      $stmt->bindParam(':amount', $amount);
-      $stmt->execute();
-      $dbConnection->commit();
-
-      if ($status == 3) {
-        //ToDo Below more Information
-        sendEmail($email, 'Payment Received', "Dear $nickname,
-
-Welcome aboard! Your payment of $amount €,- has been received. Below you find more information about picking up your badge for the party. We will also send more information in the weeks before the party.
-
-<a href=\"https://summerbo.at/#faq\">https://summerbo.at/#faq</a>
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-", true);
-        return true;
-      } else if ($status == 2) {
-        sendEmail($email, 'Payment Received', "Dear $nickname,
-
-Your payment of $amount €,- has been received. However, for some reason, this did not cover the full required payment of $topay €,-. 
-Please pay the rest of the amount as well to make sure you are fully registered. If you think this is a mistake, let us know via email.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-", true);
-        return false;
-      } else {
-        sendEmail($email, 'Payment Received', "Dear $nickname,
-
-Your payment of $amount €,- has been received. However, there were no more open slots for you.
-We're sorry and apologize for any inconvenience.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-", true);
-        return false;
-      }
-    }
-  } catch (PDOException $e) {
-    notifyOnException('Database Transaction', $config, $sql, $e);
-    return false;
-  }
-  return false;
-}
-
 function checkPassword($userId, $password) {
   global $dbConnection, $config;
 
@@ -750,7 +603,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
   }
 
   $email = array();
-  $email['top'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Hot Summer Nights 2020 - Summerbo.at</title> </head> <body bgcolor="#eee" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background: #eeee;width: 100% !important;"> <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; margin: 0;padding: 0;height: 100% !important;width: 100% !important; background: #eeeeee;" width="100%"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="40" cellspacing="0" id="contentWrapper" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="background-color: #FFFFFF;" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="border-bottom:1px solid #eee; padding:0 16px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <a href="https://summerbo.at"><span class="sg-image"><img alt="Summerbo.at" height="32" src="https://summerbo.at/favicon-32x32.png" style="width: 32px; height: 32px;" width="32"/></span></a> </td><td style="text-align: right;">&nbsp;</td></tr></tbody> </table> </td></tr><tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="padding:0 16px 10px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;">';
+  $email['top'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Hot Summer Nights 2020 - Summerbo.at</title> </head> <body bgcolor="#eee" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background: #eeee;width: 100% !important;"> <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; margin: 0;padding: 0;height: 100% !important;width: 100% !important; background: #eeeeee;" width="100%"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="40" cellspacing="0" id="contentWrapper" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="background-color: #FFFFFF;" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="border-bottom:1px solid #eee; padding:0 16px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <a href="https://summerbo.at"><span class="sg-image"><img alt="Summerbo.at" height="32" src="https://summerbo.at/favicon-32x32.png" style="width: 32px; height: 32px;" width="32"/></span></a> </td><td style="text-align: right;">&nbsp;</td></tr></tbody> </table> </td></tr><tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBodyb" style="padding:0 16px 10px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;">';
   $email['bottom'] = '</span> <p><span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif;line-height:1.35;"> Kind regards,<br/> Your Boat Party Crew </span> </p><span style="font-size:16px;color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;"> ' . nl2br($ipNotice) . ' </span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <table border="0" cellpadding="5" cellspacing="0" id="templateFooterWrap" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="0" cellspacing="0" id="templateFooter" width="480"> <tbody> <tr> <td valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td valign="middle" width="520"> <div style="color: #b3b3b3;font-family: Helvetica, Arial;font-size: 11px;line-height: 125%;text-align: center;">&nbsp;&nbsp;</div></td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <br/> </td></tr></tbody> </table> </td></tr></tbody> </table> </body></html>';
 
 
@@ -1145,9 +998,9 @@ function searchForAttendee($userId, $search) {
   }
   $search = '%' . $search . '%';
   try {
-    $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor FROM users INNER JOIN balance b on users.id = b.id WHERE (nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search') AND checked_in IS NULL";
+    $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor FROM users WHERE (nickname LIKE '$search' OR CONCAT(first_name, ' ', last_name) LIKE '$search' OR users.id LIKE '$search' OR efregid LIKE '$search') AND checked_in IS NULL";
     $stmt = $dbConnection->prepare("SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor 
-            FROM users INNER JOIN balance b on users.id = b.id 
+            FROM users 
             WHERE (nickname LIKE :search1 OR CONCAT(first_name, ' ', last_name) LIKE :search2 OR users.id LIKE :search3 OR efregid LIKE :search4)
             AND checked_in IS NULL");
     $stmt->bindParam(':search1', $search);
@@ -1187,7 +1040,7 @@ function getAttendeesAdmin($userId, $filter) {
     notifyOnException('Database Select', $config, $sql, $e);
   }
 
-  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE checked_in WHEN NULL THEN '' ELSE checked_in END as checked_in FROM users INNER JOIN balance b on users.id = b.id";
+  $sql = "SELECT nickname, CONCAT(first_name, ' ', last_name) as name, users.id, efregid, CASE sponsor WHEN 1 THEN 'checked' ELSE '' END as sponsor, CASE checked_in WHEN NULL THEN '' ELSE checked_in END as checked_in FROM users";
   if ($filter === 'checkedin') {
     $sql = $sql . ' WHERE checked_in IS NOT NULL';
   } else if ($filter === 'absent') {

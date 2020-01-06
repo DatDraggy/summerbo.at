@@ -38,7 +38,7 @@ if (!$result->success) {
 
 $dbConnection = buildDatabaseConnection($config);
 if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
-  $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will be freed up again.';
+  $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will free up again.';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
@@ -304,6 +304,7 @@ if ($dbConnection === false) {
   die($status);
 }
 
+/*
 $userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
@@ -323,6 +324,7 @@ if ($confirmationLink === false) {
   header('Location: ../register');
   die($status);
 }
+*/
 
 $status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
 session_start();
@@ -330,6 +332,7 @@ $_SESSION['status'] = $status;
 session_commit();
 header('Location: ../login?reg');
 
+/*
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration with the Summernights party.
@@ -341,3 +344,4 @@ Afterwards another mail will be sent.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true);
+*/
