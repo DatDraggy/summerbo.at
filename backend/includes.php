@@ -203,7 +203,7 @@ $footer = '<section id="footer">
             <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
             <li><a href="https://github.com/datdraggy/summerbo.at" target="_blank" class="unselectable flexCentered">Source</a></li>
           </ul>
-          <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-19</p>
+          <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-20</p>
         </div>
       </div>
     </div>
