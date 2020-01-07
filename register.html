@@ -576,7 +576,7 @@ if (empty($_SESSION['secret'])) {
             </div>
           </div>
         </section>
-        <script>function CountDownTimer(a) {
+        <!--<script>function CountDownTimer(a) {
             function b(a) {
               const b = new Date(<?= time() * 1000; ?> + 1e3 * a), i = c - b;
               0 >= i && (document.getElementById("count").style.display = "none", clearInterval(h));
@@ -592,7 +592,7 @@ if (empty($_SESSION['secret'])) {
             }, 1e3)
           }
 
-          CountDownTimer("2020-03-08T11:00:00");</script>
+          CountDownTimer("2020-03-08T11:00:00");</script>-->
         <!--<script>
           function CountDownTimer(dt) {
             const end = new Date(dt);
@@ -659,7 +659,7 @@ if (empty($_SESSION['secret'])) {
           }
           CountDownTimer('2020-03-08T11:00:00');
         </script>-->
-        <!--<script src="/js/moment.js"></script>
+        <script src="/js/moment.js"></script>
         <script src="/js/moment-timezone-with-data.js"></script>
         <script>
           function CountDownTimer(dt) {
@@ -693,7 +693,7 @@ if (empty($_SESSION['secret'])) {
             timer = setInterval(function(){showRemaining()}, 1000);
           }
           CountDownTimer('2020-03-08T11:00:00');
-        </script>-->
+        </script>
       <?php } ?>
       <?= $footer ?>
       <script>
