@@ -36,63 +36,51 @@ if (!$result->success) {
   die($status);
 }*/
 
+if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
+  $status = 'You must select which party you want to attend.';
+  errorStatus($status);
+}else{
+  $party = $_POST['party'];
+}
+
 $dbConnection = buildDatabaseConnection($config);
-if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
-  $status = 'Sadly we do not have any more slots available. But remember to check back in! It might be possible that some slots will free up again.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+//if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
+$attendees = getConfirmedAttendees($party);
+if ($attendees === false || $attendees >= $config['attendeesMax'.$party]){
+  $status = 'Sadly we do not have any more slots available for the selected party. But remember to check back in! It might be possible that some slots will free up again.';
+  errorStatus($status);
 }
 
 if (empty($_POST['firstname'])) {
   $status = 'First Name can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $firstNamePost = $_POST['firstname'];
 }
 if (empty($_POST['lastname'])) {
   $status = 'Last Name can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $lastNamePost = $_POST['lastname'];
 }
+
+
+
 if (empty($_POST['nickname'])) {
   $status = 'Nickname can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $nicknamePost = $_POST['nickname'];
 }
 if (empty($_POST['efregid']) && !is_numeric($_POST['efregid'])) {
   $status = 'An EF registration is required.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $efregid = $_POST['efregid'];
 }
 if (empty($_POST['dob'])) {
   $status = 'Birthday can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } /*
 if (!empty($_POST['day'])) {
   $dayofbirthPost = $_POST['day'];
@@ -117,51 +105,31 @@ if (empty($_POST['sponsor'])) {
 }
 if (empty($_POST['email'])) {
   $status = 'Email can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $emailPost = strtolower($_POST['email']);
 }
 if (empty($_POST['password'])) {
   $status = 'Password can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $passwordPost = $_POST['password'];
 }
 if (empty($_POST['passwordVerify'])) {
   $status = 'Password Confirmation can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $passwordVerifyPost = $_POST['passwordVerify'];
 }
 if (empty($_POST['country'])) {
   $status = 'Country can\'t be empty.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $countryPost = $_POST['country'];
 }
 if (empty($_POST['tos'])) {
   $status = 'Please accept the ToS.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 $publicList = empty($_POST['publicList']) ? false : true;
@@ -216,32 +184,20 @@ else{
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
   $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 $dob = date('Y-m-d', $dobStamp);
 
 if (strtotime($config['start']) < strtotime('+18 years', strtotime($dob))) {
   $status = 'You have to be at least 18 years old on the day of the party.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
   $email = $emailPost;
 } else {
   $status = 'Invalid Email Format';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 //Check for used email
@@ -254,38 +210,22 @@ try{
 }catch (PDOException $e){
   notifyOnException('Database Insert', $config, $sql, $e);
   $status = 'Unknown Error in Registration. Administrator has been notified.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 if($row['count'] > 0){
   $status = 'Email already taken. Please login or choose another email.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 if ($passwordPost !== $passwordVerifyPost) {
   $status = 'Passwords do not match';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 $passValid = validatePassword($passwordPost);
 if ($passValid !== true) {
   $status = 'Password invalid because ' . $passValid;
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 } else {
   $password = $passwordPost;
 }
@@ -297,32 +237,20 @@ if (strlen($countryPost) == 2) {
 
 if ($dbConnection === false) {
   $status = 'Database Connection Broken. Administrator has been notified.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 
 /*
 $userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 $confirmationLink = requestEmailConfirm($userId);
 if ($confirmationLink === false) {
   mail($config['mail'], 'ERROR IN SUMMERBOAT REG URGENT', $userId . ' No token generate possible');
   $status = 'Unknown Error in Registration. Administrator has been notified';
-  session_start();
-  $_SESSION['status'] = $status;
-  session_commit();
-  header('Location: ../register');
-  die($status);
+  errorStatus($status);
 }
 */
 

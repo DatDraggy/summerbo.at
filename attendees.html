@@ -8,7 +8,9 @@ require_once('backend/includes.php');
 $dbConnection = buildDatabaseConnection($config);
 
 $showButtons = false;
-if (getConfirmedAttendees() < $config['attendeesMax']) {
+$attendees1 = getConfirmedAttendees(1);
+$attendees2 = getConfirmedAttendees(2);
+if (($attendees1 !== false && $attendees1 < $config['attendeesMax1']) || ($attendees2 !== false && $attendees2 < $config['attendeesMax2'])) {
   $showButtons = true;
 }
 

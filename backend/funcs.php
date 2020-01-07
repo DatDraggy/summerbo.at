@@ -506,15 +506,6 @@ function requestApproveMessage($chatId, $userId) {
 <a href=\"https://summerbo.at/admin/view?type=reg&id=$userId\">Regnumber: $userId</a>", json_encode($replyMarkup));
 }
 
-function openSlots() {
-  global $dbConnection, $config;
-  $confirmedAttendees = getConfirmedAttendees();
-  if ($confirmedAttendees === false || $confirmedAttendees >= $config['attendeesMax']) {
-    return false;
-  }
-  return true;
-}
-
 function checkPassword($userId, $password) {
   global $dbConnection, $config;
 
@@ -951,11 +942,12 @@ function insertToken($userId) {
   return $token;
 }
 
-function getConfirmedAttendees() {
+function getConfirmedAttendees($choice) {
   global $dbConnection, $config;
   try {
-    $sql = 'SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0';
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0');
+    $sql = "SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0 AND party = $choice";
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0 AND party = :choice');
+    $stmt->bindParam(':choice', $choice);
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
@@ -1121,4 +1113,12 @@ function striposa($haystack, $needles = array(), $offset = 0) {
     return false;
   }
   return min($chr);
+}
+
+function errorStatus($status){
+  session_start();
+  $_SESSION['status'] = $status;
+  session_commit();
+  header('Location: ../register');
+  die($status);
 }

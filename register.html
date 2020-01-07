@@ -3,7 +3,7 @@ require_once('backend/config.php');
 require_once('backend/includes.php');
 require_once('backend/funcs.php');
 
-$timeLeft = strtotime($config . ' 12:00:00') - time();
+$timeLeft = strtotime($config['startReg'] . ' 12:00:00') - time();
 
 if ($timeLeft / 60 / 60 / 24 < 2) {
   header('');
@@ -16,16 +16,20 @@ if (!empty($_SESSION['status'])) {
   $_SESSION['status'] = '';
 }
 $dbConnection = buildDatabaseConnection($config);
-$attendees = getConfirmedAttendees();
-if ($attendees === false) {
-  $attendees = 999;
-}
-$attendeesMax = $config['attendeesMax'];
+
+$attendeesMax1 = $config['attendeesMax1'];
+$attendeesMax2 = $config['attendeesMax2'];
 
 $regOpen = $config['regOpen'];
 if ($regOpen === true) {
-  $regOpen = openSlots();
+  $attendees1 = getConfirmedAttendees(1);
+  $attendees2 = getConfirmedAttendees(2);
+
+  if (($attendees1 === false || $attendees1 >= $attendeesMax1) && ($attendees2 === false || $attendees2 >= $attendeesMax2)) {
+    $regOpen = false;
+  }
 }
+
 if (empty($_SESSION['secret'])) {
   $secret = false;
 } else {
@@ -165,22 +169,20 @@ if (empty($_SESSION['secret'])) {
                * REBUILD THIS SHIT SHOW WTF WERE YOU THINKING
                *
                */
-              $slotsLeft = $attendeesMax - $attendees;
+              $slotsLeft1 = max($attendeesMax1 - $attendees1, 0);
+              $slotsLeft2 = max($attendeesMax2 - $attendees2, 0);
+              $slotsLeft = $slotsLeft1 + $slotsLeft2;
               if ($slotsLeft > 0) {
                 ?>
                 <h3>Registration</h3>
-                <p>Please fill in all details because everything is required to register succesfully.</p>
+                <p>Please fill in all details because everything is required to register successfully.</p>
                 <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and
                   <em>Terms and Conditions</em>. You
                   can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
                 <p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
                 <?php
                 if ($regOpen) {
-                  if ($slotsLeft == 1) {
-                    echo "<p>There is only 1 slot left!</p>";
-                  } else {
-                    echo "<p>There are $slotsLeft slots left.</p>";
-                  }
+                    echo "<p>There are $slotsLeft slots left. $slotsLeft1 on Boat A and $slotsLeft2 on Boat B.</p>";
                 }
               } else {
                 echo "
@@ -212,11 +214,11 @@ if (empty($_SESSION['secret'])) {
                     <div class="inputWrapper" id="partyRadio">
                       <div>
                         <label for="party1"><span>Party A, TBD, TBA</span></label>
-                        <input name="party" id="party1" class="input" type="radio">
+                        <input name="party" id="party1" class="input" type="radio" value="1" <?= $slotsLeft1 >= $attendeesMax1 ? 'disable' : '' ?>>
                       </div>
                       <div>
                         <label for="party2"><span>Party B, 19:00, Estrel Biergarten</span></label>
-                        <input name="party" id="party2" class="input" type="radio">
+                        <input name="party" id="party2" class="input" type="radio" value="2" <?= $slotsLeft2 >= $attendeesMax2 ? 'disable' : '' ?>>
                       </div>
                     </div>
                   </div>
@@ -576,89 +578,6 @@ if (empty($_SESSION['secret'])) {
             </div>
           </div>
         </section>
-        <!--<script>function CountDownTimer(a) {
-            function b(a) {
-              const b = new Date(<?= time() * 1000; ?> + 1e3 * a), i = c - b;
-              0 >= i && (document.getElementById("count").style.display = "none", clearInterval(h));
-              const j = Math.floor(i / g), k = Math.floor(i % g / f), l = Math.floor(i % f / e),
-                m = Math.floor(i % e / d);
-              document.getElementById("count-min-1").innerHTML = j, document.getElementById("count-min-2").innerHTML = k, document.getElementById("count-min-3").innerHTML = l, document.getElementById("count-min-4").innerHTML = m
-            }
-
-            const c = new Date(a), d = 1e3, e = 60 * d, f = 60 * e, g = 24 * f;
-            let h, i = 0;
-            b(i), h = setInterval(function () {
-              i += 1, b(i)
-            }, 1e3)
-          }
-
-          CountDownTimer("2020-03-08T11:00:00");</script>-->
-        <!--<script>
-          function CountDownTimer(dt) {
-            const end = new Date(dt);
-
-            const _second = 1000;
-            const _minute = _second * 60;
-            const _hour = _minute * 60;
-            const _day = _hour * 24;
-            let timer;
-
-            function showRemaining(counter) {
-              const now = new Date(<?= time() * 1000; ?> + counter * 1000);
-              const distance = end - now;
-              if (distance <= 0) {
-                document.getElementById('count').style.display = 'none';
-                clearInterval(timer);
-              }
-              const days = Math.floor(distance / _day);
-              const hours = Math.floor((distance % _day) / _hour);
-              const minutes = Math.floor((distance % _hour) / _minute);
-              const seconds = Math.floor((distance % _minute) / _second);
-
-              document.getElementById('count-min-1').innerHTML = days;
-              document.getElementById('count-min-2').innerHTML = hours;
-              document.getElementById('count-min-3').innerHTML = minutes;
-              document.getElementById('count-min-4').innerHTML = seconds;
-            }
-            let counter = 0;
-            showRemaining(counter);
-            timer = setInterval(function(){counter += 1;showRemaining(counter)}, 1000);
-          }
-          CountDownTimer('2019-01-27T11:00:00');
-        </script>-->
-        <!--<script>
-          function CountDownTimer(dt) {
-            const end = new Date(dt);
-
-            const _second = 1000;
-            const _minute = _second * 60;
-            const _hour = _minute * 60;
-            const _day = _hour * 24;
-            let timer;
-
-
-            function showRemaining(counter) {
-              const distance = 1000 * <?  ?> * 1000 - counter * 1000;
-              if (distance <= 0) {
-                document.getElementById('count').style.display = 'none';
-                clearInterval(timer);
-              }
-              const days = Math.floor(distance / _day);
-              const hours = Math.floor((distance % _day) / _hour);
-              const minutes = Math.floor((distance % _hour) / _minute);
-              const seconds = Math.floor((distance % _minute) / _second);
-
-              document.getElementById('count-min-1').innerHTML = days;
-              document.getElementById('count-min-2').innerHTML = hours;
-              document.getElementById('count-min-3').innerHTML = minutes;
-              document.getElementById('count-min-4').innerHTML = seconds;
-            }
-            let counter = 0;
-            showRemaining(counter);
-            timer = setInterval(function(){counter += 1;showRemaining(counter)}, 1000);
-          }
-          CountDownTimer('2020-03-08T11:00:00');
-        </script>-->
         <script src="/js/moment.js"></script>
         <script src="/js/moment-timezone-with-data.js"></script>
         <script>
@@ -692,7 +611,7 @@ if (empty($_SESSION['secret'])) {
             showRemaining();
             timer = setInterval(function(){showRemaining()}, 1000);
           }
-          CountDownTimer('2020-03-08T11:00:00');
+          CountDownTimer('<?= $config['startReg'] ?>T11:00:00');
         </script>
       <?php } ?>
       <?= $footer ?>
