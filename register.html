@@ -2,6 +2,13 @@
 require_once('backend/config.php');
 require_once('backend/includes.php');
 require_once('backend/funcs.php');
+
+$timeLeft = strtotime($config . ' 12:00:00') - time();
+
+if ($timeLeft / 60 / 60 / 24 < 2) {
+  header('');
+}
+
 session_start();
 $status = '';
 if (!empty($_SESSION['status'])) {
@@ -200,9 +207,9 @@ if (empty($_SESSION['secret'])) {
                       <input name="lastname" id="lastname" class="input" placeholder="Last Name" required>
                     </div>
                   </div>
+                  Which Party do you want to attend?
                   <div class="formRow">
                     <div class="inputWrapper" id="partyRadio">
-                      Which Party do you want to attend?
                       <div>
                         <label for="party1"><span>Party A, TBD, TBA</span></label>
                         <input name="party" id="party1" class="input" type="radio">
@@ -569,7 +576,7 @@ if (empty($_SESSION['secret'])) {
             </div>
           </div>
         </section>
-        <script>function CountDownTimer(a) {
+        <!--<script>function CountDownTimer(a) {
             function b(a) {
               const b = new Date(<?= time() * 1000; ?> + 1e3 * a), i = c - b;
               0 >= i && (document.getElementById("count").style.display = "none", clearInterval(h));
@@ -585,7 +592,7 @@ if (empty($_SESSION['secret'])) {
             }, 1e3)
           }
 
-          CountDownTimer("2019-01-27T11:00:00");</script>
+          CountDownTimer("2020-03-08T11:00:00");</script>-->
         <!--<script>
           function CountDownTimer(dt) {
             const end = new Date(dt);
@@ -619,6 +626,74 @@ if (empty($_SESSION['secret'])) {
           }
           CountDownTimer('2019-01-27T11:00:00');
         </script>-->
+        <!--<script>
+          function CountDownTimer(dt) {
+            const end = new Date(dt);
+
+            const _second = 1000;
+            const _minute = _second * 60;
+            const _hour = _minute * 60;
+            const _day = _hour * 24;
+            let timer;
+
+
+            function showRemaining(counter) {
+              const distance = 1000 * <?  ?> * 1000 - counter * 1000;
+              if (distance <= 0) {
+                document.getElementById('count').style.display = 'none';
+                clearInterval(timer);
+              }
+              const days = Math.floor(distance / _day);
+              const hours = Math.floor((distance % _day) / _hour);
+              const minutes = Math.floor((distance % _hour) / _minute);
+              const seconds = Math.floor((distance % _minute) / _second);
+
+              document.getElementById('count-min-1').innerHTML = days;
+              document.getElementById('count-min-2').innerHTML = hours;
+              document.getElementById('count-min-3').innerHTML = minutes;
+              document.getElementById('count-min-4').innerHTML = seconds;
+            }
+            let counter = 0;
+            showRemaining(counter);
+            timer = setInterval(function(){counter += 1;showRemaining(counter)}, 1000);
+          }
+          CountDownTimer('2020-03-08T11:00:00');
+        </script>-->
+        <script src="/js/moment.js"></script>
+        <script src="/js/moment-timezone-with-data.js"></script>
+        <script>
+          function CountDownTimer(dt) {
+            const end = moment.tz(dt, "Europe/Berlin");
+
+            const _second = 1000;
+            const _minute = _second * 60;
+            const _hour = _minute * 60;
+            const _day = _hour * 24;
+            let timer;
+
+            function showRemaining() {
+              const now = new Date();
+              const distance = end - now;
+              if (distance <= 0) {
+                document.getElementById('count').style.display = 'none';
+                clearInterval(timer);
+              }
+              const days = Math.floor(distance / _day);
+              const hours = Math.floor((distance % _day) / _hour);
+              const minutes = Math.floor((distance % _hour) / _minute);
+              const seconds = Math.floor((distance % _minute) / _second);
+
+              document.getElementById('count-min-1').innerHTML = days;
+              document.getElementById('count-min-2').innerHTML = hours;
+              document.getElementById('count-min-3').innerHTML = minutes;
+              document.getElementById('count-min-4').innerHTML = seconds;
+            }
+
+            showRemaining();
+            timer = setInterval(function(){showRemaining()}, 1000);
+          }
+          CountDownTimer('2020-03-08T11:00:00');
+        </script>
       <?php } ?>
       <?= $footer ?>
       <script>
