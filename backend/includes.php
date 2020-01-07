@@ -7,7 +7,7 @@ $head = '<meta charset="utf-8">
     <meta property="og:url" content="https://summerbo.at" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="summerbo.at" />
-    
+
     <meta property="og:image" content="https://summerbo.at/images/og-image.jpg">
     <meta property="og:image:width" content="1415">
     <meta property="og:image:height" content="741">
@@ -51,7 +51,7 @@ $head = '<meta charset="utf-8">
     <link rel="stylesheet" href="/css/css.css">
     <link rel="stylesheet" href="/css/badger-accordion.css">
     <link rel="stylesheet" href="/css/line-awesome.min.css">
-    <script type="application/ld+json"> 
+    <script type="application/ld+json">
       {
         "@context": "http://www.schema.org",
         "@type": "Event",
@@ -184,7 +184,7 @@ $nav = '<nav id="nav" class="nav inactive">
   </nav>';
 
 $footer = '<section id="footer">
-    <div class="footer" style="background-color: var(--colorPurple); color: white;">
+    <div class="footer" style="background-color: var(--colorSecondary); color: white;">
       <div class="wrapper row">
         <div class="content">
           <h2>Follow Us!</h2>

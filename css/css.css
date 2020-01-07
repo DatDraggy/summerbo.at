@@ -27,20 +27,20 @@
   --sizeBase: 16px;
   --pageBig: 70rem;
   /* Colors */
-  --colorPink: #eb4274;
-  --colorPinkLight: #fe316e;
-  --colorPurple: #3b3f9e;
-  --colorPurpleLight: #2e34d1;
-  --colorToneLow: #0ccc9d;
-  --colorToneHigh: #1afbc4;
+  --colorPrimary: #F48889;
+  --colorPrimaryLight: #FFDAA4;
+  --colorSecondary: #395789;
+  --colorSecondaryLight: #7484A7;
+  --colorToneLow: #04919A;
+  --colorToneHigh: #3EC1C7;
   --colorWhite: #fff;
   --colorBlack: #000;
   --colorGold: rgb(254, 218, 33);
   --colorGoldSecondary: #dcb800;
   /* Text */
   --fontStack: 'Tide Sans', sans-serif;
-  --colorHeadline: var(--colorPink);
-  --colorSubheadline: var(--colorPurple);
+  --colorHeadline: var(--colorPrimary);
+  --colorSubheadline: var(--colorSecondary);
   /* Nice Anims */
   --animNice: cubic-bezier(.32, .02, .38, .99);
 }
@@ -162,7 +162,7 @@ dd {
 
 a, a:link, a:visited {
   text-decoration: none;
-  color: var(--colorPurple);
+  color: var(--colorSecondary);
 }
 
 .headline {
@@ -242,13 +242,13 @@ a, a:link, a:visited {
 }
 
 .blankList.inverse li a:link, .blankList.inverse li a:visited {
-  color: var(--colorPurple);
-  border: 2px solid var(--colorPurple);
+  color: var(--colorSecondary);
+  border: 2px solid var(--colorSecondary);
 
 }
 .blankList.inverse li a:hover {
-  border: 2px solid var(--colorPink);
-  color: var(--colorPink);
+  border: 2px solid var(--colorPrimary);
+  color: var(--colorPrimary);
 }
 
 .la24:before {
@@ -456,32 +456,30 @@ nav.active .js-showNav {
   position: relative;
   /* align-items: center; */
   align-items: flex-end;
-  background-image: url('../images/hotsummerBG-placeholder.jpg');
+  background-image: url('../images/hotsummerBG-placeholder.png');
   background-size: cover;
   height: calc(100vh - 3rem);
   color: white;
   transition: background-image 1500ms var(--animNice);
 }
 
-
+.hero {
+  background-image: url('../images/hotsummerBG.png');
+}
 .hero.lazy-bg-loaded {
-  background-image: url('../images/hotsummerBG.jpg');
+  background-image: url('../images/hotsummerBG.png');
 }
 
 .heroFeature {
-  flex: none;
+  font-size: 4.5rem;
+  line-height: 4.5rem;
+  margin-bottom: 4rem;
   transition: opacity 1500ms 1500ms var(--animNice);
-  opacity: 1;
-  margin-top: 2rem;
-  margin-left: -22px;
-  margin-bottom: -22px;
-  width: 480px;
-  max-height: 357px;
 }
-
+/*
 .heroFeature.lazy {
   opacity: 0;
-}
+} */
 
 .videoBackground {
   transition: opacity 2500ms 1500ms var(--animNice);
@@ -493,10 +491,10 @@ nav.active .js-showNav {
   opacity: .5;
   top: 0;
 }
-
+/*
 .videoBackground.lazy {
   opacity: 0;
-}
+} */
 
 /* Nav */
 
@@ -619,11 +617,11 @@ a.buttonSecondary {
 
 .buttonSecondary, a.buttonSecondary {
   color: white;
-  background-color: var(--colorPurple);
+  background-color: var(--colorSecondary);
 }
 
 .buttonSecondary:hover, a.buttonSecondary:hover {
-  background-color: var(--colorPurpleLight);
+  background-color: var(--colorSecondaryLight);
 }
 
 .button.buttonUpgrade {
@@ -647,7 +645,7 @@ a.buttonSecondary {
 
 /* Counters */
 .countWrapper {
-  background-color: var(--colorPurple);
+  background-color: var(--colorSecondary);
   color: white;
   padding: 4rem 0rem;
 }
@@ -681,7 +679,7 @@ a.buttonSecondary {
   background-color: transparent;
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--colorPurple);
+  border: 2px solid var(--colorSecondary);
   border-radius: 8px;
   margin-bottom: 2rem;
 }
@@ -742,7 +740,7 @@ a.buttonSecondary {
   background-color: var(--colorToneHigh);
 }
 .checkboxGroup input[type=checkbox]:focus + label {
-  border: 2px solid var(--colorPurple)
+  border: 2px solid var(--colorSecondary)
 }
 
 .checkboxGroup label {
@@ -769,7 +767,7 @@ a.buttonSecondary {
 }
 
 .inputWrapper.inputFocussed {
-  background-color: var(--colorPurple);
+  background-color: var(--colorSecondary);
 }
 
 .inputWrapper input:not([type="checkbox"]),
@@ -812,7 +810,7 @@ a.buttonSecondary {
   margin: 0;
   padding-left: 1rem;
   padding-right: 1rem;
-  background-color: var(--colorPurple);
+  background-color: var(--colorSecondary);
   font-size: .75rem;
   line-height: 1rem;
   text-transform: uppercase;
@@ -1012,10 +1010,8 @@ body.hasNav {
   }
 
   .heroFeature {
-    margin-left: -44px;
-    margin-bottom: -4rem;
-    width: 480px;
-    max-height: 357px;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 
   .ticket {
@@ -1084,7 +1080,7 @@ body.hasNav {
 
 .info-box-err {
   border-radius: 8px;
-  background-color: var(--colorPink);
+  background-color: var(--colorPrimary);
   padding: 10px;
   color: white;
 }
