@@ -672,8 +672,8 @@ if (empty($_SESSION['secret'])) {
             let timer;
 
             function showRemaining() {
-              const now = moment.tz(dt, "Europe/Berlin");
-              const distance = moment.duration(end.diff(now)).asSeconds();
+              const now = moment.tz("Europe/Berlin");
+              const distance = end - now;
               if (distance <= 0) {
                 document.getElementById('count').style.display = 'none';
                 clearInterval(timer);
