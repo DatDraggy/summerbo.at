@@ -32,8 +32,8 @@ function notifyOnException($subject, $config, $sql = '', $e = '', $fail = false)
 function checkRegValid($userId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id, hash FROM users WHERE id = $userId AND status > 0 AND locked = 0";
-    $stmt = $dbConnection->prepare('SELECT id, hash FROM users WHERE id = :userId AND status > 0 AND locked = 0');
+    $sql = "SELECT id, hash FROM users WHERE id = $userId AND status >= 0 AND locked = 0"; //TODO: Change >= back to > after testing
+    $stmt = $dbConnection->prepare('SELECT id, hash FROM users WHERE id = :userId AND status >= 0 AND locked = 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
