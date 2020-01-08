@@ -114,7 +114,7 @@ function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sp
     $stmt->bindParam(':party', $party);
     $stmt->execute();
   } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
+    notifyOnException('Database Insert', $config, $sql, $e);
     return false;
   }
   return $dbConnection->lastInsertId();
