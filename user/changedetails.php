@@ -140,8 +140,8 @@ if (empty($_POST['sponsor'])) {
   $sponsorNew = true;
 }
 try {
-  $sql = "SELECT id_internal, email, sponsor FROM users WHERE id = $userId";
-  $stmt = $dbConnection->prepare('SELECT id_internal, email, sponsor FROM users WHERE id = :userId');
+  $sql = "SELECT email, sponsor FROM users WHERE id = $userId";
+  $stmt = $dbConnection->prepare('SELECT email, sponsor FROM users WHERE id = :userId');
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
   $row = $stmt->fetch();
@@ -153,7 +153,6 @@ try {
 
 $sponsorOld = $row['sponsor'];
 $oldEmail = $row['email'];
-$userIdInternal = $row['id_internal'];
 
 //////////////////
 // Email Change //
@@ -189,7 +188,7 @@ if ($oldEmail !== $newEmail) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
     if ($stmt->rowCount() === 1) {
-      $confirmationLink = requestEmailConfirm($userIdInternal, 'emailold');
+      $confirmationLink = requestEmailConfirm($userId, 'emailold');
       $emailText = '. Check your old email.';
     }
   }

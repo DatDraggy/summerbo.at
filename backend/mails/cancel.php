@@ -30,9 +30,10 @@ if ($stmt->rowCount() === 1) {
   } catch (PDOException $e) {
     notifyOnException('Database Insert', $config, $sql, $e);
   }
+
   try {
-    $sql = "SELECT id_internal, efregid, nickname, email FROM users_deleted WHERE id = $regId";
-    $stmt = $dbConnection->prepare('SELECT id_internal, efregid, nickname, email FROM users_deleted WHERE id = :regId');
+    $sql = "SELECT efregid, nickname, email FROM users_deleted WHERE id = $regId";
+    $stmt = $dbConnection->prepare('SELECT efregid, nickname, email FROM users_deleted WHERE id = :regId');
     $stmt->bindParam(':regId', $regId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -42,12 +43,11 @@ if ($stmt->rowCount() === 1) {
 
   $nickname = $row['nickname'];
   $email = $row['email'];
-  $idInternal = $row['id_internal'];
   $efregid = $row['efregid'];
 
   try {
-    $sql = "UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = $regId AND id_internal = $idInternal AND efregid = $efregid";
-    $stmt = $dbConnection->prepare("UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = :regId AND id_internal = :idInternal AND efregid = :efregid");
+    $sql = "UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = $regId AND efregid = $efregid";
+    $stmt = $dbConnection->prepare("UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = :regId AND efregid = :efregid");
     $stmt->bindParam(':idInternal', $idInternal);
     $stmt->bindParam(':regId', $regId);
     $stmt->bindParam(':efregid', $efregid);

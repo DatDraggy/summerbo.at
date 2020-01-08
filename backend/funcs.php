@@ -146,8 +146,8 @@ function requestEmailConfirm($userId, $parameter = false) {
     die();
   }
   try {
-    $sql = "SELECT id_internal FROM users WHERE id_internal = $userId";
-    $stmt = $dbConnection->prepare('SELECT id_internal FROM users WHERE id_internal = :userId');
+    $sql = "SELECT id FROM users WHERE id = $userId";
+    $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id = :userId');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
   } catch (PDOException $e) {
@@ -251,29 +251,20 @@ function confirmRegistration($token) {
   global $dbConnection, $config;
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT email, nickname, users.id_internal, sponsor FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id_internal, sponsor FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
+    $sql = "SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT email, nickname, users.id, sponsor FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
     if ($stmt->rowCount() === 1) {
       $email = $row['email'];
       $nickname = $row['nickname'];
-      $userIdInternal = $row['id_internal'];
-
-      $topay = $config['priceAttendee'];
-
-      $sql = "UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = '$userIdInternal'";
-      $stmt = $dbConnection->prepare('UPDATE users SET status = 1, id = ((SELECT selected_value FROM (SELECT MAX(id) AS selected_value FROM users) AS sub_selected_value) + 1) WHERE id_internal = :userIdInternal');
-      $stmt->bindParam(':userIdInternal', $userIdInternal);
-      $stmt->execute();
-
-      $sql = "SELECT id FROM users WHERE id_internal = $userIdInternal";
-      $stmt = $dbConnection->prepare('SELECT id FROM users WHERE id_internal = :userIdInternal');
-      $stmt->bindParam(':userIdInternal', $userIdInternal);
-      $stmt->execute();
-      $row = $stmt->fetch();
       $userId = $row['id'];
+
+      $sql = "UPDATE users SET status = 1 WHERE id = '$userId'";
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1 WHERE id = :userIdInternal');
+      $stmt->bindParam(':userIdInternal', $userId);
+      $stmt->execute();
 
       sendEmail($email, 'Email Confirmed', "Dear $nickname, 
 
@@ -284,7 +275,7 @@ You won't be able to login to your account yet, and it can take a couple of hour
 You should receive another mail from us about the next step after being accepted.
 However, it shouldn't take more than 24 hours.
 
-Your current status is: {$config['status'][1]} - Regnumber $userId
+Your current status is: {$config['status'][1]} - Registration Number $userId
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
@@ -305,7 +296,7 @@ If you have any questions, please send us a message. Reply to this e-mail or con
     }
     $dbConnection->commit();
   } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
+    notifyOnException('Database Transaction', $config, $sql, $e);
     return false;
   }
   return true;
@@ -316,8 +307,8 @@ function confirmEmail($token) {
 
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -346,13 +337,13 @@ function confirmNewEmail($token) {
 
   try {
     $dbConnection->beginTransaction();
-    $sql = "SELECT users.id_internal, email_new, nickname FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT users.id_internal, email_new, nickname FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
+    $sql = "SELECT users.id, email_new, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id, email_new, nickname FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
     if ($stmt->rowCount() === 1) {
-      $userIdInternal = $row['id_internal'];
+      $userId = $row['id'];
       $newEmail = $row['email_new'];
       $nickname = $row['nickname'];
 
@@ -367,7 +358,7 @@ function confirmNewEmail($token) {
     return false;
   }
   if ($stmt->rowCount() === 1) {
-    $confirmationLink = requestEmailConfirm($userIdInternal, 'email');
+    $confirmationLink = requestEmailConfirm($userId, 'email');
 
     if ($confirmationLink !== false) {
       sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname, 
@@ -529,8 +520,8 @@ function checkPassword($userId, $password) {
 function requestUnapproved($chatId) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT id FROM users WHERE status = 1 ORDER BY id ASC";
-    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1 ORDER BY id ASC");
+    $sql = "SELECT id FROM users WHERE status = 1 ORDER BY id";
+    $stmt = $dbConnection->prepare("SELECT id FROM users WHERE status = 1 ORDER BY id");
     $stmt->execute();
     $rows = $stmt->fetchAll();
   } catch (PDOException $e) {
@@ -872,8 +863,8 @@ function getIdFromToken($token) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = '$token'";
-    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id_internal = email_tokens.id WHERE token = :token');
+    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -891,8 +882,8 @@ function requestPasswordReset($userId) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT email, id, nickname FROM users WHERE id_internal = $userId AND status > 0";
-    $stmt = $dbConnection->prepare('SELECT email, id, nickname FROM users WHERE id_internal = :userId AND status > 0');
+    $sql = "SELECT email, nickname FROM users WHERE id = $userId AND status > 0";
+    $stmt = $dbConnection->prepare('SELECT email, nickname FROM users WHERE id = :userId AND status > 0');
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
     $row = $stmt->fetch();
@@ -903,11 +894,10 @@ function requestPasswordReset($userId) {
   if ($stmt->rowCount() === 1) {
     $nickname = $row['nickname'];
     $email = $row['email'];
-    $userIdPub = $row['id'];
     $confirmationLink = requestEmailConfirm($userId, 'password');
     sendEmail($email, 'Password Reset', "Dear $nickname, 
 
-Registration number: $userIdPub 
+Registration number: $userId 
 You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
 Was it not you who requested this? Let us know!
 

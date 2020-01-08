@@ -202,8 +202,8 @@ if (filter_var($emailPost, FILTER_VALIDATE_EMAIL)) {
 
 //Check for used email
 try{
-  $sql = "SELECT count(id_internal) as count FROM users WHERE email = $email";
-  $stmt=$dbConnection->prepare('SELECT count(id_internal) as count FROM users WHERE email = :email');
+  $sql = "SELECT count(id) as count FROM users WHERE email = $email";
+  $stmt=$dbConnection->prepare('SELECT count(id) as count FROM users WHERE email = :email');
   $stmt->bindParam(':email', $email);
   $stmt->execute();
   $row = $stmt->fetch();
@@ -265,7 +265,7 @@ sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nicknam
 
 Thank you for your registration with the Summernights party.
 
-Your current status is: {$config['status'][0]}
+Your current status is: {$config['status'][0]} - Registration Number $userId
 
 You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
 Afterwards another mail will be sent.

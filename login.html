@@ -111,8 +111,8 @@ if (!empty($_SESSION['status'])) {
     $status = 'reCAPTCHA Verification Failed';
   } else {
     try {
-      $sql = "SELECT id_internal FROM users WHERE email = $email AND status > 0";
-      $stmt = $dbConnection->prepare('SELECT id_internal FROM users WHERE email = :email AND status > 0');
+      $sql = "SELECT id FROM users WHERE email = $email AND status > 0";
+      $stmt = $dbConnection->prepare('SELECT id FROM users WHERE email = :email AND status > 0');
       $stmt->bindParam(':email', $email);
       $stmt->execute();
       $row = $stmt->fetch();
@@ -121,7 +121,7 @@ if (!empty($_SESSION['status'])) {
       $status = 'Database Error';
     }
     if ($stmt->rowCount() > 0) {
-      requestPasswordReset($row['id_internal']);
+      requestPasswordReset($row['id']);
     }
     $status = 'If there is an account linked to the provided email, a password reset link has been sent.';
   }
