@@ -936,8 +936,8 @@ function insertToken($userId) {
 function getConfirmedAttendees($choice) {
   global $dbConnection, $config;
   try {
-    $sql = "SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0 AND party = $choice";
-    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 1 AND `rank` = 0 AND locked = 0 AND party = :choice');
+    $sql = "SELECT count(id) as count FROM users WHERE status >= 0 AND `rank` = 0 AND locked = 0 AND party = $choice";
+    $stmt = $dbConnection->prepare('SELECT count(id) as count FROM users WHERE status >= 0 AND `rank` = 0 AND locked = 0 AND party = :choice');
     $stmt->bindParam(':choice', $choice);
     $stmt->execute();
     $row = $stmt->fetch();

@@ -20,7 +20,7 @@ $dbConnection = buildDatabaseConnection($config);
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-$attendees1 = $attendees2 = 999;
+$attendees1 = $attendees2 = 0;
 
 $regOpen = $config['regOpen'];
 if ($regOpen === true) {
@@ -160,17 +160,6 @@ if (empty($_SESSION['secret'])) {
           <div class="row">
             <div class="content">
               <?php
-
-              ?>
-
-
-              <?php
-              /*
-               * TODO
-               *
-               * REBUILD THIS SHIT SHOW WTF WERE YOU THINKING
-               *
-               */
               $slotsLeft1 = max($attendeesMax1 - $attendees1, 0);
               $slotsLeft2 = max($attendeesMax2 - $attendees2, 0);
               $slotsLeft = $slotsLeft1 + $slotsLeft2;
@@ -182,20 +171,37 @@ if (empty($_SESSION['secret'])) {
                   <em>Terms and Conditions</em>. You
                   can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
                 <p>Every attendee gets a badge with their nickname, regnumber and country printed on it.</p>
+
                 <?php
                 if ($regOpen) {
                     echo "<p>There are $slotsLeft slots left. $slotsLeft1 on Boat A and $slotsLeft2 on Boat B.</p>";
                 }
               } else {
-                echo "
+                $waitingListCount = getWaitinglistCount();
+                //TODO: getWaitinglistCount and waitinglist.php
+                ?>
+
               <h3>Registration Closed</h3>
               <br>
-              <p><b>Sorry, all slots are taken!</b></p>";
+              <p><b>Sorry, all slots are taken!</b></p>
+
+                <?php if ($waitingListCount < 50) { ?>
+                  <form class="formWrapper" id="waitinglist" action="backend/waitinglist.php" method="post">
+                    <div class="inputWrapper">
+                      <label for="email"><span>Email</span></label>
+                      <input name="email" id="email" class="input" placeholder="Enter your email" type="email" required>
+                    </div>
+                    <button class="button buttonPrimary">Submit</button>
+                  </form>
+
+                <?php
+                }
               }
               if (!empty($status)) {
                 echo '<div class="info-box-err">' . $status . '</div>';
-              } ?>
-              <?php if ($regOpen || $secret === $config['secret']) { ?>
+              }
+              if ($regOpen || $secret === $config['secret']) { ?>
+                
                 <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
@@ -551,7 +557,7 @@ if (empty($_SESSION['secret'])) {
                   <button class="button buttonPrimary">Submit</button>
                 </form>
               <?php } else {
-                echo '<div class="formWrapper"><h3>Registration Closed</h3></div>';
+                echo '<div class="formWrapper"><h3>Registration Closed</h3><p>Registration opens on ' . $config['startReg'] . ' 11:00 CET</p></div>';
               } ?>
             </div>
           </div>
