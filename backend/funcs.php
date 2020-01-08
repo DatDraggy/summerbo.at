@@ -92,12 +92,12 @@ function hashPassword($password) {
   return password_hash($password, PASSWORD_DEFAULT);
 }
 
-function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list, $efregid) {
+function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, $rank, $regdate, $list, $efregid, $party) {
   global $dbConnection, $config;
 
   try {
-    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list, $efregid)";
-    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list, :efregid)');
+    $sql = "INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid, party) ('$nickname', '$firstName', '$lastName', '$dob', '$country', '$email', '$hash', $sponsor, $fursuiter, 0, $rank, $regdate, NULL, $list, $efregid, $party)";
+    $stmt = $dbConnection->prepare('INSERT INTO users(nickname, first_name, last_name, dob, country, email, hash, sponsor, fursuiter, status, `rank`, regdate, approvedate, list, efregid, party) VALUES(:nickname, :firstName, :lastName, :dob, :country, :email, :hash, :sponsor, :fursuiter, 0, :rank, :regdate, NULL, :list, :efregid, :party)');
     $stmt->bindParam(':nickname', $nickname);
     $stmt->bindParam(':firstName', $firstName);
     $stmt->bindParam(':lastName', $lastName);
@@ -111,6 +111,7 @@ function newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sp
     $stmt->bindParam(':regdate', $regdate);
     $stmt->bindParam(':list', $list);
     $stmt->bindParam(':efregid', $efregid);
+    $stmt->bindParam(':party', $party);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Select', $config, $sql, $e);

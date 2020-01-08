@@ -240,8 +240,8 @@ if ($dbConnection === false) {
   errorStatus($status);
 }
 
-/*
-$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid);
+
+$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid, $party);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
   errorStatus($status);
@@ -252,7 +252,7 @@ if ($confirmationLink === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified';
   errorStatus($status);
 }
-*/
+
 
 $status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
 session_start();
