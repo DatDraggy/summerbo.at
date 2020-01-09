@@ -457,6 +457,7 @@ nav.active .js-showNav {
   /* align-items: center; */
   align-items: flex-end;
   background-image: url('../images/hotsummerBG-placeholder.png');
+  background-attachment: fixed;
   background-size: cover;
   height: calc(100vh - 3rem);
   color: white;
@@ -975,7 +976,7 @@ body.hasNav {
     font-size: 2.5rem;
     line-height: 3rem;
     max-width: 18ch;
-    
+
   }
 
   h3, .heading3 {
