@@ -1126,3 +1126,16 @@ body.hasNav {
   -moz-box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
   box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
 }
+
+
+/* Hide Numbers; Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide Numbers; Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
+}

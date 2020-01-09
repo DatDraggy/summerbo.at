@@ -306,14 +306,16 @@ function confirmEmail($token) {
   global $dbConnection, $config;
 
   try {
-    $dbConnection->beginTransaction();
-    $sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
+    $userId = getIdFromToken($token);
+    /*$sql = "SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = '$token'";
     $stmt = $dbConnection->prepare('SELECT users.id FROM users INNER JOIN email_tokens on users.id = email_tokens.id WHERE token = :token');
     $stmt->bindParam(':token', $token);
     $stmt->execute();
-    $row = $stmt->fetch();
-    if ($stmt->rowCount() === 1) {
-      $userId = $row['id'];
+    $row = $stmt->fetch();*/
+    $dbConnection->beginTransaction();
+    //if ($stmt->rowCount() === 1) {
+    if ($userId !== false) {
+      //$userId = $row['id'];
       $sql = "UPDATE users SET email = email_new, email_new = NULL WHERE id = $userId";
       $stmt = $dbConnection->prepare('UPDATE users SET email = email_new, email_new = NULL WHERE id = :userId');
       $stmt->bindParam(':userId', $userId);
@@ -872,6 +874,7 @@ function getIdFromToken($token) {
     notifyOnException('Database Select', $config, $sql, $e);
     return false;
   }
+
   if ($stmt->rowCount() === 1) {
     return $row['id'];
   }
@@ -1106,10 +1109,62 @@ function striposa($haystack, $needles = array(), $offset = 0) {
   return min($chr);
 }
 
-function errorStatus($status){
+function errorStatus($status) {
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
   header('Location: ../register');
   die($status);
+}
+
+function getWaitinglistCount() {
+  global $dbConnection, $config;
+
+  try {
+    $sql = 'SELECT count(id) as count FROM waitinglist';
+    $stmt = $dbConnection->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Select', $config, $sql, $e);
+    return false;
+  }
+
+  return $row['count'];
+}
+
+function addToWaitinglist($email) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "INSERT INTO waitinglist(email) VALUES ($email)";
+    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email) VALUES (:email)');
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+    return false;
+  }
+  return true;
+}
+
+function checkWaitinglist($email) {
+  global $dbConnection, $config;
+
+  try {
+    $sql = "SELECT id FROM waitinglist WHERE email = $email";
+    $stmt = $dbConnection->prepare('SELECT id FROM waitinglist WHERE email = :email');
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $row = $stmt->fetch();
+  } catch (PDOException $e) {
+    notifyOnException('Database Insert', $config, $sql, $e);
+    return true;
+  }
+
+  if ($stmt->rowCount() > 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
