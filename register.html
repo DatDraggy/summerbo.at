@@ -24,7 +24,6 @@ $regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() 
 if ($regOpen === true) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
-$attendees1 = $attendees2 = 999;
 
   if (($attendees1 === false || $attendees1 >= $attendeesMax1) && ($attendees2 === false || $attendees2 >= $attendeesMax2)) {
     $regOpen = false;
