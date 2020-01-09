@@ -201,7 +201,7 @@ if (empty($_SESSION['secret'])) {
                 echo '<div class="info-box-err">' . $status . '</div>';
               }
               if ($regOpen || $secret === $config['secret']) { ?>
-                
+
                 <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>

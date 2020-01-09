@@ -18,9 +18,9 @@ $head = '<meta charset="utf-8">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="apple-mobile-web-app-title" content="Hot Summer Nights 2020 Summerbo.at Party">
     <meta name="application-name" content="Hot Summer Nights 2020 Summerbo.at Party">
-    <meta name="msapplication-TileColor" content="#1afbc4">
+    <meta name="msapplication-TileColor" content="#3EC1C7">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#1afbc4">
+    <meta name="theme-color" content="#3EC1C7">
     <script src="/js/yall-2.2.0.min.js"></script>
     <link rel="stylesheet" href="/css/css.css">
     <link rel="stylesheet" href="/css/badger-accordion.css">
