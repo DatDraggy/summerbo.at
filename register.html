@@ -3,10 +3,10 @@ require_once('backend/config.php');
 require_once('backend/includes.php');
 require_once('backend/funcs.php');
 
-$timeLeft = strtotime($config['startReg'] . ' 12:00:00') - time();
+$timeLeft = strtotime($config['startReg'] . 'T11:00:00') - time();
 
 if ($timeLeft / 60 / 60 / 24 < 2) {
-  header('');
+  header('Cache-Control: max-age=0');
 }
 
 session_start();
@@ -20,7 +20,7 @@ $dbConnection = buildDatabaseConnection($config);
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:16:00") <= time() ? true : false);
+$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() ? true : false);
 if ($regOpen === true) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
@@ -618,7 +618,7 @@ if (empty($_SESSION['secret'])) {
             showRemaining();
             timer = setInterval(function(){showRemaining()}, 1000);
           }
-          CountDownTimer('<?= $config['startReg'] ?>T11:16:00');
+          CountDownTimer('<?= $config['startReg'] ?>T11:00:00');
         </script>
       <?php } ?>
       <?= $footer ?>
