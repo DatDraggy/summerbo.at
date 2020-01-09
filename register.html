@@ -20,7 +20,7 @@ $dbConnection = buildDatabaseConnection($config);
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() ? true : false);
+$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:15:00") <= time() ? true : false);
 if ($regOpen === true) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
@@ -602,6 +602,7 @@ if (empty($_SESSION['secret'])) {
               if (distance <= 0) {
                 document.getElementById('count').style.display = 'none';
                 clearInterval(timer);
+                location.reload();
               }
               const days = Math.floor(distance / _day);
               const hours = Math.floor((distance % _day) / _hour);
@@ -617,7 +618,7 @@ if (empty($_SESSION['secret'])) {
             showRemaining();
             timer = setInterval(function(){showRemaining()}, 1000);
           }
-          CountDownTimer('<?= $config['startReg'] ?>T11:00:00');
+          CountDownTimer('<?= $config['startReg'] ?>T11 :15:00');
         </script>
       <?php } ?>
       <?= $footer ?>
