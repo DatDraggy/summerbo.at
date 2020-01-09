@@ -20,8 +20,7 @@ $dbConnection = buildDatabaseConnection($config);
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-
-$regOpen = $config['regOpen'];
+$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= strtotime(time()) ? true : false);
 if ($regOpen === true) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
@@ -178,15 +177,15 @@ if (empty($_SESSION['secret'])) {
                 }
               } else {
                 $waitingListCount = getWaitinglistCount();
-                //TODO: getWaitinglistCount and waitinglist.php
                 ?>
 
-              <h3>Registration Closed</h3>
-              <br>
-              <p><b>Sorry, all slots are taken!</b></p>
+                <h3>Registration Closed</h3>
+                <br>
+                <p><b>Sorry, all slots are taken!</b></p>
 
                 <?php if ($waitingListCount < 50) { ?>
                   <form class="formWrapper" id="waitinglist" action="backend/waitinglist.php" method="post">
+                    <h4>Waiting List</h4>
                     <div class="inputWrapper">
                       <label for="email"><span>Email</span></label>
                       <input name="email" id="email" class="input" placeholder="Enter your email" type="email" required>
@@ -556,14 +555,14 @@ if (empty($_SESSION['secret'])) {
                   </div>
                   <button class="button buttonPrimary">Submit</button>
                 </form>
-              <?php } else {
+              <?php } else if (!$regOpenTime) {
                 echo '<div class="formWrapper"><h3>Registration Closed</h3><p>Registration opens on ' . $config['startReg'] . ' 11:00 CET</p></div>';
               } ?>
             </div>
           </div>
         </section>
       </section> <!--pageWrapper -->
-      <?php if (!$regOpen && $secret !== $config['secret']) { ?>
+      <?php if (!$regOpenTime && $secret !== $config['secret']) { ?>
         <section id="count" class="countWrapperReg" style="text-align: center;">
           <div class="wrapper">
             <div id="counters-min" class="row">
