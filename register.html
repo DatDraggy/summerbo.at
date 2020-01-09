@@ -20,7 +20,7 @@ $dbConnection = buildDatabaseConnection($config);
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= strtotime(time()) ? true : false);
+$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() ? true : false);
 if ($regOpen === true) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
