@@ -13,16 +13,16 @@ $head = '<meta charset="utf-8">
     <meta property="og:image:height" content="741">
 
     <!-- ToDo: Move itemprop name and description to individual pages -->
-    <meta itemprop="name" content="Hot Summer Nights 2020" />
-    <meta itemprop="description" content="Hot Summer Nights 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 18 August 2020." />
+    <meta itemprop="name" content="Never Grow Up 2020" />
+    <meta itemprop="description" content="Never Grow Up 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 18 August 2020." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
-    <meta name="twitter:title" content="Hot Summer Nights 2020">
-    <meta name="twitter:description" content="Hot Summer Nights 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 18 August 2020.">
+    <meta name="twitter:title" content="Never Grow Up 2020">
+    <meta name="twitter:description" content="Never Grow Up 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin! 18 August 2020.">
     <meta name="twitter:image" content="https://summerbo.at/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
@@ -42,8 +42,8 @@ $head = '<meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="Hot Summer Nights 2020 Summerbo.at Party">
-    <meta name="application-name" content="Hot Summer Nights 2020 Summerbo.at Party">
+    <meta name="apple-mobile-web-app-title" content="Never Grow Up 2020 Summerbo.at Party">
+    <meta name="application-name" content="Never Grow Up 2020 Summerbo.at Party">
     <meta name="msapplication-TileColor" content="#3EC1C7">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#3EC1C7">
@@ -55,9 +55,9 @@ $head = '<meta charset="utf-8">
       {
         "@context": "http://www.schema.org",
         "@type": "Event",
-        "name": "Hot Summer Nights 2020",
+        "name": "Never Grow Up 2020",
         "url": "https://summerbo.at",
-        "description": "The 1st Summerbo.at \'Hot Summer Nights\' party. An exclusive boat party departing from the Estrel.",
+        "description": "The 1st Summerbo.at \'Never Grow Up\' party. An exclusive boat party departing from the Estrel.",
         "startDate": "' . $config['start'] . '",
         "endDate": "' . $config['start'] . '",
         "location": {

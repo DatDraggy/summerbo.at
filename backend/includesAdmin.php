@@ -16,8 +16,8 @@ $head = '<meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="Hot Summer Nights 2020 Summerbo.at Party">
-    <meta name="application-name" content="Hot Summer Nights 2020 Summerbo.at Party">
+    <meta name="apple-mobile-web-app-title" content="Never Grow Up 2020 Summerbo.at Party">
+    <meta name="application-name" content="Never Grow Up 2020 Summerbo.at Party">
     <meta name="msapplication-TileColor" content="#3EC1C7">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#3EC1C7">
@@ -37,7 +37,7 @@ $nav = '<nav id="nav" class="nav inactive">
         <div class="navLinks">
           <div class="navItem navItemLogo">
             <a class="navLink" href="/#"><img alt="Summerboat Logo" src="/images/logo@2x.png" width="48">
-              <p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Hot Summer Nights</p></a>
+              <p style="margin-left: 1rem;" class="heading5 subheadline nomargin">Never Grow Up</p></a>
           </div>
           <div class="navItem">
             <a class="navLink" href="/admin/pickup">Check-in</a>
