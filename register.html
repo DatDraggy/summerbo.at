@@ -539,7 +539,6 @@ if (empty($_SESSION['secret'])) {
                              placeholder="Re-enter your password" onkeyup="checkPass()" required/>
                     </div>
                   </div>
-                  <div id="passwordMessage" class="formRow"></div>
                   <div class="checkboxWrapper">
                     <div class="checkboxGroup">
                       <input name="tos" type="checkbox" id="tos" required>
@@ -552,6 +551,7 @@ if (empty($_SESSION['secret'])) {
                         list</label>
                     </div>
                   </div>
+                  <div id="passwordMessage" class="formRow"></div>
                   <button class="button buttonPrimary">Submit</button>
                 </form>
               <?php } else if (!$regOpenTime) {
@@ -627,7 +627,7 @@ if (empty($_SESSION['secret'])) {
         form.addEventListener('submit', function (e) {
           e.preventDefault();
           if (!checkRadios('partyRadio')) {
-            var partyDiv =             document.getElementById('partyRadio');
+            var partyDiv = document.getElementById('partyRadio');
             partyDiv.scrollIntoView();
             partyDiv.style.backgroundColor = '#ffc8c8';
             return
@@ -635,13 +635,22 @@ if (empty($_SESSION['secret'])) {
 
           var dateArr = document.getElementById('dob').value.split('.');
           if (getAge(dateArr[2] + '-' + dateArr[1] + '-' + dateArr[0]) < 18) {
-            document.getElementById('passwordMessage').innerHTML = "You have to be at least 18 years old on the day of the party.";
-            document.getElementById('passwordMessage').style.color = "#ff6666";
+            errField = document.getElementById('passwordMessage');
+            errField.innerHTML = "You have to be at least 18 years old on the day of the party.";
+            errField.style.color = "#ff6666";
             return
           }
 
-          hibpCheck(document.getElementById('password').value);
-
+          const nickname = document.getElementById('nickname');
+          if (nickname.value.length >= 1 && nickname.value.length <= 20 &&
+                  /^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*)$/.test(nickname.value)) {
+            hibpCheck(document.getElementById('password').value);
+          } else{
+            errField = document.getElementById('passwordMessage');
+            errField.innerHTML = "Your nickname can only contain 2 spaces, 2 special characters. There is a required length of 2 to 80 characters.";
+            errField.style.color = "#ff6666";
+            nickname.style.backgroundColor = '#ffc8c8';
+          }
         });</script>
   </body>
 </html>

@@ -159,28 +159,28 @@ $publicList = empty($_POST['publicList']) ? false : true;
 //$nicknameRaw = str_replace(' ', '_', $nicknamePost);
 
 
-/*if (preg_match('/[^\w-. ~]/', $nicknamePost) === 1) {
-  $status = 'Illegal character in Nickname';
+if (preg_match('/^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*)$/', $nicknamePost) === 0) {
+  $status = 'Illegal character in Nickname. 2 symbols, 2 spaces, 2-20 characters, ';
   session_start();
   $_SESSION['status'] = $status;
   session_commit();
   header('Location: ../register');
   die($status);
-} else {*/
-$nickname = substr($nicknamePost, 0, 20);
-/*}*/
-
-/*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
-  $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
-  $dobStamp = strtotime($dobPost);
-  if ($dobStamp === false) {
-    die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
-  }
-  $dob = date('Y-m-d', $dobStamp);
+} else {
+    $nickname = substr($nicknamePost, 0, 20);
 }
-else{
-  die('Bad Date of Birth');
-}*/
+
+    /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
+      $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
+      $dobStamp = strtotime($dobPost);
+      if ($dobStamp === false) {
+        die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
+      }
+      $dob = date('Y-m-d', $dobStamp);
+    }
+    else{
+      die('Bad Date of Birth');
+    }*/
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
   $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
