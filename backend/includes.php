@@ -67,6 +67,7 @@ $head = '<meta charset="utf-8">
     </script>
     <!-- Matomo -->
     <!--
+    ToDo: Remove on merge
     <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
