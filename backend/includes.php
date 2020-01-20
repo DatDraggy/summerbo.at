@@ -13,16 +13,16 @@ $head = '<meta charset="utf-8">
     <meta property="og:image:height" content="741">
 
     <!-- ToDo: Move itemprop name and description to individual pages -->
-    <meta itemprop="name" content="Never Grow Up 2020" />
-    <meta itemprop="description" content="Never Grow Up 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 18 August 2020." />
+    <meta itemprop="name" content="All Paws on Deck 2020" />
+    <meta itemprop="description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 18 August 2020." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
-    <meta name="twitter:title" content="Never Grow Up 2020">
-    <meta name="twitter:description" content="Never Grow Up 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 18 August 2020.">
+    <meta name="twitter:title" content="All Paws on Deck 2020">
+    <meta name="twitter:description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 18 August 2020.">
     <meta name="twitter:image" content="https://summerbo.at/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
@@ -42,8 +42,8 @@ $head = '<meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="Never Grow Up 2020 Summerbo.at Party">
-    <meta name="application-name" content="Never Grow Up 2020 Summerbo.at Party">
+    <meta name="apple-mobile-web-app-title" content="All Paws on Deck 2020 Summerbo.at Party">
+    <meta name="application-name" content="All Paws on Deck 2020 Summerbo.at Party">
     <meta name="msapplication-TileColor" content="#3EC1C7">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#3EC1C7">
@@ -99,7 +99,7 @@ $nav = '<nav id="nav" class="nav inactive">
             <a class="navLink" href="/#"><img alt="Summerboat Logo" src="/images/logo@2x.png" width="48">
               <p style="margin-left: 1rem; line-height:1;" class="heading5 subheadline nomargin">
               Summerbo.at 2020:
-              Never Grow Up
+              All Paws on Deck
               </p></a>
           </div>
           <div class="navItem">
