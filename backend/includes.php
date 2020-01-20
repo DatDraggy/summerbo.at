@@ -66,6 +66,7 @@ $head = '<meta charset="utf-8">
       }
     </script>
     <!-- Matomo -->
+    <!--
     <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -84,6 +85,7 @@ $head = '<meta charset="utf-8">
         g.type=\'text/javascript\'; g.async=true; g.defer=true; g.src=u+\'matomo.js\'; s.parentNode.insertBefore(g,s);
       })();
     </script>
+    -->
     <!-- End Matomo Code -->
 ';
 
