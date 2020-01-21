@@ -645,7 +645,7 @@ if (empty($_SESSION['secret'])) {
           if (nickname.value.length >= 1 && nickname.value.length <= 20 &&
                   /^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*)$/.test(nickname.value)) {
             hibpCheck(document.getElementById('password').value);
-          } else{
+          } else {
             errField = document.getElementById('passwordMessage');
             errField.innerHTML = "Your nickname can only contain 2 spaces, 2 special characters. There is a required length of 2 to 80 characters.";
             errField.style.color = "#ff6666";
