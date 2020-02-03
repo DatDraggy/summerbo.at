@@ -263,7 +263,7 @@ header('Location: ../login?reg');
 /*
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
-Thank you for your registration with the Summernights party.
+Thank you for your registration with the Summerboat party.
 
 Your current status is: {$config['status'][0]} - Registration Number $userId
 
