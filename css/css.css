@@ -1148,3 +1148,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield;
 }
+
+.textBlock {
+  display: inline-block;
+  background-color: var(--colorWhite);
+  color: var(--colorPrimary);
+  padding: .5rem 1rem;
+}
