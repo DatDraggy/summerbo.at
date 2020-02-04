@@ -145,11 +145,11 @@ $footer = '<section id="footer">
         <div class="content">
           <h2>Follow Us!</h2>
           <ul class="blankList textSmall">
-            <li><a class="unselectable flexCentered" href="https://t.me/summerboat" target="_blank"><i class="la la24 la-paper-plane"></i> @summerboat</a></li>
-            <li><a class="unselectable flexCentered" href="https://twitter.com/summerbo_at" target="_blank"><i class="la la24 la-twitter-square"></i> @summerbo_at</a></li>
+            <li><a class="unselectable flexCentered" href="https://t.me/summerboat" rel="noopener" target="_blank"><i class="la la24 la-paper-plane"></i> @summerboat</a></li>
+            <li><a class="unselectable flexCentered" href="https://twitter.com/summerbo_at" rel="noopener" target="_blank"><i class="la la24 la-twitter-square"></i> @summerbo_at</a></li>
             <li><a class="unselectable flexCentered" href="mailto:team@summerbo.at" target="_blank"><i class="la la24 la-envelope"></i> team@summerbo.at</a></li>
-      <li><a class="unselectable flexCentered" href="https://t.me/summerboatinfo" target="_blank"><i class="la la24 la-info"></i> @summerboatinfo</a></li>
-      <li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
+      <li><a class="unselectable flexCentered" href="https://t.me/summerboatinfo" rel="noopener" target="_blank"><i class="la la24 la-info"></i> @summerboatinfo</a></li>
+      <li><a class="unselectable flexCentered" href="https://open.spotify.com/user/1131941723/playlist/08YOlrMp5pIcpdrQjEwfig?si=DtMG_0EuTdiHLj8nUvhWIw" rel="noopener" target="_blank"><i class="la la24 la-spotify"></i> Summerbo.at Spotify</a></li>
           </ul>
           <ul class="blankList textSmall" style="margin-bottom: 2rem">
             <li><a href="contact" class="unselectable flexCentered" >Contact Us</a></li>
@@ -157,7 +157,7 @@ $footer = '<section id="footer">
             <li><a href="/tos#rules" class="unselectable flexCentered">Rules of Conduct</a></li>
             <li><a href="/tos#privacy" class="unselectable flexCentered">Privacy</a></li>
             <li><a href="/tos#cookies" class="unselectable flexCentered">Cookies</a></li>
-            <li><a href="https://github.com/datdraggy/summerbo.at" target="_blank" class="unselectable flexCentered">Source</a></li>
+            <li><a href="https://github.com/datdraggy/summerbo.at" rel="noopener" target="_blank" class="unselectable flexCentered">Source</a></li>
           </ul>
           <p class="textSmall">Content Copyright &copy; Summerbo.at Organization Group 2018-20</p>
         </div>
