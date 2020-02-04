@@ -168,7 +168,7 @@ if (empty($_SESSION['secret'])) {
                 <p>Before you register it is important that you are familiar with our <em>Code of Conduct</em> and
                   <em>Terms and Conditions</em>. You
                   can find both <a href="tos" title="Terms and Conditions">here</a>.</p>
-                <p>Every attendee gets a badge with their nickname and regnumber</p>
+                <p>Every attendee gets a badge with their nickname and regnumber. You will also get a lanyard so you can wear the badge during boarding and the party.</p>
 
                 <?php
                 if ($regOpen) {
@@ -219,7 +219,7 @@ if (empty($_SESSION['secret'])) {
                   <div class="formRow">
                     <div class="inputWrapper" id="partyRadio">
                       <div>
-                        <label for="party1"><span>Party A, TBD, TBA</span></label>
+                        <label for="party1"><span>Party A, 13:00, Treptower Park</span></label>
                         <input name="party" id="party1" class="input" type="radio" value="1" <?= $slotsLeft1 >= $attendeesMax1 ? 'disable' : '' ?>>
                       </div>
                       <div>
