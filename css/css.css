@@ -477,6 +477,17 @@ nav.active .js-showNav {
   margin-bottom: 4rem;
   transition: opacity 1500ms 1500ms var(--animNice);
 }
+
+.featureOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('../images/overlay.png');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+}
 .videoBackground {
   transition: opacity 2500ms 1500ms var(--animNice);
   position: absolute;
@@ -1005,6 +1016,7 @@ body.hasNav {
   .hero {
     height: calc(100vh - 4rem);
     align-items: center;
+    position:relative;
   }
 
   .heroFeature {
