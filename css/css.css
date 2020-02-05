@@ -699,7 +699,7 @@ a.buttonSecondary {
   position: relative;
 }
 
-.checkboxGroup input[type="checkbox"] {
+.checkboxGroup input[type="checkbox"], .checkboxGroup input[type="radio"] {
   top: 1rem;
   left: 1rem;
   opacity: 0;
@@ -735,17 +735,21 @@ a.buttonSecondary {
   line-height: 0rem;
 }
 
-.checkboxGroup input[type=checkbox]:checked + label:before {
+.checkboxGroup input[type=checkbox]:checked + label:before,
+.checkboxGroup input[type=radio]:checked + label:before {
   animation: pop 250ms var(--animNice) forwards;
 }
 
-.checkboxGroup input[type=checkbox]:checked + label {
+.checkboxGroup input[type=checkbox]:checked + label,
+.checkboxGroup input[type=radio]:checked + label {
   background-color: var(--colorToneHigh);
 }
 
-.checkboxGroup input[type=checkbox]:disabled + label {
+.checkboxGroup input[type=checkbox]:disabled + label,
+.checkboxGroup input[type=radio]:disabled + label {
   background-color: var(--colorToneHigh);
 }
+.checkboxGroup input[type=checkbox]:focus + label,
 .checkboxGroup input[type=checkbox]:focus + label {
   border: 2px solid var(--colorSecondary)
 }
@@ -756,7 +760,8 @@ a.buttonSecondary {
   border: 2px solid transparent;
 }
 
-.checkboxGroup.VIP input[type=checkbox]:checked + label {
+.checkboxGroup.VIP input[type=checkbox]:checked + label,
+.checkboxGroup.VIP input[type=radio]:checked + label {
   background-color: var(--colorGold);
 }
 
@@ -771,6 +776,29 @@ a.buttonSecondary {
 
 .checkboxGroup input[type=checkbox]:checked + label:before {
   content: '';
+}
+.checkboxGroup input[type=radio]:checked + label:before {
+  justify-content: center;
+  top: 1rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background-color: var(--colorWhite);
+  border: 2px solid var(--colorBlack);
+  content: '';
+}
+.checkboxGroup input[type=radio]:checked + label:after {
+  position: absolute;
+  display: block;
+  flex:none;
+  height: .75rem;
+  width: .75rem;
+  border-radius: 50%;
+  background-color: var(--colorBlack);
+  content: '';
+  top: calc(1.125rem + 2px);
+
+  left: calc(1.125rem - 2px);
 }
 
 .inputWrapper.inputFocussed {
