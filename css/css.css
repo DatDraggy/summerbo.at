@@ -1179,7 +1179,6 @@ input[type=number] {
 
 .textBlock {
   display: inline-block;
-  background-color: var(--colorWhite);
-  color: var(--colorPrimary);
-  padding: .5rem 1rem;
+  color: var(--colorSecondary);
+  font-size: 1rem;
 }
