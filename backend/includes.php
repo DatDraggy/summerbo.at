@@ -101,7 +101,7 @@ $nav = '<nav id="nav" class="nav inactive">
 
         <div class="navLinks">
           <div class="navItem navItemLogo">
-            <a class="navLink" href="/#"><img alt="Summerboat Logo" src="/images/logo@2x.png" width="48">
+            <a class="navLink" href="/#"><img alt="Summerboat Logo" src="/images/logo@2x.png?v=2020XBbnOXWxGx" width="48">
               <p style="margin-left: 1rem; line-height:1;" class="heading5 subheadline nomargin">
               Summerbo.at 2020:
               All Paws on Deck
