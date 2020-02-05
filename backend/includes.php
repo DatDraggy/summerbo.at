@@ -50,7 +50,7 @@ $head = '<meta charset="utf-8">
     <meta name="apple-mobile-web-app-title" content="All Paws on Deck 2020 Summerbo.at Party">
     <meta name="application-name" content="All Paws on Deck 2020 Summerbo.at Party">
     <script src="/js/yall-2.2.0.min.js"></script>
-    <link rel="stylesheet" href="/css/css.css">
+    <link rel="stylesheet" href="/css/css.css?v=2020XBbnOXWxGxdev">
     <link rel="stylesheet" href="/css/badger-accordion.css">
     <link rel="stylesheet" href="/css/line-awesome.min.css">
     <script type="application/ld+json">
@@ -169,7 +169,7 @@ $footer = '<section id="footer">
 </div> <!-- App -->
 <script>document.addEventListener("DOMContentLoaded", yall);</script>
 <script src="/js/badger-accordion.min.js"></script>
-<script src="/js/app.js"></script>
+<script src="/js/app.js?v=2020XBbnOXWxGxdev"></script>
 <!-- Start Cookie Plugin -->
 <script>
   window.cookieconsent_options = {
@@ -180,5 +180,5 @@ $footer = '<section id="footer">
     theme: \'light-floating\'
   };
 </script>
-<script src="/js/cookie-consent/script.js"></script>';
+<script src="/js/cookie-consent/script.js?v=2020XBbnOXWxGxdev"></script>';
 //This website uses cookies to fully function. To login, you will have to allow them.
