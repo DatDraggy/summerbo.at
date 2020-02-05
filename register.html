@@ -218,11 +218,11 @@ if (empty($_SESSION['secret'])) {
                   Which Party do you want to attend?
                   <div class="formRow">
                     <div class="inputWrapper" id="partyRadio">
-                      <div>
+                      <div class="checkboxGroup">
                         <label for="party1"><span>Party A, 13:00, Treptower Park</span></label>
                         <input name="party" id="party1" class="input" type="radio" value="1" <?= $slotsLeft1 >= $attendeesMax1 ? 'disable' : '' ?>>
                       </div>
-                      <div>
+                      <div class="checkboxGroup">
                         <label for="party2"><span>Party B, 19:00, Estrel Biergarten</span></label>
                         <input name="party" id="party2" class="input" type="radio" value="2" <?= $slotsLeft2 >= $attendeesMax2 ? 'disable' : '' ?>>
                       </div>
