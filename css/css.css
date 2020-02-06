@@ -1051,7 +1051,7 @@ body.hasNav {
   .heroFeature {
     margin-top: 4rem;
     margin-bottom: 4rem;
-    width: 100%;
+    width: 100% !important;
   }
 
   .ticket {
