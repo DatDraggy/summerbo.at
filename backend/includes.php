@@ -67,9 +67,10 @@ $head = '<meta charset="utf-8">
         ]
       }
     </script>
-    <!-- Matomo -->
-    <!--
-    ToDo: Remove on merge
+';
+
+if ($_SERVER['SERVER_NAME'] !== 'dev.summerbo.at') {
+    $head .= '<!-- Matomo -->
     <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -88,9 +89,8 @@ $head = '<meta charset="utf-8">
         g.type=\'text/javascript\'; g.async=true; g.defer=true; g.src=u+\'matomo.js\'; s.parentNode.insertBefore(g,s);
       })();
     </script>
-    -->
-    <!-- End Matomo Code -->
-';
+    <!-- End Matomo Code -->';
+}
 
 $nav = '<nav id="nav" class="nav inactive">
     <div class="wrapper">
