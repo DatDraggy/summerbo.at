@@ -1113,6 +1113,12 @@ body.hasNav {
   }
 }
 
+@media screen and (max-width: 550px){
+  .heroFeature {
+    width: 100% !important;
+  }
+}
+
 @media screen and (min-width: 1000px) {
 
 
