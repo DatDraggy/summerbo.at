@@ -476,6 +476,7 @@ nav.active .js-showNav {
   line-height: 4.5rem;
   margin-bottom: 4rem;
   transition: opacity 1500ms 1500ms var(--animNice);
+  width: 480px;
 }
 
 .featureOverlay {
@@ -1050,6 +1051,7 @@ body.hasNav {
   .heroFeature {
     margin-top: 4rem;
     margin-bottom: 4rem;
+    max-width: 100%;
   }
 
   .ticket {
