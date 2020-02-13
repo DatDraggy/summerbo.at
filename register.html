@@ -158,10 +158,9 @@ if (empty($_SESSION['secret'])) {
           <div class="row">
             <div class="content">
               <?php
-              echo $attendees1;
-              echo $attendees2;
               $slotsLeft1 = max($attendeesMax1 - $attendees1, 0);
               $slotsLeft2 = max($attendeesMax2 - $attendees2, 0);
+              echo $slotsLeft1 . ' ' . $slotsLeft2;
               $slotsLeft = $slotsLeft1 + $slotsLeft2;
               if ($slotsLeft > 0) {
                 ?>
