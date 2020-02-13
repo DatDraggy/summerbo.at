@@ -213,8 +213,8 @@ if ($oldEmail !== $newEmail) {
 /////////////////////////////////
 // Update Nickname, Fursuit, Country and DoB //
 try {
-  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, country = $country, dob = $dob, list = :list, hash = $hash, efregid = $efregid WHERE id = $userId";
-  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, country = :country, dob = :dob, list = :list, hash = :hash, efregid = :efregid WHERE id = :userId');
+  $sql = "UPDATE users SET nickname = $nickname, fursuiter = $fursuiter, country = $country, dob = $dob, list = :list, hash = $hash, efregid = $efregid, party = $party WHERE id = $userId";
+  $stmt = $dbConnection->prepare('UPDATE users SET nickname = :nickname, fursuiter = :fursuiter, country = :country, dob = :dob, list = :list, hash = :hash, efregid = :efregid, party = :party WHERE id = :userId');
   $stmt->bindParam(':nickname', $nickname);
   $stmt->bindParam(':fursuiter', $fursuiter);
   $stmt->bindParam(':country', $country);
@@ -222,6 +222,7 @@ try {
   $stmt->bindParam(':list', $list);
   $stmt->bindParam(':hash', $hash);
   $stmt->bindParam(':efregid', $efregid);
+  $stmt->bindParam(':party', $party);
   $stmt->bindParam(':userId', $userId);
   $stmt->execute();
 } catch (PDOException $e) {
