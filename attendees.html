@@ -20,7 +20,8 @@ $stmt->execute();
 $rows = $stmt->fetchAll();
 $attendees = '<ul>';
 foreach ($rows as $row) {
-  $nickname = htmlspecialchars($row['nickname']);
+  $nickname = '<span class="party">Party ' . $row['party'] . '</span> ';
+  $nickname .= htmlspecialchars($row['nickname']);
   if ($row['rank'] == 1) {
     $nickname .= ' <span class="rank">Crew</span>';
   } else if ($row['rank'] >= 2) {
@@ -28,7 +29,7 @@ foreach ($rows as $row) {
   } else if ($row['sponsor'] == 1) {
     $nickname .= ' <span class="rank">VIP</span>';
   }
-  $nickname .= ' <span class="party">Party ' . $row['party'] . '</span>';
+
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
 $attendees .= '</ul>';

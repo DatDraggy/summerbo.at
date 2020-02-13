@@ -106,6 +106,7 @@ ul, ol {
 
 ul li, ol li {
   padding-left: .5rem;
+  padding-bottom: 10px;
 }
 
 h1, .heading1 {
