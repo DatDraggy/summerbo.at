@@ -1137,8 +1137,8 @@ function addToWaitinglist($email) {
   global $dbConnection, $config;
 
   try {
-    $sql = "INSERT INTO waitinglist(email, created) VALUES ($email, UNIX_TIMESTAMP()) ON DUPLICATE KEY UPDATE id=id";
-    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email, created) VALUES (:email, UNIX_TIMESTAMP()) ON DUPLICATE KEY UPDATE id=id');
+    $sql = "INSERT INTO waitinglist(email, created) VALUES ($email, UNIX_TIMESTAMP())";
+    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email, created) VALUES (:email, UNIX_TIMESTAMP())');
     $stmt->bindParam(':email', $email);
     $stmt->execute();
   } catch (PDOException $e) {
