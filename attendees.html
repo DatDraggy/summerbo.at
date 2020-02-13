@@ -14,7 +14,7 @@ if (($attendees1 !== false && $attendees1 < $config['attendeesMax1']) || ($atten
   $showButtons = true;
 }
 
-$sql = 'SELECT nickname, `rank`, sponsor FROM users WHERE status > 1 AND list = true ORDER BY nickname';
+$sql = 'SELECT nickname, `rank`, sponsor, party FROM users WHERE status > 1 AND list = true ORDER BY nickname';
 $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
@@ -28,6 +28,7 @@ foreach ($rows as $row) {
   } else if ($row['sponsor'] == 1) {
     $nickname .= ' <span class="rank">VIP</span>';
   }
+  $nickname .= ' <span class="party">Party ' . $row['party'] . '</span>';
   $attendees .= '<li>' . $nickname . "</li>\n";
 }
 $attendees .= '</ul>';
@@ -149,9 +150,17 @@ $label['vip'][] = 'No VIP';
         }]
       }
     </script>
-    <style>.rank {
+    <style>
+      .rank {
         color: lightgrey
-      }</style>
+      }
+      .party {
+        border: 1px solid #666;
+        border-radius: 4px;
+        padding: 8px 6px 3px 6px;
+        color: #666;
+      }
+    </style>
     <script src="/js/chart.min.js"></script>
     <script>
       window.onload = function () {
