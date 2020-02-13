@@ -48,17 +48,17 @@ if (isset($data['callback_query'])) {
 
 Your registration was approved by our registration team.
 
+Welcome aboard! Get ready to party with us on our White Pearl just before Eurofurence 26!
+Your ticket price is $topay EUR. You will receive an email from Eurofurence regarding the payment. If you're not sure about the due amount, simply login on reg.eurofurence.org. Please follow their instructions on how to pay.
+
 You are now able to login and manage your details on <a href=\"https://summerbo.at\">summerbo.at</a>
 
-Welcome aboard! Get ready to party with us on the Spree just before Eurofurence . Your ticket price is $topay EUR - but wait, you don't have to pay yet. Starting on the 26th of March 2020 you will find your Ticket directly in your <a href=\"https://reg.eurofurence.org\">Eurofurence Registration</a> and can pay it in the same way you pay your EF Reg.
+After you have paid you will receive a new email from Eurofurence that all outstanding fees have been paid. From then on you are ready to party!
 
-Please make sure to provide your correct EF Regnumber BEFORE the 25th of March via <a href=\"https://summerbo.at/user/details\">summerbo.at</a>
+Please help us improve the registration process by participating in the survey below. Thank you in advance!
+<a href=\"https://forms.gle/B3kjUemNonog2kPR8\">https://forms.gle/B3kjUemNonog2kPR8</a>
 
-You will then also receive an email from Eurofurence regarding the payment of your ticket.
-
-Also, because this is our first time organizing this event, we would like to receive some feedback about the registration system. Please take a minute to fill this out <a href=\"https://docs.google.com/forms/d/1B3TLU4COyluSKT1eiIKaQetSTklzokEjMI_enMFp64o\">survey</a>.
-
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true);
         } else {
           answerCallbackQuery($queryId, 'Already approved, rejected or error.');

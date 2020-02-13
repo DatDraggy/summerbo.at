@@ -237,12 +237,12 @@ function upgradeToSponsor($userId) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, 'VIP Upgrade', "Dear $nickname, 
+    sendEmail($email, 'VIP Upgrade', "Dear $nickname,
 
-Thank you for your upgrade! You are now a VIP for All Paws on Deck 2020. As a VIP, you get a special gift and badge as a thank you for the extra support.
-But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
+Thank you for your VIP upgrade! You are now a VIP on Summerbo.at: All Paws on Deck. As a VIP, you get a few extras as a thank you for your support.
+Please keep in mind that the 15€ need to be paid in cash during badge-pickup.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
   }
 }
@@ -262,22 +262,20 @@ function confirmRegistration($token) {
       $userId = $row['id'];
 
       $sql = "UPDATE users SET status = 1 WHERE id = '$userId'";
-      $stmt = $dbConnection->prepare('UPDATE users SET status = 1 WHERE id = :userIdInternal');
-      $stmt->bindParam(':userIdInternal', $userId);
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1 WHERE id = :userId');
+      $stmt->bindParam(':userId', $userId);
       $stmt->execute();
 
-      sendEmail($email, 'Email Confirmed', "Dear $nickname, 
+      sendEmail($email, 'Email Confirmed', "Dear $nickname,
 
-You have successfully verified your email. 
+You have successfully verified your email.
 
-Our registration team will now check your details. You will get another email about this soon.
-You won't be able to login to your account yet, and it can take a couple of hours before your registration is accepted. 
-You should receive another mail from us about the next step after being accepted.
-However, it shouldn't take more than 24 hours.
+Our registration team will now check your details. You will receive an email after your registration has been manually accepted. 
+After being accepted you will be able to login to the user area. It can take a couple of hours before your registration is accepted. However, it shouldn't take more than 24 hours.
 
 Your current status is: {$config['status'][1]} - Registration Number $userId
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
       sendStaffNotification($userId);
 
@@ -363,12 +361,14 @@ function confirmNewEmail($token) {
     $confirmationLink = requestEmailConfirm($userId, 'email');
 
     if ($confirmationLink !== false) {
-      sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname, 
+      sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname,
 
-You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
-If the change of email is the result of a transfered registration, please reset your password and check all details in the login area.
+You requested to change your email to $newEmail. Please follow this link to confirm:
+<a href=\"$confirmationLink\">$confirmationLink</a>
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If the change of email is the result of a transferred registration, please reset your password and check all details in your user area. If you can't change it yourself, please contact us.
+
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
     } else {
       return false;
@@ -427,9 +427,10 @@ function rejectRegistration($userId) {
 
 We regret to inform you that your registration has been canceled and deleted.
 
-If you believe this was a mistake, please send us an email. We will inform you about the situation after checking the system. 
+If you believe this was a mistake, please send us an email. We will inform you about the situation after checking the system.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.", true);
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+", true);
     return true;
   } else {
     return false;
@@ -580,7 +581,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
 function sendEmail($address, $subject, $text, $internal = false, $log = true) {
   global $dbConnection, $config;
   if ($internal === false) {
-    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    $ip = (isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR']);
     $ipNotice = "--
 The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   } else {
@@ -588,7 +589,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
   }
 
   $email = array();
-  $email['top'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>All Paws on Deck 2020 - Summerbo.at</title> </head> <body bgcolor="#eee" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background: #eeee;width: 100% !important;"> <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; margin: 0;padding: 0;height: 100% !important;width: 100% !important; background: #eeeeee;" width="100%"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="40" cellspacing="0" id="contentWrapper" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="background-color: #FFFFFF;" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="border-bottom:1px solid #eee; padding:0 16px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <a href="https://summerbo.at"><span class="sg-image"><img alt="Summerbo.at" height="32" src="https://summerbo.at/favicon-32x32.png?v=2020XBbnOXWxGx" style="width: 32px; height: 32px;" width="32"/></span></a> </td><td style="text-align: right;">&nbsp;</td></tr></tbody> </table> </td></tr><tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBodyb" style="padding:0 16px 10px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;">';
+  $email['top'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>All Paws on Deck 2020 - Summerbo.at</title> </head> <body bgcolor="#eee" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background: #eeee;width: 100% !important;"> <table border="0" cellpadding="0" cellspacing="0" id="backgroundTable" style="font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; margin: 0;padding: 0;height: 100% !important;width: 100% !important; background: #eeeeee;" width="100%"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="40" cellspacing="0" id="contentWrapper" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="background-color: #FFFFFF;" width="480"> <tbody> <tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBody" style="border-bottom:1px solid #eee; padding:0 16px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <a href="https://summerbo.at"><span class="sg-image"><img alt="Summerbo.at" height="64" src="https://summerbo.at/favicon-96x96.png?v=2020XBbnOXWxGx" style="width: 64px; height: 64px;" width="64"/></span></a> </td><td style="text-align: right;">&nbsp;</td></tr></tbody> </table> </td></tr><tr> <td align="center" valign="top"> <table border="0" cellpadding="24" cellspacing="0" id="templateBodyb" style="padding:0 16px 10px" width="480"> <tbody> <tr> <td style="background-color:#FFFFFF;" valign="top"> <span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;">';
   $email['bottom'] = '</span> <p><span style="font-size:16px; color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif;line-height:1.35;"> Kind regards,<br/> Your Boat Party Crew </span> </p><span style="font-size:16px;color:#444; font-family:\'Helvetica Neue\', Helvetica, Arial, sans-serif; line-height:1.35;"> ' . nl2br($ipNotice) . ' </span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <table border="0" cellpadding="5" cellspacing="0" id="templateFooterWrap" width="480"> <tbody> <tr> <td align="center" valign="top"> <table border="0" cellpadding="0" cellspacing="0" id="templateFooter" width="480"> <tbody> <tr> <td valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td valign="middle" width="520"> <div style="color: #b3b3b3;font-family: Helvetica, Arial;font-size: 11px;line-height: 125%;text-align: center;">&nbsp;&nbsp;</div></td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody> </table> <br/> </td></tr></tbody> </table> </td></tr></tbody> </table> </body></html>';
 
 
@@ -898,13 +899,14 @@ function requestPasswordReset($userId) {
     $nickname = $row['nickname'];
     $email = $row['email'];
     $confirmationLink = requestEmailConfirm($userId, 'password');
-    sendEmail($email, 'Password Reset', "Dear $nickname, 
+    sendEmail($email, 'Password Reset', "Dear $nickname,
 
-Registration number: $userId 
-You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
-Was it not you who requested this? Let us know!
+Registration number: $userId
+You requested to change your password. Please follow this link to confirm the change:
+<a href=\"$confirmationLink\">$confirmationLink</a>
+Was it not you who requested this? Please let us know!
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
     return true;
   }
@@ -1137,8 +1139,8 @@ function addToWaitinglist($email) {
   global $dbConnection, $config;
 
   try {
-    $sql = "INSERT INTO waitinglist(email) VALUES ($email)";
-    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email) VALUES (:email)');
+    $sql = "INSERT INTO waitinglist(email, created) VALUES ($email, UNIX_TIMESTAMP())";
+    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email, created) VALUES (:email, UNIX_TIMESTAMP())');
     $stmt->bindParam(':email', $email);
     $stmt->execute();
   } catch (PDOException $e) {
