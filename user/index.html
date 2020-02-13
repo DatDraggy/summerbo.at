@@ -221,12 +221,12 @@ if ($details['list'] == 1) {
               <div class="checkboxWrapper" id="partyRadio">
                   <div class="checkboxGroup">
                       <input name="party" id="party1" class="input" type="radio" value="1"
-                             <?= $slotsLeft1 <= 0 ? 'disabled' : '' ?> <?= $party === 1 ? 'selected' : '' ?>>
+                             <?= $party === 1 ? 'checked' : $slotsLeft1 <= 0 ? 'disabled' : '' ?>>
                       <label for="party1"><span>Party A, 13:00, Treptower Park</span></label>
                   </div>
                   <div class="checkboxGroup">
                       <input name="party" id="party2" class="input" type="radio" value="2"
-                             <?= $slotsLeft2 <= 0 ? 'disabled' : '' ?> <?= $party === 2 ? 'selected' : '' ?>>
+                             <?= $party === 2 ? 'checked' : $slotsLeft2 <= 0 ? 'disabled' : '' ?>>
                       <label for="party2"><span>Party B, 19:00, Estrel Biergarten</span></label>
                   </div>
               </div>
