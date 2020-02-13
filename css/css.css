@@ -748,7 +748,7 @@ a.buttonSecondary {
 
 .checkboxGroup input[type=checkbox]:disabled + label,
 .checkboxGroup input[type=radio]:disabled + label {
-  background-color: var(--colorToneHigh);
+  background-color: #777;
 }
 .checkboxGroup input[type=checkbox]:focus + label,
 .checkboxGroup input[type=checkbox]:focus + label {
