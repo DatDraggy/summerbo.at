@@ -635,7 +635,7 @@ if (empty($_SESSION['secret'])) {
           var dateArr = document.getElementById('dob').value.split('.');
 
           //I hate this but they forced me to do it
-          if(dateArr === false || dateArr.length !== 3 || !(parseInt(dateArr[0]) <= 31) && !(parseInt(dateArr[1]) <= 12) && !(parseInt(dateArr[2]) > 1901)) {
+          if(dateArr === false || dateArr.length !== 3 || !(parseInt(dateArr[0]) <= 31) || !(parseInt(dateArr[1]) <= 12) || !(parseInt(dateArr[2]) > 1901)) {
               errField = document.getElementById('passwordMessage');
               errField.innerHTML = "This birthdate is invalid. Please use the DD.MM.YYYY format.";
               errField.style.color = "#ff6666";
