@@ -49,6 +49,13 @@ if (!empty($_SESSION['statusSuccess'])) {
 
 session_commit();
 
+$attendeesMax1 = $config['attendeesMax1'];
+$attendeesMax2 = $config['attendeesMax2'];
+$attendees1 = getConfirmedAttendees(1);
+$attendees2 = getConfirmedAttendees(2);
+$slotsLeft1 = max($attendeesMax1 - $attendees1, 0);
+$slotsLeft2 = max($attendeesMax2 - $attendees2, 0);
+
 $details = getRegDetails($userId, 'nickname, email, sponsor, fursuiter, list, efregid, country, dob');
 if ($details == 'Not found') {
   mail($config['mail'], 'Weird Error', 'Uh, this shouldn\'t happen. No details for ' . $userId);
@@ -210,6 +217,18 @@ if ($details['list'] == 1) {
               <label for="email"><span>E-Mail</span></label>
               <input name="email" id="email" value="<?=$email?>" type="email" required>
             </div>
+              <div class="checkboxWrapper" id="partyRadio">
+                  <div class="checkboxGroup">
+                      <input name="party" id="party1" class="input" type="radio" value="1"
+                             <?= $slotsLeft1 <= 0 ? 'disabled' : '' ?>>
+                      <label for="party1"><span>Party A, 13:00, Treptower Park</span></label>
+                  </div>
+                  <div class="checkboxGroup">
+                      <input name="party" id="party2" class="input" type="radio" value="2"
+                             <?= $slotsLeft2 <= 0 ? 'disabled' : '' ?>>
+                      <label for="party2"><span>Party B, 19:00, Estrel Biergarten</span></label>
+                  </div>
+              </div>
             <div class="inputWrapper">
               <label for="efregid"><span>Eurofurence Registration Number</span></label>
               <input name="efregid" id="efregid" value="<?=$efregid?>" type="text" required>

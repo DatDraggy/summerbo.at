@@ -76,6 +76,19 @@ if (is_numeric($efregidPost)) {
   onError($status);
 }
 
+if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
+    $status = 'You must select which party you want to attend.';
+    onError($status);
+} else {
+    $party = $_POST['party'];
+}
+
+$attendees = getConfirmedAttendees($party);
+if ($attendees === false || $attendees >= $config['attendeesMax'.$party]){
+    $status = 'Sadly we do not have any more slots available for the selected party. But remember to check back in! It might be possible that some slots will free up again.';
+    onError($status);
+}
+
 /////////////////////
 // Password Verify //
 $hash = checkPassword($userId, $_POST['password']);
