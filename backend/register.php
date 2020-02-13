@@ -72,11 +72,11 @@ if (empty($_POST['nickname'])) {
 } else {
   $nicknamePost = $_POST['nickname'];
 }
-if (empty($_POST['efregid']) && !is_numeric($_POST['efregid'])) {
-  $status = 'An EF registration is required.';
+if (empty($_POST['efregid']) && !is_int($_POST['efregid'])) {
+  $status = 'A valid EF registration is required.';
   errorStatus($status);
 } else {
-  $efregid = $_POST['efregid'];
+  $efregid = abs($_POST['efregid']);
 }
 if (empty($_POST['dob'])) {
   $status = 'Birthday can\'t be empty.';

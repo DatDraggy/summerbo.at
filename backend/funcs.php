@@ -580,7 +580,7 @@ The following IP triggered this event: <a href=\"https://www.ip-tracker.org/loca
 function sendEmail($address, $subject, $text, $internal = false, $log = true) {
   global $dbConnection, $config;
   if ($internal === false) {
-    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    $ip = (isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR']);
     $ipNotice = "--
 The following IP triggered this event: <a href=\"https://www.ip-tracker.org/locator/ip-lookup.php?ip=$ip\">$ip</a>.";
   } else {
