@@ -263,12 +263,13 @@ header('Location: ../login?reg');
 
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
-Thank you for your registration with the Summerboat party.
+Thank you for your registration for Summerbo.at: All Paws on Deck!
 
 Your current status is: {$config['status'][0]} - Registration Number $userId
 
-You first have to verify your email address and confirm your registration by clicking on the following link: <a href=\"$confirmationLink\">$confirmationLink</a>
-Afterwards another mail will be sent.
+The next step in your registration process is to verify your email address and confirm your registration. Please click on the following link to verify:
+<a href=\"$confirmationLink\">$confirmationLink</a>
+After verification you will receive another email.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true);

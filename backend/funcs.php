@@ -237,12 +237,12 @@ function upgradeToSponsor($userId) {
       notifyOnException('Database Update', $config, $sql, $e);
     }
 
-    sendEmail($email, 'VIP Upgrade', "Dear $nickname, 
+    sendEmail($email, 'VIP Upgrade', "Dear $nickname,
 
-Thank you for your upgrade! You are now a VIP for All Paws on Deck 2020. As a VIP, you get a special gift and badge as a thank you for the extra support.
-But don't forget to bring 15€ in cash to the party, because you will have to pay on-site.
+Thank you for your VIP upgrade! You are now a VIP on Summerbo.at: All Paws on Deck. As a VIP, you get a few extras as a thank you for your support.
+Please keep in mind that the 15€ need to be paid in cash during badge-pickup.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
   }
 }
@@ -266,18 +266,16 @@ function confirmRegistration($token) {
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
 
-      sendEmail($email, 'Email Confirmed', "Dear $nickname, 
+      sendEmail($email, 'Email Confirmed', "Dear $nickname,
 
-You have successfully verified your email. 
+You have successfully verified your email.
 
-Our registration team will now check your details. You will get another email about this soon.
-You won't be able to login to your account yet, and it can take a couple of hours before your registration is accepted. 
-You should receive another mail from us about the next step after being accepted.
-However, it shouldn't take more than 24 hours.
+Our registration team will now check your details. You will receive an email after your registration has been manually accepted. 
+After being accepted you will be able to login to the user area. It can take a couple of hours before your registration is accepted. However, it shouldn't take more than 24 hours.
 
 Your current status is: {$config['status'][1]} - Registration Number $userId
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
       sendStaffNotification($userId);
 
@@ -363,12 +361,14 @@ function confirmNewEmail($token) {
     $confirmationLink = requestEmailConfirm($userId, 'email');
 
     if ($confirmationLink !== false) {
-      sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname, 
+      sendEmail($newEmail, 'New Email Confirmation', "Dear $nickname,
 
-You requested to change your email to $newEmail. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
-If the change of email is the result of a transfered registration, please reset your password and check all details in the login area.
+You requested to change your email to $newEmail. Please follow this link to confirm:
+<a href=\"$confirmationLink\">$confirmationLink</a>
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If the change of email is the result of a transferred registration, please reset your password and check all details in your user area. If you can't change it yourself, please contact us.
+
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
     } else {
       return false;
@@ -427,9 +427,10 @@ function rejectRegistration($userId) {
 
 We regret to inform you that your registration has been canceled and deleted.
 
-If you believe this was a mistake, please send us an email. We will inform you about the situation after checking the system. 
+If you believe this was a mistake, please send us an email. We will inform you about the situation after checking the system.
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.", true);
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+", true);
     return true;
   } else {
     return false;
@@ -898,13 +899,14 @@ function requestPasswordReset($userId) {
     $nickname = $row['nickname'];
     $email = $row['email'];
     $confirmationLink = requestEmailConfirm($userId, 'password');
-    sendEmail($email, 'Password Reset', "Dear $nickname, 
+    sendEmail($email, 'Password Reset', "Dear $nickname,
 
-Registration number: $userId 
-You requested to change your password. Please follow this link to confirm: <a href=\"$confirmationLink\">$confirmationLink</a>
-Was it not you who requested this? Let us know!
+Registration number: $userId
+You requested to change your password. Please follow this link to confirm the change:
+<a href=\"$confirmationLink\">$confirmationLink</a>
+Was it not you who requested this? Please let us know!
 
-If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ");
     return true;
   }
