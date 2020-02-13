@@ -84,7 +84,8 @@ if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
 }
 
 $attendees = getConfirmedAttendees($party);
-if ($attendees === false || $attendees >= $config['attendeesMax'.$party]){
+$currentParty = getRegDetails($userId, 'party')['party'];
+if ($party !== $currentParty && ($attendees === false || $attendees >= $config['attendeesMax'.$party])){
     $status = 'Sadly we do not have any more slots available for the selected party. But remember to check back in! It might be possible that some slots will free up again.';
     onError($status);
 }
