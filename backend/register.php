@@ -241,7 +241,7 @@ if ($dbConnection === false) {
 }
 
 
-$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid, $party);
+/*$userId = newRegistration($firstName, $lastName, $nickname, $dob, $fursuiter, $sponsor, $email, $hash, $country, 0, time(), $publicList, $efregid, $party);
 if ($userId === false) {
   $status = 'Unknown Error in Registration. Administrator has been notified.';
   errorStatus($status);
@@ -251,7 +251,7 @@ if ($confirmationLink === false) {
   mail($config['mail'], 'ERROR IN SUMMERBOAT REG URGENT', $userId . ' No token generate possible');
   $status = 'Unknown Error in Registration. Administrator has been notified';
   errorStatus($status);
-}
+}*/
 
 
 $status = 'Registration successful. Check your email for the confirmation link. (Check spam too)';
@@ -261,7 +261,7 @@ session_commit();
 header('Location: ../login?reg');
 
 
-sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
+/*sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration for Summerbo.at: All Paws on Deck!
 
@@ -272,4 +272,4 @@ The next step in your registration process is to verify your email address and c
 After verification you will receive another email.
 
 If you have any questions, please send us a message. Simply reply to this email or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
-", true);
+", true);*/
