@@ -260,7 +260,7 @@ $_SESSION['status'] = $status;
 session_commit();
 header('Location: ../login?reg');
 
-/*
+
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration with the Summerboat party.
@@ -272,4 +272,3 @@ Afterwards another mail will be sent.
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true);
-*/

@@ -48,7 +48,6 @@ if ($stmt->rowCount() === 1) {
   try {
     $sql = "UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = $regId AND efregid = $efregid";
     $stmt = $dbConnection->prepare("UPDATE users_deleted_reasons SET reason = 'Canceled via Script' WHERE id = :regId AND efregid = :efregid");
-    $stmt->bindParam(':idInternal', $idInternal);
     $stmt->bindParam(':regId', $regId);
     $stmt->bindParam(':efregid', $efregid);
     $stmt->execute();

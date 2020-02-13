@@ -262,8 +262,8 @@ function confirmRegistration($token) {
       $userId = $row['id'];
 
       $sql = "UPDATE users SET status = 1 WHERE id = '$userId'";
-      $stmt = $dbConnection->prepare('UPDATE users SET status = 1 WHERE id = :userIdInternal');
-      $stmt->bindParam(':userIdInternal', $userId);
+      $stmt = $dbConnection->prepare('UPDATE users SET status = 1 WHERE id = :userId');
+      $stmt->bindParam(':userId', $userId);
       $stmt->execute();
 
       sendEmail($email, 'Email Confirmed', "Dear $nickname, 
