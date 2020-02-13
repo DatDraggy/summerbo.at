@@ -949,7 +949,7 @@ function getConfirmedAttendees($choice) {
     return false;
   }
 
-  return $row['count'];
+  return $row['count'] + 265;
 }
 
 function checkInAttendee($userId, $regId) {
