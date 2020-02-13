@@ -3,7 +3,7 @@ require_once('backend/config.php');
 require_once('backend/funcs.php');
 require_once('backend/includes.php');
 # Why not cache it
-#header('Cache-Control: max-age=0');
+header('Cache-Control: max-age=300');
 
 $dbConnection = buildDatabaseConnection($config);
 
