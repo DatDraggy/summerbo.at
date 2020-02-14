@@ -40,16 +40,17 @@ if (isset($data['callback_query'])) {
           answerCallbackQuery($queryId, 'Registration has been approved.');
           list($email, $nickname, $regnumber, $sponsor) = getRegDetails($targetUserId, 'email, nickname, id, sponsor');
           if ($sponsor === 1) {
-            $topay = $config['priceSponsor'];
+            $vipText = 'The 15€ VIP upgrade has to be paid directly at Eurofurence on the day of the party.';
           } else {
-            $topay = $config['priceAttendee'];
+            $vipText = '';
           }
           sendEmail($email, 'Registration Approved', "Dear $nickname,
 
 Your registration was approved by our registration team.
 
 Welcome aboard! Get ready to party with us on our White Pearl just before Eurofurence 26!
-Your ticket price is $topay EUR. You will receive an email from Eurofurence regarding the payment. If you're not sure about the due amount, simply login on reg.eurofurence.org. Please follow their instructions on how to pay.
+Your ticket price is {$config['priceAttendee']} EUR. You will receive an email from Eurofurence regarding the payment. If you're not sure about the due amount, simply login on reg.eurofurence.org. Please follow their instructions on how to pay.
+$vipText
 
 You are now able to login and manage your details on <a href=\"https://summerbo.at\">summerbo.at</a>
 
