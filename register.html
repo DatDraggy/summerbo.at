@@ -203,16 +203,16 @@ if (empty($_SESSION['secret'])) {
                 <form class="formWrapper" id="GoodForm" action="backend/register.php" method="post">
                   <div class="inputWrapper">
                     <label for="nickname"><span>Nickname</span></label>
-                    <input name="nickname" id="nickname" class="input" placeholder="Nickname" required/>
+                    <input name="nickname" id="nickname" class="input" placeholder="Nickname" autocomplete="nickname" required/>
                   </div>
                   <div class="formRow">
                     <div class="inputWrapper">
                       <label for="firstname"><span>First Name</span></label>
-                      <input name="firstname" id="firstname" class="input" placeholder="First Name" required>
+                      <input name="firstname" id="firstname" class="input" placeholder="First Name" autocomplete="given-name" required>
                     </div>
                     <div class="inputWrapper">
                       <label for="lastname"><span>Last Name</span></label>
-                      <input name="lastname" id="lastname" class="input" placeholder="Last Name" required>
+                      <input name="lastname" id="lastname" class="input" placeholder="Last Name" autocomplete="family-name" required>
                     </div>
                   </div>
                   <div class="checkboxWrapper" id="partyRadio">
@@ -267,7 +267,7 @@ if (empty($_SESSION['secret'])) {
                     </div>
                     <div class="inputWrapper">
                       <label for="country"><span>Country</span></label>
-                      <select name="country" id="country" class="input" required>
+                      <select name="country" id="country" class="input" autocomplete="bday" required>
                         <option value="" disabled selected>Country</option>
                         <option value="AF">Afghanistan</option>
                         <option value="AX">Åland Islands</option>
@@ -524,7 +524,7 @@ if (empty($_SESSION['secret'])) {
 
                   <div class="inputWrapper">
                     <label for="email"><span>Email</span></label>
-                    <input name="email" id="email" class="input" placeholder="Enter your email" type="email" required>
+                    <input name="email" id="email" class="input" placeholder="Enter your email" type="email" autocomplete="email" required>
                   </div>
                   <div class="formRow">
                     <div class="inputWrapper">
