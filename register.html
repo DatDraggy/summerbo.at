@@ -530,12 +530,12 @@ if (empty($_SESSION['secret'])) {
                     <div class="inputWrapper">
                       <label for="password"><span>Password</span></label>
                       <input name="password" type="password" id="password" class="input" placeholder="Enter a password"
-                             required/>
+                             autocomplete="new-password" required/>
                     </div>
                     <div class="inputWrapper">
                       <label for="passwordVerify"><span>Re-enter Password</span></label>
                       <input name="passwordVerify" type="password" id="passwordVerify" class="input"
-                             placeholder="Re-enter your password" onkeyup="checkPass()" required/>
+                             placeholder="Re-enter your password" onkeyup="checkPass()" autocomplete="new-password" required/>
                     </div>
                   </div>
                   <div class="checkboxWrapper">
