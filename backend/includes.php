@@ -110,7 +110,7 @@ $nav = '<nav id="nav" class="nav inactive">
           <div class="navItem">
             <a class="navLink" href="/#about">About</a>
           </div>
-		  <div class="navItem">
+		      <div class="navItem">
             <a class="navLink" href="/parties">Parties</a>
           </div>
           <div class="navItem">
