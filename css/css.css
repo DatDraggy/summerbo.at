@@ -393,7 +393,7 @@ nav.active .js-showNav {
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1120px) {
   .js-showNav {
     display: none;
   }
@@ -940,7 +940,7 @@ body.hasNav {
   margin-top: 3rem;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1120px) {
 
   body.hasNav {
     margin-top: 4rem;

@@ -3,9 +3,9 @@ require_once('config.php');
 require_once('funcs.php');
 header('Cache-Control: max-age=0');
 session_start();
-if (!$config['regOpen']) {
+if (!$config['regOpen'] ) {
   if(empty($_SESSION['secret']) || $_SESSION['secret'] !== $config['secret']) {
-    die();
+    die('Reg Closed');
   }
 }
 
