@@ -679,7 +679,7 @@ a.buttonSecondary {
   padding-top: 2rem;
   padding-bottom: 2rem;
   flex-direction: column;
-  max-width: 40rem;
+  /*max-width: 40rem;*/
   margin-bottom: 4rem;
 }
 
