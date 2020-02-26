@@ -3,7 +3,8 @@ require_once('config.php');
 require_once('funcs.php');
 header('Cache-Control: max-age=0');
 session_start();
-if (!$config['regOpen'] ) {
+
+if (strtotime($config['startReg']."T11:00:00") > time()) {
   if(empty($_SESSION['secret']) || $_SESSION['secret'] !== $config['secret']) {
     die('Reg Closed');
   }
