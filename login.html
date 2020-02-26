@@ -58,7 +58,7 @@ if (!empty($_SESSION['status'])) {
 
       //Check for existing Reg
       $sql = "SELECT hash, id FROM users WHERE (id = $userId OR email = $userId) AND locked = 0 AND status >= 0"; //TODO: Change >= back to > after testing
-      $stmt = $dbConnection->prepare('SELECT hash, id FROM users WHERE (id = :userId OR email = $userId) AND locked = 0 AND status >= 0');
+      $stmt = $dbConnection->prepare('SELECT hash, id FROM users WHERE (id = :userId OR email = :userId) AND locked = 0 AND status >= 0');
       $stmt->bindParam(':userId', $userId);
       $stmt->execute();
       $row = $stmt->fetch();
