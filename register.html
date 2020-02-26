@@ -162,7 +162,7 @@ if (empty($_SESSION['secret'])) {
               $slotsLeft1 = max($attendeesMax1 - $attendees1, 0);
               $slotsLeft2 = max($attendeesMax2 - $attendees2, 0);
               $slotsLeft = $slotsLeft1 + $slotsLeft2;
-              if ($slotsLeft > 0) {
+              if ($slotsLeft > 0 && $regOpen) {
                 ?>
                 <h3>Registration</h3>
                 <p>Please fill in all details because everything is required to register successfully.</p>
