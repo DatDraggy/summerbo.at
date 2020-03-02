@@ -266,7 +266,9 @@ sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nicknam
 
 Thank you for your registration for Summerbo.at: All Paws on Deck!
 
-Your current status is: {$config['status'][0]} - Registration Number $userId
+Registration Number $userId
+
+Your current status is: {$config['status'][0]}
 
 The next step in your registration process is to verify your email address and confirm your registration. Please click on the following link to verify:
 <a href=\"$confirmationLink\">$confirmationLink</a>
