@@ -74,13 +74,11 @@ if ($_SERVER['SERVER_NAME'] !== 'dev.summerbo.at') {
     <script type="text/javascript">
       var _paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      /*consent remembered upon click of cookie notice
-      // require user consent before processing data
+      //consent remembered upon click of cookie notice
+      //require user consent before processing data
       _paq.push([\'requireConsent\']);
-//change up integration of script*/
       _paq.push([\'trackPageView\']);
       _paq.push([\'enableLinkTracking\']);
-      /*_paq.push([\'rememberConsentGiven\']);*/
       (function() {
         var u="//stats.summerbo.at/";
         _paq.push([\'setTrackerUrl\', u+\'matomo.php\']);
@@ -178,8 +176,8 @@ $footer = '<section id="footer">
   window.cookieconsent_options = {
     message: \'This website uses cookies and anonymous tracking to fully function.\',
     dismiss: \'Ok, I accept\',
-    learnMore: \'More infos about our cookies and usage\',
-    link: \'https://summerbo.at/tos\',
+    learnMore: \'More infos and opt-out\',
+    link: \'https://summerbo.at/tos#optout\',
     theme: \'light-floating\'
   };
 </script>

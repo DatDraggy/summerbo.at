@@ -96,17 +96,29 @@ require_once('backend/includes.php');
 		<div class="content">
 
 			<h2 id="cookies" class="headline">Cookie Usage</h2>
-			<p>The website summerbo.at is using a total of 3 cookies. These cookies are mandatory for the usage of the website. Below you will find the specific cookies we use and the reason why we are using them.</p>
+			<p>The website summerbo.at is using a total of 7 cookies. These cookies are mandatory for the usage of the website. Below you will find the specific cookies we use and the reason why we are using them.</p>
 
 			<p><strong>PHPSESSID</strong></p>
 			<p>This cookie is used to make sure that our php scripts keep on working. Think about the registration and login pages that use PHP to post or request info from our database. Also the attendee list and countdown use PHP to make sure they give the right information.</p>
 
 			<p><strong>cookieconsent_dismissed2</strong></p>
-			<p>This cookie is used to save that you pressed the Accept cookie button. Otherwise it would ask every time you open the website to accept the cookies. There is no reject button because all the cookies we use are mandatory to have a functional website.</p>
+			<p>This cookie is used to save that you pressed the accept button. Otherwise it would ask every time you open the website to accept the cookies. There is no reject button because all the cookies we use are mandatory to have a functional website.</p>
 
 			<p><strong>cfduid</strong></p>
 			<p>The __cfduid cookie is used to identify individual clients behind a shared IP address and apply security settings on a per-client basis.
 			For example, if a visitor is in a coffee shop where there may be several infected machines, but the specific visitor's machine is trusted (for example, because they completed a challenge within your Challenge Passage period), the cookie allows Cloudflare to identify that client and not challenge them again. It does not correspond to any user ID in your web application, and does not store any personally identifiable information.</p>
+
+      <p><strong>_pk_id</strong></p>
+      <p>The matomo visitor id which is used to store a few details about the visitor.</p>
+
+      <p><strong>_pk_ses</strong></p>
+      <p>The matomo session cookie is a short lived cookie which expires in about 30 minutes and stores temporary visit data.</p>
+
+      <p><strong>mtm_consent</strong></p>
+      <p>Remembers at what time consent to tracking was given</p>
+
+      <p><strong>mtm_consent_removed</strong></p>
+      <p>If you opted out of tracking or not.</p>
 
 			<p><strong>External cookies</strong></p>
 			<p>To reduce spam and make sure the registration system is not abused by bots we also make use of Google's ReCAPTCHA service. Therefore Google is adding cookies to your device to check if you are human or a bot.</p>
@@ -142,7 +154,7 @@ require_once('backend/includes.php');
       <p><strong>1.1.2.1</strong> What We Collect and Receive</p>
       <p>When you visit our site, we will store: the website from which you visited us from, the parts of our site you visit, the date and duration of your visit, your anonymised IP address (last two segments nulled, e.g. 149.233.0.0), information from the device (device type, operating system, screen resolution, language, country you are located in, and web browser type) you used during your visit and when you leave our site. We process this usage data in Matomo Analytics for statistical purposes, to improve our site and to recognize and stop any misuse.</p>
 
-      <p><strong>1.1.2.2</strong> Opt-out of website tracking</p>
+      <p id="optout"><strong>1.1.2.2</strong> Opt-out of website tracking</p>
       <p>You can opt out of being tracked by our Matomo Analytics instance by enabling your browsers "DoNotTrack" setting or below:</p>
         <iframe
           style="border: 0; height: 220px; width: auto;"
