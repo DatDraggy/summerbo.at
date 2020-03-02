@@ -54,15 +54,15 @@ $stmt = $dbConnection->prepare($sql);
 $stmt->execute();
 $rows = $stmt->fetchAll();
 
-/*$label['age'][] = 'Ages';
+$label['age'][] = 'Ages';
 foreach ($rows as $row) {
   $data['age'][] = array("x"=>$row['age'], "y"=>$row['count']);
-}*/
+}
 
-/*foreach ($rows as $row){
+foreach ($rows as $row){
   $data['age'][] = $row['count'];
   $label['age'][] = $row['age'];
-}*/
+}
 
 $eighteen = 0;
 $twentyone = 0;
@@ -254,8 +254,8 @@ $label['vip'][] = 'No VIP';
               data: <?=json_encode($data['fur'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(235,66,116, 1)',
-                'rgba(59,63,158, 1)'
+                'rgb(244,136,137)',
+                'rgb(57,87,137)'
               ]
             }]
           }
@@ -268,14 +268,14 @@ $label['vip'][] = 'No VIP';
               data: <?=json_encode($data['vip'])?>,
               borderWidth: 1,
               backgroundColor: [
-                'rgba(235,66,116, 1)',
-                'rgba(59,63,158, 1)'
+                'rgb(244,136,137)',
+                'rgb(57,87,137)'
               ]
             }]
           }
         });
 
-        const colors = ['rgba(254,218,33, 1)', 'rgba(254,49,110, 1)', 'rgba(46,52,202, 1)', 'rgba(26,251,196, 1)'];
+        const colors = ['rgba(254,218,33, 1)', 'rgb(244,136,137)', 'rgb(57,87,137)', 'rgb(62,193,199)'];
 
         do {
           colors.some(function (color) {
