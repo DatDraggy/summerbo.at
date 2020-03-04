@@ -951,7 +951,7 @@ function getConfirmedAttendees($choice) {
     return false;
   }
 
-  return $row['count'] + 240;
+  return $row['count'];
 }
 
 function checkInAttendee($userId, $regId) {
@@ -1146,7 +1146,7 @@ function getWaitinglistCount($party = null)
     }
   }
 
-  return $row['count'] + 24;
+  return $row['count'];
 }
 
 function addToWaitinglist($email, $party) {

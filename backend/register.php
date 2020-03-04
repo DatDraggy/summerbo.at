@@ -250,7 +250,6 @@ $_SESSION['status'] = $status;
 session_commit();
 header('Location: ../login?reg');
 
-die();
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
 Thank you for your registration for Summerbo.at: All Paws on Deck!
