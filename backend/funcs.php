@@ -1146,7 +1146,7 @@ function getWaitinglistCount($party = null)
     }
   }
 
-  return $row['count'];
+  return $row['count'] + 24;
 }
 
 function addToWaitinglist($email, $party) {
