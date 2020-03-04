@@ -183,11 +183,10 @@ if (empty($_SESSION['secret'])) {
                 <br>
                 <p><b>Sorry, all slots are taken!</b></p>
 
-                <?php if ($waitingListCountA < 50 || $waitingListCountB < 50) {
-                }
+                <?php if ($waitingListCountA < 25 || $waitingListCountB < 25) {
+
                 if (!empty($status)) {
                   echo '<div class="info-box-err">' . $status . '</div>';
-                  $status = '';
                 }
                 ?>
                   <form class="formWrapper" id="waitinglist" action="backend/waitinglist.php" method="post">
@@ -199,12 +198,12 @@ if (empty($_SESSION['secret'])) {
                     <div class="checkboxWrapper" id="partyRadio">
                       <div class="checkboxGroup">
                         <input name="party" id="party1" class="input" type="radio" value="1"
-                            <?= $waitingListCountA >= 50 ? 'disabled' : '' ?>>
+                            <?= $waitingListCountA >= 25 ? 'disabled' : '' ?>>
                         <label for="party1"><span><a href="/parties#afternoon">Party A</a>, 13:00, Treptower Park</span></label>
                       </div>
                       <div class="checkboxGroup">
                         <input name="party" id="party2" class="input" type="radio" value="2"
-                            <?= $waitingListCountB >= 50 ? 'disabled' : '' ?>>
+                            <?= $waitingListCountB >= 25 ? 'disabled' : '' ?>>
                         <label for="party2"><span><a href="/parties#evening">Party B</a>, 19:00, Estrel Biergarten</span></label>
                       </div>
                     </div>
