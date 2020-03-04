@@ -5,7 +5,14 @@ header('Cache-Control: max-age=0');
 
 $dbConnection = buildDatabaseConnection($config);
 
-$waitinglistCount = getWaitinglistCount();
+if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
+  $status = 'You must select which party you want to attend.';
+  errorStatus($status);
+}else{
+  $party = $_POST['party'];
+}
+
+$waitinglistCount = getWaitinglistCount($party);
 
 if ($waitinglistCount === false || $waitinglistCount > 50){
   $status = 'The waiting list is full. Please check back at a later date.';

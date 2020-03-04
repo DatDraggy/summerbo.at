@@ -1119,17 +1119,31 @@ function errorStatus($status) {
   die($status);
 }
 
-function getWaitinglistCount() {
+function getWaitinglistCount($party = null)
+{
   global $dbConnection, $config;
 
-  try {
-    $sql = 'SELECT count(id) as count FROM waitinglist';
-    $stmt = $dbConnection->prepare($sql);
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-    return false;
+  if ($party === null) {
+    try {
+      $sql = 'SELECT count(id) as count FROM waitinglist';
+      $stmt = $dbConnection->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+      return false;
+    }
+  } else {
+    try {
+      $sql = 'SELECT count(id) as count FROM waitinglist WHERE party = :party';
+      $stmt = $dbConnection->prepare($sql);
+      $stmt->bindParam(':party', $party);
+      $stmt->execute();
+      $row = $stmt->fetch();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+      return false;
+    }
   }
 
   return $row['count'];
