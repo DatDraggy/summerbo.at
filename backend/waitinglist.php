@@ -14,7 +14,7 @@ if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
 
 $waitinglistCount = getWaitinglistCount($party);
 
-if ($waitinglistCount === false || $waitinglistCount > 25){
+if ($waitinglistCount === false || $waitinglistCount >= 25){
   $status = 'The waiting list is full. Please check back at a later date.';
   errorStatus($status);
 }
