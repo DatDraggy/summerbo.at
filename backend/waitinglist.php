@@ -31,12 +31,12 @@ if (empty($_POST['email'])) {
   errorStatus($status);
 }
 
-if(checkWaitinglist($email)){
+if(checkWaitinglist($email, $party)){
   $status = 'This email is already on the waitinglist.';
   errorStatus($status);
 }
 
-if(addToWaitinglist($email)){
+if(addToWaitinglist($email, $party)){
   $status = 'Success! You will receive an email if there is a spot for you on the boat.';
   session_start();
   $_SESSION['status'] = $status;
