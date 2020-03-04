@@ -3,9 +3,11 @@ require_once('backend/config.php');
 require_once('backend/includes.php');
 require_once('backend/funcs.php');
 
-$timeLeft = strtotime($config['startReg'] . 'T11:00:00') - time();
+$startRegTime = strtotime($config['startReg'] . 'T11:00:00');
 
+$timeLeft = $startRegTime - time();
 if ($timeLeft / 60 / 60 / 24 < 2) {
+  echo $timeLeft . ' ' . $timeLeft / 60 / 60 / 24;
   header('Cache-Control: max-age=0');
 }
 
@@ -15,25 +17,28 @@ if (!empty($_SESSION['status'])) {
   $status = $_SESSION['status'];
   $_SESSION['status'] = '';
 }
+
+if (empty($_SESSION['secret'])) {
+  $secret = false;
+} else {
+  $secret = $_SESSION['secret'];
+}
+
 $dbConnection = buildDatabaseConnection($config);
 
 $attendeesMax1 = $config['attendeesMax1'];
 $attendeesMax2 = $config['attendeesMax2'];
 
-$regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() ? true : false);
-if ($regOpen === true) {
+$regOpenTime = $regOpen = ($startRegTime <= time() ? true : false);
+if ($regOpen === true && $secret !== $config['secret']) {
   $attendees1 = getConfirmedAttendees(1);
   $attendees2 = getConfirmedAttendees(2);
 
   if (($attendees1 === false || $attendees1 >= $attendeesMax1) && ($attendees2 === false || $attendees2 >= $attendeesMax2)) {
     $regOpen = false;
   }
-}
-
-if (empty($_SESSION['secret'])) {
-  $secret = false;
 } else {
-  $secret = $_SESSION['secret'];
+  $attendees1 = $attendees2 = 0;
 }
 ?>
 <!DOCTYPE html>
