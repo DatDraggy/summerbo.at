@@ -22,8 +22,8 @@ $attendeesMax2 = $config['attendeesMax2'];
 
 $regOpenTime = $regOpen = (strtotime($config['startReg']."T11:00:00") <= time() ? true : false);
 if ($regOpen === true) {
-  $attendees1 = 300;// = getConfirmedAttendees(1);
-  $attendees2 = 300;// = getConfirmedAttendees(2);
+  $attendees1 = getConfirmedAttendees(1);
+  $attendees2 = getConfirmedAttendees(2);
 
   if (($attendees1 === false || $attendees1 >= $attendeesMax1) && ($attendees2 === false || $attendees2 >= $attendeesMax2)) {
     $regOpen = false;
@@ -175,8 +175,8 @@ if (empty($_SESSION['secret'])) {
                     echo "<p>There are $slotsLeft slots left. $slotsLeft1 on Boat A and $slotsLeft2 on Boat B.</p>";
                 }
               } else {
-                $waitingListCountA = getWaitinglistCount(1) + 22;
-                $waitingListCountB = getWaitinglistCount(2) + 22;
+                $waitingListCountA = getWaitinglistCount(1);
+                $waitingListCountB = getWaitinglistCount(2);
                 ?>
 
                 <h3>Registration Closed</h3>
