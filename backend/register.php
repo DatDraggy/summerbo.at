@@ -40,7 +40,7 @@ if (!$result->success) {
 if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
   $status = 'You must select which party you want to attend.';
   errorStatus($status);
-}else{
+} else {
   $party = $_POST['party'];
 }
 
