@@ -175,7 +175,7 @@ if (empty($_SESSION['secret'])) {
                     echo "<p>There are $slotsLeft slots left. $slotsLeft1 on Boat A and $slotsLeft2 on Boat B.</p>";
                 }
               } else {
-                $waitingListCountA = getWaitinglistCount(1);
+                $waitingListCountA = 0;//getWaitinglistCount(1);
                 $waitingListCountB = getWaitinglistCount(2);
                 ?>
 
@@ -187,6 +187,7 @@ if (empty($_SESSION['secret'])) {
 
                 if (!empty($status)) {
                   echo '<div class="info-box-err">' . $status . '</div>';
+                  $status = '';
                 }
                 ?>
                   <form class="formWrapper" id="waitinglist" action="backend/waitinglist.php" method="post">
