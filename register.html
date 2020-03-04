@@ -193,12 +193,12 @@ if (empty($_SESSION['secret'])) {
                     <div class="checkboxWrapper" id="partyRadio">
                       <div class="checkboxGroup">
                         <input name="party" id="party1" class="input" type="radio" value="1"
-                            <?= $waitingListCountA <= 0 ? 'disabled' : '' ?>>
+                            <?= $waitingListCountA >= 50 ? 'disabled' : '' ?>>
                         <label for="party1"><span><a href="/parties#afternoon">Party A</a>, 13:00, Treptower Park</span></label>
                       </div>
                       <div class="checkboxGroup">
                         <input name="party" id="party2" class="input" type="radio" value="2"
-                            <?= $waitingListCountB <= 0 ? 'disabled' : '' ?>>
+                            <?= $waitingListCountB >= 50 ? 'disabled' : '' ?>>
                         <label for="party2"><span><a href="/parties#evening">Party B</a>, 19:00, Estrel Biergarten</span></label>
                       </div>
                     </div>
