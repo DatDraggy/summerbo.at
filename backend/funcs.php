@@ -1119,29 +1119,44 @@ function errorStatus($status) {
   die($status);
 }
 
-function getWaitinglistCount() {
+function getWaitinglistCount($party = null)
+{
   global $dbConnection, $config;
 
-  try {
-    $sql = 'SELECT count(id) as count FROM waitinglist';
-    $stmt = $dbConnection->prepare($sql);
-    $stmt->execute();
-    $row = $stmt->fetch();
-  } catch (PDOException $e) {
-    notifyOnException('Database Select', $config, $sql, $e);
-    return false;
+  if ($party === null) {
+    try {
+      $sql = 'SELECT count(id) as count FROM waitinglist';
+      $stmt = $dbConnection->prepare($sql);
+      $stmt->execute();
+      $row = $stmt->fetch();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+      return false;
+    }
+  } else {
+    try {
+      $sql = 'SELECT count(id) as count FROM waitinglist WHERE party = :party';
+      $stmt = $dbConnection->prepare($sql);
+      $stmt->bindParam(':party', $party);
+      $stmt->execute();
+      $row = $stmt->fetch();
+    } catch (PDOException $e) {
+      notifyOnException('Database Select', $config, $sql, $e);
+      return false;
+    }
   }
 
   return $row['count'];
 }
 
-function addToWaitinglist($email) {
+function addToWaitinglist($email, $party) {
   global $dbConnection, $config;
 
   try {
-    $sql = "INSERT INTO waitinglist(email, created) VALUES ($email, UNIX_TIMESTAMP())";
-    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email, created) VALUES (:email, UNIX_TIMESTAMP())');
+    $sql = "INSERT INTO waitinglist(email, party, created) VALUES ($email, $party, UNIX_TIMESTAMP())";
+    $stmt = $dbConnection->prepare('INSERT INTO waitinglist(email, party, created) VALUES (:email, :party, UNIX_TIMESTAMP())');
     $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':party', $party);
     $stmt->execute();
   } catch (PDOException $e) {
     notifyOnException('Database Insert', $config, $sql, $e);
@@ -1150,13 +1165,14 @@ function addToWaitinglist($email) {
   return true;
 }
 
-function checkWaitinglist($email) {
+function checkWaitinglist($email, $party) {
   global $dbConnection, $config;
 
   try {
-    $sql = "SELECT id FROM waitinglist WHERE email = $email";
-    $stmt = $dbConnection->prepare('SELECT id FROM waitinglist WHERE email = :email');
+    $sql = "SELECT id FROM waitinglist WHERE email = $email AND party = $party";
+    $stmt = $dbConnection->prepare('SELECT id FROM waitinglist WHERE email = :email AND party = :party');
     $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':party', $party);
     $stmt->execute();
     $row = $stmt->fetch();
   } catch (PDOException $e) {
