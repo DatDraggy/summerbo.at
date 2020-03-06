@@ -40,14 +40,14 @@ if (!$result->success) {
 if (empty($_POST['party']) || !in_array($_POST['party'], [1, 2])){
   $status = 'You must select which party you want to attend.';
   errorStatus($status);
-}else{
+} else {
   $party = $_POST['party'];
 }
 
 $dbConnection = buildDatabaseConnection($config);
 //if (!openSlots() && $_SESSION['secret'] !== $config['secret']) {
 $attendees = getConfirmedAttendees($party);
-if ($attendees === false || $attendees >= $config['attendeesMax'.$party]){
+if (($attendees === false || $attendees >= $config['attendeesMax'.$party]) && $_SESSION['secret'] !== $config['secret']){
   $status = 'Sadly we do not have any more slots available for the selected party. But remember to check back in! It might be possible that some slots will free up again.';
   errorStatus($status);
 }
@@ -171,17 +171,6 @@ if (preg_match('/^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9
     $nickname = substr($nicknamePost, 0, 20);
 }
 
-    /*if(is_numeric($dayofbirthPost) && is_numeric($monthofbirthPost) && is_numeric($yearofbirthPost)) {
-      $dobPost = "$yearofbirthPost-$monthofbirthPost-$dayofbirthPost";
-      $dobStamp = strtotime($dobPost);
-      if ($dobStamp === false) {
-        die('Invalid Birthdate Format. Please use the following format: YYYY-MM-DD');
-      }
-      $dob = date('Y-m-d', $dobStamp);
-    }
-    else{
-      die('Bad Date of Birth');
-    }*/
 $dobStamp = strtotime($dobPost);
 if ($dobStamp === false) {
   $status = 'Invalid Birthdate Format. Please use the following format: DD.MM.YYYY';
@@ -260,7 +249,6 @@ session_start();
 $_SESSION['status'] = $status;
 session_commit();
 header('Location: ../login?reg');
-
 
 sendEmail($email, 'Please Confirm Your Summerbo.at Registration', "Dear $nickname,
 
