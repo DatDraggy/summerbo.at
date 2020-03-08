@@ -40,7 +40,7 @@ if (isset($data['callback_query'])) {
           answerCallbackQuery($queryId, 'Registration has been approved.');
           list($email, $nickname, $regnumber, $sponsor) = getRegDetails($targetUserId, 'email, nickname, id, sponsor');
           if ($sponsor === 1) {
-            $vipText = 'The 15€ VIP upgrade has to be paid directly at Eurofurence on the day of the party.';
+            $vipText = 'The 15 EUR VIP upgrade has to be paid directly at Eurofurence on the day of the party.';
           } else {
             $vipText = '';
           }
