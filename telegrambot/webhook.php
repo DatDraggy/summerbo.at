@@ -57,7 +57,7 @@ You are now able to login and manage your details on <a href=\"https://summerbo.
 After you have paid you will receive a new email from Eurofurence that all outstanding fees have been paid. From then on you are ready to party!
 
 Please help us improve the registration process by participating in the survey below. Thank you in advance!
-<a href=\"https://forms.gle/B3kjUemNonog2kPR8\">https://forms.gle/B3kjUemNonog2kPR8</a>
+<a href=\"https://forms.gle/DVTbzNWfsD7dxKES9\">https://forms.gle/DVTbzNWfsD7dxKES9</a>
 
 If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href=\"https://t.me/summerboat\">https://t.me/summerboat</a>.
 ", true);
