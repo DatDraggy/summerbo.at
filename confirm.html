@@ -9,51 +9,48 @@ if (!empty($_GET['token'])) {
   $dbConnection = buildDatabaseConnection($config);
 
   if (isset($_GET['email'])) {
+    //Confirm new email
+    session_start();
     if (confirmEmail($token)) {
-      //Confirm new email
-      session_start();
       $status = 'Email changed';
       $_SESSION['statusSuccess'] = $status;
-      header('Location: user/');
       //Email Changed, Goto login
-      die($status);
     } else {
-      session_start();
-      $status = 'Something went wrong';
+      $status = 'Incorrect token or something went wrong';
       $_SESSION['statusSuccess'] = $status;
-      header('Location: user/');
-      die($status);
     }
+    header('Location: user/');
+    die($status);
   } else if (isset($_GET['emailold'])) {
+    //Confirm old email for new email
+    session_start();
     if (confirmNewEmail($token)) {
-      //Confirm old email for new email
-      session_start();
       $status = 'A confirmation has been sent to the new email';
       $_SESSION['statusSuccess'] = $status;
-      header('Location: user/');
       //Email Changed, Goto login
-      die($status);
     } else {
-      session_start();
-      $status = 'Something went wrong';
+      $status = 'Incorrect token or something went wrong';
       $_SESSION['status'] = $status;
-      header('Location: user/');
-      die($status);
     }
+    header('Location: user/');
+    die($status);
   } else if (isset($_GET['password'])) {
     //Password forgotten
     header('Location: password?token=' . $token);
   } else {
     //Confirmation link from first email after reg
     session_start();
-    $status = 'Registration Successful';
-    $_SESSION['status'] = $status;
+    if (confirmRegistration($token)) {
+      $status = 'Registration Successful';
+      $_SESSION['status'] = $status;
+    } else {
+      $status = 'Incorrect token or something went wrong';
+      $_SESSION['status'] = $status;
+    }
     session_commit();
     header('Location: login?reg');
-    if (confirmRegistration($token)) {
-      //Email Confirmed, goto login, wait for staff approval
-      die($status);
-    }
+    //Email Confirmed, goto login, wait for staff approval
+    die($status);
   }
 } else {
   header('Location: login');
