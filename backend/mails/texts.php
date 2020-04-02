@@ -42,3 +42,14 @@ If you want to send us your feedback, simply fill out as much of this form as yo
 Thank you for your time and see you next year!
 
 If you have any questions, please send us a message. Reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
+
+$texts['coronaUpdate'] = 'we\'re sure you have noticed what is currently going on world wide and most likely you have received a couple of other emails regarding this topic, so we would like to give you an update on the current situation regarding Summerbo.at as well.
+
+The team is closely monitoring the situation regarding COVID-19. As of now, we expect Eurofurence 26 and therefore our awesome Summerbo.at Party to take place as planned.
+
+Because of the current circumstances we have not yet transferred our attendees over to the Eurofurence registration system, so don\'t be alarmed that there was no billing request yet.
+
+<b>Stay safe</b>
+We know it can be hard, but please #StayHome and honor your local governments instructions. Together we can help protect the most vulnerable and raise the chances for our beloved cons around the world.
+
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
