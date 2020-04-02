@@ -6,7 +6,7 @@ require_once('../config.php');
 require_once('../funcs.php');
 require_once('texts.php');
 
-$config['dbname'] = 'summerboat_2019';
+$config['dbname'] = 'boat';
 
 $dbConnection = buildDatabaseConnection($config);
 
@@ -20,11 +20,11 @@ try {
 }
 
 foreach ($rows as $row) {
-  sleep(10);
   $nickname = $row['nickname'];
 
   sendEmail($row['email'], 'Summerbo.at Covid-19 Update', "Dear $nickname,
 
 " . $texts['coronaUpdate'], true, false);
   echo $nickname . ' ' . $row['email'] . "\n";
+  sleep(10);
 }
