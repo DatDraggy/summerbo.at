@@ -6,172 +6,195 @@ require_once('backend/includes.php');
 <html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
 <head>
   <title>Party information &mdash; All Paws on Deck: Furry Summerbo.at Party</title>
-  <?=$head?>
-  <meta property="og:title" content="Party information" />
-  <meta property="og:description" content="Information regarding our parties during Eurofurence." />
-  <meta itemprop="name" content="Party information" />
-  <meta itemprop="description" content="Information regarding our parties during Eurofurence." />
-  <meta name="description" content="Information regarding our parties during Eurofurence." />
+  <?= $head ?>
+  <meta property="og:title" content="Party information"/>
+  <meta property="og:description" content="Information regarding our parties during Eurofurence."/>
+  <meta itemprop="name" content="Party information"/>
+  <meta itemprop="description" content="Information regarding our parties during Eurofurence."/>
+  <meta name="description" content="Information regarding our parties during Eurofurence."/>
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [{
+      "itemListElement": [
+        {
           "@type": "ListItem",
           "position": 1,
           "item": {
             "@id": "https://summerbo.at/",
             "name": "All Paws on Deck 2020"
           }
-        },{
+        },
+        {
           "@type": "ListItem",
           "position": 2,
           "item": {
             "@id": "https://summerbo.at/parties",
             "name": "About the parties"
           }
-        }]
+        }
+      ]
     }
   </script>
-  </head>
-  <body class="hasNav">
-    <div id="app">
-      <?=$nav?>
+</head>
+<body class="hasNav">
+<div id="app">
+  <?= $nav ?>
 
-      <section id="contentPage">
-		<!-- ========== Info text ========== -->
+  <section id="contentPage">
+    <!-- ========== Info text ========== -->
 
-        <section class="ribbon" style="background-color: var(--colorPrimary)">
-          <div class="wrapper">
-            <div class="row">
-              <div style="color:white" class="content wsLarge">
-                <h1 id="legal">Let's party!</h1>
-                <p class="textBig">Find all the information regarding both parties here. From general information to the DJ-list or how to get to the party.</p>
-              </div>
-            </div>
+    <section class="ribbon" style="background-color: var(--colorPrimary)">
+      <div class="wrapper">
+        <div class="row">
+          <div style="color:white" class="content wsLarge">
+            <h1 id="legal">Let's party!</h1>
+            <p class="textBig">Find all the information regarding both parties here. From general information to the
+              DJ-list or how to get to the party.</p>
           </div>
-        </section>
-
-		<section>
-		<div class="row">
-
-		<div class="content">
-      <ul class="blankList inverse textSmall" style="margin-bottom: 2rem">
-        <li><a href="#afternoon" class="unselectable flexCentered">Afternoon event</a></li>
-		<li><a href="#evening" class="unselectable flexCentered">Evening event</a></li>
-        <li><a href="#badges" class="unselectable flexCentered">Badge Pickup</a></li>
-        <!-- <li><a href="#eventlist" class="unselectable flexCentered">DJ and event List</a></li> -->
-      </ul>
-
-			<h2 id="afternoon" class="headline">Afternoon event</h2>
-			<i>August 18 - 13:00 CET - 17:00 CET - Treptower Park</i>
-			<p><strong>General information</strong><br>
-
-			Join us on our White Pearl through the city of Berlin. Starting from Treptower Park, 
-			we will be on a 4 hour trip to the center of Berlin and back. 
-			Get a drink at the bar and enjoy the sun while listening to our DJ’s.<br>
-			Just like the evening party we will have a dancefloor where you can dance all day long. 
-			Want to suit up? No problem! The fursuitlounge downstairs is of course also available with all the stuff you need.
-			This event is perfect for fursuiters and photographers or for the people who want to start Eurofurence the relaxing way. </p>
-
-			<p><strong>Meet and Greet Berlin</strong><br>
-
-			During the trip we will also have a one hour photo stop in the center of Berlin. 
-			Perfect to take pictures in fursuit or to just walk around a bit. 
-			The stop will be at the Berliner Dom, next to the museum island. 
-			During this stop you are welcome to get off board or stay on the ship.<br>
-			If you go off board, please read the tips below:<br>
-			
-			<ul>
-			 <li>We won’t wait for you when leaving. Too late is too late. We will announce the exact departure time before docking.</li>
-			 <li>Fursuiting near the Dom is possible, but we advice to bring someone with you because it can be busy with tourists and people enjoying the sun.</li>
-			 <li>EF Security stays near the ship to make sure that non attendees won’t enter the ship. So please bring your badge with you when going off board.</li>
-			 <li>Please head to any of the staff when you have any questions.</li>
-			</ul>
-			</p>
-			
-			<p><strong>Transportation/How to get there</strong><br>
-			
-			The event will start and end at Treptower Park, next to S-Bahn station Treptower Park. There are different ways to get there.</p>
-			
-			<p><strong>By public transportation</strong><br>
-			Walk from the Estrel to S-Bahn station Sonnenallee. 
-			From there take the S42 for 1 stop to Treptower Park. This train goes every 10 minutes. 
-			At Treptower Park you can follow the signs towards the ship. It will be a 5 minute walk to the pier.  
-			For this trip you can buy a Short Trip ticket (Kurzstrecke). 
-			A one way ticket costs €1,70.
-			</p>
-			
-			<p><strong>By car/taxi</strong><br>			
-			While we prefer that most people come by public transportation cause it’s fast and easy, 
-			we also understand that it is not possible for everyone. 
-			From the Estrel it is a 10 minute ride to the nearest parking spot next to Treptower Park.
-			Navigation address: Puschkinallee 15, 12435 Berlin
-			<br>
-			Parking is free and it’s a 5 minute walk from the parking to the ship. 
-			You can find the parking on the right hand side when you’re almost near the navigation address. 
-			There will be a sign for parking Treptower Hafen. <br>
-			If you use a taxi, let them drive you to S-Bahn station Treptower Park. From there it is a 5 minute walk.
-			</p>
-			
-			<p><strong>Shuttle Busses</strong><br>
-			
-			At this moment we are still looking into the option to get a few shuttle busses from the Estrel to the ship. This will mostly be for the fursuiters. 
-			We will update with more info in the coming months.
-			</p>
-
-		</div>
-		</div>
-		</section>
-
-		<section>
-		<div class="row">
-		<div class="content">
-
-			<h2 id="evening" class="headline">Evening party</h2>
-			<i>August 18 - 19:30 CET - 23:30 CET - Estrel</i>
-			<p><strong>Party from begin to end!</strong><br>
-			Want to start Eurofurence with an awesome party? Look no further! During this 4 hour party we will make sure you dance your butt off with the best DJ’s of Eurofurence. 
-			You can also enjoy the sunset over Berlin on the outdoor decks or use our silent disco to even party outside!</p>
-			<p>We won’t forget about the fursuiters, we will bring a fully equipped fursuitlounge where you can change into your fursuit or store it when not needed. More events are added in the coming months!
-			</p>
-
-			<p><strong>Transportation/How to get there</strong><br>
-			The evening party starts and ends right in front of the Estrel so no need to travel far! 
-			Just go to the beergarden and hop on!</p>
-
-		</div>
-		</div>
-		</section>
-
-		<section>
-		<div class="row">
-		<div class="content">
-
-			<h2  id="badges" class="headline">Badge Pickup</h2>
-			
-			<p>Badge pickup will be on Monday from 15:00 CET till 21:00 CET and on Tuesday from 09:00 CET till 17:00 CET. The pickup is for both parties. Just keep in mind that from Tuesday 12:30 CET you can only pick up badges for the evening party.
-			</p>
-
-		</div>
-		</div>
-		</section>
-
-		<!-- <section>
-		<div class="row">
-		<div class="content">
-
-			<h2 id="eventlist" class="headline">Events and DJ's</h2>
-			<p>Just like last year we also invited the best DJ's for our parties.</p>
-			<p>one of the party staff members know.</p>
-
-		</div>
-		</div>
-		</section> -->
-        <div id="float" style="position: fixed;right: 0;bottom: 0;padding: 10px;">
-          <a class="button navItemButton buttonSecondary" href="#"><i style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-caret-square-o-up"></i>To the top</a>
         </div>
-      </section> <!--pageWrapper -->
-      <?=$footer?>
-  </body>
+      </div>
+    </section>
+
+    <section class="wrapper wsLarge">
+      <div class="row">
+
+        <div class="content">
+          <ul class="blankList inverse textSmall" style="margin-bottom: 2rem">
+            <li><a href="#afternoon" class="unselectable flexCentered">Afternoon event</a></li>
+            <li><a href="#evening" class="unselectable flexCentered">Evening event</a></li>
+            <li><a href="#badges" class="unselectable flexCentered">Badge Pickup</a></li>
+            <!-- <li><a href="#eventlist" class="unselectable flexCentered">DJ and event List</a></li> -->
+          </ul>
+
+          <h2 id="afternoon" class="headline">Afternoon event</h2>
+          <i>August 18 - 13:00 CET - 17:00 CET - Treptower Park</i>
+          <p><strong>General information</strong><br>
+
+            Join us on our White Pearl through the city of Berlin. Starting from Treptower Park,
+            we will be on a 4 hour trip to the center of Berlin and back.
+            Get a drink at the bar and enjoy the sun while listening to our DJ’s.<br>
+            Just like the evening party we will have a dancefloor where you can dance all day long.
+            Want to suit up? No problem! The fursuitlounge downstairs is of course also available with all the stuff you
+            need.
+            This event is perfect for fursuiters and photographers or for the people who want to start Eurofurence the
+            relaxing way. </p>
+
+          <p><strong>Meet and Greet Berlin</strong><br>
+
+            During the trip we will also have a one hour photo stop in the center of Berlin.
+            Perfect to take pictures in fursuit or to just walk around a bit.
+            The stop will be at the Berliner Dom, next to the museum island.
+            During this stop you are welcome to get off board or stay on the ship.<br>
+            If you go off board, please read the tips below:<br>
+
+          <ul>
+            <li>We won’t wait for you when leaving. Too late is too late. We will announce the exact departure time
+              before
+              docking.
+            </li>
+            <li>Fursuiting near the Dom is possible, but we advice to bring someone with you because it can be busy with
+              tourists and people enjoying the sun.
+            </li>
+            <li>EF Security stays near the ship to make sure that non attendees won’t enter the ship. So please bring
+              your
+              badge with you when going off board.
+            </li>
+            <li>Please head to any of the staff when you have any questions.</li>
+          </ul>
+          </p>
+
+          <p><strong>Transportation/How to get there</strong><br>
+
+            The event will start and end at Treptower Park, next to S-Bahn station Treptower Park. There are different
+            ways to get there.</p>
+
+          <p><strong>By public transportation</strong><br>
+            Walk from the Estrel to S-Bahn station Sonnenallee.
+            From there take the S42 for 1 stop to Treptower Park. This train goes every 10 minutes.
+            At Treptower Park you can follow the signs towards the ship. It will be a 5 minute walk to the pier.
+            For this trip you can buy a Short Trip ticket (Kurzstrecke).
+            A one way ticket costs €1,70.
+          </p>
+
+          <p><strong>By car/taxi</strong><br>
+            While we prefer that most people come by public transportation cause it’s fast and easy,
+            we also understand that it is not possible for everyone.
+            From the Estrel it is a 10 minute ride to the nearest parking spot next to Treptower Park.
+            Navigation address: Puschkinallee 15, 12435 Berlin
+            <br>
+            Parking is free and it’s a 5 minute walk from the parking to the ship.
+            You can find the parking on the right hand side when you’re almost near the navigation address.
+            There will be a sign for parking Treptower Hafen. <br>
+            If you use a taxi, let them drive you to S-Bahn station Treptower Park. From there it is a 5 minute walk.
+          </p>
+
+          <p><strong>Shuttle Busses</strong><br>
+
+            At this moment we are still looking into the option to get a few shuttle busses from the Estrel to the ship.
+            This will mostly be for the fursuiters.
+            We will update with more info in the coming months.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="wrapper wsLarge">
+      <div class="row">
+        <div class="content">
+
+          <h2 id="evening" class="headline">Evening party</h2>
+          <i>August 18 - 19:30 CET - 23:30 CET - Estrel</i>
+          <p><strong>Party from begin to end!</strong><br>
+            Want to start Eurofurence with an awesome party? Look no further! During this 4 hour party we will make sure
+            you dance your butt off with the best DJ’s of Eurofurence.
+            You can also enjoy the sunset over Berlin on the outdoor decks or use our silent disco to even party
+            outside!</p>
+          <p>We won’t forget about the fursuiters, we will bring a fully equipped fursuitlounge where you can change
+            into your fursuit or store it when not needed. More events are added in the coming months!
+          </p>
+
+          <p><strong>Transportation/How to get there</strong><br>
+            The evening party starts and ends right in front of the Estrel so no need to travel far!
+            Just go to the beergarden and hop on!</p>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="wrapper wsLarge">
+      <div class="row">
+        <div class="content">
+
+          <h2 id="badges" class="headline">Badge Pickup</h2>
+
+          <p>Badge pickup will be on Monday from 15:00 CET till 21:00 CET and on Tuesday from 09:00 CET till 17:00 CET.
+            The pickup is for both parties. Just keep in mind that from Tuesday 12:30 CET you can only pick up badges
+            for the evening party.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- <section>
+    <div class="row">
+    <div class="content">
+
+      <h2 id="eventlist" class="headline">Events and DJ's</h2>
+      <p>Just like last year we also invited the best DJ's for our parties.</p>
+      <p>one of the party staff members know.</p>
+
+    </div>
+    </div>
+    </section> -->
+    <div id="float" style="position: fixed;right: 0;bottom: 0;padding: 10px;">
+      <a class="button navItemButton buttonSecondary" href="#"><i
+                style="font-size: 24px; margin-right: .5rem; margin-top:-4px;" class="la la-caret-square-o-up"></i>To
+        the top</a>
+    </div>
+  </section> <!--pageWrapper -->
+  <?= $footer ?>
+</body>
 </html>
