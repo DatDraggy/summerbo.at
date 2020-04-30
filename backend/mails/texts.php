@@ -53,3 +53,20 @@ Because of the current circumstances we have not yet transferred our attendees o
 We know it can be hard, but please #StayHome and honor your local governments instructions. Together we can help protect the most vulnerable and raise the chances for our beloved cons around the world.
 
 If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
+
+$texts['coronaCancel'] = 'As you may know, the ongoing pandemic has affected every country in Europe recently. As you also may have learned, Eurofurence 26 (2020) has officially been canceled. Therefore we see no other possibility than to cancel this year\'s Summerbo.at party. All Paws on Deck will not take place this year.
+
+The health and safety of our attendees are our utmost concern, however, we understand that most of you will be very disappointed, we are as well.
+
+So, what now? Currently, we are working very hard to have the boat party take place at Eurofurence next year.
+
+<b>Refunds?</b>
+Since we\'ve not issued any payment requests yet, refunds cannot be requested.
+
+<b>What about my registration?</b>
+We currently don\'t have any plans to have your registrations carry over to next year. You will simply have to register again.
+
+Lastly, we would like to thank all of our staff, our volunteers and all of you great folk: The attendees, for supporting summerbo.at.
+Summerbo.at will return next year and we\'ll have to party double as hard to make up for it! All Paws on Deck!
+
+If you have any questions, please send us a message. Simply reply to this e-mail or contact us via Telegram at <a href="https://t.me/summerboat">https://t.me/summerboat</a>.';
