@@ -11,7 +11,7 @@ $config['dbname'] = 'boat';
 $dbConnection = buildDatabaseConnection($config);
 
 try {
-  $sql = 'SELECT email, nickname FROM users WHERE id = 2';
+  $sql = 'SELECT email, nickname FROM users';
   $stmt = $dbConnection->prepare($sql);
   $stmt->execute();
   $rows = $stmt->fetchAll();
@@ -22,7 +22,7 @@ try {
 foreach ($rows as $row) {
   $nickname = $row['nickname'];
 
-  sendEmail($row['email'], 'Summerbo.at Event Canceled', "Dear $nickname,
+  sendEmail($row['email'], 'Summerbo.at Party Canceled', "Dear $nickname,
 
 " . $texts['coronaCancel'], true, false);
   echo $nickname . ' ' . $row['email'] . "\n";
