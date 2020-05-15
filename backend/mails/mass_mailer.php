@@ -22,9 +22,9 @@ try {
 foreach ($rows as $row) {
   $nickname = $row['nickname'];
 
-  sendEmail($row['email'], 'Summerbo.at Covid-19 Update', "Dear $nickname,
+  sendEmail($row['email'], 'Summerbo.at Party Canceled', "Dear $nickname,
 
-" . $texts['coronaUpdate'], true, false);
+" . $texts['coronaCancel'], true, false);
   echo $nickname . ' ' . $row['email'] . "\n";
   sleep(10);
 }

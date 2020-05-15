@@ -3,7 +3,11 @@ require_once('backend/config.php');
 require_once('backend/includes.php');
 require_once('backend/funcs.php');
 
-header('Cache-Control: max-age=0');
+$timeLeft = strtotime($config['startReg'] . 'T11:00:00') - time();
+
+if ($timeLeft / 60 / 60 / 24 < 2) {
+  header('Cache-Control: max-age=0');
+}
 
 session_start();
 $status = '';
@@ -572,13 +576,17 @@ if ($regOpen === true && $secret !== $config['secret']) {
                   <button class="button buttonPrimary">Submit</button>
                 </form>
               <?php } else if (!$regOpenTime) {
-                echo '<div class="formWrapper"><h3>Registration Closed</h3><p>Registration opens on ' . $config['startReg'] . ' 11:00 CET</p></div>';
+                echo '<div class="formWrapper"><h3>Registration Closed</h3>';
+                if ($config['showTimer']) {
+                  echo '<p>Registration opens on ' . $config['startReg'] . ' 11:00 CET</p>';
+                }
+                echo '</div>';
               } ?>
             </div>
           </div>
         </section>
       </section> <!--pageWrapper -->
-      <?php if (!$regOpenTime && $secret !== $config['secret']) { ?>
+      <?php if (!$regOpenTime && $secret !== $config['secret'] && $config['showTimer']) { ?>
         <section id="count" class="countWrapperReg" style="text-align: center;">
           <div class="wrapper">
             <div id="counters-min" class="row">
