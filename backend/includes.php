@@ -14,7 +14,7 @@ $head = '<meta charset="utf-8">
 
     <!-- ToDo: Move itemprop name and description to individual pages -->
     <meta itemprop="name" content="All Paws on Deck 2020" />
-    <meta itemprop="description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 Juli 2020." />
+    <meta itemprop="description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 July 2020." />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
@@ -22,7 +22,7 @@ $head = '<meta charset="utf-8">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
     <meta name="twitter:title" content="All Paws on Deck 2020">
-    <meta name="twitter:description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 Juli 2020.">
+    <meta name="twitter:description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 July 2020.">
     <meta name="twitter:image" content="https://summerbo.at/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
