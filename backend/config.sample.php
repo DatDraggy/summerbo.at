@@ -25,4 +25,6 @@ $status[2] = 'APPROVED - Confirmed by staff';
 $status[3] = 'PAID - Fee was paid';
 
 $config['start'] = '2020-08-18';
+$config['startReg'] = '2020-08-17';
+$config['showTimer'] = true;
 $config['readOnly'] = false;
