@@ -1,6 +1,7 @@
 <?php
 require_once('backend/config.php');
 require_once('backend/includes.php');
+require_once('backend/funcs.php');
 ?>
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#" lang="en" dir="ltr">
@@ -21,7 +22,7 @@ require_once('backend/includes.php');
           "position": 1,
           "item": {
             "@id": "https://summerbo.at/",
-            "name": "All Paws on Deck 2020"
+            "name": "All Paws on Deck <?=getPartyDate('Y')?>"
           }
         },{
           "@type": "ListItem",
