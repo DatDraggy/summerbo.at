@@ -1,4 +1,6 @@
 <?php
+require_once('funcs.php');
+
 $head = '<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=2020XBbnOXWxGx" color="#3ec1c7">
@@ -21,8 +23,8 @@ $head = '<meta charset="utf-8">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png?v=2020XBbnOXWxGx">
     <meta name="theme-color" content="#3ec1c7">
 
-    <meta name="apple-mobile-web-app-title" content="All Paws on Deck 2020 Summerbo.at Party">
-    <meta name="application-name" content="All Paws on Deck 2020 Summerbo.at Party">
+    <meta name="apple-mobile-web-app-title" content="All Paws on Deck '.getPartyDate('Y').' Summerbo.at Party">
+    <meta name="application-name" content="All Paws on Deck '.getPartyDate('Y').' Summerbo.at Party">
     <script src="/js/yall-2.2.0.min.js"></script>
     <link rel="stylesheet" href="/css/css.css">
     <link rel="stylesheet" href="/css/badger-accordion.css">
