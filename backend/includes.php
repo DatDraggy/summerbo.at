@@ -1,4 +1,5 @@
 <?php
+require_once('backend/funcs.php');
 
 $head = '<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,16 +14,16 @@ $head = '<meta charset="utf-8">
     <meta property="og:image:height" content="741">
 
     <!-- ToDo: Move itemprop name and description to individual pages -->
-    <meta itemprop="name" content="All Paws on Deck 2020" />
-    <meta itemprop="description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 Juli 2020." />
+    <meta itemprop="name" content="All Paws on Deck '.getPartyDate('Y').'" />
+    <meta itemprop="description" content="All Paws on Deck '.getPartyDate('Y').' &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! '.getPartyDate('d F Y').'" />
     <meta itemprop="startDate" content="' . $config['start'] . '" />
     <meta itemprop="endDate" content="' . $config['start'] . '" />
     <meta itemprop="location" content="Estrel Hotel, Berlin, Germany" />
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@summerbo_at">
-    <meta name="twitter:title" content="All Paws on Deck 2020">
-    <meta name="twitter:description" content="All Paws on Deck 2020 &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! 27 Juli 2020.">
+    <meta name="twitter:title" content="All Paws on Deck '.getPartyDate('Y').'">
+    <meta name="twitter:description" content="All Paws on Deck '.getPartyDate('Y').' &mdash; Summerbo.at is a super awesome furry party, on a boat, in Berlin, at Eurofurence! '.getPartyDate('d F Y').'">
     <meta name="twitter:image" content="https://summerbo.at/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Summerbo.at Logo">
     <meta name="twitter:creator" content="@summerbo_at" />
@@ -47,8 +48,8 @@ $head = '<meta charset="utf-8">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png?v=2020XBbnOXWxGx">
     <meta name="theme-color" content="#3ec1c7">
 
-    <meta name="apple-mobile-web-app-title" content="All Paws on Deck 2020 Summerbo.at Party">
-    <meta name="application-name" content="All Paws on Deck 2020 Summerbo.at Party">
+    <meta name="apple-mobile-web-app-title" content="All Paws on Deck '.getPartyDate('Y').' Summerbo.at Party">
+    <meta name="application-name" content="All Paws on Deck '.getPartyDate('Y').' Summerbo.at Party">
     <script src="/js/yall-2.2.0.min.js"></script>
     <link rel="stylesheet" href="/css/css.css?v=2020XBbnOXWxGxdev">
     <link rel="stylesheet" href="/css/badger-accordion.css">
@@ -101,7 +102,7 @@ $nav = '<nav id="nav" class="nav inactive">
           <div class="navItem navItemLogo">
             <a class="navLink" href="/#"><img alt="Summerboat Logo" src="/images/logo@2x.png?v=2020XBbnOXWxGx" width="48">
               <p style="margin-left: 1rem; line-height:1;" class="heading5 subheadline nomargin">
-              Summerbo.at 2020:<br>
+              Summerbo.at '.getPartyDate('Y').':<br>
               All Paws on Deck
               </p></a>
           </div>
