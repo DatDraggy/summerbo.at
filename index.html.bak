@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
 
   <section class="contentPage" id="contentPage">
 
-   <!--  <section class="ribbon" style="background-color: var(--colorPrimary)">
+    <section class="ribbon" style="background-color: var(--colorPrimary)">
       <div class="wrapper">
         <div class="row">
           <div style="color:white" class="content wsLarge">
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_URI'] === '/index' || $_SERVER['REQUEST_URI'] === '/index.
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <section class="wrapper wsLarge">
         <div class="row">
