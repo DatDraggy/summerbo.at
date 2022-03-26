@@ -1,0 +1,62 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 4488742, 2022-03-12T08:19:55-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: TideSans-300LilKahuna by Kyle Wayne Benson
+ * URL: https://www.myfonts.com/fonts/kyle-wayne-benson/tide-sans/lil-kahuna/
+ * 
+ * Webfont: TideSans-500Dudette by Kyle Wayne Benson
+ * URL: https://www.myfonts.com/fonts/kyle-wayne-benson/tide-sans/dudette/
+ * 
+ * Webfont: TideSans-300LilKahunaItalic by Kyle Wayne Benson
+ * URL: https://www.myfonts.com/fonts/kyle-wayne-benson/tide-sans/lil-kahuna-italic/
+ * 
+ * Webfont: TideSans-500DudetteItalic by Kyle Wayne Benson
+ * URL: https://www.myfonts.com/fonts/kyle-wayne-benson/tide-sans/dudette-italic/
+ * 
+ * 
+ * Webfonts copyright: © 2013 Kyle Wayne Benson
+ * 
+ * © 2022 MyFonts Inc
+*/
+
+/* @import must be at top of file, otherwise CSS will not work */
+
+@font-face {
+  font-family: "TideSans";
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  src: url("fonts/TideSans/normal_normal_normal.woff2") format("woff2"),
+    url("fonts/TideSans/normal_normal_normal.woff") format("woff");
+}
+@font-face {
+  font-family: "TideSans";
+  font-style: normal;
+  font-weight: bold;
+  font-stretch: normal;
+  src: url("fonts/TideSans/normal_normal_bold.woff2") format("woff2"),
+    url("fonts/TideSans/normal_normal_bold.woff") format("woff");
+}
+@font-face {
+  font-family: "TideSans";
+  font-style: italic;
+  font-weight: bold;
+  font-stretch: normal;
+  src: url("fonts/TideSans/italic_normal_bold.woff2") format("woff2"),
+    url("fonts/TideSans/italic_normal_bold.woff") format("woff");
+}
+@font-face {
+  font-family: "TideSans";
+  font-style: italic;
+  font-weight: normal;
+  font-stretch: normal;
+  src: url("fonts/TideSans/italic_normal_normal.woff2") format("woff2"),
+    url("fonts/TideSans/italic_normal_normal.woff") format("woff");
+}

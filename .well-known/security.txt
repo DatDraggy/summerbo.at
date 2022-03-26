@@ -1,3 +1,0 @@
-Contact: mailto:kieran@summerbo.at
-Encryption: https://summerbo.at/kieran.pub
-Preferred-Languages: en, de
