@@ -5,6 +5,7 @@
   import Overlay from "./components/Overlay.svelte";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
+  import Meta from "./components/Meta.svelte";
 
   let departTime = new Date("Aug 23, 2022 13:00:00");
 
@@ -28,6 +29,8 @@
     getTimeOffset(departTime);
   });
 </script>
+
+<Meta />
 
 <Router>
   <div class="preview">
