@@ -149,12 +149,6 @@ body {
   column-gap: var(--ui-unit-medium);
 }
 
-.textContent {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-}
 .footer {
   flex: none;
   display: grid;
@@ -313,18 +307,23 @@ video.bg {
 .overlayContent {
   max-width: 64ch;
 }
-.textContent h3 {
-  margin-bottom: var(--ui-unit-x-small);
-}
-.textContent > p {
+.textContent h2 {
   margin-bottom: var(--ui-unit-base);
+}
+.textContent h3 {
+  margin-bottom: var(--ui-unit-small);
+  margin-top: var(--ui-unit-base);
+}
+.textContent p {
+  margin-bottom: var(--ui-unit-small);
 }
 .textList {
   list-style: square;
   padding-left: var(--ui-unit-small);
+  margin-bottom: var(--ui-unit-small);
 }
 .textList li {
-  margin-bottom: var(--ui-unit-small);
+  margin-bottom: var(--ui-unit-x-small);
 }
 .closeOverlay {
   background: var(--colorPrimary);

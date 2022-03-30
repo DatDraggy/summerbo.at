@@ -1,5 +1,4 @@
 <script lang="ts">
-  require('svelte/ssr/register');
   import { Router, Route, Link, navigate } from "svelte-navigator";
   import { onMount } from "svelte/internal";
   import Privacy from "./Privacy.svelte";
