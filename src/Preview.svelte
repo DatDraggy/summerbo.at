@@ -6,7 +6,8 @@
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
 
-  let departTime = new Date("Aug 23, 2022 13:00:00");
+  //let departTime = new Date("Aug 23, 2022 13:00:00");
+  let departTime = new Date(Date.UTC(2022, 8, 23, 13))
 
   let days;
   let hours;
