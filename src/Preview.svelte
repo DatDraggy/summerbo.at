@@ -43,6 +43,7 @@
           >
         </h1>
         <h2 class="textLarge">Furry Boat Party</h2>
+        <h4>23. August 2022</h4>
       </div>
 
       <p>We're working on some things. Registration opens May 14th.</p>
