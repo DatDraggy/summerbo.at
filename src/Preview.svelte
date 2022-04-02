@@ -6,8 +6,7 @@
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
 
-  //let departTime = new Date("Aug 23, 2022 13:00:00");
-  let departTime = new Date(Date.UTC(2022, 8, 23, 13))
+  let departTime = new Date("2022-08-23T13:00:00+02:00");
 
   let days;
   let hours;
@@ -16,7 +15,7 @@
   let video;
 
   const getTimeOffset = (reference) => {
-    let now = new Date().getTime();
+    let now = new Date();
     let distance = reference - now;
     days = Math.floor(distance / (1000 * 60 * 60 * 24));
     hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
