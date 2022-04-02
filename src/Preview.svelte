@@ -44,7 +44,7 @@
         <h2 class="textLarge">Furry Boat Party</h2>
       </div>
 
-      <p>We're working on some things. Registration opens soon.</p>
+      <p>We're working on some things. Registration opens May 14th.</p>
       <h2 class="headerLine">Departing...</h2>
       <div class="timeDisplay tileSet ma-1">
         <div class="timeDisplayUnit">
