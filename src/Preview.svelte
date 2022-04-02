@@ -73,7 +73,7 @@
         <ComplianceNav primary />
       </div>
     </div>
-    <Route path="/*legalRoute" component={Legal} let:params primary={false} />
+    <Route path="/*legalRoute" component={Legal} let:params />
   </div>
 </Router>
 
