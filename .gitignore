@@ -1,6 +1,7 @@
+/node_modules/
+/public/build/
+
+.DS_Store
 /.idea/
 deploy.php
 config.php
-.DS_Store
-/assets/styles/.sass-cache
-source
