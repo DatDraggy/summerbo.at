@@ -67,7 +67,7 @@
     enabling your browsers "DoNotTrack" setting or below:
   </p>
   <iframe
-    style="border: 0; height:80px; width: auto;"
+    style="border: 0; height:150px; width: 500px;"
     src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"
   />
   <h3 class="textLarge"><strong>1.2</strong> Private information</h3>
