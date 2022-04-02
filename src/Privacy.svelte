@@ -66,10 +66,9 @@
     You can opt out of being tracked by our Matomo Analytics instance by
     enabling your browsers "DoNotTrack" setting or below:
   </p>
-  <iframe
+  <iframe title="Tracking Optout"
     style="border: 0; height:150px; width: 500px;"
-    src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"
-  />
+    src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"></iframe>
   <h3 class="textLarge"><strong>1.2</strong> Private information</h3>
   <p>
     We also request a few private details to make sure that during the party and
