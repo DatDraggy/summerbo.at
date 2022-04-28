@@ -1,0 +1,74 @@
+<script lang="ts">
+  export let members = [
+    {
+      name: "Hunter",
+      role: "Organizer",
+      img: "img/staff/hunter.png",
+      twitter: "hunterhuskynl",
+      description:
+        "Curious husky that loves to organize stuff. Originally from Netherlands, now lives in Berlin, Germany. Started with organizing the Furrave for many years, now expanding to Berlin and Germany. Loves gaming, fursuits and parties!",
+    },
+    {
+      name: "Kieran",
+      role: "Web and Registration",
+      img: "img/staff/kieran.png",
+      twitter: "DatDraggy",
+      description:
+        "I'm literally a dragon, like, actually in real life. I do computer things in my free time and, obviously, code a lot. This draggo is making sure that everything technical works smoothly. ",
+    },
+    {
+      name: "Hausken",
+      role: "Design and Web",
+      img: "img/staff/hausken.png",
+      twitter: "HauskenDE",
+      description:
+        "Ex-pat Australian, professional designer trying to make everything look nice. General color-mage, merch-wizard, typography-enginner and Akita.",
+    },
+    {
+      name: "Cubitus",
+      role: "Operations",
+      img: "img/staff/cubitus.png",
+      twitter: "cubitus",
+      description:
+        "Half dog half werewulf, living in Berlin and loves to organize things for (not only) furries. Critical and empathetic thinker",
+    },
+    {
+      name: "BerkWolf",
+      role: "Financials",
+      img: "img/staff/berkwolf.png",
+      twitter: "cubitus",
+      description:
+        "A German black wolf from Stuttgart who can speak many languages if given cider. Wise and smart but loves to play tricks on people, but never with money.",
+    },
+    {
+      name: "Volunteer",
+      role: "Help make this party great!",
+      twitter: "summerbo_at",
+      description:
+        "At this moment we have no open positions, please check later this year if you are still interested in helping us! Thanks for checking us out!",
+    },
+  ];
+</script>
+
+<h2 class="text-headline">Team</h2>
+
+<div class="team-grid">
+  {#each members as member}
+    <div class="team-member">
+      <h3 class="text-highlight">{member.name}</h3>
+      <h4>{member.role}</h4>
+      {#if member.img}
+        <img
+          src={member.img}
+          style="display: block; width: 4rem; border-radius: 50%; margin-bottom:2rem;margin-top:1rem;"
+          alt={`Photo of ${member.name}`}
+        />
+      {:else}<div style="height: 4rem; margin-top:1rem; margin-bottom:2rem" />
+      {/if}
+
+      <p>
+        {member.description}
+      </p>
+    </div>
+  {/each}
+</div>
