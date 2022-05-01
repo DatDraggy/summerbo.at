@@ -10,7 +10,7 @@
   import Team from "./Team.svelte";
   import Redirect from "./Redirect.svelte";
   import BackToTopButton from "./BackToTopButton.svelte";
-
+  import TwentyNineteen from "./2019.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
 
@@ -19,10 +19,11 @@
   let minutes;
   let seconds;
   let video;
+  let distance;
 
   const getTimeOffset = (reference) => {
     let now = new Date().getTime();
-    let distance = reference - now;
+    distance = reference - now;
     days = Math.floor(distance / (1000 * 60 * 60 * 24));
     hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -56,7 +57,7 @@
           Furry Boat Party
         </h1>
         <nav>
-          <Link to="2019">2019</Link>
+          <Link to="/archive/2019">2019</Link>
           <Link to="/">2022</Link>
         </nav>
       </div>
@@ -83,8 +84,10 @@
               <strong>DJs and silent disco</strong>.
             </p>
             <p>
-              Registration opens at XX:XX on May 14 Our telegram bot can remind
-              you!
+              Registration opens at XX:XX on May 14. <a
+                href="https://twitter.com/summerbo_at"
+                >Follow us on Twitter to be reminded!</a
+              >
             </p>
           </div>
         </Route>
@@ -94,6 +97,10 @@
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
         </Route>
+        <Route path="archive">
+          <Redirect url="/archive/2019" external={false} />
+        </Route>
+        <Route path="archive/2019" component={TwentyNineteen} />
         <BackToTopButton scrollTo={header} />
       </div>
       <footer class="footer">
@@ -139,7 +146,7 @@
                     style={"width: 24px; height: 24px"}
                   /></a
                 >
-                <a href="telegram" class="social-link"
+                <a href="https://t.me/summerboat_bot" class="social-link"
                   ><Graphics
                     type={"telegram"}
                     style={"width: 24px; height: 24px"}
