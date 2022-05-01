@@ -8,6 +8,10 @@
   import Privacy from "./Privacy.svelte";
   import Conduct from "./Conduct.svelte";
   import Team from "./Team.svelte";
+  import Redirect from "./Redirect.svelte";
+  import BackToTopButton from "./BackToTopButton.svelte";
+
+  let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
 
   let days;
@@ -38,13 +42,13 @@
 <Router>
   <main>
     <div class="banner">
-      <Graphics width="auto" type="hero" style="max-width:100%;" />
+      <Graphics type="hero" style="max-width:100%;" />
       <video class="banner-video" muted autoplay loop bind:this={video}>
         <source src="./img/bgoptim.webm" type="video/webm" />
       </video>
     </div>
     <div class="content">
-      <div class="header">
+      <div class="header" bind:this={header}>
         <h1 class="logo">
           <span class="text-highlight"
             ><Link to="/" style="color:inherit">Summerbo.at</Link></span
@@ -58,34 +62,39 @@
       </div>
       <div class="content-wrapper">
         <Route path="/">
-          <h2 class="text-headline">
-            Raise The Mainsail, it's&hellip;<br /><span class="color-secondary"
-              >All Paws on Deck 2022</span
-            >
-          </h2>
-          <p>
-            We&rsquo;re back! It&rsquo;s back! This year we&rsquo;re departing
-            from the Estrel on August 23, 2022 at 19:30 and partying all
-            evening, making a round trip through the rivers and canals of
-            Berlin.
-          </p>
-          <p>
-            Our ship this year is <strong
-              >newer, more modern and better equipped</strong
-            >. Once again, we have a <strong>fully stocked bar</strong> with
-            plenty of cider, a secure
-            <strong>fursuit lounge with cooling</strong>, live
-            <strong>DJs and silent disco</strong>.
-          </p>
-          <p>
-            Registration opens at XX:XX on May 14. <a href="#"
-              >Our telegram bot can remind you!</a
-            >
-          </p>
+          <div class="text-content">
+            <h2 class="text-headline">
+              Raise The Mainsail, it's&hellip;<br /><span
+                class="color-secondary">All Paws on Deck 2022</span
+              >
+            </h2>
+            <p>
+              We&rsquo;re back! It&rsquo;s back! This year we&rsquo;re departing
+              from the Estrel on August 23, 2022 at 19:30 and partying all
+              evening, making a round trip through the rivers and canals of
+              Berlin.
+            </p>
+            <p>
+              Our ship this year is <strong
+                >newer, more modern and better equipped</strong
+              >. Once again, we have a <strong>fully stocked bar</strong> with
+              plenty of cider, a secure
+              <strong>fursuit lounge with cooling</strong>, live
+              <strong>DJs and silent disco</strong>.
+            </p>
+            <p>
+              Registration opens at XX:XX on May 14 Our telegram bot can remind
+              you!
+            </p>
+          </div>
         </Route>
         <Route path="privacy" component={Privacy} />
         <Route path="conduct" component={Conduct} />
         <Route path="team" component={Team} />
+        <Route path="register">
+          <Redirect url="https://reg.summerbo.at" />
+        </Route>
+        <BackToTopButton scrollTo={header} />
       </div>
       <footer class="footer">
         <div class="footer-section">
@@ -123,8 +132,25 @@
           <h3 class="text-headline-line">Details</h3>
           <nav class="footer-grid">
             <ul>
-              <li>
-                <a href="jsidfjs">Contact</a>
+              <li class="socials">
+                <a href="mailto:contact@summerbo.at" class="social-link">
+                  <Graphics
+                    type={"email"}
+                    style={"width: 24px; height: 24px"}
+                  /></a
+                >
+                <a href="telegram" class="social-link"
+                  ><Graphics
+                    type={"telegram"}
+                    style={"width: 24px; height: 24px"}
+                  /></a
+                >
+                <a href="https://twitter.com/summerbo_at" class="social-link">
+                  <Graphics
+                    type={"twitter"}
+                    style={"width: 24px; height: 24px;"}
+                  /></a
+                >
               </li>
               <li>
                 <Link to="../privacy">Privacy</Link>
