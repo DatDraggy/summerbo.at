@@ -146,7 +146,7 @@
                     style={"width: 24px; height: 24px"}
                   /></a
                 >
-                <a href="https://t.me/summerboat_bot" class="social-link"
+                <a href="https://t.me/summerboat" class="social-link"
                   ><Graphics
                     type={"telegram"}
                     style={"width: 24px; height: 24px"}
