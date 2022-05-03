@@ -1,5 +1,5 @@
 <div class="textContent">
-  <h2 id="conduct" class="textHuge"><strong>Conduct</strong></h2>
+  <h2 id="conduct" class="text-headline"><strong>Conduct</strong></h2>
 
   <p>
     We want to build the best party ever for you. To make sure that everything

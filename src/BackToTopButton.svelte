@@ -1,7 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
 
-  export let bindTo: HTMLElement;
   export let scrollTo: HTMLElement;
 
   let scrollY;

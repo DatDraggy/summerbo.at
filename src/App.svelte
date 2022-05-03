@@ -11,6 +11,8 @@
   import Redirect from "./Redirect.svelte";
   import BackToTopButton from "./BackToTopButton.svelte";
   import TwentyNineteen from "./2019.svelte";
+  import Tos from "./Tos.svelte";
+  import A9 from "./2019.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
 
@@ -18,7 +20,6 @@
   let hours;
   let minutes;
   let seconds;
-  let video;
   let distance;
 
   const getTimeOffset = (reference) => {
@@ -33,7 +34,6 @@
   let x = setInterval(() => getTimeOffset(departTime), 1000);
 
   onMount(() => {
-    video.play();
     getTimeOffset(departTime);
   });
   let preview = true;
@@ -44,7 +44,7 @@
   <main>
     <div class="banner">
       <Graphics type="hero" style="max-width:100%;" />
-      <video class="banner-video" muted autoplay loop bind:this={video}>
+      <video class="banner-video" muted autoplay loop>
         <source src="./img/bgoptim.webm" type="video/webm" />
       </video>
     </div>
@@ -70,11 +70,26 @@
               >
             </h2>
             <p>
-              We&rsquo;re back! It&rsquo;s back! This year we&rsquo;re departing
-              from the Estrel on August 23, 2022 at 19:30 and partying all
+              We&rsquo;re back! It&rsquo;s back! This year we begin boarding
+              from the Estrel on August 23, 2022 at 19:00 and partying all
               evening, making a round trip through the rivers and canals of
               Berlin.
             </p>
+            <div class="pricing">
+              <div class="pricing-unit">
+                <h3>Standard Ticket &mdash; &euro;35</h3>
+                <ul>
+                  <li>Access to cabin and amenities</li>
+                </ul>
+              </div>
+              <div class="pricing-unit vip">
+                <h3>VIP Upgrade &plus; &euro;15</h3>
+                <ul>
+                  <li>Support the party</li>
+                  <li>One exclusive gift</li>
+                </ul>
+              </div>
+            </div>
             <p>
               Our ship this year is <strong
                 >newer, more modern and better equipped</strong
@@ -84,15 +99,17 @@
               <strong>DJs and silent disco</strong>.
             </p>
             <p>
-              Registration opens at XX:XX on May 14. <a
+              Registration opens on May 14. <a
                 href="https://twitter.com/summerbo_at"
                 >Follow us on Twitter to be reminded!</a
               >
+              or on our <a href="https://t.me/summerboatinfo">Telegram</a> channel.
             </p>
           </div>
         </Route>
         <Route path="privacy" component={Privacy} />
         <Route path="conduct" component={Conduct} />
+        <Route path="tos" component={Tos} />
         <Route path="team" component={Team} />
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
@@ -160,14 +177,6 @@
                 >
               </li>
               <li>
-                <Link to="../privacy">Privacy</Link>
-              </li>
-              <li>
-                <Link to="../conduct">Conduct</Link>
-              </li>
-            </ul>
-            <ul>
-              <li>
                 <Link to="../team">Team</Link>
               </li>
               <li>
@@ -175,6 +184,17 @@
                   href="https://github.com/DatDraggy/summerbo.at"
                   target="_blank">Source Code</a
                 >
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <Link to="../privacy">Privacy</Link>
+              </li>
+              <li>
+                <Link to="../conduct">Conduct</Link>
+              </li>
+              <li>
+                <Link to="../tos">Terms of Service</Link>
               </li>
             </ul>
           </nav>

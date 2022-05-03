@@ -4,6 +4,8 @@
   --color-primary: #4B6282;
   --color-secondary: #EA5D74;
   --color-tertiary: #1CAFA7;
+  --color-vip: #FFE4BB;
+  --color-vip-text: #B06936;
   --line-height-ratio: 1.66;
 }
 
@@ -42,7 +44,7 @@ p {
   margin-left: 1rem;
   padding-left:1rem;
   list-style-position: outside;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 .textList li {
   padding-left: .5rem;
@@ -113,6 +115,7 @@ p {
 
 }
 .social-link {
+  line-height: 1;
   display: block;
   margin-right: .5rem;
 }
@@ -135,7 +138,26 @@ p {
 .logo {
   text-transform: uppercase;
 }
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  column-gap:2rem;
+  row-gap:2rem;
 
+  margin-bottom: 2rem;
+}
+.pricing-unit {
+  overflow:hidden;
+  position:relative;
+  background-image: url('img/tickets/ticketStandard@2x.png');
+  background-size:cover;
+  padding: 2rem;
+  color: white
+}
+.pricing-unit.vip {
+  background-image: url('img/tickets/ticketVIP@2x.png');
+  color: var(--color-vip-text);
+}
 .time-display {
   display:flex;
 }

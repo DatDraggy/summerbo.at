@@ -1,5 +1,5 @@
 <div class="textContent">
-  <h2 id="privacy" class="textHuge"><strong>Privacy Policy</strong></h2>
+  <h2 id="privacy" class="text-headline"><strong>Privacy Policy</strong></h2>
   <p>Last updated: January 3, 2020</p>
   <p>
     We believe that being as transparent as possible about collecting and
@@ -66,9 +66,11 @@
     You can opt out of being tracked by our Matomo Analytics instance by
     enabling your browsers "DoNotTrack" setting or below:
   </p>
-  <iframe title="Tracking Optout"
+  <iframe
+    title="Tracking Optout"
     style="border: 0; height:160px; width: 350px;"
-    src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"></iframe>
+    src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"
+  />
   <h3 class="textLarge"><strong>1.2</strong> Private information</h3>
   <p>
     We also request a few private details to make sure that during the party and
