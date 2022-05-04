@@ -12,7 +12,7 @@
   import BackToTopButton from "./BackToTopButton.svelte";
   import TwentyNineteen from "./2019.svelte";
   import Tos from "./Tos.svelte";
-  import A9 from "./2019.svelte";
+  import Faq from "./Faq.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
 
@@ -45,7 +45,7 @@
     <div class="banner">
       <Graphics type="hero" style="max-width:100%;" />
       <video class="banner-video" muted autoplay loop>
-        <source src="./img/bgoptim.webm" type="video/webm" />
+        <source src="/img/bgoptim.webm" type="video/webm" />
       </video>
     </div>
     <div class="content">
@@ -111,6 +111,7 @@
         <Route path="conduct" component={Conduct} />
         <Route path="tos" component={Tos} />
         <Route path="team" component={Team} />
+        <Route path="faq" component={Faq} />
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
         </Route>
@@ -175,6 +176,9 @@
                     style={"width: 24px; height: 24px;"}
                   /></a
                 >
+              </li>
+              <li>
+                <Link to="../faq">FAQ</Link>
               </li>
               <li>
                 <Link to="../team">Team</Link>
