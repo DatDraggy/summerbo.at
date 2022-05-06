@@ -1,0 +1,98 @@
+<script lang="ts">
+  import Accordion from "./components/Accordion.svelte";
+</script>
+
+<div class="faq textContent">
+  <h2 class="text-headline text-large">Frequently Asked Questions</h2>
+  <Accordion question="What kind of things can we do at the party?">
+    <p>
+      There will be a <strong>dancefloor</strong>, a <strong>bar</strong>,
+      <strong>lounge area</strong> and <strong>a fursuit lounge</strong>. The
+      outside decks provide for a great place to chill, have a drink and mingle
+      with the other guests. Games and events including fursuit limbo,
+      photoshoot, and more will be organized. The best way to stay tuned for
+      announcements and events is via the
+      <a href="https://t.me/summerboatinfo" rel="noopener" target="_blank"
+        >telegram info channel</a
+      >
+      or our
+      <a
+        href="https://www.twitter.com/summerbo_at"
+        rel="noopener"
+        target="_blank">Twitter</a
+      >.
+    </p>
+  </Accordion>
+  <Accordion question="Is this party affiliated with Eurofurence?"
+    ><p>
+      We are part of, officially acknowledged and supported by Eurofurence. We
+      want to offer early arrival attendees a party to kick off their convention
+      experience! Ticket payment will be handled by the official Eurofurence
+      registration system. The VIP upgrade needs to be paid at the badge pickup
+      table in cash.
+    </p></Accordion
+  >
+  <Accordion question="How much does the party cost?"
+    ><p>
+      You can purchase a <em>Normal</em> ticket for <strong>&euro;35</strong>.
+      We also offer a <abbr>VIP</abbr>
+      upgrade for additional <strong>&euro;15</strong>. Not only will this
+      include a special gift and a special <abbr>VIP</abbr> badge, but you also help
+      us to make the party even more awesome!
+    </p></Accordion
+  >
+  <Accordion question="What is the minimum age for attending?"
+    ><p>
+      You need to be at least 18 years old on the day of the party. You will be
+      required to present a legal photo ID or passport at badge pickup time.
+    </p></Accordion
+  >
+  <Accordion question="Can I order my VIP Upgrade later?"
+    ><p>
+      Yes! Simply login with your account details, go to 'Edit Details' and tick
+      the box for VIP upgrade in the user area. Fill in your password below and
+      click submit. You will receive an email as a confirmation. Payment of the
+      VIP Upgrade will be required at our Check-in desk when you pick up your
+      badge.
+    </p></Accordion
+  >
+  <Accordion question="How do I get my badge?"
+    ><p>
+      You will find our Info & Check-in desk in the Estrel Biergarten near the
+      boat. Please make sure you bring your ID or Passport with you. The badge
+      is your entrance to the party so please do not lose it.<br />
+      Keep in mind: Badge pickup and Check-in
+      <em><strong>before</strong></em> boarding!
+    </p></Accordion
+  >
+  <Accordion question="Is there a chance I will get seasick?"
+    ><p>
+      The chance of getting seasick on this boat is very minimal. Our ship is
+      one of this biggest ships out there and the speed and the size of the boat
+      make it impossible to feel any waves from other boats on the Spree. We do
+      advise to talk with your doctor in case you get seasick very easily. We
+      expect smooth sailing!
+    </p></Accordion
+  >
+  <Accordion question="Where do the profits of the party go to?"
+    ><p>
+      All profits will go to charity! The more VIP upgrades we sell, the more
+      we’ll be able to donate! Thank you for considering being generous! The
+      total amount of raised funds will be announced and published by the end of
+      Eurofurence 26.
+    </p></Accordion
+  >
+
+  <Accordion question="How did the party come to be?">
+    <p>
+      In <a href="https://2019.summerbo.at/" target="_blank">2019</a> some friends
+      wanted to do something special for celebrating the 25th edition of Eurofurence
+      and the 5th edition in Berlin, the city that knows how to party! So why not
+      on a boat? Cruising on the beautiful Spree River through Berlin. We wanted
+      a chill atmosphere for partying and suiting up.
+    </p>
+  </Accordion>
+</div>
+
+<style>
+</style>
