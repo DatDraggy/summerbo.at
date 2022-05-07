@@ -78,6 +78,9 @@ p {
   font-weight: 800;
   margin-bottom: 2rem;
 }
+.text-headline:focus {
+  outline: none;
+}
 .text-large {
   font-size: 1.33rem;
   line-height: 1;
