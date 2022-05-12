@@ -58,6 +58,32 @@ p {
   padding: 2rem;
   height: 66vh;
   overflow:hidden;
+  flex-direction: column;
+}
+.registration-button, .registration-button:visited {
+  display:flex;
+  color: white;
+  background-color: var(--color-secondary);
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: .5rem 1rem;
+  border-radius: 2rem;
+  border:2px solid transparent;
+}
+.registration-button:hover, .registration-button:focus {
+  border-color: white;
+  background-color: var(--color-tertiary);
+  color:white !important;
+}
+
+.registration-banner {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  flex:none;
+  z-index: 500;
+  color: white;
 }
 .banner-video { 
   position:absolute;
@@ -202,6 +228,7 @@ p {
     position:fixed;
     width: 33.33%;
   }
+  
   .header {
     display: flex;
     margin-bottom: 4rem;

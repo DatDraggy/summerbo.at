@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Router, Route, Link } from "svelte-navigator";
+  import { Router, Route, Link, navigate } from "svelte-navigator";
   import { onMount } from "svelte/internal";
   import { fly, fade } from "svelte/transition";
   import ComplianceNav from "./components/ComplianceNav.svelte";
@@ -15,6 +15,7 @@
   import Faq from "./Faq.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
+  let regTime = new Date("2022-05-14T19:00:00+02:00");
 
   let days;
   let hours;
@@ -36,14 +37,24 @@
   onMount(() => {
     getTimeOffset(departTime);
   });
-  let preview = true;
-  let overlay = false;
 </script>
 
 <Router>
   <main>
     <div class="banner">
-      <Graphics type="hero" style="max-width:100%;" />
+      <Graphics type="hero" style="max-width:100%; margin-bottom:4rem" />
+      <div class="registration-banner">
+        <a
+          class="registration-button"
+          style="margin-bottom: 1rem;"
+          href="http://reg.summerbo.at/">Register Here</a
+        >
+        <p
+          style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
+        >
+          Opens 14 May, 19:00 CEST
+        </p>
+      </div>
       <video class="banner-video" muted autoplay loop>
         <source src="/img/bgoptim.webm" type="video/webm" />
       </video>
