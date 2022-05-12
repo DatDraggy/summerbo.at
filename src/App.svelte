@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Router, Route, Link } from "svelte-navigator";
+  import { Router, Route, Link, navigate } from "svelte-navigator";
   import { onMount } from "svelte/internal";
   import { fly, fade } from "svelte/transition";
   import ComplianceNav from "./components/ComplianceNav.svelte";
@@ -15,12 +15,14 @@
   import Faq from "./Faq.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
+  let regTime = new Date("2022-05-14T19:00:00+02:00");
 
   let days;
   let hours;
   let minutes;
   let seconds;
   let distance;
+  let regDistance;
 
   const getTimeOffset = (reference) => {
     let now = new Date().getTime();
@@ -34,16 +36,41 @@
   let x = setInterval(() => getTimeOffset(departTime), 1000);
 
   onMount(() => {
+    let now = new Date().getTime();
     getTimeOffset(departTime);
+    regDistance = Math.abs(regTime.getTime() - now);
   });
-  let preview = true;
-  let overlay = false;
 </script>
 
 <Router>
   <main>
     <div class="banner">
-      <Graphics type="hero" style="max-width:100%;" />
+      <Graphics type="hero" style="max-width:100%; margin-bottom:4rem" />
+      <div class="registration-banner">
+        {#if regDistance <= 0}
+          <button
+            class="registration-button"
+            style="margin-bottom: 1rem;"
+            on:click={() => navigate("https://reg.summerbo.at/")}
+            >Register Now!</button
+          >
+          <p
+            style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
+          >
+            Registration is open!
+          </p>
+        {:else}
+          <button
+            class="registration-button"
+            disabled
+            style="margin-bottom: 1rem;">Registration Opens Soon</button
+          >
+          <p
+            style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
+          >
+            14 May, 19:00 CEST
+          </p>{/if}
+      </div>
       <video class="banner-video" muted autoplay loop>
         <source src="/img/bgoptim.webm" type="video/webm" />
       </video>
