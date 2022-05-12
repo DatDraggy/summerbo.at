@@ -22,7 +22,6 @@
   let minutes;
   let seconds;
   let distance;
-  let regDistance;
 
   const getTimeOffset = (reference) => {
     let now = new Date().getTime();
@@ -36,9 +35,7 @@
   let x = setInterval(() => getTimeOffset(departTime), 1000);
 
   onMount(() => {
-    let now = new Date().getTime();
     getTimeOffset(departTime);
-    regDistance = Math.abs(regTime.getTime() - now);
   });
 </script>
 
@@ -47,29 +44,16 @@
     <div class="banner">
       <Graphics type="hero" style="max-width:100%; margin-bottom:4rem" />
       <div class="registration-banner">
-        {#if regDistance <= 0}
-          <button
-            class="registration-button"
-            style="margin-bottom: 1rem;"
-            on:click={() => navigate("https://reg.summerbo.at/")}
-            >Register Now!</button
-          >
-          <p
-            style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
-          >
-            Registration is open!
-          </p>
-        {:else}
-          <button
-            class="registration-button"
-            disabled
-            style="margin-bottom: 1rem;">Registration Opens Soon</button
-          >
-          <p
-            style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
-          >
-            14 May, 19:00 CEST
-          </p>{/if}
+        <a
+          class="registration-button"
+          style="margin-bottom: 1rem;"
+          href="http://reg.summerbo.at/">Register Here</a
+        >
+        <p
+          style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
+        >
+          Opens 14 May, 19:00 CEST
+        </p>
       </div>
       <video class="banner-video" muted autoplay loop>
         <source src="/img/bgoptim.webm" type="video/webm" />
