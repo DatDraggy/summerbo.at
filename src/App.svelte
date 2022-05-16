@@ -126,6 +126,9 @@
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
         </Route>
+        <Route path="login">
+          <Redirect url="https://reg.summerbo.at/login" />
+        </Route>
         <Route path="archive">
           <Redirect url="/archive/2019" external={false} />
         </Route>

@@ -228,7 +228,7 @@
     If you prefer to write a letter to us, please send your letter to the
     following address:
   </p>
-  <p>
+  <p id="imprint">
     Edwin Verstaij<br />
     Summerbo.at<br />
     Kastanienallee 25<br />
