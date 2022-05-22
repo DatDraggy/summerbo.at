@@ -52,7 +52,7 @@
         <p
           style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
         >
-          Opens 14 May, 19:00 CEST
+          Open until 30 June, 19:00 CEST
         </p>
       </div>
       <video class="banner-video" muted autoplay loop>
