@@ -134,10 +134,15 @@
         <Route path="attendees">
           <Redirect url="https://reg.summerbo.at/attendees" />
         </Route>
+        <Route path="contact">
+          <Redirect url="https://reg.summerbo.at/contact" />
+        </Route>
+
         <Route path="archive">
           <Redirect url="/archive/2019" external={false} />
         </Route>
         <Route path="archive/2019" component={TwentyNineteen} />
+
         <Route path="404" component={NotFound} />
         <Route component={Default} />
         <BackToTopButton scrollTo={header} />
