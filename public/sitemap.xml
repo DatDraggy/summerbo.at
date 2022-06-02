@@ -2,14 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://summerbo.at/</loc>
-        <lastmod>2022-04-02</lastmod>
+        <lastmod>2022-06-02</lastmod>
     </url>
     <url>
         <loc>https://summerbo.at/privacy</loc>
-        <lastmod>2022-04-02</lastmod>
+        <lastmod>2022-06-02</lastmod>
     </url>
     <url>
         <loc>https://summerbo.at/conduct</loc>
-        <lastmod>2022-04-02</lastmod>
+        <lastmod>2022-06-02</lastmod>
+    </url>
+    <url>
+        <loc>https://summerbo.at/terms</loc>
+        <lastmod>2022-06-02</lastmod>
+    </url>
+    <url>
+        <loc>https://summerbo.at/faq</loc>
+        <lastmod>2022-06-02</lastmod>
+    </url>
+    <url>
+        <loc>https://summerbo.at/archive/2019</loc>
+        <lastmod>2022-06-02</lastmod>
+    </url>
+    <url>
+        <loc>https://summerbo.at/team</loc>
+        <lastmod>2022-06-02</lastmod>
     </url>
 </urlset>

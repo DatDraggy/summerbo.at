@@ -20,6 +20,10 @@
   });
 </script>
 
+<svelte:head>
+  <meta http-equiv="refresh" content="0; URL={url}">
+</svelte:head>
+
 <div>
   <h2 class="text-large text-headline">One moment&hellip;</h2>
   <p>Redirecting you to <a href={url}>{url}</a></p>

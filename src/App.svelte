@@ -13,6 +13,8 @@
   import TwentyNineteen from "./2019.svelte";
   import Tos from "./Tos.svelte";
   import Faq from "./Faq.svelte";
+  import NotFound from "./NotFound.svelte";
+  import Default from "./Default.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
   let regTime = new Date("2022-05-14T19:00:00+02:00");
@@ -136,6 +138,8 @@
           <Redirect url="/archive/2019" external={false} />
         </Route>
         <Route path="archive/2019" component={TwentyNineteen} />
+        <Route path="404" component={NotFound} />
+        <Route component={Default} />
         <BackToTopButton scrollTo={header} />
       </div>
       <footer class="footer">
