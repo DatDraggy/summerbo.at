@@ -15,6 +15,7 @@
   import Faq from "./Faq.svelte";
   import NotFound from "./NotFound.svelte";
   import Default from "./Default.svelte";
+  import Glympse from "./Glympse.svelte";
   let header;
   let departTime = new Date("2022-08-23T19:00:00+02:00");
   let regTime = new Date("2022-05-14T19:00:00+02:00");
@@ -125,6 +126,7 @@
         <Route path="tos" component={Tos} />
         <Route path="team" component={Team} />
         <Route path="faq" component={Faq} />
+        <Route path="glympse" component={Glympse} />
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
         </Route>
