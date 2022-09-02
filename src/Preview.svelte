@@ -6,7 +6,7 @@
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
 
-  let departTime = new Date("2022-08-23T19:00:00+02:00");
+  let departTime = new Date("2023-08-01T19:00:00+02:00");
 
   let days;
   let hours;
@@ -42,7 +42,7 @@
           >
         </h1>
         <h2 class="textLarge">Furry Boat Party</h2>
-        <h4>23. August 2022</h4>
+        <h4>1. August 2023</h4>
       </div>
 
       <p>We're working on some things. Registration opens May 14th.</p>

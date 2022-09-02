@@ -11,14 +11,15 @@
   import Redirect from "./Redirect.svelte";
   import BackToTopButton from "./BackToTopButton.svelte";
   import TwentyNineteen from "./2019.svelte";
+  import TwentyTwentyTwo from "./2022.svelte";
   import Tos from "./Tos.svelte";
   import Faq from "./Faq.svelte";
   import NotFound from "./NotFound.svelte";
   import Default from "./Default.svelte";
   import Glympse from "./Glympse.svelte";
   let header;
-  let departTime = new Date("2022-08-23T19:00:00+02:00");
-  let regTime = new Date("2022-05-14T19:00:00+02:00");
+  let departTime = new Date("2023-08-01T19:00:00+02:00");
+  let regTime = new Date("2023-05-014T19:00:00+02:00");
 
   let days;
   let hours;
@@ -72,7 +73,8 @@
         </h1>
         <nav>
           <Link to="/archive/2019">2019</Link>
-          <Link to="/">2022</Link>
+          <Link to="/archive/2022">2022</Link>
+          <Link to="/">2023</Link>
         </nav>
       </div>
       <div class="content-wrapper">
@@ -80,12 +82,12 @@
           <div class="text-content">
             <h2 class="text-headline">
               Raise The Mainsail, it's&hellip;<br /><span
-                class="color-secondary">All Paws on Deck 2022</span
+                class="color-secondary">All Paws on Deck 2023</span
               >
             </h2>
             <p>
               We&rsquo;re back! It&rsquo;s back! This year we begin boarding
-              from the Estrel on August 23, 2022 at 19:00 and partying all
+              from the Estrel on August 1st, 2023 at 19:00 and partying all
               evening, making a round trip through the rivers and canals of
               Berlin.
             </p>
@@ -144,6 +146,7 @@
           <Redirect url="/archive/2019" external={false} />
         </Route>
         <Route path="archive/2019" component={TwentyNineteen} />
+        <Route path="archive/2022" component={TwentyTwentyTwo} />
 
         <Route path="404" component={NotFound} />
         <Route component={Default} />
@@ -179,7 +182,7 @@
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Departing</h3>
-          <p>August 23, 2022<br />Estrel Hotel, Berlin<br />Biergarten Dock</p>
+          <p>August 1st, 2023<br />Estrel Hotel, Berlin<br />Biergarten Dock</p>
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Details</h3>

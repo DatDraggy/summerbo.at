@@ -6,7 +6,7 @@
   import Graphics from "./components/Graphics.svelte";
   import Schedule from "./Schedule.svelte";
 
-  let departTime = new Date("2022-08-23T19:00:00+02:00");
+  let departTime = new Date("2023-08-1T19:00:00+02:00");
 
   let days;
   let hours;
@@ -40,7 +40,7 @@
         <Link to="/" class="logo"><Graphics type="logo" />summerbo.at</Link>
       </div>
       <nav class="headerSection primary center headerNavigation">
-        <Link to="schedule" class="headerNavItem">2022</Link>
+        <Link to="schedule" class="headerNavItem">2023</Link>
       </nav>
       <nav
         class="headerSection headerNavigation"
@@ -109,7 +109,7 @@
     <div class="footerContent">
       <h3 class="headerLine">Departure Information</h3>
       <p>
-        August 23, 2022<br />
+        August 1st, 2023<br />
         <strong>19:30</strong>
         Estrel Hotel<br />Berlin, Germany
       </p>
