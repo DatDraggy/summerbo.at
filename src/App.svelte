@@ -133,6 +133,9 @@
         <Route path="login">
           <Redirect url="https://reg.summerbo.at/login" />
         </Route>
+        <Route path="badge">
+          <Redirect url="https://summerbo.at" />
+        </Route>
         <Route path="attendees">
           <Redirect url="https://reg.summerbo.at/attendees" />
         </Route>
