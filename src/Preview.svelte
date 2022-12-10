@@ -1,32 +1,7 @@
 <script lang="ts">
   import { Router, Route, Link, navigate } from "svelte-navigator";
-  import { onMount } from "svelte/internal";
-  import Privacy from "./Privacy.svelte";
-  import Overlay from "./components/Overlay.svelte";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
-
-  let departTime = new Date("2023-08-01T19:00:00+02:00");
-
-  let days;
-  let hours;
-  let minutes;
-  let seconds;
-  let video;
-
-  const getTimeOffset = (reference) => {
-    let now = new Date();
-    let distance = reference - now;
-    days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  };
-
-  let x = setInterval(() => getTimeOffset(departTime), 1000);
-  onMount(() => {
-    getTimeOffset(departTime);
-  });
 </script>
 
 <Router>
@@ -38,37 +13,13 @@
       <div style="flex:1">
         <h1 class="textHuge">
           <Link to="/" style="text-decoration:none"
-            ><strong>summerbo.at</strong></Link
-          >
+            ><strong>summerbo.at</strong></Link>
         </h1>
         <h2 class="textLarge">Furry Boat Party</h2>
-        <h4>1. August 2023</h4>
       </div>
 
-      <p>We're working on some things. Registration opens May 14th.</p>
-      <h2 class="headerLine">Departing...</h2>
-      <div class="timeDisplay tileSet ma-1">
-        <div class="timeDisplayUnit">
-          <p><span class="textLarge">{days ? days : "0"}</span><br />Days</p>
-        </div>
-        <div class="timeDisplayUnit">
-          <p>
-            <span class="textLarge">{hours ? hours : "0"}</span><br />Hours
-          </p>
-        </div>
-        <div class="timeDisplayUnit">
-          <p>
-            <span class="textLarge">{minutes ? minutes : "0"}</span><br
-            />Minutes
-          </p>
-        </div>
-        <div class="timeDisplayUnit">
-          <p>
-            <span class="textLarge">{seconds ? seconds : "0	"}</span><br
-            />Seconds
-          </p>
-        </div>
-      </div>
+      <p>We're working on some things. Check again later. 👀🦊</p>
+
       <div class="footer">
         <ComplianceNav primary />
       </div>
