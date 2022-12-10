@@ -12,7 +12,7 @@
         <h3 class="textLarge"><strong>Party Cruise</strong></h3>
         <div class="timeDisplay tileSet">
           <div class="timeDisplayUnit">
-            <p>August<br /><span class="textLarge">23</span></p>
+            <p>August<br /><span class="textLarge">1st</span></p>
           </div>
           <div class="timeDisplayUnit">
             <p>Departing<br /><span class="textLarge">19:30</span></p>
