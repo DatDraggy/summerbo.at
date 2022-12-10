@@ -2,6 +2,13 @@
   import { Router, Route, Link, navigate } from "svelte-navigator";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
+  import {onMount} from "svelte/internal";
+
+  let video;
+
+  onMount(() => {
+    video.play();
+  });
 </script>
 
 <Router>
