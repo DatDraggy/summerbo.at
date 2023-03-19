@@ -1,6 +1,6 @@
 <div class="textContent">
   <h2 id="privacy" class="text-headline"><strong>Privacy Policy</strong></h2>
-  <p>Last updated: January 3, 2020</p>
+  <p>Last updated: March 19, 2023</p>
   <p>
     We believe that being as transparent as possible about collecting and
     processing is the most important thing in maintaining a good relationship
@@ -114,35 +114,9 @@
   <p>
     We do not share any information you give to us to third parties. We believe
     that sharing information without consent is against our moral. Therefore we
-    do not use tracking or analytical cookies or codes on our website. We do not
+    do not use any third-party tracking or analytical tools or codes on our website besides self-hosted instances of Matomo. We do not
     know who you are as long as you are not registered and logged in on our
     website.
-  </p>
-  <h3 class="textLarge"><strong>1.5</strong> Google ReCAPTCHA</h3>
-  <p>
-    We as summerbo.at are using Google ReCAPTCHA to check and prevent automated
-    servers (“Bots”) from interacting and accessing our website or server. The
-    service is provided by Google. (Google Inc., 1600 Amphitheatre Parkway,
-    Mountain View, CA 94043). This company guarantees that it will follow all EU
-    data protection regulations and therefore we have chosen to use there
-    services.
-  </p>
-  <p>
-    For this service to work correctly, Google needs some information about the
-    user who is active on the website. This is not information from our database
-    itself. Think about IP-addresses and cookie information.
-  </p>
-  <p>
-    This service allows Google to determine from which website your request has
-    been sent and from which IP address the reCAPTCHA input box has been used.
-    In addition to your IP address, Google may collect other information
-    necessary to provide and guarantee this service.
-  </p>
-  <p>
-    If you want more detailed information about the Privacy Policy of Google or
-    the ReCAPTCHA Privacy Policy, you can find so at <a
-      href="https://policies.google.com/privacy">Google's Privacy Policy</a
-    >.
   </p>
   <h3 class="textLarge">
     <strong>2</strong> Managing your personal data with us
@@ -229,10 +203,10 @@
     following address:
   </p>
   <p id="imprint">
-    Edwin Verstaij<br />
-    Summerbo.at<br />
-    Kastanienallee 25<br />
-    10435 Berlin<br />
+    Eurofurence e.V<br />
+    z.H. Edwin Verstaij<br />
+    Am Kielshof 21A<br />
+    51105 Köln<br />
     Germany<br />
   </p>
 

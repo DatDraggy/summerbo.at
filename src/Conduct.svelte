@@ -58,7 +58,7 @@
     </li>
     <li>
       Due to the possible heat of the outerdeck floor it is not allowed to walk
-      barefoot on the boat.
+      barefoot on the entire boat.
     </li>
     <li>
       Sexual behavior that goes beyond a mere display of affection is not
@@ -96,8 +96,8 @@
     </li>
   </ul>
   <p>
-    Please keep in mind that around our event you also have to comply to the
-    rules and regulations of Estrel and Eurofurence that you can find here: <a
+    Please keep in mind that on and around our event you also have to comply to the
+    rules and regulations of Eurofurence that you can find here: <a
       href="https://help.eurofurence.org/legal/roc"
       >Eurofurence Rules of Conduct</a
     >.

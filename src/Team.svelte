@@ -6,7 +6,7 @@
       img: "img/staff/hunter.png",
       twitter: "hunterhuskynl",
       description:
-        "Curious husky that loves to organize stuff. Originally from Netherlands, now lives in Berlin, Germany. Started with organizing the Furrave for many years, now expanding to Berlin and Germany. Loves gaming, fursuits and parties!",
+        "Curious husky that loves to organize stuff. Originally from Netherlands, used to live in Berlin, Germany, now back in the Netherlands. Started with organizing the Furrave for many years, now expanding to Berlin and Germany. Loves gaming, fursuits and parties!",
     },
     {
       name: "Kieran",

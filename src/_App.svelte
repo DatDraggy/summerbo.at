@@ -109,9 +109,9 @@
     <div class="footerContent">
       <h3 class="headerLine">Departure Information</h3>
       <p>
-        August 1st, 2023<br />
+        September 2nd, 2023<br />
         <strong>19:30</strong>
-        Estrel Hotel<br />Berlin, Germany
+        Landungsbrücken<br />Hamburg, Germany
       </p>
     </div>
     <div class="footerContent">

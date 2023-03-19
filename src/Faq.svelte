@@ -6,7 +6,7 @@
   <h2 class="text-headline text-large">Frequently Asked Questions</h2>
   <Accordion question="What kind of things can we do at the party?">
     <p>
-      There will be a <strong>dancefloor</strong>, a <strong>bar</strong>,
+      There will be a <strong>dancefloor</strong>, multiple <strong>bars</strong>,
       <strong>lounge area</strong> and <strong>a fursuit lounge</strong>. The
       outside decks provide for a great place to chill, have a drink and mingle
       with the other guests. Games and events including fursuit limbo,
@@ -28,13 +28,12 @@
       We are part of, officially acknowledged and supported by Eurofurence. We
       want to offer early arrival attendees a party to kick off their convention
       experience! Ticket payment will be handled by the official Eurofurence
-      registration system. The VIP upgrade needs to be paid at the badge pickup
-      table in cash.
+      registration system.
     </p></Accordion
   >
   <Accordion question="How much does the party cost?"
     ><p>
-      You can purchase a <em>Normal</em> ticket for <strong>&euro;35</strong>.
+      You can purchase a <em>Normal</em> ticket for <strong>&euro;TBD</strong>.
       We also offer a <abbr>VIP</abbr>
       upgrade for additional <strong>&euro;15</strong>. Not only will this
       include a special gift and a special <abbr>VIP</abbr> badge, but you also help
@@ -49,18 +48,16 @@
   >
   <Accordion question="Can I order my VIP Upgrade later?"
     ><p>
-      Yes! Simply login with your account details, go to 'Edit Details' and tick
-      the box for VIP upgrade in the user area. Fill in your password below and
-      click submit. You will receive an email as a confirmation. Payment of the
-      VIP Upgrade will be required at our Check-in desk when you pick up your
-      badge.
+      Yes! Simply login with your account details, tick
+      the box for VIP upgrade in the user area and
+      click submit. You will receive an email as a confirmation.
     </p></Accordion
   >
   <Accordion question="How do I get my badge?"
     ><p>
-      You will find our Info & Check-in desk in the Estrel Biergarten near the
-      boat. Please make sure you bring your ID or Passport with you. The badge
-      is your entrance to the party so please do not lose it.<br />
+      You will find our Info & Check-in desk in the CCH entrance hall right
+      next to the Eurofurence registration. Please make sure you bring your ID or Passport with you. The badge
+      is your ticket to the party so please do not lose it!<br />
       Keep in mind: Badge pickup and Check-in
       <em><strong>before</strong></em> boarding!
     </p></Accordion
@@ -76,10 +73,13 @@
   >
   <Accordion question="Where do the profits of the party go to?"
     ><p>
-      All profits will go to charity! The more VIP upgrades we sell, the more
-      we’ll be able to donate! Thank you for considering being generous! The
-      total amount of raised funds will be announced and published by the end of
-      Eurofurence 26.
+      Our money is managed by the legal entity Eurofurence e.V. which is
+      unable to take any profits for other purposes than the event itself.
+      Leftover money will be rolled over as a reserve for next years party
+      or donated to charity, which we'll be announcing transparently.
+      In previous years, we donated ALL the money we made from VIP upgrades to charity,
+      but due to the move to Hamburg and global crises, we'll actually use it to support
+      the party to be able to not raise prices too much for our regular attendees.
     </p></Accordion
   >
 

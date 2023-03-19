@@ -18,8 +18,10 @@
   import Default from "./Default.svelte";
   import Glympse from "./Glympse.svelte";
   let header;
-  let departTime = new Date("2023-08-01T19:00:00+02:00");
-  let regTime = new Date("2023-05-014T19:00:00+02:00");
+  let departTime = new Date("2023-09-02T19:00:00+02:00");
+  let regTime = new Date("2023-05-15T19:00:00+02:00");
+
+  let timeTillReg = 1;
 
   let days;
   let hours;
@@ -29,7 +31,7 @@
 
   const getTimeOffset = (reference) => {
     let now = new Date().getTime();
-    distance = reference - now;
+    distance = Math.max(reference - now, 0);
     days = Math.floor(distance / (1000 * 60 * 60 * 24));
     hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -40,6 +42,9 @@
 
   onMount(() => {
     getTimeOffset(departTime);
+
+    let now = new Date().getTime();
+    timeTillReg = Math.max(regTime - now, 0);
   });
 </script>
 
@@ -56,7 +61,7 @@
         <p
           style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
         >
-          Open until 30 June, 19:00 CEST
+          {timeTillReg === 0 ? 'Open until June 30, 19:00 CEST' : `Starts at ${regTime.toLocaleDateString('en-US', {day: "numeric", month: "short", year: "numeric"})} ${regTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}`}
         </p>
       </div>
       <video class="banner-video" muted autoplay loop>
@@ -81,19 +86,18 @@
         <Route path="/">
           <div class="text-content">
             <h2 class="text-headline">
-              Raise The Mainsail, it's&hellip;<br /><span
-                class="color-secondary">All Paws on Deck 2023</span
+              Lower The Mainsail, it's the&hellip;<br /><span
+                class="color-secondary">Voyage to the ancient forest 2023!</span
               >
             </h2>
             <p>
-              We&rsquo;re back! It&rsquo;s back! This year we begin boarding
-              from the Estrel on August 1st, 2023 at 19:00 and partying all
-              evening, making a round trip through the rivers and canals of
-              Berlin.
+              Hamburch meine Perle! With Eurofurence moving to Hamburg, of course so did we!
+              This year we begin boarding at Landungsbrücken on the Elbe in Hamburg on September 2nd, 2023 at 19:00 and partying all
+              evening, making a round trip on the Elbe through Hamburg with live music on the upper AND lower deck.
             </p>
             <div class="pricing">
               <div class="pricing-unit">
-                <h3>Standard Ticket &mdash; &euro;35</h3>
+                <h3>Standard Ticket &mdash; &euro;TBD</h3>
                 <ul>
                   <li>Access to cabin and amenities</li>
                 </ul>
@@ -107,19 +111,19 @@
               </div>
             </div>
             <p>
-              Our ship this year is <strong
-                >newer, more modern and better equipped</strong
-              >. Once again, we have a <strong>fully stocked bar</strong> with
-              plenty of cider, a secure
-              <strong>fursuit lounge with cooling</strong>, live
-              <strong>DJs and silent disco</strong>.
+              This years ship is <em>even</em> <strong>larger with more decks for more room,
+              more modern and equipped with AC</strong>.
+              This time, we'll have <strong>multiple fully stocked bars</strong> with
+              plenty of cider, a larger
+              <strong>fursuit lounge with cooling</strong> and live
+              <strong>DJs for music inside <em>and</em> outside</strong>.
             </p>
             <p>
-              Registration opens on May 14. <a
+              Registration opens on {regTime.toLocaleDateString('en-US', {day: "numeric", month: "short"})}. <a
                 href="https://twitter.com/summerbo_at"
-                >Follow us on Twitter to be reminded!</a
+                >Follow us on Twitter to be reminded</a
               >
-              or on our <a href="https://t.me/summerboatinfo">Telegram</a> channel.
+              or join our <a href="https://t.me/summerboatinfo">Telegram</a> channel.
             </p>
           </div>
         </Route>
@@ -156,7 +160,7 @@
         <BackToTopButton scrollTo={header} />
       </div>
       <footer class="footer">
-        <div class="footer-section">
+        <div class="footer-section {distance === 0 ? 'hidden' : ''}">
           <h3 class="text-headline-line">Boarding</h3>
           <div class="time-display tileSet">
             <div class="time-unit">
@@ -185,7 +189,7 @@
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Departing</h3>
-          <p>August 1st, 2023<br />Estrel Hotel, Berlin<br />Biergarten Dock</p>
+          <p>September 2nd, 2023<br />Landungsbrücken, Hamburg</p>
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Details</h3>

@@ -28,10 +28,6 @@
       > and express their desire to transfer the ticket. It is only valid after receiving
       the confirmation from our registration team.
     </li>
-  </ul>
-  <h3 id="cookies" class="text-large text-headline">Cookie Policy</h3>
-
-  <ul class="textList">
     <li>
       Communication with our registration system is secured by SSL data
       encryption and the website is HSTS preloaded.
