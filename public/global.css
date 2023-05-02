@@ -2,10 +2,10 @@
 @import url(fonts.css);
 :root {
   --color-primary: #4B6282;
-  --color-secondary: #EA5D74;
-  --color-tertiary: #1CAFA7;
-  --color-vip: #FFE4BB;
-  --color-vip-text: #B06936;
+  --color-secondary: #109B0D;
+  --color-tertiary: #4348BC;
+  --color-vip: #4DC0C8;
+  --color-vip-text: #356165;
   --line-height-ratio: 1.66;
 }
 
@@ -54,7 +54,7 @@ p {
   align-items: center;
   justify-content: center;
   position:relative;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(199.38deg, #FFE0BE 0%, #F05F77 32.29%, #586D90 69.27%, #929FBE 100%);
+  background: linear-gradient(199.38deg, #109B0D 0%, #4348BC 33.33%, #4DC0C8 66.67%, #2F5717 100%);
   padding: 2rem;
   height: 66vh;
   overflow:hidden;
@@ -78,6 +78,7 @@ p {
 }
 
 .registration-banner {
+  margin-top: 15px;
   display:flex;
   flex-direction: column;
   align-items: center;

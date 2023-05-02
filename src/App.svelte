@@ -87,7 +87,7 @@
           <div class="text-content">
             <h2 class="text-headline">
               Lower The Mainsail, it's the&hellip;<br /><span
-                class="color-secondary">Voyage to the ancient forest 2023!</span
+                class="color-secondary">Cursed Cruise 2023!</span
               >
             </h2>
             <p>
