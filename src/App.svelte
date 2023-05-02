@@ -103,7 +103,7 @@
                 </ul>
               </div>
               <div class="pricing-unit vip">
-                <h3>VIP Upgrade &plus; &euro;15</h3>
+                <h3>VIP Upgrade &plus; &euro;TBD</h3>
                 <ul>
                   <li>Support the party</li>
                   <li>One exclusive gift</li>

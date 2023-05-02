@@ -35,7 +35,7 @@
     ><p>
       You can purchase a <em>Normal</em> ticket for <strong>&euro;TBD</strong>.
       We also offer a <abbr>VIP</abbr>
-      upgrade for additional <strong>&euro;15</strong>. Not only will this
+      upgrade for additional <strong>&euro;TBD</strong>. Not only will this
       include a special gift and a special <abbr>VIP</abbr> badge, but you also help
       us to make the party even more awesome!
     </p></Accordion
