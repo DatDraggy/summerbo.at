@@ -62,15 +62,6 @@
       <em><strong>before</strong></em> boarding!
     </p></Accordion
   >
-  <Accordion question="Is there a chance I will get seasick?"
-    ><p>
-      The chance of getting seasick on this boat is very minimal. Our ship is
-      one of this biggest ships out there and the speed and the size of the boat
-      make it impossible to feel any waves from other boats on the Spree. We do
-      advise to talk with your doctor in case you get seasick very easily. We
-      expect smooth sailing!
-    </p></Accordion
-  >
   <Accordion question="Where do the profits of the party go to?"
     ><p>
       Our money is managed by the legal entity Eurofurence e.V. which is

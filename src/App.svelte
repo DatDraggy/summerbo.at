@@ -19,7 +19,7 @@
   import Glympse from "./Glympse.svelte";
   let header;
   let departTime = new Date("2023-09-02T19:00:00+02:00");
-  let regTime = new Date("2023-05-15T19:00:00+02:00");
+  let regTime = new Date("2023-05-06T19:00:00+02:00");
 
   let timeTillReg = 1;
 
