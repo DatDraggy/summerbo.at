@@ -97,13 +97,13 @@
             </p>
             <div class="pricing">
               <div class="pricing-unit">
-                <h3>Standard Ticket &mdash; &euro;TBD</h3>
+                <h3>Standard Ticket &mdash; 35&euro;</h3>
                 <ul>
                   <li>Access to cabin and amenities</li>
                 </ul>
               </div>
               <div class="pricing-unit vip">
-                <h3>VIP Upgrade &plus; &euro;TBD</h3>
+                <h3>VIP Upgrade &plus; 20&euro;</h3>
                 <ul>
                   <li>Support the party</li>
                   <li>One exclusive gift</li>
