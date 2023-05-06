@@ -92,7 +92,7 @@
             </h2>
             <p>
               Hamburch meine Perle! With Eurofurence moving to Hamburg, of course so did we!
-              This year we begin boarding at Landungsbrücken on the Elbe in Hamburg on September 2nd, 2023 at 19:00 and partying all
+              This year we depart from Landungsbrücken on the Elbe in Hamburg on September 2nd, 2023 at 19:00 and party all
               evening, making a round trip on the Elbe through Hamburg with live music on the upper AND lower deck.
             </p>
             <div class="pricing">
