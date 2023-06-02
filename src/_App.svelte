@@ -111,7 +111,7 @@
       <p>
         September 2nd, 2023<br />
         <strong>19:30</strong>
-        Landungsbrücken<br />Hamburg, Germany
+        Überseebrücke<br />Hamburg, Germany
       </p>
     </div>
     <div class="footerContent">

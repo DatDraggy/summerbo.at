@@ -55,8 +55,7 @@
   >
   <Accordion question="How do I get my badge?"
     ><p>
-      You will find our Info & Check-in desk in the CCH entrance hall right
-      next to the Eurofurence registration. Please make sure you bring your ID or Passport with you. The badge
+      You will find our Info & Check-in desk at Überseebrücke. Please make sure you bring your ID or Passport with you. The badge
       is your ticket to the party so please do not lose it!<br />
       Keep in mind: Badge pickup and Check-in
       <em><strong>before</strong></em> boarding!

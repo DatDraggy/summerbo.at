@@ -22,7 +22,7 @@
           </div>
           <div class="timeDisplayUnit">
             <p>
-              From<br /><span class="textLarge">Landungsbrücken</span>
+              From<br /><span class="textLarge">Überseebrücke</span>
             </p>
           </div>
         </div>
@@ -37,7 +37,7 @@
         </ul>
         <p>
           Join us on the MS Princess through the city of Hamburg. Starting from
-          Landungsbrücken, we will be on a 4 hour trip on the Elbe and back. Get
+          Überseebrücke, we will be on a 4 hour trip on the Elbe and back. Get
           a drink at one of our bars and enjoy the sun while listening to
           our DJ’s. Just like the evening party we will have a dancefloor where
           you can dance all cruise long. Want to suit up? No problem! The now improved and larger
