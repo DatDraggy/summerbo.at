@@ -214,6 +214,47 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   column-gap: 2rem;
 }
+
+
+
+.benefactor-container {
+  display: block;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.benefactor {
+  display: block;
+  background-image: url("/img/benefactor-bg.png");
+  width: 100%;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 1rem;
+}
+
+.benefactor-img {
+  border-radius: 15px;
+}
+
+.benefactor-title {
+  width: 100%;
+  display: flex;
+}
+
+.benefactor-name {
+  text-align: right;
+  width: 100%;
+  font-size: 25px;
+}
+
+.benefactor-message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+}
+
 @media screen and (min-width: 768px) {
   main {
     display: flex;
@@ -264,7 +305,30 @@ p {
   }
   .content-wrapper {
     flex:1;
-    max-width: 72ch;
+    /*max-width: 72ch;*/
+  }
+
+  .benefactor-img {
+    width: 128px;
+    height: 128px;
+  }
+
+  .benefactor-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+    align-content: space-between;
+    justify-content: center;
+  }
+
+  .benefactor {
+    flex-basis: 40%;
+    min-width: 220px;
+  }
+
+  .benefactor-message {
+    min-height: 100px;
   }
 }
 

@@ -16,7 +16,8 @@
   import Faq from "./Faq.svelte";
   import NotFound from "./NotFound.svelte";
   import Default from "./Default.svelte";
-  import Glympse from "./Glympse.svelte";
+  import Glympse from "./Glympse.svelte"
+  import Benefactors from "./Benefactors.svelte";
   let header;
   let departTime = new Date("2023-09-02T19:00:00+02:00");
   let regTime = new Date("2023-05-06T19:00:00+02:00");
@@ -119,6 +120,9 @@
               <strong>DJs for music inside <em>and</em> outside</strong>.
             </p>
             <p>
+              Made possible by our lovely <Link to="/benefactors">Benefactors</Link> and VIPs!
+            </p>
+            <p>
               Registration opens on {regTime.toLocaleDateString('en-US', {day: "numeric", month: "short"})}. <a
                 href="https://twitter.com/summerbo_at"
                 >Follow us on Twitter to be reminded</a
@@ -133,6 +137,7 @@
         <Route path="team" component={Team} />
         <Route path="faq" component={Faq} />
         <Route path="glympse" component={Glympse} />
+        <Route path="benefactors" component={Benefactors} />
         <Route path="register">
           <Redirect url="https://reg.summerbo.at" />
         </Route>
