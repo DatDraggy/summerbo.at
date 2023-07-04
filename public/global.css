@@ -235,6 +235,7 @@ p {
 
 .benefactor-img {
   border-radius: 15px;
+  max-width: 128px;
 }
 
 .benefactor-title {
