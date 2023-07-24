@@ -254,6 +254,7 @@ p {
   padding: 10px;
   border-radius: 5px;
   background-color: white;
+  overflow-wrap: anywhere;
 }
 
 @media screen and (min-width: 768px) {
