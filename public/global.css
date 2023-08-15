@@ -236,6 +236,7 @@ p {
 .benefactor-img {
   border-radius: 15px;
   max-width: 128px;
+  max-height: 128px;
 }
 
 .benefactor-title {
@@ -308,11 +309,6 @@ p {
   .content-wrapper {
     flex:1;
     /*max-width: 72ch;*/
-  }
-
-  .benefactor-img {
-    width: 128px;
-    height: 128px;
   }
 
   .benefactor-container {
