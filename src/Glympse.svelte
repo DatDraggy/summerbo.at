@@ -8,6 +8,6 @@
   <p>If you want to put yourself on the map, simply download the Glympse app and join the tag "!Eurofurence".</p>
 
   <div>
-    <iframe id="glympse" src="https://glympse.com/ext/!eurofurence?twt=Eurofurence&amp;hash=ef26" scrolling="no" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+    <iframe title="Glympse Tag" id="glympse" src="https://glympse.com/ext/!eurofurence?twt=Eurofurence&amp;hash=ef26" scrolling="no" marginheight="0" marginwidth="0" frameborder="0"></iframe>
   </div>
 </div>

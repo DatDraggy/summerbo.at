@@ -148,6 +148,8 @@ p {
   line-height: 1;
   display: block;
   margin-right: .5rem;
+  width: 24px;
+  height: 24px
 }
 .social-link svg path {
   fill: var(--color-tertiary);
