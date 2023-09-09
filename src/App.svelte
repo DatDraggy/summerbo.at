@@ -123,11 +123,12 @@
               Made possible by our lovely <Link to="/benefactors">Benefactors</Link> and VIPs!
             </p>
             <p>
-              Registration opens on {regTime.toLocaleDateString('en-US', {day: "numeric", month: "short"})}. <a
-                href="https://twitter.com/summerbo_at"
-                >Follow us on Twitter to be reminded</a
-              >
-              or join our <a href="https://t.me/summerboatinfo">Telegram</a> channel.
+              Registration opens on {regTime.toLocaleDateString('en-US', {day: "numeric", month: "short"})}.
+              Follow us on
+              <a href="https://twitter.com/summerbo_at">Twitter</a>
+              or
+              <a href="https://bsky.app/profile/summerbo.at">Bsky</a>
+              and join our <a href="https://t.me/summerboatinfo">Telegram</a> channel to be reminded!
             </p>
           </div>
         </Route>
@@ -217,6 +218,12 @@
                   <Graphics
                     type={"twitter"}
                     style={"width: 24px; height: 24px;"}
+                  /></a
+                >
+                <a href="https://bsky.app/profile/summerbo.at" class="social-link">
+                  <Graphics
+                          type={"bsky"}
+                          style={"width: 24px; height: 24px;"}
                   /></a
                 >
               </li>
