@@ -20,7 +20,7 @@
   import Benefactors from "./Benefactors.svelte";
   let header;
   let departTime = new Date("2024-09-17T19:00:00+02:00");
-  let regTime = new Date("2024-05-06T19:00:00+02:00");
+  let regTime = new Date("2024-03-09T19:00:00+01:00");
 
   let timeTillReg = 1;
 
