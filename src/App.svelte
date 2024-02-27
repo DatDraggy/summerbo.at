@@ -98,7 +98,7 @@
             </p>
             <div class="pricing">
               <div class="pricing-unit">
-                <h3>Standard Ticket &mdash; 35&euro;</h3>
+                <h3>Standard Ticket &mdash; 40&euro;</h3>
                 <ul>
                   <li>Access to cabin and amenities</li>
                 </ul>
