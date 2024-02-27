@@ -2,7 +2,7 @@
 @import url(fonts.css);
 :root {
   --color-primary: #4B6282;
-  --color-secondary: #109B0D;
+  --color-secondary: #fde703;
   --color-tertiary: #4348BC;
   --color-vip: #4DC0C8;
   --color-vip-text: #356165;
@@ -54,7 +54,8 @@ p {
   align-items: center;
   justify-content: center;
   position:relative;
-  background: linear-gradient(199.38deg, #109B0D 0%, #4348BC 33.33%, #4DC0C8 66.67%, #2F5717 100%);
+  /*background: linear-gradient(199.38deg, #109B0D 0%, #4348BC 33.33%, #4DC0C8 66.67%, #2F5717 100%);*/
+  background-color: #0019ff;
   padding: 2rem;
   height: 66vh;
   overflow:hidden;
@@ -62,7 +63,7 @@ p {
 }
 .registration-button, .registration-button:visited {
   display:flex;
-  color: white;
+  color: black;
   background-color: var(--color-secondary);
   outline: none;
   font-family: inherit;

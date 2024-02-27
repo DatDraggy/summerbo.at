@@ -4,7 +4,6 @@
   import { fly, fade } from "svelte/transition";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Graphics from "./components/Graphics.svelte";
-  import Schedule from "./Schedule.svelte";
   import Privacy from "./Privacy.svelte";
   import Conduct from "./Conduct.svelte";
   import Team from "./Team.svelte";
@@ -12,6 +11,7 @@
   import BackToTopButton from "./BackToTopButton.svelte";
   import TwentyNineteen from "./2019.svelte";
   import TwentyTwentyTwo from "./2022.svelte";
+  import TwentyTwentyThree from "./2023.svelte";
   import Tos from "./Tos.svelte";
   import Faq from "./Faq.svelte";
   import NotFound from "./NotFound.svelte";
@@ -19,8 +19,8 @@
   import Glympse from "./Glympse.svelte"
   import Benefactors from "./Benefactors.svelte";
   let header;
-  let departTime = new Date("2023-09-02T19:00:00+02:00");
-  let regTime = new Date("2023-05-06T19:00:00+02:00");
+  let departTime = new Date("2024-09-17T19:00:00+02:00");
+  let regTime = new Date("2024-05-06T19:00:00+02:00");
 
   let timeTillReg = 1;
 
@@ -80,20 +80,21 @@
         <nav>
           <Link to="/archive/2019">2019</Link>
           <Link to="/archive/2022">2022</Link>
-          <Link to="/">2023</Link>
+          <Link to="/archive/2023">2023</Link>
+          <Link to="/">2024</Link>
         </nav>
       </div>
       <div class="content-wrapper">
         <Route path="/">
           <div class="text-content">
             <h2 class="text-headline">
-              Lower The Mainsail, it's the&hellip;<br /><span
-                class="color-secondary">Cursed Cruise 2023!</span
+              Load up on CHOOH2, it's the&hellip;<br /><span
+                class="color-secondary">Cyber Yacht 2024!</span
               >
             </h2>
             <p>
-              Hamburch meine Perle! With Eurofurence moving to Hamburg, of course so did we!
-              This year we depart from Überseebrücke on the Elbe in Hamburg on September 2nd, 2023 at 19:00 and party all
+              Hamburch wir sind zurück! Another Eurofurence in Hamburg, another Summerbo.at in Hamburg!
+              Like last year, we'll board our beautiful Princess at Überseebrücke on the Elbe on September 17th, 2024 at 18:30 and depart at 19:00 to party all
               evening, making a round trip on the Elbe through Hamburg with live music on the upper AND lower deck.
             </p>
             <div class="pricing">
@@ -112,15 +113,15 @@
               </div>
             </div>
             <p>
-              This years ship is <em>even</em> <strong>larger with more decks for more room,
-              more modern and equipped with AC</strong>.
-              This time, we'll have <strong>multiple fully stocked bars</strong> with
+              Our ship in Hamburg is <em>even</em> <strong>larger than the one in Berlin, with more decks for more room,
+              more modern, equipped with AC and colorful lighting</strong>.
+              As last time, we'll have <strong>multiple fully stocked bars</strong> with
               plenty of cider, a larger
               <strong>fursuit lounge with cooling</strong> and live
               <strong>DJs for music inside <em>and</em> outside</strong>.
             </p>
             <p>
-              Made possible by our lovely <Link to="/benefactors">Benefactors</Link> and VIPs!
+              Made possible by our lovely 2023 <Link to="/benefactors">Benefactors</Link> and current VIPs!
             </p>
             <p>
               Registration opens on {regTime.toLocaleDateString('en-US', {day: "numeric", month: "short"})}.
@@ -160,6 +161,7 @@
         </Route>
         <Route path="archive/2019" component={TwentyNineteen} />
         <Route path="archive/2022" component={TwentyTwentyTwo} />
+        <Route path="archive/2023" component={TwentyTwentyThree} />
 
         <Route path="404" component={NotFound} />
         <Route component={Default} />
@@ -194,8 +196,8 @@
           </div>
         </div>
         <div class="footer-section">
-          <h3 class="text-headline-line">Departing</h3>
-          <p>September 2nd, 2023<br />Überseebrücke, Hamburg</p>
+          <h3 class="text-headline-line">Boarding</h3>
+          <p>18:30 September 17th, 2024<br />Überseebrücke, Hamburg</p>
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Details</h3>
