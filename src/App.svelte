@@ -94,8 +94,8 @@
             </h2>
             <p>
               Hamburch wir sind zurück! Another Eurofurence in Hamburg, another Summerbo.at in Hamburg!
-              Like last year, we'll board our beautiful Princess at Überseebrücke on the Elbe on September 17th, 2024 at 18:30 and depart at 19:00 to party all
-              evening, making a round trip on the Elbe through Hamburg with live music on the upper AND lower deck.
+              Unlike last year, this time we'll board the great and grand MS Hamburg at Überseebrücke to allow even more furs to join us on the Elbe on September 17th, 2024 at 18:30 and depart at 19:00 to party all
+              evening, making a round trip on the Elbe through Hamburg with live music on all decks, including the TWO outer decks!
             </p>
             <div class="pricing">
               <div class="pricing-unit">
