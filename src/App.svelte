@@ -62,7 +62,7 @@
         <p
           style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
         >
-          {timeTillReg === 0 ? 'Open until June 30, 19:00 CEST' : `Starts at ${regTime.toLocaleDateString('en-US', {day: "numeric", month: "short", year: "numeric"})} ${regTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}`}
+          {timeTillReg === 0 ? '' : `Starts at ${regTime.toLocaleDateString('en-US', {day: "numeric", month: "short", year: "numeric"})} ${regTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}`}
         </p>
       </div>
       <video class="banner-video" muted autoplay loop>
