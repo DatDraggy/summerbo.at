@@ -1,11 +1,11 @@
 @import url(minireset.css);
 @import url(fonts.css);
 :root {
-  --color-primary: #4B6282;
-  --color-secondary: #fde703;
-  --color-tertiary: #4348BC;
-  --color-vip: #4DC0C8;
-  --color-vip-text: #356165;
+  --color-primary: #28364A;    /* Deep Space Blue: A darker, more mysterious blue  */
+  --color-secondary: #00FFFF;    /* Electric Cyan:  Your bright accent, like a nebula */
+  --color-tertiary: #663399;    /* Galactic Purple:  A richer, deeper purple */
+  --color-vip: #00CED1;      /*  Turquoise Nebula:  A vibrant, glowing turquoise */
+  --color-vip-text: #191970;    /* Midnight Blue:  A very dark blue for contrast */
   --line-height-ratio: 1.66;
 }
 
