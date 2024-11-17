@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Router, Route, Link, navigate } from "svelte-navigator";
-  import { onMount } from "svelte/internal";
+  import { onMount } from "svelte";
   import { fly, fade } from "svelte/transition";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Graphics from "./components/Graphics.svelte";
