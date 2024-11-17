@@ -12,6 +12,7 @@
   import TwentyNineteen from "./2019.svelte";
   import TwentyTwentyTwo from "./2022.svelte";
   import TwentyTwentyThree from "./2023.svelte";
+  import TwentyTwentyFour from "./2024.svelte";
   import Tos from "./Tos.svelte";
   import Faq from "./Faq.svelte";
   import NotFound from "./NotFound.svelte";
