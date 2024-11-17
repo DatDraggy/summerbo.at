@@ -163,6 +163,7 @@
         <Route path="archive/2019" component={TwentyNineteen} />
         <Route path="archive/2022" component={TwentyTwentyTwo} />
         <Route path="archive/2023" component={TwentyTwentyThree} />
+        <Route path="archive/2024" component={TwentyTwentyFour} />
 
         <Route path="404" component={NotFound} />
         <Route component={Default} />
