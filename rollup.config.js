@@ -34,7 +34,7 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: 'iife',
+		//format: 'iife',
 		name: 'app',
 		file: 'public/build/bundle.js'
 	},
@@ -43,7 +43,8 @@ export default {
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {
 				// enable run-time checks when not in production
-				dev: !production
+				dev: !production,
+				external: true
 			}
 		}),
 		// we'll extract any component CSS out into
