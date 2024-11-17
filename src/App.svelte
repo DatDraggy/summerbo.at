@@ -19,8 +19,8 @@
   import Glympse from "./Glympse.svelte"
   import Benefactors from "./Benefactors.svelte";
   let header;
-  let departTime = new Date("2024-09-17T18:30:00+02:00");
-  let regTime = new Date("2024-03-09T19:00:00+01:00");
+  let departTime = new Date("2025-09-02T18:30:00+02:00");
+  let regTime = new Date("2025-03-01T19:00:00+01:00");
 
   let timeTillReg = 1;
 
@@ -81,21 +81,22 @@
           <Link to="/archive/2019">2019</Link>
           <Link to="/archive/2022">2022</Link>
           <Link to="/archive/2023">2023</Link>
-          <Link to="/">2024</Link>
+          <Link to="/archive/2024">2024</Link>
+          <Link to="/">2025</Link>
         </nav>
       </div>
       <div class="content-wrapper">
         <Route path="/">
           <div class="text-content">
             <h2 class="text-headline">
-              Load up on CHOOH2, it's the&hellip;<br /><span
-                class="color-secondary">Cyber Yacht 2024!</span
+              Fuel up your boosters, it's the&hellip;<br /><span
+                class="color-secondary">Space Ship 2025!</span
               >
             </h2>
             <p>
-              Hamburch wir sind zurück! Another Eurofurence in Hamburg, another Summerbo.at in Hamburg!
-              Unlike last year, this time we'll board the great and grand MS Hamburg at Überseebrücke to allow even more furs to join us on the Elbe on September 17th, 2024 at 18:30 and depart at 19:00 to party all
-              evening, making a round trip on the Elbe through Hamburg with live music on all decks, including the TWO outer decks!
+              drei ma hoch uff Hamburch! When it's time for Eurofurence, we'll be there first!
+              Just like last year, we'll again be boarding the great and grand MS Hamburg at Überseebrücke on the Elbe with countless party-furs on September 2nd, 2025 at 18:30 and depart at 19:00 to party all
+              evening, making a round trip on the Elbe through Hamburg with live music on the TWO outer decks.
             </p>
             <div class="pricing">
               <div class="pricing-unit">
@@ -197,7 +198,7 @@
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Boarding</h3>
-          <p>18:30 September 17th, 2024<br />Überseebrücke, Hamburg</p>
+          <p>18:30 September 2nd, 2025<br />Überseebrücke, Hamburg</p>
         </div>
         <div class="footer-section">
           <h3 class="text-headline-line">Details</h3>
