@@ -3,9 +3,9 @@
 :root {
   --color-primary: #28364A;    /* Deep Space Blue: A darker, more mysterious blue  */
   --color-secondary: #00FFFF;    /* Electric Cyan:  Your bright accent, like a nebula */
-  --color-tertiary: #663399;    /* Galactic Purple:  A richer, deeper purple */
+  --color-tertiary: #A020F0;    /* Galactic Purple:  A richer, deeper purple */
   --color-vip: #00CED1;      /*  Turquoise Nebula:  A vibrant, glowing turquoise */
-  --color-vip-text: #191970;    /* Midnight Blue:  A very dark blue for contrast */
+  --color-vip-text: #5019bd;    /* Midnight Blue:  A very dark blue for contrast */
   --line-height-ratio: 1.66;
 }
 
@@ -55,7 +55,7 @@ p {
   justify-content: center;
   position:relative;
   /*background: linear-gradient(199.38deg, #109B0D 0%, #4348BC 33.33%, #4DC0C8 66.67%, #2F5717 100%);*/
-  background-color: #0019ff;
+  background-color: #9370DB;
   padding: 2rem;
   height: 66vh;
   overflow:hidden;
