@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Link, Router } from "svelte-navigator";
+  import { Link, Router } from "svelte-routing";
   export let className = "";
   export { className as class };
   export let style = "";

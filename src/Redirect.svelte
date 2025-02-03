@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { useNavigate } from "svelte-navigator";
+  import { navigate } from "svelte-routing";
   export let url = "";
   export let external = true;
-
-  const navigate = useNavigate();
 
   const redirect = (url) => {
     window.setTimeout(() => {

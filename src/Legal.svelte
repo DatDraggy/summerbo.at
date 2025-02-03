@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Router, Route, Link, navigate } from "svelte-navigator";
+  import { Router, Route, Link, navigate } from "svelte-routing";
   import Overlay from "./components/Overlay.svelte";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Privacy from "./Privacy.svelte";

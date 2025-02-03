@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Router, Route, Link, navigate } from "svelte-navigator";
+  import { Router, Route, Link, navigate } from "svelte-routing";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Legal from "./Legal.svelte";
   import {onMount} from "svelte";

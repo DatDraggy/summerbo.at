@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Router, Route, Link, navigate } from "svelte-navigator";
+  import { Router, Route, Link } from "svelte-routing";
   import { onMount } from "svelte";
   import { fly, fade } from "svelte/transition";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Graphics from "./components/Graphics.svelte";
-  import Privacy from "./Privacy.svelte";
+  import Privacy from './Privacy.svelte';
   import Conduct from "./Conduct.svelte";
   import Team from "./Team.svelte";
   import Redirect from "./Redirect.svelte";
@@ -19,6 +19,7 @@
   import Default from "./Default.svelte";
   import Glympse from "./Glympse.svelte"
   import Benefactors from "./Benefactors.svelte";
+  import Flow from "./Registration/Flow.svelte";
   let header;
   let departTime = new Date("2025-09-02T18:30:00+02:00");
   let regTime = new Date("2025-03-01T19:00:00+01:00");
@@ -142,9 +143,7 @@
         <Route path="faq" component={Faq} />
         <Route path="glympse" component={Glympse} />
         <Route path="benefactors" component={Benefactors} />
-        <Route path="register">
-          <Redirect url="https://reg.summerbo.at" />
-        </Route>
+        <Route path="register" component={Flow} />
         <Route path="login">
           <Redirect url="https://reg.summerbo.at/login" />
         </Route>
