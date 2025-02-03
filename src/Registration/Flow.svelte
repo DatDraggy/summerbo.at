@@ -30,7 +30,6 @@
 
     onMount(async () => {
         try {
-            return;
             const response = await fetch('https://api.summerbo.at/auth');
 
             if (!response.ok) {
