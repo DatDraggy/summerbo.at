@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --single --no-clear -p 3004",
-    "start-dev": "sirv public --single --no-clear -p 3003",
+    "start": "sirv public --single --no-clear --quiet -p 3004",
+    "start-dev": "sirv public --single -p 3003",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {

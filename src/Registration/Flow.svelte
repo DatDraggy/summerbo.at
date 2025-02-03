@@ -7,13 +7,13 @@
     import WaitlistSpotFree from "./WaitlistSpotFree.svelte";
     import Login from "./Login.svelte";
 
-    let isLoggedIn = true;//false;
-    let isLoading = false;//true;
-    let isRegistered = false;//false;
+    let isLoggedIn = false;
+    let isLoading = true;
+    let isRegistered = false;
     let isWaitlistOpen = false;
     let isRegistrationPossible = false;
     let isRegistrationOpen = false;
-    let isWaitlisted = true;
+    let isWaitlisted = false;
 
     let id: number | null = null;
     let nickname = '';
