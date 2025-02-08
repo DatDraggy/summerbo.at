@@ -51,8 +51,7 @@
     margin-right: 1rem;
     font-size: 1.5rem;
     /*font-family: 'LineAwesome';*/
-    /*content: "○";*/
-    content: '';
+    content: "○";
     line-height: 0rem;
 }
 
@@ -101,7 +100,7 @@
 }
 
 .checkbox-group input[type=checkbox]:checked + label:before {
-    content: '';
+    content: '☀';
 }
 .checkbox-group input[type=radio]:checked + label:before {
     justify-content: center;
