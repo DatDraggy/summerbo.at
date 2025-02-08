@@ -33,7 +33,7 @@
             const secret = findGetParameter('secret') ?? '';
             const response = await fetch('https://api.summerbo.at/auth?secret=' + secret, {
                 method: 'GET',
-                credentials: 'same-origin',
+                credentials: 'include',
             });
 
             if (!response.ok) {
