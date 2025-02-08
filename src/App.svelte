@@ -22,7 +22,7 @@
   import Flow from "./Registration/Flow.svelte";
   let header;
   let departTime = new Date("2025-09-02T18:30:00+02:00");
-  let regTime = new Date("2025-03-01T19:00:00+01:00");
+  let regTime = new Date("2025-02-15T20:00:00+01:00");
 
   let timeTillReg = 1;
 
