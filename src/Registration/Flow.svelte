@@ -43,7 +43,6 @@
             }
 
             const data = await response.json();
-            console.log(data);
             if (data.is_logged_in) {
                 isRegistered = !!data.is_registered;
                 isWaitlisted = !!data.is_waitlisted;
