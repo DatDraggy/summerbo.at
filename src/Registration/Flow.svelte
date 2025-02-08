@@ -25,6 +25,8 @@
 
     let waitlistId: number|null = null;
 
+    let email = '';
+
     let error: string | null = null;
     let loginUrl = 'https://identity.eurofurence.org/oauth2/auth?client_id=a6384576-d0f4-402f-8c58-dd2fb69e83cc&redirect_uri=https%3A%2F%2Fapi.summerbo.at%2Fauth%2Fcallback&response_type=code&scope=profile+email&state=';
 
@@ -53,6 +55,8 @@
                     isPublic = !!data.is_public;
                 } else if (isWaitlisted) {
                     waitlistId = data.waitlist_id;
+                } else {
+                    email = data.email;
                 }
                 isLoggedIn = true;
             } else {

@@ -18,7 +18,7 @@
     }
 
     onMount(() => {
-        const form = document.getElementById('GoodForm') as HTMLFormElement;
+        const form = document.getElementById('reg-form') as HTMLFormElement;
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -33,7 +33,7 @@
             }
 
             try {
-                const response = await fetch('https://api.summerbo.at/auth/registeration', {
+                const response = await fetch('https://api.summerbo.at/auth/registration', {
                     method: isRegistered ? 'PUT' : 'POST',
                     body: JSON.stringify({
                         nickname: nickname,
@@ -46,11 +46,12 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                 });
 
                 const data = await response.json();
                 if (!response.ok) {
-                    throw new Error(data.message || 'Unknown error during registration');
+                    throw new Error(data.error || 'Unknown error during registration');
                 }
 
                 if (data.id) {
@@ -81,7 +82,7 @@
     Your Details
 </h2>
 
-<form class="form-wrapper" id="GoodForm" action="backend/registration.php" method="post">
+<form class="form-wrapper" id="reg-form">
     <div class="input-wrapper">
         <label for="nickname"><span>Nickname</span></label>
         <input name="nickname" id="nickname" class="input" placeholder="Nickname" autocomplete="nickname" required
