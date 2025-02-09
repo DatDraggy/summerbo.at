@@ -12,6 +12,7 @@
 
     let isLoading = false;
     let error = '';
+    let success = false;
 
     async function handleLogout() {
         try {
@@ -41,6 +42,7 @@
             e.preventDefault();
             isLoading = true;
             error = '';
+            success = false;
 
             if (nickname.length < 1 || nickname.length > 20 ||
                 !/^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])$/.test(nickname)) {
@@ -74,6 +76,7 @@
                 if (data.id) {
                     id = data.id;
                     isRegistered = true;
+                    success = true;
                 } else {
                     throw new Error('No ID received from API, please try reloading the page.');
                 }
@@ -393,6 +396,10 @@
     </div>
 
     <div class="error-message">{error}</div>
+
+    {#if success}
+        <div class="success-message">Details saved successfully.</div>
+    {/if}
 
     <div style="display: flex">
         <button type="submit" style="margin-right: auto"

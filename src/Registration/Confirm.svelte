@@ -20,7 +20,6 @@
             const data = await response.json();
 
             if (!response.ok) {
-                console.log()
                 throw new Error(`API request failed with status ${response.status}: ${data.error}`);
             } else {
                 success = true;
