@@ -5,7 +5,7 @@
 
     let isLoading = false;
     let error = '';
-    let id: int|null = null;
+    let id: int | null = null;
 
     onMount(() => {
         const form = document.getElementById('waitlist-form') as HTMLFormElement;
@@ -49,18 +49,19 @@
 
 {#if id}
     <p>
-        Your waitlist spot is {id}
+        Successfully submitted. Your waitlist spot is {id}
     </p>
+{:else}
+    <p>Sadly we do not have any more slots available for the party. But sign up for the waitinglist!</p>
+
+    <form class="form-wrapper" id="waitlist-form">
+        <div class="input-wrapper">
+            <label for="email"><span>Email</span></label>
+            <input name="email" id="email" class="input" placeholder="Email" autocomplete="email" required
+                   bind:value={email}/>
+        </div>
+        <div style="display: flex">
+            <button type="submit" style="margin-right: auto" class="button button-primary">Submit</button>
+        </div>
+    </form>
 {/if}
-
-<p>Sadly we do not have any more slots available for the party. But sign up for the waitinglist!</p>
-
-<form class="form-wrapper" id="waitlist-form">
-    <div class="input-wrapper">
-        <label for="email"><span>Email</span></label>
-        <input name="email" id="email" class="input" placeholder="Email" autocomplete="email" required bind:value={email} />
-    </div>
-    <div style="display: flex">
-        <button type="submit" style="margin-right: auto" class="button button-primary">Submit</button>
-    </div>
-</form>

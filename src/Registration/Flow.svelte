@@ -21,7 +21,8 @@
     let isFursuiter = false;
     let isVIP = false;
     let country = '';
-    let isPublic = true;
+    let list = true;
+    let status = 0;
 
     let waitlistId: number|null = null;
 
@@ -52,7 +53,8 @@
                     isFursuiter = !!data.is_fursuiter;
                     isVIP = !!data.is_vip;
                     country = data.country;
-                    isPublic = !!data.is_public;
+                    list = !!data.list;
+                    status = data.status;
                 } else if (isWaitlisted) {
                     waitlistId = data.waitlist_id;
                 } else {
@@ -95,8 +97,17 @@
             {/if}
 
             {#if isRegistered || isRegistrationPossible}
+                {#if status === 0}
+                    <h2 class="text-headline-line">
+                        Pending Confirmation
+                    </h2>
+                    <p>
+                        You have not yet confirmed your Email address. Please do so now!
+                    </p>
+                {/if}
+
                 <RegistrationForm id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                  isVIP={isVIP} country={country} isPublic={isPublic}/>
+                                  isVIP={isVIP} country={country} list={list}/>
             {:else if isWaitlisted}
                 <p>
                     Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.

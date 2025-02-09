@@ -6,7 +6,7 @@
     export let isFursuiter: boolean;
     export let isVIP: boolean;
     export let country: string;
-    export let isPublic: boolean;
+    export let list: boolean;
     export let isAcceptTos: boolean = false;
     export let id: number | null = null;
 
@@ -57,7 +57,7 @@
                         fursuiter: isFursuiter,
                         sponsor: isVIP,
                         country: country,
-                        publicList: isPublic,
+                        list: list,
                         tos: isAcceptTos,
                     }),
                     headers: {
@@ -385,7 +385,7 @@
         {/if}
 
         <div class="checkbox-group">
-            <input name="publicList" id="publicList" type="checkbox" class="input" bind:checked={isPublic}>
+            <input name="publicList" id="publicList" type="checkbox" class="input" bind:checked={list}>
             <label for="publicList"> I want my nickname to be publicly listed on the
                 <a href="https://reg.summerbo.at/attendees" target="_blank">attendees</a>
                 list</label>
