@@ -33,7 +33,7 @@
             }
 
             try {
-                const response = await fetch('https://api.summerbo.at/auth/registration', {
+                const response = await fetch('https://api.summerbo.at/auth/register', {
                     method: isRegistered ? 'PUT' : 'POST',
                     body: JSON.stringify({
                         nickname: nickname,
