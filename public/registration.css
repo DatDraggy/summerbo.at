@@ -259,4 +259,14 @@ a.button-secondary {
     margin-bottom: 1rem;
     color: red;
     background-color: #ffc8c8;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.success-message {
+    margin-bottom: 1rem;
+    color: #036000;
+    background-color: #8fff94;
+    border-radius: 5px;
+    padding: 5px;
 }

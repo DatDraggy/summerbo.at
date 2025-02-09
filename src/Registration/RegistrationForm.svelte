@@ -395,10 +395,12 @@
         </div>
     </div>
 
-    <div class="error-message">{error}</div>
+    {#if error}
+        <div class="error-message">{error}</div>
+    {/if}
 
     {#if success}
-        <div class="success-message">Details saved successfully.</div>
+        <p class="success-message">Details saved successfully.</p>
     {/if}
 
     <div style="display: flex">
