@@ -9,8 +9,11 @@
     onMount(async () => {
         try {
             const token = findGetParameter('token') ?? '';
-            const response = await fetch('https://api.summerbo.at/confirm?token=' + token, {
+            const response = await fetch('https://api.summerbo.at/confirm', {
                 method: 'POST',
+                body: JSON.stringify({
+                    token: token
+                }),
                 credentials: 'include',
             });
 
