@@ -1,7 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
 
-    export let email: boolean;
+    export let email: string;
 
     let isLoading = false;
     let error = '';

@@ -102,7 +102,7 @@
                     Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
                 </p>
             {:else if isWaitlistOpen}
-                <WaitlistForm/>
+                <WaitlistForm email={email}/>
             {:else}
                 <SoldOutBlock/>
             {/if}
