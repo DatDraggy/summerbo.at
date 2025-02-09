@@ -22,7 +22,7 @@
     let isVIP = false;
     let country = '';
     let list = true;
-    let status = 0;
+    let status: number|null = null;
 
     let waitlistId: number|null = null;
 
