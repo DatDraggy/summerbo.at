@@ -60,7 +60,7 @@
         <a
           class="registration-button"
           style="margin-bottom: 1rem;"
-          href="http://reg.summerbo.at/">Register Here</a
+          href="/register">Register Here</a
         >
         <p
           style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"

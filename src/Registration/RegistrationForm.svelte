@@ -13,8 +13,25 @@
     let isLoading = false;
     let error = '';
 
-    function handleLogout() {
-        //TODO
+    async function handleLogout() {
+        try {
+            const response = await fetch('https://api.summerbo.at/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error('Unknown error during logout');
+            } else {
+                window.location.href = '/';
+            }
+        } catch (err: any) {
+            console.error('Error logging out, restart your browser:', err);
+            error = err.message;
+        }
     }
 
     onMount(() => {
@@ -380,6 +397,6 @@
     <div style="display: flex">
         <button type="submit" style="margin-right: auto"
                 class="button button-primary">{isRegistered ? 'Save Details' : 'Register Now'}</button>
-        <button on:click={handleLogout} class="button button-secondary">Logout</button>
+        <button type="button" on:click={handleLogout} class="button button-secondary">Logout</button>
     </div>
 </form>
