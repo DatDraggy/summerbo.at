@@ -20,6 +20,7 @@
   import Glympse from "./Glympse.svelte"
   import Benefactors from "./Benefactors.svelte";
   import Flow from "./Registration/Flow.svelte";
+  import Confirm from "./Registration/Confirm.svelte";
   let header;
   let departTime = new Date("2025-09-02T18:30:00+02:00");
   let regTime = new Date("2025-02-15T20:00:00+01:00");
@@ -144,6 +145,7 @@
         <Route path="glympse" component={Glympse} />
         <Route path="benefactors" component={Benefactors} />
         <Route path="register" component={Flow} />
+        <Route path="confirm" component={Confirm} />
         <Route path="login">
           <Redirect url="https://reg.summerbo.at/login" />
         </Route>
