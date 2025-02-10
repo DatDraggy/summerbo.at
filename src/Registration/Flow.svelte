@@ -114,7 +114,7 @@
                 </p>
             {:else if isWaitlistOpen}
                 <WaitlistForm email={email}/>
-            {:else}
+            {:else if isRegistrationOpen}
                 <SoldOutBlock/>
             {/if}
         {:else}
