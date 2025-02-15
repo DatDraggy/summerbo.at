@@ -50,8 +50,8 @@
                 nickname = data.nickname ?? '';
                 if (isRegistered) {
                     id = data.id;
-                    isFursuiter = !!data.is_fursuiter;
-                    isVIP = !!data.is_vip;
+                    isFursuiter = !!data.fursuiter;
+                    isVIP = !!data.sponsor;
                     country = data.country;
                     list = !!data.list;
                     status = data.status;
