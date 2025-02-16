@@ -1,5 +1,7 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {onMount, createEventDispatcher} from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     export let isRegistered: boolean;
     export let nickname: string;
@@ -75,6 +77,9 @@
 
                 if (data.id) {
                     id = data.id;
+                    if (!isRegistered) {
+                        dispatch('updateStatus');
+                    }
                     isRegistered = true;
                     success = true;
                 } else {

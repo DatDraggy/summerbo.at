@@ -31,6 +31,10 @@
     let error: string | null = null;
     let loginUrl = 'https://identity.eurofurence.org/oauth2/auth?client_id=a6384576-d0f4-402f-8c58-dd2fb69e83cc&redirect_uri=https%3A%2F%2Fapi.summerbo.at%2Fauth%2Fcallback&response_type=code&scope=profile+email&state=';
 
+    function handleStatusUpdate() {
+        status = 0;
+    }
+
     onMount(async () => {
         try {
             const secret = findGetParameter('secret') ?? '';
@@ -78,6 +82,7 @@
 
 <div class="text-content">
     <h2 class="text-headline">Registration</h2>
+
     {#if isLoading}
         <h2 class="text-headline-line">
             Loading
@@ -102,12 +107,12 @@
                         Pending Confirmation
                     </h2>
                     <p>
-                        You have not yet confirmed your Email address. Please do so now!
+                        You have not yet confirmed your Email address. Please do so now! Otherwise, you will not be billed and won't be able to partake on the day of the party.
                     </p>
                 {/if}
 
                 <RegistrationForm id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                  isVIP={isVIP} country={country} list={list}/>
+                                  isVIP={isVIP} country={country} list={list} on:updateStatus={handleStatusUpdate} />
             {:else if isWaitlisted}
                 <p>
                     Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
