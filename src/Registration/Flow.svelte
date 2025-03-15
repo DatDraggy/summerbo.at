@@ -101,7 +101,7 @@
 <div class="text-content">
     <h2 class="text-headline">Registration</h2>
     {#if party}
-        <span role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}>Back</span>
+        <span class="color-secondary" role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}>Change Party</span>
     {/if}
 
     {#if isLoading}
