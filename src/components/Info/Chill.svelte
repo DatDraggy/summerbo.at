@@ -1,7 +1,7 @@
 <p>
     wow, what a con it's been! Wouldn't it be great to have a smaller, relaxed cruise with friends, chill music and drinks around different parts of Hamburg?
     The numbers don't lie, furries love boating, which is why we've come up with an additional opportunity to get on the water. On Sunday September 7th, 2025 at 14:30,
-    we'll be boarding a Barkasse at Überseebrücke for a nice trip to other parts of Hamburg.
+    we'll be boarding a Barkasse at Überseebrücke for a nice 3 hour trip to other parts of Hamburg.
 </p>
 <div class="pricing">
     <div class="pricing-unit">

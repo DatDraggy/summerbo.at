@@ -18,15 +18,15 @@
         <label class="party-selection-element" for="party1">
             <p><i>Space Ship</i>: Party</p>
             <h3>
-                Sept 2nd, 18:30<br>
-                The party you all know and love!
+                Tue, Sept 2nd, 18:30<br>
+                The established party you all know and love
             </h3>
         </label>
         <input bind:group={party} type="radio" name="party" value="2" id="party2">
         <label class="party-selection-element" for="party2">
             <p><i>Space Ship</i>: Chill</p>
             <h3>
-                Sept 7th, 15:00<br>
+                Sun, Sept 7th, 15:00<br>
                 Our new relaxed trip around different parts of Hamburg
             </h3>
         </label>
