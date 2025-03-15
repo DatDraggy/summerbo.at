@@ -115,11 +115,11 @@
                         >
                         </h2>
                         <div class="selector-container">
-                            <div on:click={handleParty} class="selector selector-left" class:selector-active={selected === 'party'}>
+                            <div role="radio" tabindex="0" on:click={handleParty} on:keydown={handleParty} class="selector selector-left" aria-checked={selected === 'party'} class:selector-active={selected === 'party'}>
                                 <h3><i>Space Ship</i>: Party</h3>
                                 <p>Sept 2nd, 18:30</p>
                             </div>
-                            <div on:click={handleChill} class="selector selector-right " class:selector-active={selected === 'chill'}>
+                            <div role="radio" tabindex="0" on:click={handleChill} on:keydown={handleChill} class="selector selector-right " aria-checked={selected === 'chill'} class:selector-active={selected === 'chill'}>
                                 <h3><i>Space Ship</i>: Chill</h3>
                                 <p>Sept 7th, 14:30</p>
                             </div>
