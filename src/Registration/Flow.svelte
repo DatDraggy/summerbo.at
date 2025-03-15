@@ -41,6 +41,7 @@
     onMount(fetchDetails);
 
     async function fetchDetails() {
+        isLoading = true;
         try {
             const secret = findGetParameter('secret') ?? '';
             const response = await fetch('https://api.summerbo.at/auth?secret=' + secret + '&party=' + party, {
@@ -90,10 +91,18 @@
             fetchDetails();
         }
     }
+
+    function resetParty() {
+        party = 0;
+        fetchDetails();
+    }
 </script>
 
 <div class="text-content">
     <h2 class="text-headline">Registration</h2>
+    {#if party}
+        <span role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}>Back</span>
+    {/if}
 
     {#if isLoading}
         <h2 class="text-headline-line">
