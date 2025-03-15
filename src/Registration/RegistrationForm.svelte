@@ -11,6 +11,7 @@
     export let list: boolean;
     export let isAcceptTos: boolean = false;
     export let id: number | null = null;
+    export let party: number;
 
     let isLoading = false;
     let error = '';
@@ -63,6 +64,7 @@
                         country: country,
                         list: list,
                         tos: isAcceptTos,
+                        party: party,
                     }),
                     headers: {
                         'Content-Type': 'application/json',

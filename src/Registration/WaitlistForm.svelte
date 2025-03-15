@@ -2,10 +2,11 @@
     import {onMount} from "svelte";
 
     export let email: string;
+    export let party: number;
 
     let isLoading = false;
     let error = '';
-    let id: int | null = null;
+    let id: number | null = null;
 
     onMount(() => {
         const form = document.getElementById('waitlist-form') as HTMLFormElement;
@@ -20,6 +21,7 @@
                     method: 'POST',
                     body: JSON.stringify({
                         email: email,
+                        party: party,
                     }),
                     headers: {
                         'Content-Type': 'application/json',

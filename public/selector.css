@@ -1,0 +1,87 @@
+/*
+Landing Page
+ */
+
+.selector-container {
+    display: flex;
+    flex-direction: row;
+    border-top: 3px solid var(--color-tertiary);
+    border-left: 3px solid var(--color-tertiary);
+    border-right: 3px solid var(--color-tertiary);
+    border-radius: 10px 10px 0 0;
+    z-index: 50;
+    overflow: hidden;
+}
+.selector-container-extender {
+    border: 3px solid var(--color-tertiary);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+.selector-container-extender p:last-child {
+    margin-bottom: 0;
+}
+
+.selector {
+    padding: 15px;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    border-bottom: 3px solid var(--color-tertiary);
+    cursor: pointer;
+}
+.selector:hover {
+    background-color: #ececec;
+}
+.selector p:last-child {
+    margin-bottom: 0;
+}
+
+.selector-left:not(.selector-active) {
+    border-radius: 0 0 10px 0;
+    border-right: 3px solid var(--color-tertiary);
+}
+
+.selector-right:not(.selector-active) {
+    border-radius: 0 0 0 10px;
+    border-left: 3px solid var(--color-tertiary);
+}
+
+.selector-active {
+    border-bottom: none;
+    background-color: var(--color-secondary-weak);
+}
+
+@media screen and (min-width: 768px) {
+    .selector:not(.selector-active):before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 75%;
+        width: 0;
+        left: 46%;
+        height: 0;
+        border: 11px solid transparent;
+        border-bottom-color: var(--color-tertiary);
+    }
+
+    .selector:not(.selector-active):after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -18px;
+        left: 46%;
+        top: 80%;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-bottom-color: white;
+    }
+}
+
+/*
+Registration
+ */

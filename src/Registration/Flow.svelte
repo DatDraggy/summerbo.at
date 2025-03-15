@@ -7,6 +7,9 @@
     import WaitlistSpotFree from "./WaitlistSpotFree.svelte";
     import Login from "./Login.svelte";
     import {findGetParameter} from '../helper/uri.js';
+    import PartySelection from "./PartySelection.svelte";
+
+    let party: number = 0;
 
     let isLoggedIn = false;
     let isLoading = true;
@@ -35,10 +38,12 @@
         status = 0;
     }
 
-    onMount(async () => {
+    onMount(fetchDetails);
+
+    async function fetchDetails() {
         try {
             const secret = findGetParameter('secret') ?? '';
-            const response = await fetch('https://api.summerbo.at/auth?secret=' + secret, {
+            const response = await fetch('https://api.summerbo.at/auth?secret=' + secret + '&party=' + party, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -77,7 +82,14 @@
         } finally {
             isLoading = false;
         }
-    });
+    }
+
+    function handleParty(value: CustomEvent) {
+        if (value.detail == 1 || value.detail == 2) {
+            party = value.detail;
+            fetchDetails();
+        }
+    }
 </script>
 
 <div class="text-content">
@@ -90,38 +102,49 @@
     {:else if error}
         <p>Error: {error}</p>
     {:else}
-        {#if !isRegistrationOpen && !isWaitlisted}
-            <RegistrationClosed/>
-        {:else if !isRegistrationPossible && !isWaitlistOpen && !isLoggedIn}
-            <SoldOutBlock/>
+        {#if !party}
+            {#if !isRegistrationOpen && !isWaitlisted}
+                <RegistrationClosed/>
+            {:else if !isRegistrationPossible && !isWaitlistOpen && !isLoggedIn}
+                <SoldOutBlock/>
+            {/if}
         {/if}
 
         {#if isLoggedIn}
-            {#if isWaitlisted && isRegistrationPossible}
-                <WaitlistSpotFree />
-            {/if}
-
-            {#if isRegistered || isRegistrationPossible}
-                {#if status === 0}
-                    <h2 class="text-headline-line">
-                        Pending Confirmation
-                    </h2>
-                    <p>
-                        You have not yet confirmed your Email address. Please do so now! Otherwise, you will not be billed and won't be able to partake on the day of the party.
-                    </p>
+            <!-- Logged in -->
+            {#if !party}
+                <PartySelection on:selectedParty="{handleParty}"/>
+            {:else}
+                <!-- Party Selected -->
+                {#if isWaitlisted && isRegistrationPossible}
+                    <WaitlistSpotFree />
                 {/if}
 
-                <RegistrationForm id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                  isVIP={isVIP} country={country} list={list} on:updateStatus={handleStatusUpdate} />
-            {:else if isWaitlisted}
-                <p>
-                    Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
-                </p>
-            {:else if isWaitlistOpen}
-                <WaitlistForm email={email}/>
-            {:else if isRegistrationOpen}
-                <SoldOutBlock/>
+                {#if isRegistered || isRegistrationPossible}
+                    {#if status === 0}
+                        <h2 class="text-headline-line">
+                            Pending Confirmation
+                        </h2>
+                        <p>
+                            You have not yet confirmed your Email address. Please do so now! Otherwise, you will not be billed and won't be able to partake on the day of the party.
+                        </p>
+                    {/if}
+
+                    <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
+                                      isVIP={isVIP} country={country} list={list} on:updateStatus={handleStatusUpdate} />
+                {:else if isWaitlisted}
+                    <p>
+                        Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
+                    </p>
+                {:else if isWaitlistOpen}
+                    <WaitlistForm party={party} email={email}/>
+                {:else if isRegistrationOpen}
+                    <SoldOutBlock/>
+                {/if}
+                <!-- /Party Selected -->
             {/if}
+
+            <!-- /Logged in -->
         {:else}
             <Login loginUrl={loginUrl} />
         {/if}
