@@ -16,6 +16,12 @@
     margin-bottom: 2rem;
 }
 
+.back-button {
+    color: var(--color-tertiary);
+    cursor: pointer;
+    filter: invert(38%) sepia(93%) saturate(6235%) hue-rotate(269deg) brightness(91%) contrast(110%);
+}
+
 .checkbox-wrapper {
     margin-bottom: 2rem;
 }

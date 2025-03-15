@@ -8,6 +8,7 @@
     import Login from "./Login.svelte";
     import {findGetParameter} from '../helper/uri.js';
     import PartySelection from "./PartySelection.svelte";
+    import BackArrow from "../components/BackArrow.svelte";
 
     let party: number = 0;
 
@@ -99,10 +100,11 @@
 </script>
 
 <div class="text-content">
-    <h2 class="text-headline">Registration</h2>
     {#if party}
-        <span class="color-secondary" role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}>Change Party</span>
+        <span class="back-button" role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}><BackArrow/> Change Party</span>
     {/if}
+
+    <h2 class="text-headline">Registration</h2>
 
     {#if isLoading}
         <h2 class="text-headline-line">
