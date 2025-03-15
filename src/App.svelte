@@ -23,6 +23,7 @@
     import Confirm from "./Registration/Confirm.svelte";
     import Party from "./components/Info/Party.svelte";
     import Chill from "./components/Info/Chill.svelte";
+    import Selector from "./components/Info/Selector.svelte";
 
     let header;
     let departTime = new Date("2025-09-02T18:30:00+02:00");
@@ -47,21 +48,12 @@
 
     let x = setInterval(() => getTimeOffset(departTime), 1000);
 
-    let selected = 'party';
-
     onMount(() => {
         getTimeOffset(departTime);
 
         let now = new Date().getTime();
         timeTillReg = Math.max(regTime - now, 0);
     });
-
-    function handleParty() {
-        selected = 'party';
-    }
-    function handleChill() {
-        selected = 'chill';
-    }
 </script>
 
 <Router>
@@ -114,23 +106,9 @@
                                 class="color-secondary">Space Ship 2025!</span
                         >
                         </h2>
-                        <div class="selector-container">
-                            <div role="radio" tabindex="0" on:click={handleParty} on:keydown={handleParty} class="selector selector-left" aria-checked={selected === 'party'} class:selector-active={selected === 'party'}>
-                                <h3><i>Space Ship</i>: Party</h3>
-                                <p>Sept 2nd, 18:30</p>
-                            </div>
-                            <div role="radio" tabindex="0" on:click={handleChill} on:keydown={handleChill} class="selector selector-right " aria-checked={selected === 'chill'} class:selector-active={selected === 'chill'}>
-                                <h3><i>Space Ship</i>: Chill</h3>
-                                <p>Sept 7th, 14:30</p>
-                            </div>
-                        </div>
-                        <div class="selector-container-extender">
-                            {#if selected === 'party'}
-                                <Party/>
-                            {:else}
-                                <Chill/>
-                            {/if}
-                        </div>
+
+                        <Selector/>
+
                         <p>
                             Made possible by our lovely 2023
                             <Link to="/benefactors">Benefactors</Link>
