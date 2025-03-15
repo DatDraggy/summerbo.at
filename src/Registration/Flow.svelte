@@ -102,7 +102,7 @@
     {:else if error}
         <p>Error: {error}</p>
     {:else}
-        {#if !party}
+        {#if party}
             {#if !isRegistrationOpen && !isWaitlisted}
                 <RegistrationClosed/>
             {:else if !isRegistrationPossible && !isWaitlistOpen && !isLoggedIn}
