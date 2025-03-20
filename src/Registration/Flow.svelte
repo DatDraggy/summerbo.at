@@ -97,6 +97,15 @@
 
     function resetParty() {
         party = 0;
+        id = null;
+        isFursuiter = false;
+        isVIP = false;
+        country = '';
+        list = true;
+        status = null;
+        waitlistId = null;
+        email = '';
+
         fetchDetails();
     }
 </script>
