@@ -98,7 +98,13 @@
 </script>
 
 {#if !isRegistered}
-    <p>The base ticket price of 40€ (+ VIP if applicable) will be billed through your Eurofurence Registration</p>
+    <p>The base ticket price of
+        {#if party === 1}
+            40€ (+ VIP if applicable)
+        {:else if party === 2}
+            30€
+        {/if}
+        will be billed through your Eurofurence Registration</p>
 {/if}
 
 {#if id}
