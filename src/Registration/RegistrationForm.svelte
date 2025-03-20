@@ -121,11 +121,13 @@
             <input type="checkbox" name="fursuiter" id="fursuiter" class="input" bind:checked={isFursuiter}>
             <label for="fursuiter">I am a fursuiter</label>
         </div>
-        <div class="checkbox-group VIP">
-            <input type="checkbox" name="sponsor" id="sponsor" class="input" bind:checked={isVIP}>
-            <label for="sponsor">I want to upgrade to a
-                <a href="/" target="_blank">+25€ VIP ticket</a> (not deactivatable)</label>
-        </div>
+        {#if party === 1}
+            <div class="checkbox-group VIP">
+                <input type="checkbox" name="sponsor" id="sponsor" class="input" bind:checked={isVIP}>
+                <label for="sponsor">I want to upgrade to a
+                    <a href="/" target="_blank">+25€ VIP ticket</a> (not deactivatable)</label>
+            </div>
+        {/if}
     </div>
 
     <div class="input-wrapper">
