@@ -59,17 +59,19 @@
                 isRegistered = !!data.is_registered;
                 isWaitlisted = !!data.is_waitlisted;
                 nickname = data.nickname ?? '';
-                if (isRegistered) {
-                    id = data.id;
-                    isFursuiter = !!data.fursuiter;
-                    isVIP = !!data.sponsor;
-                    country = data.country;
-                    list = !!data.list;
-                    status = data.status;
-                } else if (isWaitlisted) {
-                    waitlistId = data.waitlist_id;
-                } else {
-                    email = data.email;
+                if (party !== 0) {
+                    if (isRegistered) {
+                        id = data.id;
+                        isFursuiter = !!data.fursuiter;
+                        isVIP = !!data.sponsor;
+                        country = data.country;
+                        list = !!data.list;
+                        status = data.status;
+                    } else if (isWaitlisted) {
+                        waitlistId = data.waitlist_id;
+                    } else {
+                        email = data.email;
+                    }
                 }
                 isLoggedIn = true;
             } else {
