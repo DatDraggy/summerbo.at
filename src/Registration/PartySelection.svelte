@@ -1,13 +1,13 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
 
-    let party: number = 0;
+    let party: string = '0';
 
     const dispatch = createEventDispatcher();
 
     function handleSelection() {
         if (party) {
-            dispatch('selectedParty', party);
+            dispatch('selectedParty', parseInt(party));
         }
     }
 </script>
