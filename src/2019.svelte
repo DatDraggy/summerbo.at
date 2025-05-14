@@ -4,10 +4,10 @@
 <div class="text-content">
   <h2 class="text-headline">2019, Hot Summer Nights</h2>
 
-  <p class="text-large">Under Construction</p>
+  <p class="text-large">Estrel, Berlin</p>
   <p>
-    We're currently working on improving the archives from previous years, enjoy
-    some photos in the meantime.
+    Our very first, very hot and steamy (if you were there, you will know), instance of Summerbo.at!
+    We traveled the side rivers of Berlin with live music and a low ceiling.
   </p>
   <div class="image-gallery">
     <img

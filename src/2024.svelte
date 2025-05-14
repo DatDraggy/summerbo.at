@@ -2,12 +2,12 @@
 </script>
 
 <div class="text-content">
-  <h2 class="text-headline">2023, Cursed Cruise</h2>
+  <h2 class="text-headline">2024, Cyber Yacht</h2>
 
-  <p class="text-large">Under Construction</p>
+  <p class="text-large">Elbe, Überseebrücke, Hamburg WIP</p>
   <p>
-    We're currently working on improving the archives from previous years, enjoy
-    some photos in the meantime.
+    After filling all available slots within 4 hours, we knew we had to do something.
+    We were able to secure a deal for the MS Hamburg, our current, awesome, much bigger ship which everyone loved and allowed us to almost double the attendance.
   </p>
   <div class="image-gallery">
     <img

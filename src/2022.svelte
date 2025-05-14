@@ -4,10 +4,10 @@
 <div class="text-content">
   <h2 class="text-headline">2022, All Paws on Deck</h2>
 
-  <p class="text-large">Under Construction</p>
+  <p class="text-large">Estrel, Berlin WIP</p>
   <p>
-    We're currently working on improving the archives from previous years, enjoy
-    some photos in the meantime.
+    The previously cancelled, two years late but greatly improved party with an amazing increase in attendee satisfaction according to the Eurofurence Feedback survey.
+    Once again we had great live music, lots of fun and an amazing evening.
   </p>
   <div class="image-gallery">
     <img

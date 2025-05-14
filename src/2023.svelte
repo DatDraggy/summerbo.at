@@ -4,10 +4,11 @@
 <div class="text-content">
   <h2 class="text-headline">2023, Cursed Cruise</h2>
 
-  <p class="text-large">Under Construction</p>
+  <p class="text-large">Elbe, Überseebrücke, Hamburg WIP</p>
   <p>
-    We're currently working on improving the archives from previous years, enjoy
-    some photos in the meantime.
+    With a rushed move to the CCH, financial hurdles arose, but we were dedicated to at least keep our party priced the same as previously and with the low amount of attendees due to the short term move to Hamburg,
+    it wasn't sure that this will happen. Luckily, many Benefactors stepped in that made this years instance of Summerbo.at happen, and it was once again more amazing than the previous years!
+    Our much better MS Princess was an amazing upgrade from Berlin and the feedback blew the registrations for the following year out of the water.
   </p>
   <div class="image-gallery">
     <img
