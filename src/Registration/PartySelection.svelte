@@ -26,7 +26,7 @@
         <label class="party-selection-element" for="party2">
             <p><i>Space Ship</i>: Chill</p>
             <h3>
-                Sun, Sept 7th, 15:00<br>
+                Sun, Sept 7th, 14:00<br>
                 Our new relaxed trip around different parts of Hamburg
             </h3>
         </label>

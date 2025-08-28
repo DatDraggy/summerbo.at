@@ -19,7 +19,7 @@ function handleChill() {
     </div>
     <div role="radio" tabindex="0" on:click={handleChill} on:keydown={handleChill} class="selector selector-right " aria-checked={selected === 'chill'} class:selector-active={selected === 'chill'}>
         <h3><i>Space Ship</i>: Chill</h3>
-        <p>Sept 7th, 14:30</p>
+        <p>Sept 7th, 13:30</p>
     </div>
 </div>
 <div class="selector-container-extender">
