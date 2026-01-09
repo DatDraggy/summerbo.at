@@ -10,7 +10,9 @@
     import PartySelection from "./PartySelection.svelte";
     import BackArrow from "../components/BackArrow.svelte";
 
-    let party: number = 0;
+    export let departTime;
+
+    let party: number = 2;
 
     let isLoggedIn = false;
     let isLoading = true;
@@ -19,6 +21,8 @@
     let isRegistrationPossible = false;
     let isRegistrationOpen = false;
     let isWaitlisted = false;
+    let boatSlotsA = 0;
+    let boatSlotsB = 0;
 
     let id: number | null = null;
     let nickname = '';
@@ -26,6 +30,7 @@
     let isVIP = false;
     let country = '';
     let list = true;
+    let boat: number|null = null;
     let status: number|null = null;
 
     let waitlistId: number|null = null;
@@ -66,6 +71,7 @@
                         isVIP = !!data.sponsor;
                         country = data.country;
                         list = !!data.list;
+                        boat = data.boat;
                         status = data.status;
                     } else if (isWaitlisted) {
                         waitlistId = data.waitlist_id;
@@ -80,6 +86,8 @@
             isRegistrationPossible = !!data.is_registration_possible;
             isWaitlistOpen = !!data.is_waitlist_open;
             isRegistrationOpen = !!data.is_registration_open;
+            boatSlotsA = data.boat_slots_a;
+            boatSlotsB = data.boat_slots_b;
         } catch (e: any) {
             error = e.message;
             console.log('Error checking login status:', e);
@@ -103,6 +111,7 @@
         country = '';
         list = true;
         status = null;
+        boat = null;
         waitlistId = null;
         email = '';
 
@@ -135,7 +144,7 @@
         {#if isLoggedIn}
             <!-- Logged in -->
             {#if !party}
-                <PartySelection on:selectedParty="{handleParty}"/>
+                <PartySelection {departTime} on:selectedParty="{handleParty}"/>
             {:else}
                 <!-- Party Selected -->
                 {#if isWaitlisted && isRegistrationPossible}
@@ -153,7 +162,7 @@
                     {/if}
 
                     <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                      isVIP={isVIP} country={country} list={list} on:updateStatus={handleStatusUpdate} />
+                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} on:updateStatus={handleStatusUpdate} />
                 {:else if isWaitlisted}
                     <p>
                         Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.

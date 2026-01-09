@@ -3,13 +3,20 @@
 @import url(registration.css);
 @import url(selector.css);
 :root {
-  --color-primary: #28364A;    /* Deep Space Blue: A darker, more mysterious blue  */
-  --color-secondary: #00FFFF;    /* Electric Cyan:  Your bright accent, like a nebula */
-  --color-secondary-weak: #00FFFF10;    /* Electric Cyan:  Your bright accent, like a nebula */
-  --color-secondary-dark: #000080;    /* Electric Cyan:  Your bright accent, like a nebula */
-  --color-tertiary: #A020F0;    /* Galactic Purple:  A richer, deeper purple */
-  --color-vip: #8aecff;      /*  Turquoise Nebula:  A vibrant, glowing turquoise */
-  --color-vip-text: #5019bd;    /* Midnight Blue:  A very dark blue for contrast */
+  /* Background: Deep Teal / Petrol (More green than the Space Blue) */
+  --color-primary: #022C33;
+
+  /* Action/Highlight: Living Coral (Vibrant, trendy, summer-focused) */
+  --color-secondary: #FF6F61;
+  --color-secondary-weak: #FF6F6115;
+  --color-secondary-dark: #9e2a1f;
+
+  /* Accent: Bright Mint/Turquoise (The "Splash") */
+  --color-tertiary: #57E6D6;
+
+  /* VIP Area: Champagne Gold */
+  --color-vip: #F2D0A9;
+  --color-vip-text: #3D2B1F;    /* Dark brown/bronze text */
 
   --color-gold: #FEDA21;
   --color-gold-secondary: #dcb800;
@@ -149,6 +156,9 @@ p {
   font-weight: 800;
   text-transform: uppercase;
   color: var(--color-secondary);
+}
+.text-secondary {
+  color: darkgrey;
 }
 .socials {
   display: flex;

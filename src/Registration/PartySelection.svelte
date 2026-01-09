@@ -1,6 +1,11 @@
 <script lang="ts">
     import {createEventDispatcher} from "svelte";
 
+    export let departTime;
+    const departTimeChill = new Date(departTime);
+    departTimeChill.setDate(departTimeChill.getDate() + 5);
+    departTimeChill.setHours(departTimeChill.getHours() - 5);
+
     let party: string = '0';
 
     const dispatch = createEventDispatcher();
@@ -16,18 +21,18 @@
     <div class="party-selection-container">
         <input bind:group={party} type="radio" name="party" value="1" id="party1">
         <label class="party-selection-element" for="party1">
-            <p><i>Space Ship</i>: Party</p>
+            <p><i>Placeholder</i>: Party</p>
             <h3>
-                Tue, Sept 2nd, 18:30<br>
+                {departTime.toLocaleDateString('en-US', {weekday: 'short'})}, {departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
                 The established party you all know and love
             </h3>
         </label>
         <input bind:group={party} type="radio" name="party" value="2" id="party2">
         <label class="party-selection-element" for="party2">
-            <p><i>Space Ship</i>: Chill</p>
+            <p><i>Placeholder</i>: Chill</p>
             <h3>
-                Sun, Sept 7th, 14:00<br>
-                Our new relaxed trip around different parts of Hamburg
+                {departTimeChill.toLocaleDateString('en-US', {weekday: 'short'})}, {departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
+                Our relaxed trip around different parts of Hamburg
             </h3>
         </label>
     </div>

@@ -26,8 +26,8 @@
     import Selector from "./components/Info/Selector.svelte";
 
     let header;
-    let departTime = new Date("2025-09-02T18:30:00+02:00");
-    let regTime = new Date("2025-02-15T20:00:00+01:00");
+    let departTime = new Date("2026-08-18T18:30:00+02:00");
+    let regTime = new Date("2026-02-15T20:00:00+01:00");
 
     let timeTillReg = 1;
 
@@ -46,13 +46,13 @@
         seconds = Math.floor((distance % (1000 * 60)) / 1000);
     };
 
-    let x = setInterval(() => getTimeOffset(departTime), 1000);
+    setInterval(() => getTimeOffset(departTime), 1000);
 
     onMount(() => {
         getTimeOffset(departTime);
 
         let now = new Date().getTime();
-        timeTillReg = Math.max(regTime - now, 0);
+        timeTillReg = Math.max(regTime.getTime() - now, 0);
     });
 </script>
 
@@ -95,19 +95,20 @@
                     <Link to="/archive/2022">2022</Link>
                     <Link to="/archive/2023">2023</Link>
                     <Link to="/archive/2024">2024</Link>
-                    <Link to="/">2025</Link>
+                    <Link to="/archive/2025">2025</Link>
+                    <Link to="/">2026</Link>
                 </nav>
             </div>
             <div class="content-wrapper">
                 <Route path="/">
                     <div class="text-content">
                         <h2 class="text-headline">
-                            Fuel up your boosters, it's the&hellip;<br/><span
-                                class="color-secondary">Space Ship 2025!</span
+                            Load up your confetti canons, it's the&hellip;<br/><span
+                                class="color-secondary">Placeholder {departTime.getFullYear()}!</span
                         >
                         </h2>
 
-                        <Selector/>
+                        <Selector {departTime}/>
 
                         <p>
                             Made possible by our lovely 2023
@@ -134,7 +135,9 @@
                 <Route path="faq" component={Faq}/>
                 <Route path="glympse" component={Glympse}/>
                 <Route path="benefactors" component={Benefactors}/>
-                <Route path="register" component={Flow}/>
+                <Route path="register">
+                    <Flow {departTime} />
+                </Route>
                 <Route path="confirm" component={Confirm}/>
                 <Route path="login">
                     <Redirect url="https://reg.summerbo.at/login"/>
@@ -191,7 +194,7 @@
                 </div>
                 <div class="footer-section">
                     <h3 class="text-headline-line">Boarding</h3>
-                    <p>18:30 September 2nd, 2025<br/>Überseebrücke, Hamburg</p>
+                    <p>{departTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})} {departTime.toLocaleDateString('en-US', {month: 'long'})} {departTime.getDate()}, {departTime.getFullYear()}<br/>Überseebrücke, Hamburg</p>
                 </div>
                 <div class="footer-section">
                     <h3 class="text-headline-line">Details</h3>

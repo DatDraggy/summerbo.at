@@ -12,6 +12,11 @@
     export let isAcceptTos: boolean = false;
     export let id: number | null = null;
     export let party: number;
+    export let boat: number|null = null;
+
+
+    export let boatSlotsA: number;
+    export let boatSlotsB: number;
 
     let isLoading = false;
     let error = '';
@@ -65,6 +70,7 @@
                         list: list,
                         tos: isAcceptTos,
                         party: party,
+                        boat: boat,
                     }),
                     headers: {
                         'Content-Type': 'application/json',
@@ -105,6 +111,10 @@
             30€
         {/if}
         will be billed through your Eurofurence Registration</p>
+{/if}
+
+{#if party === 2}
+    <p>To allow even more furs to enjoy our chill cruise, we've chartered a second boat, so choose wisely!</p>
 {/if}
 
 {#if id}
@@ -391,6 +401,33 @@
             <option value="ZW">Zimbabwe</option>
         </select>
     </div>
+
+    {#if party === 2}
+        <div class="checkbox-wrapper-horizontal">
+            <div class="checkbox-group">
+                <input type="radio" name="boat" id="boatA" value="1" bind:group={boat} disabled={boatSlotsA <= 0}>
+                <label for="boatA" class:full={boatSlotsA <= 0}>
+                    Boat A<br>
+                    {#if boatSlotsA > 0}
+                        <span class="text-secondary">{boatSlotsA} free</span>
+                    {:else}
+                        <span class="text-secondary">FULL</span>
+                    {/if}
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <input type="radio" name="boat" id="boatB" value="2" bind:group={boat} disabled={boatSlotsB <= 0}>
+                <label for="boatB" class:full={boatSlotsB <= 0}>
+                    Boat B<br>
+                    {#if boatSlotsB > 0}
+                        <span class="text-secondary">{boatSlotsB} free</span>
+                    {:else}
+                        <span class="text-secondary">FULL</span>
+                    {/if}
+                </label>
+            </div>
+        </div>
+    {/if}
 
     <div class="checkbox-wrapper">
         {#if !isRegistered}
