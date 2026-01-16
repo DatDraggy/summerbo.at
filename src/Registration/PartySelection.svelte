@@ -21,7 +21,7 @@
     <div class="party-selection-container">
         <input bind:group={party} type="radio" name="party" value="1" id="party1">
         <label class="party-selection-element" for="party1">
-            <p><i>Placeholder</i>: Party</p>
+            <p><i>Pawchella</i>: Party</p>
             <h3>
                 {departTime.toLocaleDateString('en-US', {weekday: 'short'})}, {departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
                 The established party you all know and love
@@ -29,7 +29,7 @@
         </label>
         <input bind:group={party} type="radio" name="party" value="2" id="party2">
         <label class="party-selection-element" for="party2">
-            <p><i>Placeholder</i>: Chill</p>
+            <p><i>Pawchella</i>: Chill</p>
             <h3>
                 {departTimeChill.toLocaleDateString('en-US', {weekday: 'short'})}, {departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
                 Our relaxed trip around different parts of Hamburg

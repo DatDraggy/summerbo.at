@@ -13,7 +13,7 @@ const production = !process.env.ROLLUP_WATCH;
 const partyInfo = {
 	__PARTY_DATE__: '18th August',
 	__PARTY_YEAR__: '2026',
-	__PARTY_SLOGAN__: 'Placeholder',
+	__PARTY_SLOGAN__: 'Pawchella',
 	__PARTY_ISO_DATE__: '2026-08-18'
 };
 

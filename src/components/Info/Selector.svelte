@@ -20,11 +20,11 @@ function handleChill() {
 
 <div class="selector-container">
     <div role="radio" tabindex="0" on:click={handleParty} on:keydown={handleParty} class="selector selector-left" aria-checked={selected === 'party'} class:selector-active={selected === 'party'}>
-        <h3><i>Placeholder</i>: Party</h3>
+        <h3><i>Pawchella</i>: Party</h3>
         <p>{departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</p>
     </div>
     <div role="radio" tabindex="0" on:click={handleChill} on:keydown={handleChill} class="selector selector-right " aria-checked={selected === 'chill'} class:selector-active={selected === 'chill'}>
-        <h3><i>Placeholder</i>: Chill</h3>
+        <h3><i>Pawchella</i>: Chill</h3>
         <p>{departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</p>
     </div>
 </div>

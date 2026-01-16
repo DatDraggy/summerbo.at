@@ -21,7 +21,9 @@
     />
   </svg>
 {:else if type === "hero"}
-  <img src="/img/2026/logo.png" width="319px" height="157px" alt="Summerbo.at Placeholder Logo" />
+  <object data="/img/2026/logo.png" width="319px" type="image/png" title="Summerbo.at Pawchella Logo">
+    <img src="/img/default_logo.png" width="319" alt="Summerbo.at Pawchella Logo" />
+  </object>
 {/if}
 
 {#if type === "twitter"}
