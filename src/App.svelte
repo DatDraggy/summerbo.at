@@ -13,6 +13,7 @@
     import TwentyTwentyTwo from "./2022.svelte";
     import TwentyTwentyThree from "./2023.svelte";
     import TwentyTwentyFour from "./2024.svelte";
+    import TwentyTwentyFive from "./2025.svelte";
     import Tos from "./Tos.svelte";
     import Faq from "./Faq.svelte";
     import NotFound from "./NotFound.svelte";
@@ -159,6 +160,7 @@
                 <Route path="archive/2022" component={TwentyTwentyTwo}/>
                 <Route path="archive/2023" component={TwentyTwentyThree}/>
                 <Route path="archive/2024" component={TwentyTwentyFour}/>
+                <Route path="archive/2025" component={TwentyTwentyFive}/>
 
                 <Route path="404" component={NotFound}/>
                 <Route component={Default}/>
