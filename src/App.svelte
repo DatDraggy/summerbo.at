@@ -28,7 +28,7 @@
 
     let header;
     let departTime = new Date("2026-08-18T18:30:00+02:00");
-    let regTime = new Date("2026-02-15T20:00:00+01:00");
+    let regTime = new Date("2026-03-15T20:00:00+01:00");
 
     let timeTillReg = 1;
 
