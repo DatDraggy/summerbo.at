@@ -12,7 +12,7 @@
 
     export let departTime;
 
-    let party: number = 2;
+    let party: number = 0;
 
     let isLoggedIn = false;
     let isLoading = true;
