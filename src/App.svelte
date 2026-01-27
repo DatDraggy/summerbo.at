@@ -104,7 +104,7 @@
                 <Route path="/">
                     <div class="text-content">
                         <h2 class="text-headline">
-                            Load up your confetti canons, it's the&hellip;<br/><span
+                            Load up your confetti canons, it's&hellip;<br/><span
                                 class="color-secondary">Pawchella {departTime.getFullYear()}!</span
                         >
                         </h2>
