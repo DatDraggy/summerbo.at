@@ -405,7 +405,7 @@
     {#if party === 2}
         <div class="checkbox-wrapper-horizontal">
             <div class="checkbox-group">
-                <input type="radio" name="boat" id="boatA" value="1" bind:group={boat} disabled={boatSlotsA <= 0}>
+                <input type="radio" name="boat" id="boatA" value={1} bind:group={boat} disabled={boatSlotsA <= 0}>
                 <label for="boatA" class:full={boatSlotsA <= 0}>
                     Boat A<br>
                     {#if boatSlotsA > 0}
@@ -416,7 +416,7 @@
                 </label>
             </div>
             <div class="checkbox-group">
-                <input type="radio" name="boat" id="boatB" value="2" bind:group={boat} disabled={boatSlotsB <= 0}>
+                <input type="radio" name="boat" id="boatB" value={2} bind:group={boat} disabled={boatSlotsB <= 0}>
                 <label for="boatB" class:full={boatSlotsB <= 0}>
                     Boat B<br>
                     {#if boatSlotsB > 0}
