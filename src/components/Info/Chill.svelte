@@ -14,8 +14,16 @@
         </ul>
     </div>
 </div>
+
 <p>
-    These <strong>smaller boats</strong> each offer half the capacity of our party boat and will primarily happen seated,
-    they're equipped with a <strong>bar for drinks and snacks</strong> with table service, plenty of cider and chill music.
+    Our boats offer two different experiences to choose from while happening at the same time:<br>
+    <strong>Tunes</strong>: Live DJ music, vibe with friends, enjoy the scenery<br>
+    <strong>Talky</strong>: Background music, chat with friends, possibly guided harbour tour<br>
+    Boarding, departure and arrival are identical for both boats.
+</p>
+
+<p>
+    These <strong>smaller boats</strong> each offer half the capacity of our party boat and will primarily happen seated.
+    They're equipped with a <strong>bar for drinks and snacks</strong> with table service, plenty of cider and chill music.
     However, due to the size and type of the event, we <strong>won't be able to provide a fursuit lounge</strong>. Take a partial or stay suited during the entire cruise (emergency unsuiting possible in restrooms).
 </p>

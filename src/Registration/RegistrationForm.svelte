@@ -407,7 +407,7 @@
             <div class="checkbox-group">
                 <input type="radio" name="boat" id="boatA" value={1} bind:group={boat} disabled={boatSlotsA <= 0}>
                 <label for="boatA" class:full={boatSlotsA <= 0}>
-                    Boat A<br>
+                    Boat Tunes<br>
                     {#if boatSlotsA > 0}
                         <span class="text-secondary">{boatSlotsA} free</span>
                     {:else}
@@ -418,7 +418,7 @@
             <div class="checkbox-group">
                 <input type="radio" name="boat" id="boatB" value={2} bind:group={boat} disabled={boatSlotsB <= 0}>
                 <label for="boatB" class:full={boatSlotsB <= 0}>
-                    Boat B<br>
+                    Boat Talky<br>
                     {#if boatSlotsB > 0}
                         <span class="text-secondary">{boatSlotsB} free</span>
                     {:else}

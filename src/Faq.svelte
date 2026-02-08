@@ -4,6 +4,35 @@
 
 <div class="faq textContent">
   <h2 class="text-headline text-large">Frequently Asked Questions</h2>
+  <Accordion question="How will the new digital entrance ticket work?">
+    <p>
+      Before boarding, you will need to provide your digital ticket from your email or browser in combination with your legal ID/passport.
+      After boarding, it will not be possible to be re-boarded, so please stay on the boat, otherwise we won't be able to allow you back on.
+    </p>
+  </Accordion>
+  <Accordion question="Will I still be able to get a con badge for Summerbo.at?">
+    <p>
+      A few weeks before the event, we will add a new optional option to the registration system where you can declare if you would like a physical con badge.
+    </p>
+  </Accordion>
+  <Accordion question="How does the double-cruise work?">
+    <p>
+      You're able to select which boat (tunes or talky) you want to be part of and can change your wish at any time, provided there is enough capacity.<br>
+      When both boats slots are filled, you can organize a swap with an attendee whishing to swap to your boat. Send us an email.<br><br>
+
+      All other details (location, boarding, departure) are identical. We'll have clear signage to guide you to your designated boat where your entrance ticket will be checked.
+    </p>
+  </Accordion>
+  <Accordion question="Can I freely choose which cruise to board?">
+    <p>
+      No, our checkin will only allow you to board the cruise (tunes or talky) you have selected during registration.
+    </p>
+  </Accordion>
+  <Accordion question="Where are the boats?">
+    <p>
+       You'll find our party or cruise boats at Überseebrücke, 20459 Hamburg. Near train station U Baumwall.
+    </p>
+  </Accordion>
   <Accordion question="What kind of things can we do at the party?">
     <p>
       There will be a <strong>dancefloor</strong>, multiple <strong>bars</strong>,
