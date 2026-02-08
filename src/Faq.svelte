@@ -60,15 +60,6 @@
       registration system.
     </p></Accordion
   >
-  <Accordion question="How much does the party cost?"
-    ><p>
-      You can purchase a <em>Normal</em> ticket for <strong>TBD&euro;</strong>.
-      We also offer a <abbr>VIP</abbr>
-      upgrade for additional <strong>TBD&euro;</strong>. Not only will this
-      include a special gift and a special <abbr>VIP</abbr> badge, but you also help
-      us to make the party even more awesome!
-    </p></Accordion
-  >
   <Accordion question="What is the minimum age for attending?"
     ><p>
       You need to be at least 18 years old on the day of the party. You will be
