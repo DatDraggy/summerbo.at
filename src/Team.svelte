@@ -10,19 +10,11 @@
     },
     {
       name: "Kieran",
-      role: "Web and Registration",
+      role: "IT and Registration",
       img: "img/staff/kieran.png",
       twitter: "DatDraggy",
       description:
         "I'm literally a dragon, like, actually in real life. I do computer things in my free time and, obviously, code a lot. This draggo is making sure that everything technical works smoothly. ",
-    },
-    {
-      name: "Hausken",
-      role: "Design and Web",
-      img: "img/staff/hausken.png",
-      twitter: "HauskenDE",
-      description:
-        "Ex-pat Australian, professional designer trying to make everything look nice. General color-mage, merch-wizard, typography-enginner and Akita.",
     },
     {
       name: "Cubitus",
@@ -41,11 +33,9 @@
         "A German black wolf from Stuttgart who can speak many languages if given cider. Wise and smart but loves to play tricks on people, but never with money.",
     },
     {
-      name: "Volunteer",
-      role: "Help make this party great!",
-      twitter: "summerbo_at",
-      description:
-        "At this moment we have no open positions, please check later this year if you are still interested in helping us! Thanks for checking us out!",
+      name: "Vaelken",
+      role: "Documentation",
+      description: "",
     },
   ];
 </script>
