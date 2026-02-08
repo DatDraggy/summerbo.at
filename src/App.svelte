@@ -122,8 +122,6 @@
                             month: "short"
                         })}.
                             Follow us on
-                            <a href="https://twitter.com/summerbo_at">Twitter</a>
-                            or
                             <a href="https://bsky.app/profile/summerbo.at">Bsky</a>
                             and join our <a href="https://t.me/summerboatinfo">Telegram</a> channel to be reminded!
                         </p>
@@ -215,13 +213,6 @@
                                     <Graphics
                                             type={"telegram"}
                                             style={"width: 24px; height: 24px"}
-                                    />
-                                </a
-                                >
-                                <a href="https://twitter.com/summerbo_at" class="social-link">
-                                    <Graphics
-                                            type={"twitter"}
-                                            style={"width: 24px; height: 24px;"}
                                     />
                                 </a
                                 >

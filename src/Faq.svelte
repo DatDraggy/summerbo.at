@@ -52,11 +52,9 @@
             >telegram info channel</a
             >
             or our
-            <a
-                    href="https://www.twitter.com/summerbo_at"
-                    rel="noopener"
-                    target="_blank">Twitter</a
-            >.
+            <a href="https://bsky.app/profile/summerbo.at"
+               rel="noopener"
+               target="_blank">Bsky</a>.
         </p>
     </Accordion>
     <Accordion question="Is this party affiliated with Eurofurence?">

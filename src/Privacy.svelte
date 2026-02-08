@@ -141,9 +141,7 @@
     request can be sent in several ways. Via email by sending a request to <a
       href="mailto:privacy@summerbo.at">privacy@summerbo.at</a
     >, by asking one of the Admins in the Telegram group
-    <a href="https://t.me/summerboat">@summerboat</a>, or sending a Direct
-    Message to our Twitter Account
-    <a href="https://www.twitter.com/summerbo_at">@Summerbo_at.</a>
+    <a href="https://t.me/summerboat">@summerboat</a>.
   </p>
   <p>
     Keep in mind that upon deletion of your data it is not possible to use our
@@ -193,9 +191,7 @@
     The data controller for your data on summerbo.at is summerbo.at itself. You
     can contact us via email (<a href="mailto:privacy@summerbo.at"
       >privacy@summerbo.at</a
-    >), via our Twitter account
-    <a href="https://www.twitter.com/summerbo_at">@summerbo_at</a>
-    or via Telegram by sending a message to one of the Admins in the
+    >) or via Telegram by sending a message to one of the Admins in the
     <a href="https://t.me/summerboat">@summerboat</a> group.
   </p>
   <p>
