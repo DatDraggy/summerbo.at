@@ -196,47 +196,50 @@
       </div>
     </div>
 
-    <h2 class="text-headline-line">__PARTY_SLOGAN__: Party</h2>
-    <div class="attendee-list">
-      <ul>
-        {#each party1Attendees as attendee}
-          <li>
-            {attendee.nickname}
-            {#if getRank(attendee)}
-              <span class="rank">{getRank(attendee)}</span>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-    </div>
+    <Accordion question="__PARTY_SLOGAN__: Party">
+      <div class="attendee-list">
+        <ul>
+          {#each party1Attendees as attendee}
+            <li>
+              {attendee.nickname}
+              {#if getRank(attendee)}
+                <span class="rank">{getRank(attendee)}</span>
+              {/if}
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </Accordion>
 
-    <h2 class="text-headline-line">__PARTY_SLOGAN__: Chill - Boat Tunes</h2>
-    <div class="attendee-list">
-      <ul>
-        {#each party2Tunes as attendee}
-          <li>
-            {attendee.nickname}
-            {#if getRank(attendee)}
-              <span class="rank">{getRank(attendee)}</span>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-    </div>
+    <Accordion question="__PARTY_SLOGAN__: Chill - Boat Tunes">
+      <div class="attendee-list">
+        <ul>
+          {#each party2Tunes as attendee}
+            <li>
+              {attendee.nickname}
+              {#if getRank(attendee)}
+                <span class="rank">{getRank(attendee)}</span>
+              {/if}
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </Accordion>
 
-    <h2 class="text-headline-line">__PARTY_SLOGAN__: Chill - Boat Talky</h2>
-    <div class="attendee-list">
-      <ul>
-        {#each party2Talky as attendee}
-          <li>
-            {attendee.nickname}
-            {#if getRank(attendee)}
-              <span class="rank">{getRank(attendee)}</span>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-    </div>
+    <Accordion question="__PARTY_SLOGAN__: Chill - Boat Talky">
+      <div class="attendee-list">
+        <ul>
+          {#each party2Talky as attendee}
+            <li>
+              {attendee.nickname}
+              {#if getRank(attendee)}
+                <span class="rank">{getRank(attendee)}</span>
+              {/if}
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </Accordion>
   {/if}
 </div>
 
