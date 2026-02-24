@@ -196,6 +196,8 @@
       </div>
     </div>
 
+    <h2 class="text-headline-line">Attendees</h2>
+
     <Accordion question="__PARTY_SLOGAN__: Party">
       <div class="attendee-list">
         <ul>
