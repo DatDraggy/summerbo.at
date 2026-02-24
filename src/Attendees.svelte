@@ -157,9 +157,6 @@
 
 <div class="text-content">
   <h2 class="text-headline">Attendee List</h2>
-  <p class="text-large">
-    The one and only passenger list for the boatparty! All people on this list are going to party hard on the coolest ship of Hamburg.
-  </p>
 
   {#if isLoading}
     <p>Loading attendee data...</p>
