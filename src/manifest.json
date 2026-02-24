@@ -1,6 +1,6 @@
 {
- "name": "Pawchella 2026 Summerbo.at Party",
- "short_name": "Pawchella",
+ "name": "__PARTY_SLOGAN__ __PARTY_YEAR__ Summerbo.at Party",
+ "short_name": "__PARTY_SLOGAN__",
  "theme_color": "#3EC1C7",
  "icons": [
   {

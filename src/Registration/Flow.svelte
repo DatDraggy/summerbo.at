@@ -124,7 +124,7 @@
         <span class="back-button" role="button" tabindex="0" on:keydown={resetParty} on:click={resetParty}><BackArrow/> Change Party</span>
     {/if}
 
-    <h2 class="text-headline">Registration</h2>
+    <h2 class="text-headline">Registration{#if party} &mdash; __PARTY_SLOGAN__: {party === 1 ? 'Party' : 'Chill'}{/if}</h2>
 
     {#if isLoading}
         <h2 class="text-headline-line">

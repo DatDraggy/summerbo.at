@@ -20,6 +20,7 @@
     import Default from "./Default.svelte";
     import Glympse from "./Glympse.svelte"
     import Benefactors from "./Benefactors.svelte";
+    import Attendees from "./Attendees.svelte";
     import Flow from "./Registration/Flow.svelte";
     import Confirm from "./Registration/Confirm.svelte";
     import Party from "./components/Info/Party.svelte";
@@ -27,8 +28,8 @@
     import Selector from "./components/Info/Selector.svelte";
 
     let header;
-    let departTime = new Date("2026-08-18T18:30:00+02:00");
-    let regTime = new Date("2026-02-15T20:00:00+01:00");
+    let departTime = new Date("__PARTY_ISO_DATE__T18:30:00+02:00");
+    let regTime = new Date("__REG_ISO_DATE__T20:00:00+01:00");
 
     let timeTillReg = 1;
 
@@ -97,7 +98,7 @@
                     <Link to="/archive/2023">2023</Link>
                     <Link to="/archive/2024">2024</Link>
                     <Link to="/archive/2025">2025</Link>
-                    <Link to="/">2026</Link>
+                    <Link to="/">__PARTY_YEAR__</Link>
                 </nav>
             </div>
             <div class="content-wrapper">
@@ -105,12 +106,15 @@
                     <div class="text-content">
                         <h2 class="text-headline">
                             Load up your confetti canons, it's&hellip;<br/><span
-                                class="color-secondary">Pawchella {departTime.getFullYear()}!</span
+                                class="color-secondary">__PARTY_SLOGAN__ {departTime.getFullYear()}!</span
                         >
                         </h2>
 
                         <Selector {departTime}/>
 
+                        <p>
+                            Check out our <Link to="/attendees">attendees</Link>!
+                        </p>
                         <p>
                             Made possible by our lovely 2023
                             <Link to="/benefactors">Benefactors</Link>
@@ -144,9 +148,7 @@
                 <Route path="badge">
                     <Redirect url="https://summerbo.at"/>
                 </Route>
-                <Route path="attendees">
-                    <Redirect url="https://reg.summerbo.at/attendees"/>
-                </Route>
+                <Route path="attendees" component={Attendees}/>
                 <Route path="contact">
                     <Redirect url="https://reg.summerbo.at/contact"/>
                 </Route>
@@ -238,6 +240,9 @@
                             </li>
                         </ul>
                         <ul>
+                            <li>
+                                <Link to="../attendees">Attendees</Link>
+                            </li>
                             <li>
                                 <Link to="../privacy">Privacy</Link>
                             </li>

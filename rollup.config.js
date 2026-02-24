@@ -5,16 +5,31 @@ import livereload from 'rollup-plugin-livereload';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
 import { spawn } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 
 const production = !process.env.ROLLUP_WATCH;
 
+const partyIsoDate = '2026-08-18';
+const regIsoDate = '2026-02-15';
+const dateObj = new Date(partyIsoDate);
+const day = dateObj.getDate();
+const month = dateObj.toLocaleString('en-US', { month: 'long' });
+const year = dateObj.getFullYear();
+
+const getOrdinal = (n) => {
+	const s = ['th', 'st', 'nd', 'rd'];
+	const v = n % 100;
+	return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
+
 const partyInfo = {
-	__PARTY_DATE__: '18th August',
-	__PARTY_YEAR__: '2026',
+	__PARTY_DATE__: `${getOrdinal(day)} ${month}`,
+	__PARTY_YEAR__: year.toString(),
 	__PARTY_SLOGAN__: 'Pawchella',
-	__PARTY_ISO_DATE__: '2026-08-18'
+	__PARTY_ISO_DATE__: partyIsoDate,
+	__REG_ISO_DATE__: regIsoDate
 };
 
 function serve() {
@@ -47,17 +62,26 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace({
+			values: partyInfo,
+			preventAssignment: true,
+			delimiters: ['', '']
+		}),
 		{
 			name: 'html-template',
 			buildStart() {
 				this.addWatchFile('src/index.html');
+				this.addWatchFile('src/manifest.json');
 			},
 			writeBundle() {
-				let html = readFileSync('src/index.html', 'utf8');
-				for (const [key, value] of Object.entries(partyInfo)) {
-					html = html.replace(new RegExp(key, 'g'), value);
+				const templates = ['src/index.html', 'src/manifest.json'];
+				for (const template of templates) {
+					let content = readFileSync(template, 'utf8');
+					for (const [key, value] of Object.entries(partyInfo)) {
+						content = content.replace(new RegExp(key, 'g'), value);
+					}
+					writeFileSync(template.replace('src/', 'public/'), content);
 				}
-				writeFileSync('public/index.html', html);
 			}
 		},
 		svelte({

@@ -21,7 +21,7 @@
     <div class="party-selection-container">
         <input bind:group={party} type="radio" name="party" value="1" id="party1">
         <label class="party-selection-element" for="party1">
-            <p><i>Pawchella</i>: Party</p>
+            <p><i>__PARTY_SLOGAN__</i>: Party</p>
             <h3>
                 {departTime.toLocaleDateString('en-US', {weekday: 'short'})}, {departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
                 Party on the elbe with outdoor dance floors and live music
@@ -29,7 +29,7 @@
         </label>
         <input bind:group={party} type="radio" name="party" value="2" id="party2">
         <label class="party-selection-element" for="party2">
-            <p><i>Pawchella</i>: Chill</p>
+            <p><i>__PARTY_SLOGAN__</i>: Chill</p>
             <h3>
                 {departTimeChill.toLocaleDateString('en-US', {weekday: 'short'})}, {departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
                 Relaxed trip around different parts of Hamburg
