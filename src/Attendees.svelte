@@ -137,20 +137,19 @@
     if (a.rank >= 2) return 'Staff';
     if (a.rank === 1) return 'Crew';
     if (a.sponsor) return 'VIP';
-    if (a.benefactor) return 'Benefactor';
     return null;
   }
 
   $: party1Attendees = attendees.filter(a => a.party === 1).sort((a, b) => {
-    if (a.benefactor !== b.benefactor) return a.benefactor ? -1 : 1;
+    if (a.rank !== b.rank) return b.rank - a.rank;
     return a.nickname.localeCompare(b.nickname);
   });
   $: party2Tunes = attendees.filter(a => a.party === 2 && a.boat === 1).sort((a, b) => {
-    if (a.benefactor !== b.benefactor) return a.benefactor ? -1 : 1;
+    if (a.rank !== b.rank) return b.rank - a.rank;
     return a.nickname.localeCompare(b.nickname);
   });
   $: party2Talky = attendees.filter(a => a.party === 2 && a.boat === 2).sort((a, b) => {
-    if (a.benefactor !== b.benefactor) return a.benefactor ? -1 : 1;
+    if (a.rank !== b.rank) return b.rank - a.rank;
     return a.nickname.localeCompare(b.nickname);
   });
 </script>
@@ -195,7 +194,7 @@
 
     <h2 class="text-headline-line">Attendees</h2>
 
-    <Accordion question="__PARTY_SLOGAN__: Party">
+    <Accordion question={`__PARTY_SLOGAN__: Party (${party1Attendees.length} Attendees)`}>
       <div class="attendee-list">
         <ul>
           {#each party1Attendees as attendee}
@@ -210,7 +209,7 @@
       </div>
     </Accordion>
 
-    <Accordion question="__PARTY_SLOGAN__: Chill - Boat Tunes">
+    <Accordion question={`__PARTY_SLOGAN__: Chill - Boat Tunes (${party2Tunes.length} Attendees)`}>
       <div class="attendee-list">
         <ul>
           {#each party2Tunes as attendee}
@@ -225,7 +224,7 @@
       </div>
     </Accordion>
 
-    <Accordion question="__PARTY_SLOGAN__: Chill - Boat Talky">
+    <Accordion question={`__PARTY_SLOGAN__: Chill - Boat Talky (${party2Talky.length} Attendees)`}>
       <div class="attendee-list">
         <ul>
           {#each party2Talky as attendee}
