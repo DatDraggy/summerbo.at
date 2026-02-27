@@ -96,10 +96,6 @@
     <li>Free welcome drink</li>
   </ul>
 
-  <p>
-    If you'd like to help us out, add this package to your registration on <a href="https://reg.summerbo.at">reg.summerbo.at</a>.
-  </p>
-
   <h2 class="text-headline-line">Why?</h2>
   <p>
     As you might've experienced yourself as an attendee, a change in the location of an event is not a simple task for both sides.<br>

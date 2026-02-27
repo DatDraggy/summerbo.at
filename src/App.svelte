@@ -143,7 +143,7 @@
                 </Route>
                 <Route path="confirm" component={Confirm}/>
                 <Route path="login">
-                    <Redirect url="https://reg.summerbo.at/login"/>
+                    <Redirect url="https://summerbo.at/register"/>
                 </Route>
                 <Route path="badge">
                     <Redirect url="https://summerbo.at"/>

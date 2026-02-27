@@ -452,7 +452,7 @@
         <div class="checkbox-group">
             <input name="publicList" id="publicList" type="checkbox" class="input" bind:checked={list}>
             <label for="publicList"> I want my nickname to be publicly listed on the
-                <a href="https://reg.summerbo.at/attendees" target="_blank">attendees</a>
+                <a href="https://summerbo.at/attendees" target="_blank">attendees</a>
                 list</label>
         </div>
     </div>
