@@ -32,6 +32,11 @@
                 credentials: 'include',
             });
 
+            if (response.status === 401) {
+                window.location.href = '/register?unauth=1';
+                return;
+            }
+
             if (!response.ok) {
                 throw new Error('Unknown error during logout');
             } else {
@@ -77,6 +82,11 @@
                     },
                     credentials: 'include',
                 });
+
+                if (response.status === 401) {
+                    window.location.href = '/register?unauth=1';
+                    return;
+                }
 
                 const data = await response.json();
                 if (!response.ok) {

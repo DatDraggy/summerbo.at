@@ -1,10 +1,17 @@
 <script lang="ts">
     export let loginUrl: string;
+    export let isUnauthenticated: boolean = false;
 </script>
 
 <h2 class="text-headline-line">
     Eurofurence Identity
 </h2>
+
+{#if isUnauthenticated}
+    <p class="error-message">
+        Your session has expired. Please log in again to continue.
+    </p>
+{/if}
 
 <p>
     In order to sign up for our party you'll need a valid Eurofurence registration. Your ticket price will
