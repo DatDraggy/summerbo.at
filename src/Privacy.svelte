@@ -70,7 +70,7 @@
     title="Tracking Optout"
     style="border: 0; height:160px; width: 350px;"
     src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"
-  />
+  ></iframe>
   <h3 class="textLarge"><strong>1.2</strong> Private information</h3>
   <p>
     We also request a few private details to make sure that during the party and

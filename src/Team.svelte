@@ -53,7 +53,7 @@
           style="display: block; width: 4rem; border-radius: 50%; margin-bottom:2rem;margin-top:1rem;"
           alt={`Photo of ${member.name}`}
         />
-      {:else}<div style="height: 4rem; margin-top:1rem; margin-bottom:2rem" />
+      {:else}<div style="height: 4rem; margin-top:1rem; margin-bottom:2rem"></div>
       {/if}
 
       <p>
