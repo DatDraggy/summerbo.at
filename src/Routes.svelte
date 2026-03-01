@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Route } from "tinro";
+    import { Route } from "tinro/cmp";
     import Privacy from './Privacy.svelte';
     import Conduct from "./Conduct.svelte";
     import Team from "./Team.svelte";
@@ -20,8 +20,8 @@
     import Confirm from "./Registration/Confirm.svelte";
     import Selector from "./components/Info/Selector.svelte";
 
-    export let departTime;
-    export let header;
+    export let departTime: Date;
+    export let header: HTMLElement;
 </script>
 
 <div class="content-wrapper">

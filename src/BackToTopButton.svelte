@@ -3,9 +3,9 @@
 
   export let scrollTo: HTMLElement;
 
-  let scrollY;
-  let scrollX;
-  let innerHeight;
+  let scrollY: number;
+  let scrollX: number;
+  let innerHeight: number;
 
   const scrollToTop = () => {
     scrollTo.scrollIntoView();

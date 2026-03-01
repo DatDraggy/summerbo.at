@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { Router, Route, Link, navigate } from "svelte-routing";
   import Overlay from "./components/Overlay.svelte";
   import ComplianceNav from "./components/ComplianceNav.svelte";
   import Privacy from "./Privacy.svelte";
   import Conduct from "./Conduct.svelte";
+  import { router } from "tinro";
   export let legalRoute;
 </script>
 
-<Router>
+<div>
   {#if legalRoute}
-    <Overlay onClose={() => navigate("/")}>
-      <Router>
+    <Overlay onClose={() => router.goto("/")}>
+      <div>
         <ComplianceNav class="ma-1" />
-        <Route path="privacy" component={Privacy} />
-        <Route path="conduct" component={Conduct} />
-      </Router>
+        <Privacy />
+        <Conduct />
+      </div>
     </Overlay>
   {/if}
-</Router>
+</div>

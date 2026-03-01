@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { Link, Router } from "svelte-routing";
   export let className = "";
   export { className as class };
   export let style = "";
-  export let primary = false;
 </script>
 
-<Router {primary}>
-  <nav class={`headerNavigation ${className}`} {style}>
-    <Link class="headerNavItem" to="/privacy">Privacy</Link>
-    <Link class="headerNavItem" to="/conduct">Conduct</Link>
-  </nav>
-</Router>
+<nav class={`headerNavigation ${className}`} {style}>
+  <a class="headerNavItem" href="/privacy">Privacy</a>
+  <a class="headerNavItem" href="/conduct">Conduct</a>
+</nav>

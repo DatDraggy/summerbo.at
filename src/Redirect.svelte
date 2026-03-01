@@ -1,15 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { navigate } from "svelte-routing";
+  import { router } from "tinro";
   export let url = "";
   export let external = true;
 
-  const redirect = (url) => {
+  const redirect = (url: string) => {
     window.setTimeout(() => {
       if (external) {
         window.location.replace(url);
       } else {
-        navigate(url);
+        router.goto(url);
       }
     }, 500);
   };

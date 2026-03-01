@@ -1,20 +1,20 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    export let departTime;
-    export let regTime;
+    export let departTime: Date;
+    export let regTime: Date;
 
-    let timeTillReg = 1;
+    let timeTillReg: number = 1;
 
-    let days;
-    let hours;
-    let minutes;
-    let seconds;
-    let distance;
+    let days: number;
+    let hours: number;
+    let minutes: number;
+    let seconds: number;
+    let distance: number;
 
-    const getTimeOffset = (reference) => {
+    const getTimeOffset = (reference: Date) => {
         let now = new Date().getTime();
-        distance = Math.max(reference - now, 0);
+        distance = Math.max(reference.getTime() - now, 0);
         days = Math.floor(distance / (1000 * 60 * 60 * 24));
         hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
