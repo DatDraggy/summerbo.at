@@ -2,12 +2,18 @@
     import Graphics from "./components/Graphics.svelte";
     import Timer from "./Timer.svelte";
     import Routes from "./Routes.svelte";
+    import { onMount } from "svelte";
 
     let header;
     let departTime = new Date("__PARTY_ISO_DATE__T18:30:00+02:00");
     let regTime = new Date("__REG_ISO_DATE__T20:00:00+01:00");
 
     let timeTillReg = 1;
+
+    onMount(() => {
+        let now = new Date().getTime();
+        timeTillReg = Math.max(regTime.getTime() - now, 0);
+    });
 </script>
 
 <main>
