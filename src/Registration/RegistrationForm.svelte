@@ -32,7 +32,7 @@
     const sevenDaysAfter = new Date(partyDate);
     sevenDaysAfter.setDate(partyDate.getDate() + 7);
 
-    const showQrButton = today >= sevenDaysBefore && today <= sevenDaysAfter;
+    const showQrButton = true;//today >= sevenDaysBefore && today <= sevenDaysAfter;
 
     async function handleLogout() {
         try {
@@ -150,7 +150,7 @@
             <h2 class="text-headline">Your Check-in Code</h2>
             <p>
                 Present this code to a staff member when boarding the boat.
-                Please have your legal ID ready as well.
+                Please have your legal ID/passport ready as well.
             </p>
             {#if id}
                 <div style="margin: 1rem 0;">

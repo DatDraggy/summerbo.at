@@ -31,7 +31,7 @@
         <div class="container">
             <p>
                 Present this code to a staff member when boarding the boat.
-                Please have your legal ID ready as well.
+                Please have your legal ID/passport ready as well.
             </p>
             <div class="qr-wrapper">
                 <QrCode data={attendeeId} />
