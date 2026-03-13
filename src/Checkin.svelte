@@ -10,7 +10,7 @@
     let checkinSuccess: string | null = null;
     let isLoading = false;
     let showConfirmation = false;
-    
+
     // Attendee data from API
     let attendee: {
         id: number;
@@ -25,14 +25,12 @@
     const getIsMultiBoatDay = () => {
         const today = new Date();
         const cruiseDate = new Date('__CRUISE_DATE__');
-
-        // Compare year, month, and day, ignoring time
         return today.getFullYear() === cruiseDate.getFullYear() &&
             today.getMonth() === cruiseDate.getMonth() &&
             today.getDate() === cruiseDate.getDate();
     };
     const isMultiBoatDay = getIsMultiBoatDay();
-    let selectedBoat: number = 0; // Default to 0 to force selection
+    let selectedBoat: number = 0;
 
     // Sponsor gift confirmation
     let sponsorGiftHandedOut = false;
@@ -42,7 +40,6 @@
 
     function restartScanner() {
         stopScanner();
-        // A small delay to ensure everything is reset before starting again
         setTimeout(() => {
             startScanner();
         }, 100);
@@ -62,7 +59,7 @@
 
     function startScanner() {
         if (!document.getElementById('qr-reader')) {
-            setTimeout(startScanner, 100); // Wait for the element to be in the DOM
+            setTimeout(startScanner, 100);
             return;
         }
 
@@ -76,8 +73,7 @@
                 Html5QrcodeSupportedFormats.QR_CODE,
                 Html5QrcodeSupportedFormats.DATA_MATRIX
             ],
-            inversionAttempts: 'invertNegatives', // Attempt to invert colors for better detection of low-contrast codes
-            disableCanvasStreams: true // Performance optimization
+            disableCanvasStreams: false
         };
 
         if (useNativeScanner) {
@@ -85,17 +81,19 @@
                 useBarCodeDetectorIfSupported: true
             };
         }
-        
+
         Html5Qrcode.getCameras().then(cameras => {
             if (cameras && cameras.length) {
-                // prefer back camera
                 const cameraId = cameras.find(c => c.label.toLowerCase().includes('back'))?.id || cameras[0].id;
+
                 localScanner.start(
                     cameraId,
                     config,
                     onScanSuccess,
                     onScanFailure
-                ).catch(err => {
+                ).then(() => {
+                    setTimeout(applyInversionWorkaround, 200);
+                }).catch(err => {
                     cameraError = `Unable to start scanner: ${err}`;
                     console.error(cameraError);
                 });
@@ -109,23 +107,51 @@
         });
     }
 
-    function stopScanner() {
-        if (scanner) {
-            if (scanner.isScanning) {
-                scanner.stop().catch(err => console.error("Failed to stop scanner", err));
+    // --- The Inverted/Mirrored Workaround ---
+    function applyInversionWorkaround() {
+        const canvas = document.querySelector('#qr-reader canvas') as HTMLCanvasElement;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const originalDrawImage = ctx.drawImage;
+        let frameCounter = 0;
+
+        ctx.drawImage = function(this: CanvasRenderingContext2D, ...args: any[]) {
+            frameCounter++;
+
+            this.filter = 'none';
+            this.setTransform(1, 0, 0, 1, 0, 0);
+
+            const cycle = frameCounter % 3;
+
+            if (cycle === 1) {
+                this.translate(canvas.width, 0);
+                this.scale(-1, 1);
+            } else if (cycle === 2) {
+                this.filter = 'invert(100%)';
             }
+
+            return originalDrawImage.apply(this, args as any);
+        };
+    }
+
+    function stopScanner() {
+        if (scanner && scanner.isScanning) {
+            scanner.stop().catch(err => console.error("Failed to stop scanner", err));
         }
     }
 
     function onScanSuccess(decodedText: string, decodedResult: any) {
         if (isLoading) return;
-        scanResult = decodedText;
+        scanResult = decodedText; // Captures the exact string read
         stopScanner();
         fetchAttendeeDetails(decodedText);
     }
 
     function onScanFailure(error: any) {
-        // ignore, this is called frequently when no code is found
+        // Ignored
     }
 
     // --- API Logic ---
@@ -157,7 +183,7 @@
 
         } catch (e: any) {
             checkinError = e.message;
-            setTimeout(resetScanner, 3000); // Show error for 3s then reset
+            setTimeout(resetScanner, 3000);
         } finally {
             isLoading = false;
         }
@@ -170,7 +196,7 @@
             alert('Please confirm the sponsor gift was handed out.');
             return;
         }
-        
+
         isLoading = true;
         checkinError = null;
         try {
@@ -178,9 +204,9 @@
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     id: attendee.id,
-                    sponsor_gift_handed_out: sponsorGiftHandedOut 
+                    sponsor_gift_handed_out: sponsorGiftHandedOut
                 })
             });
 
@@ -193,7 +219,7 @@
             checkinSuccess = `Successfully checked in ${attendee.firstname} ${attendee.lastname}.`;
             showConfirmation = false;
             attendee = null;
-            setTimeout(resetScanner, 2000); // Show success for 2s then reset
+            setTimeout(resetScanner, 2000);
 
         } catch (e: any) {
             checkinError = e.message;
@@ -201,9 +227,9 @@
             isLoading = false;
         }
     }
-    
+
     // --- UI Actions ---
-    
+
     function cancelCheckin() {
         showConfirmation = false;
         attendee = null;
@@ -232,6 +258,7 @@
         width: 100%;
         border: 1px solid #ccc;
         border-radius: 8px;
+        overflow: hidden;
     }
     .error, .success {
         margin-top: 1rem;
@@ -245,6 +272,15 @@
     .success {
         background-color: #d4edda;
         color: #155724;
+    }
+    .debug-data {
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        background-color: #e2e8f0;
+        border-left: 4px solid #4a5568;
+        border-radius: 4px;
+        font-family: monospace;
+        word-break: break-all;
     }
     .confirmation-dialog {
         margin-top: 1rem;
@@ -297,9 +333,16 @@
     <div class="debug-toggle" style="margin-bottom: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
         <label>
             <input type="checkbox" bind:checked={useNativeScanner} on:change={restartScanner}>
-            Use native scanner (experimentala)
+            Use native scanner (experimental)
         </label>
     </div>
+
+    {#if scanResult}
+        <div class="debug-data">
+            <strong>Last Scanned Data:</strong><br>
+            {scanResult}
+        </div>
+    {/if}
 
     {#if cameraError}
         <div class="error">{cameraError}</div>
@@ -308,7 +351,7 @@
     {#if checkinError}
         <div class="error">{checkinError}</div>
     {/if}
-    
+
     {#if checkinSuccess}
         <div class="success">{checkinSuccess}</div>
     {/if}
@@ -328,7 +371,7 @@
                 <p><strong>Date of Birth:</strong> {attendee.dob}</p>
                 <p><strong>Sponsor:</strong> {attendee.isSponsor ? 'Yes' : 'No'}</p>
             </div>
-            
+
             <p>Are you sure you want to check this person in?</p>
 
             {#if attendee.isSponsor}
@@ -364,5 +407,4 @@
             </label>
         </div>
     {/if}
-
 </div>
