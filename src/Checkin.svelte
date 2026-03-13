@@ -75,7 +75,9 @@
             formatsToSupport: [
                 Html5QrcodeSupportedFormats.QR_CODE,
                 Html5QrcodeSupportedFormats.DATA_MATRIX
-            ]
+            ],
+            inversionAttempts: 'invertNegatives', // Attempt to invert colors for better detection of low-contrast codes
+            disableCanvasStreams: true // Performance optimization
         };
 
         if (useNativeScanner) {
