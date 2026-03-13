@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
-    import { Html5Qrcode } from 'html5-qrcode';
+    import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
     // UI state
     let scanner: Html5Qrcode | null = null;
@@ -71,7 +71,11 @@
 
         const config: any = {
             fps: 10,
-            qrbox: { width: 250, height: 250 }
+            qrbox: { width: 250, height: 250 },
+            formatsToSupport: [
+                Html5QrcodeSupportedFormats.QR_CODE,
+                Html5QrcodeSupportedFormats.DATA_MATRIX
+            ]
         };
 
         if (useNativeScanner) {
@@ -291,7 +295,7 @@
     <div class="debug-toggle" style="margin-bottom: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
         <label>
             <input type="checkbox" bind:checked={useNativeScanner} on:change={restartScanner}>
-            Use native scanner (experimental)
+            Use native scanner (experimentala)
         </label>
     </div>
 
