@@ -1,6 +1,7 @@
 <script lang="ts">
 
     export let departTime;
+    export let onSelectedParty: (party: number) => void;
     const departTimeChill = new Date(departTime);
     departTimeChill.setDate(departTimeChill.getDate() + 5);
     departTimeChill.setHours(departTimeChill.getHours() - 5);
@@ -9,8 +10,9 @@
     let party: string = '0';
 
     function handleSelection() {
-        if (party) {
-            this.dispatchEvent(new CustomEvent('selectedParty', {detail: parseInt(party)}));
+        const partyId = parseInt(party);
+        if (partyId === 1 || partyId === 2) {
+            onSelectedParty(partyId);
         }
     }
 </script>

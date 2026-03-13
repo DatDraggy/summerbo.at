@@ -17,6 +17,9 @@
     export let boatSlotsA: number;
     export let boatSlotsB: number;
 
+
+    export let onUpdateStatus: () => void = () => {};
+
     let isLoading = false;
     let error = '';
     let success = false;
@@ -105,7 +108,7 @@
             if (data.id) {
                 id = data.id;
                 if (!isRegistered) {
-                    this.dispatchEvent(new CustomEvent('updateStatus'));
+                    onUpdateStatus();
                 }
                 isRegistered = true;
                 success = true;

@@ -104,9 +104,9 @@
         }
     }
 
-    function handleParty(value: CustomEvent) {
-        if (value.detail == 1 || value.detail == 2) {
-            party = value.detail;
+    function handleParty(selectedParty: number) {
+        if (selectedParty == 1 || selectedParty == 2) {
+            party = selectedParty;
             fetchDetails();
         }
     }
@@ -157,7 +157,7 @@
                         <a href="/checkin" class="button">Go to Staff Check-in</a>
                     </div>
                 {/if}
-                <PartySelection {departTime} on:selectedParty="{handleParty}"/>
+                <PartySelection {departTime} onSelectedParty={handleParty}/>
             {:else}
                 <!-- Party Selected -->
                 {#if isWaitlisted && isRegistrationPossible}
@@ -175,7 +175,7 @@
                     {/if}
 
                     <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} on:updateStatus={handleStatusUpdate} />
+                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} onUpdateStatus={handleStatusUpdate} />
                 {:else if isWaitlisted}
                     <p>
                         Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
