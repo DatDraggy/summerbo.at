@@ -1,7 +1,6 @@
 <script lang="ts">
-    import {onMount, createEventDispatcher} from "svelte";
-
-    const dispatch = createEventDispatcher();
+    import Overlay from "../components/Overlay.svelte";
+    import QrCode from "../components/QrCode.svelte";
 
     export let isRegistered: boolean;
     export let nickname: string;
@@ -21,6 +20,19 @@
     let isLoading = false;
     let error = '';
     let success = false;
+    let showQrModal = false;
+
+    const partyDate = new Date('__PARTY_ISO_DATE__');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const sevenDaysBefore = new Date(partyDate);
+    sevenDaysBefore.setDate(partyDate.getDate() - 7);
+
+    const sevenDaysAfter = new Date(partyDate);
+    sevenDaysAfter.setDate(partyDate.getDate() + 7);
+
+    const showQrButton = today >= sevenDaysBefore && today <= sevenDaysAfter;
 
     async function handleLogout() {
         try {
@@ -48,69 +60,65 @@
         }
     }
 
-    onMount(() => {
-        const form = document.getElementById('reg-form') as HTMLFormElement;
+    async function handleSubmit(event) {
+        isLoading = true;
+        error = '';
+        success = false;
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            isLoading = true;
-            error = '';
-            success = false;
+        if (nickname.length < 1 || nickname.length > 20 ||
+            !/^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])$/.test(nickname)) {
+            //^ Bruh
+            error = "Your nickname can only contain 2 spaces, 2 special characters. There is a required length of 1 to 20 characters.";
+            isLoading = false;
+            return;
+        }
 
-            if (nickname.length < 1 || nickname.length > 20 ||
-                !/^([A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*|[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[^A-Za-z0-9 ]?[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ])$/.test(nickname)) {
-                //^ Bruh
-                error = "Your nickname can only contain 2 spaces, 2 special characters. There is a required length of 1 to 20 characters.";
+        try {
+            const response = await fetch('https://api.summerbo.at/auth/register', {
+                method: isRegistered ? 'PUT' : 'POST',
+                body: JSON.stringify({
+                    nickname: nickname,
+                    fursuiter: isFursuiter,
+                    sponsor: isVIP,
+                    country: country,
+                    list: list,
+                    tos: isAcceptTos,
+                    party: party,
+                    boat: boat,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (response.status === 401) {
+                window.location.href = '/register?unauth=1';
                 return;
             }
 
-            try {
-                const response = await fetch('https://api.summerbo.at/auth/register', {
-                    method: isRegistered ? 'PUT' : 'POST',
-                    body: JSON.stringify({
-                        nickname: nickname,
-                        fursuiter: isFursuiter,
-                        sponsor: isVIP,
-                        country: country,
-                        list: list,
-                        tos: isAcceptTos,
-                        party: party,
-                        boat: boat,
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                });
-
-                if (response.status === 401) {
-                    window.location.href = '/register?unauth=1';
-                    return;
-                }
-
-                const data = await response.json();
-                if (!response.ok) {
-                    throw new Error(data.error || 'Unknown error during registration');
-                }
-
-                if (data.id) {
-                    id = data.id;
-                    if (!isRegistered) {
-                        dispatch('updateStatus');
-                    }
-                    isRegistered = true;
-                    success = true;
-                } else {
-                    throw new Error('No ID received from API, please try reloading the page.');
-                }
-            } catch (err: any) {
-                console.error('Error submitting details:', err);
-                error = err.message;
-            } finally {
-                isLoading = false;
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Unknown error during registration');
             }
-        });
-    });
+
+            if (data.id) {
+                id = data.id;
+                if (!isRegistered) {
+                    this.dispatchEvent(new CustomEvent('updateStatus'));
+                }
+                isRegistered = true;
+                success = true;
+            } else {
+                throw new Error('No ID received from API, please try reloading the page.');
+            }
+        } catch (err: any) {
+            console.error('Error submitting details:', err);
+            error = err.message;
+        } finally {
+            isLoading = false;
+        }
+    }
 </script>
 
 {#if !isRegistered}
@@ -127,15 +135,41 @@
     <p>To allow even more furs to enjoy our chill cruise, we've chartered a second boat, so choose wisely!</p>
 {/if}
 
-{#if id}
+{#if id && showQrButton}
     <p>Your registration number is {id}</p>
+    <div style="margin-bottom: 1rem;">
+        <button type="button" class="button button-primary" on:click={() => showQrModal = true}>
+            Show Check-in Code
+        </button>
+    </div>
+{/if}
+
+{#if showQrModal}
+    <Overlay on:close={() => showQrModal = false}>
+        <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; color: black;">
+            <h2 class="text-headline">Your Check-in Code</h2>
+            <p>
+                Present this code to a staff member when boarding the boat.
+                Please have your legal ID ready as well.
+            </p>
+            {#if id}
+                <div style="margin: 1rem 0;">
+                    <QrCode data={id.toString()} />
+                </div>
+                <p style="margin-top: 1rem;">Attendee ID: <strong>{id}</strong></p>
+            {/if}
+            <button type="button" class="button button-primary" style="margin-top: 1rem;" on:click={() => showQrModal = false}>
+                Close
+            </button>
+        </div>
+    </Overlay>
 {/if}
 
 <h2 class="text-headline-line">
     Your Details
 </h2>
 
-<form class="form-wrapper" id="reg-form">
+<form class="form-wrapper" on:submit|preventDefault={handleSubmit}>
     <div class="input-wrapper">
         <label for="nickname"><span>Nickname</span></label>
         <input name="nickname" id="nickname" class="input" placeholder="Nickname" autocomplete="nickname" required

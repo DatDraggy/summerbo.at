@@ -18,6 +18,8 @@
     import Attendees from "./Attendees.svelte";
     import Flow from "./Registration/Flow.svelte";
     import Confirm from "./Registration/Confirm.svelte";
+    import Checkin from "./Checkin.svelte";
+    import ShowCode from "./ShowCode.svelte";
     import Selector from "./components/Info/Selector.svelte";
 
     export let departTime: Date;
@@ -64,6 +66,8 @@
     <Route path="/register">
         <Flow {departTime} />
     </Route>
+    <Route path="/checkin"><Checkin /></Route>
+    <Route path="/show-code"><ShowCode /></Route>
     <Route path="/confirm"><Confirm/></Route>
     <Route path="/login" redirect="/register"/>
     <Route path="/badge" redirect="/"/>

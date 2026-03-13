@@ -1,18 +1,16 @@
 <script lang="ts">
-    import {createEventDispatcher} from "svelte";
 
     export let departTime;
     const departTimeChill = new Date(departTime);
     departTimeChill.setDate(departTimeChill.getDate() + 5);
     departTimeChill.setHours(departTimeChill.getHours() - 5);
 
-    let party: string = '0';
 
-    const dispatch = createEventDispatcher();
+    let party: string = '0';
 
     function handleSelection() {
         if (party) {
-            dispatch('selectedParty', parseInt(party));
+            this.dispatchEvent(new CustomEvent('selectedParty', {detail: parseInt(party)}));
         }
     }
 </script>

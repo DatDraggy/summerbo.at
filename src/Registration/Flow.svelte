@@ -23,6 +23,7 @@
     let isWaitlisted = false;
     let boatSlotsA = 0;
     let boatSlotsB = 0;
+    let rank: number = 0;
 
     let id: number | null = null;
     let nickname = '';
@@ -70,6 +71,7 @@
                 isRegistered = !!data.is_registered;
                 isWaitlisted = !!data.is_waitlisted;
                 nickname = data.nickname ?? '';
+                rank = data.rank ?? 0;
                 if (party !== 0) {
                     if (isRegistered) {
                         id = data.id;
@@ -150,6 +152,11 @@
         {#if isLoggedIn}
             <!-- Logged in -->
             {#if !party}
+                {#if rank === 3}
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <a href="/checkin" class="button">Go to Staff Check-in</a>
+                    </div>
+                {/if}
                 <PartySelection {departTime} on:selectedParty="{handleParty}"/>
             {:else}
                 <!-- Party Selected -->

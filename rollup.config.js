@@ -11,6 +11,7 @@ import { readFileSync, writeFileSync } from 'fs';
 const production = !process.env.ROLLUP_WATCH;
 
 const partyIsoDate = '2026-08-18';
+const chillIsoDate = '2026-08-23';
 const regIsoDate = '2026-02-15';
 const dateObj = new Date(partyIsoDate);
 const day = dateObj.getDate();
@@ -28,7 +29,8 @@ const partyInfo = {
 	__PARTY_YEAR__: year.toString(),
 	__PARTY_SLOGAN__: 'Pawchella',
 	__PARTY_ISO_DATE__: partyIsoDate,
-	__REG_ISO_DATE__: regIsoDate
+	__REG_ISO_DATE__: regIsoDate,
+	__CRUISE_DATE__: chillIsoDate
 };
 
 function serve() {
