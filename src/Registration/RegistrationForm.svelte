@@ -35,7 +35,7 @@
     const sevenDaysAfter = new Date(partyDate);
     sevenDaysAfter.setDate(partyDate.getDate() + 7);
 
-    const showQrButton = true;//today >= sevenDaysBefore && today <= sevenDaysAfter;
+    const showQrButton = today >= sevenDaysBefore && today <= sevenDaysAfter;
 
     async function handleLogout() {
         try {
