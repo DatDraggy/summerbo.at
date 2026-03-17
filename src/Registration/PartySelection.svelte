@@ -3,7 +3,7 @@
 
     export let departTime;
     export let onSelectedParty: (party: number) => void;
-    const departTimeChill = new new Date(departTime);
+    const departTimeChill = new Date(departTime);
     departTimeChill.setUTCDate(departTimeChill.getUTCDate() + 5);
     departTimeChill.setUTCHours(departTimeChill.getUTCHours() - 5);
 
