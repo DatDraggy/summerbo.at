@@ -1,12 +1,18 @@
 <script>
+    import {formatDate, formatTime} from "../../helper/date.js";
+
     export let departTime;
     const actualDepartTime = new Date(departTime);
-    actualDepartTime.setMinutes(actualDepartTime.getMinutes() + 30);
+    actualDepartTime.setUTCMinutes(actualDepartTime.getUTCMinutes() + 30);
+
+    const dateString = formatDate(departTime, {month: 'long', day: 'numeric', year: 'numeric'});
+    const timeString = formatTime(departTime, {hour: '2-digit', minute: '2-digit'});
+    const actualDepartTimeString = formatTime(actualDepartTime, {hour: '2-digit', minute: '2-digit'});
 </script>
 
 <p>
     nu geiht dat in de vierde Runnd, min Jung! In Hamburg, we'll be the first to party before we dive into the sea of fur at Eurofurence!
-    Just like the previous years, we'll again be boarding the great and grand MS Hamburg at Überseebrücke on the Elbe with countless party-furs on {departTime.toLocaleDateString('en-US', {month: 'long'})} {departTime.getDate()}, {departTime.getFullYear()} at {departTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})} and depart at {actualDepartTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})} to party all
+    Just like the previous years, we'll again be boarding the great and grand MS Hamburg at Überseebrücke on the Elbe with countless party-furs on {dateString} at {timeString} and depart at {actualDepartTimeString} to party all
     evening, making a round trip on the Elbe through Hamburg with live music on the TWO outer decks.
 </p>
 <div class="pricing">

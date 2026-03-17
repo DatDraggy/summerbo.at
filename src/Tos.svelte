@@ -45,10 +45,6 @@
       emails that are unrelated to our party.
     </li>
     <li>
-      Summerbo.at is a public event and you acknowledge that you are required to
-      wear a badge with your nickname and country.
-    </li>
-    <li>
       You agree to be included on the public attendee list if you do not opt-out
       of the list during registration or in your user area.
     </li>

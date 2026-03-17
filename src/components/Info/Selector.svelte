@@ -1,31 +1,35 @@
 <script>
-import Chill from "./Chill.svelte";
-import Party from "./Party.svelte";
+    import Chill from "./Chill.svelte";
+    import Party from "./Party.svelte";
+    import {formatDate, formatTime} from "../../helper/date.js";
 
-export let departTime;
+    export let departTime;
 
-const departTimeChill = new Date(departTime);
-departTimeChill.setDate(departTimeChill.getDate() + 5);
-departTimeChill.setHours(departTimeChill.getHours() - 5);
+    const departTimeChill = new Date(departTime);
+    departTimeChill.setUTCDate(departTimeChill.getUTCDate() + 5);
+    departTimeChill.setUTCHours(departTimeChill.getUTCHours() - 5);
 
-let selected = 'party';
+    let selected = 'party';
 
-function handleParty() {
-    selected = 'party';
-}
-function handleChill() {
-    selected = 'chill';
-}
+    function handleParty() {
+        selected = 'party';
+    }
+    function handleChill() {
+        selected = 'chill';
+    }
+
+    const partyDateString = `${formatDate(departTime, {month: 'short', day: 'numeric'})}, ${formatTime(departTime, {hour: '2-digit', minute: '2-digit'})}`;
+    const chillDateString = `${formatDate(departTimeChill, {month: 'short', day: 'numeric'})}, ${formatTime(departTimeChill, {hour: '2-digit', minute: '2-digit'})}`;
 </script>
 
 <div class="selector-container">
     <div role="radio" tabindex="0" on:click={handleParty} on:keydown={handleParty} class="selector selector-left" aria-checked={selected === 'party'} class:selector-active={selected === 'party'}>
         <h3><i>__PARTY_SLOGAN__</i>: Party</h3>
-        <p>{departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</p>
+        <p>{partyDateString}</p>
     </div>
     <div role="radio" tabindex="0" on:click={handleChill} on:keydown={handleChill} class="selector selector-right " aria-checked={selected === 'chill'} class:selector-active={selected === 'chill'}>
         <h3><i>__PARTY_SLOGAN__</i>: Chill</h3>
-        <p>{departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</p>
+        <p>{chillDateString}</p>
     </div>
 </div>
 <div class="selector-container-extender">

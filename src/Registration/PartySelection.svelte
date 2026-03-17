@@ -1,10 +1,11 @@
 <script lang="ts">
+    import {formatDate, formatTime} from "../helper/date.js";
 
     export let departTime;
     export let onSelectedParty: (party: number) => void;
-    const departTimeChill = new Date(departTime);
-    departTimeChill.setDate(departTimeChill.getDate() + 5);
-    departTimeChill.setHours(departTimeChill.getHours() - 5);
+    const departTimeChill = new new Date(departTime);
+    departTimeChill.setUTCDate(departTimeChill.getUTCDate() + 5);
+    departTimeChill.setUTCHours(departTimeChill.getUTCHours() - 5);
 
 
     let party: string = '0';
@@ -15,6 +16,19 @@
             onSelectedParty(partyId);
         }
     }
+
+    const formatFullDate = (date: Date) => {
+        const weekday = formatDate(date, {weekday: 'short'});
+        const month = formatDate(date, {month: 'short'});
+        const day = formatDate(date, {day: 'numeric'});
+        const time = formatTime(date, {hour: "numeric", minute: "numeric"});
+
+        return `${weekday}, ${month} ${day}, ${time}`;
+    }
+
+    const partyDateString = formatFullDate(departTime);
+    const chillDateString = formatFullDate(departTimeChill);
+
 </script>
 
 <div class="party-selection-wrapper">
@@ -23,7 +37,7 @@
         <label class="party-selection-element" for="party1">
             <p><i>__PARTY_SLOGAN__</i>: Party</p>
             <h3>
-                {departTime.toLocaleDateString('en-US', {weekday: 'short'})}, {departTime.toLocaleDateString('en-US', {month: 'short'})} {departTime.getDate()}, {departTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
+                {partyDateString}<br>
                 Party on the elbe with outdoor dance floors and live music
             </h3>
         </label>
@@ -31,7 +45,7 @@
         <label class="party-selection-element" for="party2">
             <p><i>__PARTY_SLOGAN__</i>: Chill</p>
             <h3>
-                {departTimeChill.toLocaleDateString('en-US', {weekday: 'short'})}, {departTimeChill.toLocaleDateString('en-US', {month: 'short'})} {departTimeChill.getDate()}, {departTimeChill.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}<br>
+                {chillDateString}<br>
                 Relaxed trip around different parts of Hamburg
             </h3>
         </label>

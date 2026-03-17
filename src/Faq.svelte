@@ -68,7 +68,7 @@
     <Accordion question="What is the minimum age for attending?">
         <p>
             You need to be at least 18 years old on the day of the party. You will be
-            required to present a legal photo ID or passport at badge pickup time.
+            required to present a legal photo ID or passport at boarding time.
         </p>
     </Accordion>
     <Accordion question="Can I order my VIP Upgrade later?">

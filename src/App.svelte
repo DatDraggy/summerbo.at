@@ -3,6 +3,7 @@
     import Timer from "./Timer.svelte";
     import Routes from "./Routes.svelte";
     import { onMount } from "svelte";
+    import {formatDate, formatTime} from "./helper/date.js";
 
     let header;
     let departTime = new Date("__PARTY_ISO_DATE__T18:30:00+02:00");
@@ -14,6 +15,10 @@
         let now = new Date().getTime();
         timeTillReg = Math.max(regTime.getTime() - now, 0);
     });
+
+    const regDateString = `${formatDate(regTime, {day: "numeric", month: "short", year: "numeric"})} ${formatTime(regTime, {hour: "numeric", minute: "numeric"})}`;
+    const boardingDateString = `${formatTime(departTime, {hour: '2-digit', minute: '2-digit'})} ${formatDate(departTime, {month: 'long', day: 'numeric', year: 'numeric'})}`;
+
 </script>
 
 <main>
@@ -30,11 +35,7 @@
             <p
                     style="font-size: 0.66rem; text-transform: uppercase; letter-spacing: 1.5px;"
             >
-                {timeTillReg === 0 ? '' : `Starts at ${regTime.toLocaleDateString('en-US', {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric"
-                })} ${regTime.toLocaleTimeString('de-DE', {hour: "numeric", minute: "numeric"})}`}
+                {timeTillReg === 0 ? '' : `Starts at ${regDateString}`}
             </p>
         </div>
         <video class="banner-video" muted autoplay loop>
@@ -63,7 +64,7 @@
             <Timer {departTime} {regTime} />
             <div class="footer-section">
                 <h3 class="text-headline-line">Boarding</h3>
-                <p>{departTime.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})} {departTime.toLocaleDateString('en-US', {month: 'long'})} {departTime.getDate()}, {departTime.getFullYear()}<br/>Überseebrücke, Hamburg</p>
+                <p>{boardingDateString}<br/>Überseebrücke, Hamburg</p>
             </div>
             <div class="footer-section">
                 <h3 class="text-headline-line">Details</h3>

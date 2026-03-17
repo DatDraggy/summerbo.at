@@ -21,9 +21,13 @@
     import Checkin from "./Checkin.svelte";
     import ShowCode from "./ShowCode.svelte";
     import Selector from "./components/Info/Selector.svelte";
+    import {formatDate} from "./helper/date.js";
 
     export let departTime: Date;
     export let header: HTMLElement;
+
+    const registrationDate = new Date("__REG_ISO_DATE__T20:00:00+01:00");
+    const registrationDateString = formatDate(registrationDate, {day: "numeric", month: "short", year: "numeric"});
 </script>
 
 <div class="content-wrapper">
@@ -46,10 +50,7 @@
                 and current VIPs!
             </p>
             <p>
-                Registration opens on {new Date("__REG_ISO_DATE__T20:00:00+01:00").toLocaleDateString('en-US', {
-                day: "numeric",
-                month: "short"
-            })}.
+                Registration opens on {registrationDateString}.
                 Follow us on
                 <a href="https://bsky.app/profile/summerbo.at">Bsky</a>
                 and join our <a href="https://t.me/summerboatinfo">Telegram</a> channel to be reminded!

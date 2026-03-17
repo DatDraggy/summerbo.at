@@ -78,9 +78,9 @@
     private and not shared to any other instance/company or used outside of our
     system. We are using the First Name, Last Name, Date of Birth, Password and
     Email address only for legal purposes. <br />
-    The first and last name are used to make sure that during the badge pickup it’s
+    The first and last name are used to make sure that during the boarding it’s
     the correct person who is standing in front of us. Therefore we also request
-    you to bring an ID to check. <br />
+    you to bring an ID/Passport to check. <br />
     The Date of Birth is used to make sure you are really the legal age of 18 on
     the day of the party. <br />
     Password is stored hashed so we do not have access to the real password. For
@@ -222,10 +222,6 @@
       You agree to receive emails from us regarding your registration and
       important information about the party itself. We will never send any
       emails that are unrelated to our party.
-    </li>
-    <li>
-      Summerbo.at is a public event and you acknowledge that you are required to
-      wear a badge with your nickname and country.
     </li>
     <li>
       You agree to be included on the public attendee list if you do not opt-out

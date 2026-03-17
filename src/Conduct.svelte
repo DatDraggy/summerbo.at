@@ -29,11 +29,7 @@
   <ul class="textList">
     <li>You have to be at least 18 on the day of the party to attend.</li>
     <li>Only staff and registered attendees are allowed on the boat.</li>
-    <li>
-      Attendees are required to wear their badge and lanyard at all times during
-      the party.
-    </li>
-    <li>Badges need to be shown upon request by staff and while boarding.</li>
+    <li>Legal ID/Passport need to be shown upon request by staff at boarding.</li>
   </ul>
   <h3 class="textLarge"><strong>Boat Rules</strong></h3>
   <ul class="textList">

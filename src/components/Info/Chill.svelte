@@ -1,9 +1,14 @@
 <script>
+    import {formatDate, formatTime} from "../../helper/date.js";
+
     export let departTimeChill;
+
+    const dateString = formatDate(departTimeChill, {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'});
+    const timeString = formatTime(departTimeChill, {hour: '2-digit', minute: '2-digit'});
 </script>
 <p>
     in Hamburch seggt man 'schüss! Wouldn't it be great to have a smaller, relaxed cruise with friends, chill music and drinks around different parts of Hamburg?
-    The numbers don't lie, furries love boating, which is why last year we've come up with an additional opportunity to get on the water with this years newest addition being a second, second boat! On Sunday {departTimeChill.toLocaleDateString('en-US', {month: 'long'})} {departTimeChill.getDate()}, {departTimeChill.getFullYear()} at {departTimeChill.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})},
+    The numbers don't lie, furries love boating, which is why last year we've come up with an additional opportunity to get on the water with this years newest addition being a second, second boat! On {dateString} at {timeString},
     we'll be boarding TWO Barkassen at Überseebrücke for a nice 3 hour trip to other parts of Hamburg.
 </p>
 <div class="pricing">
