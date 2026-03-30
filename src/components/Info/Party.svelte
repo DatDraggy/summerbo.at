@@ -13,7 +13,7 @@
 <p>
     nu geiht dat in de vierde Runnd, min Jung! In Hamburg, we'll be the first to party before we dive into the sea of fur at Eurofurence!
     Just like the previous years, we'll again be boarding the great and grand MS Hamburg at Überseebrücke on the Elbe with countless party-furs on {dateString} at {timeString} and depart at {actualDepartTimeString} to party all
-    evening, making a round trip on the Elbe through Hamburg with live music on the TWO outer decks.
+    evening, making a round trip on the Elbe through Hamburg with live music on the TWO outer decks before we end up returning and get off at <a href="https://maps.app.goo.gl/DoRiuL9TKw5poU1q6" target="_blank">Brücke 10, Landungsbrücken</a> around 23:00.
 </p>
 <div class="pricing">
     <div class="pricing-unit">

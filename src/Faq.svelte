@@ -40,6 +40,18 @@
             You'll find our party or cruise boats at Überseebrücke, 20459 Hamburg. Near train station U Baumwall.
         </p>
     </Accordion>
+    <Accordion question="Where do the boats return to?">
+        <p>
+            The chill cruises on Sunday will return where they began, at Überseebrücke.<br/>
+            For logistical reasons, the party boat on Tuesday will return to <a href="https://maps.app.goo.gl/DoRiuL9TKw5poU1q6" target="_blank">Brücke 10, Landungsbrücken</a>, which is a 10 minute walk away from Überseebrücke but actually closer to most public transport.<br/>
+        </p>
+    </Accordion>
+    <Accordion question="What is the chill cruise?">
+        <p>
+            The chill cruises on sunday are a more relaxed and less party-ish style boat ride but still with live music and drinks.
+            You can choose between a boat focused more on tunes or talks to customize your con ending experience.
+        </p>
+    </Accordion>
     <Accordion question="What kind of things can we do at the party?">
         <p>
             There will be a <strong>dancefloor</strong>, multiple <strong>bars</strong>,
