@@ -177,7 +177,7 @@
                     {/if}
 
                     <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} googleWalletUrl={googleWalletUrl} rank={rank} onUpdateStatus={handleStatusUpdate} />
+                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} googleWalletUrl={googleWalletUrl} onUpdateStatus={handleStatusUpdate} />
                 {:else if isWaitlisted}
                     <p>
                         Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.

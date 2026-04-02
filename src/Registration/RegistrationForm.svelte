@@ -13,7 +13,6 @@
     export let party: number;
     export let boat: number|null = null;
     export let googleWalletUrl: string|null = null;
-    export let rank: number = 0;
 
 
     export let boatSlotsA: number;
