@@ -8,7 +8,8 @@
     "dev": "rollup -c -w",
     "start": "sirv public --single --no-clear --quiet -p 3004",
     "start-dev": "sirv public --single -p 3003",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "node --test --experimental-test-coverage --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
