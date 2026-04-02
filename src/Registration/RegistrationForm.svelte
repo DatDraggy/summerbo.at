@@ -13,6 +13,7 @@
     export let party: number;
     export let boat: number|null = null;
     export let googleWalletUrl: string|null = null;
+    export let appleWalletUrl: string|null = null;
 
 
     export let boatSlotsA: number;
@@ -111,6 +112,9 @@
                 if (data.google_wallet_url) {
                     googleWalletUrl = data.google_wallet_url;
                 }
+                if (data.apple_wallet_url) {
+                    appleWalletUrl = data.apple_wallet_url;
+                }
                 if (!isRegistered) {
                     onUpdateStatus();
                 }
@@ -153,6 +157,11 @@
         {#if googleWalletUrl}
             <a href={googleWalletUrl} target="_blank" style="display: inline-block;">
                 <img src="/img/enGB_add_to_google_wallet_add-wallet-badge.svg" alt="Add to Google Wallet" style="height: 48px; width: auto;">
+            </a>
+        {/if}
+        {#if appleWalletUrl}
+            <a href={appleWalletUrl} target="_blank" style="display: inline-block;">
+                <img src="/img/apple_wallet.svg" alt="Add to Apple Wallet" style="height: 48px; width: auto;">
             </a>
         {/if}
     </div>
