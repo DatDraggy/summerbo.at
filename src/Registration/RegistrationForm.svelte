@@ -12,6 +12,8 @@
     export let id: number | null = null;
     export let party: number;
     export let boat: number|null = null;
+    export let googleWalletUrl: string|null = null;
+    export let rank: number = 0;
 
 
     export let boatSlotsA: number;
@@ -107,6 +109,9 @@
 
             if (data.id) {
                 id = data.id;
+                if (data.google_wallet_url) {
+                    googleWalletUrl = data.google_wallet_url;
+                }
                 if (!isRegistered) {
                     onUpdateStatus();
                 }
@@ -138,12 +143,19 @@
     <p>To allow even more furs to enjoy our chill cruise, we've chartered a second boat, so choose wisely!</p>
 {/if}
 
-{#if id && showQrButton}
+{#if id}
     <p>Your registration number is {id}</p>
-    <div style="margin-bottom: 1rem;">
+    <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        {#if showQrButton}
         <button type="button" class="button button-primary" on:click={() => showQrModal = true}>
             Show Check-in Code
         </button>
+        {/if}
+        {#if googleWalletUrl && rank > 0}
+            <a href={googleWalletUrl} target="_blank" class="button button-secondary" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                Add to Google Wallet
+            </a>
+        {/if}
     </div>
 {/if}
 
