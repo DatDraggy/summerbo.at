@@ -151,7 +151,7 @@
             Show Check-in Code
         </button>
         {/if}
-        {#if googleWalletUrl && rank > 0}
+        {#if googleWalletUrl}
             <a href={googleWalletUrl} target="_blank" style="display: inline-block;">
                 <img src="/img/enGB_add_to_google_wallet_add-wallet-badge.svg" alt="Add to Google Wallet" style="height: 48px; width: auto;">
             </a>
