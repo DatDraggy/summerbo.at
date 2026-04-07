@@ -36,6 +36,7 @@
 
     let waitlistId: number|null = null;
     let googleWalletUrl: string|null = null;
+    let appleWalletUrl: string|null = null;
 
     let email = '';
 
@@ -83,6 +84,7 @@
                         boat = data.boat;
                         status = data.status;
                         googleWalletUrl = data.google_wallet_url ?? null;
+                        appleWalletUrl = data.apple_wallet_url ?? null;
                     } else if (isWaitlisted) {
                         waitlistId = data.waitlist_id;
                     } else {
@@ -177,7 +179,7 @@
                     {/if}
 
                     <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
-                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} googleWalletUrl={googleWalletUrl} onUpdateStatus={handleStatusUpdate} />
+                                      isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} googleWalletUrl={googleWalletUrl} appleWalletUrl={appleWalletUrl} onUpdateStatus={handleStatusUpdate} />
                 {:else if isWaitlisted}
                     <p>
                         Your waitlist number is {waitlistId}. This number will decrease if a spot before yours is freed.
