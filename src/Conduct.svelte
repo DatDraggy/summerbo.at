@@ -29,6 +29,7 @@
   <ul class="textList">
     <li>You have to be at least 18 on the day of the party to attend.</li>
     <li>Only staff and registered attendees are allowed on the boat.</li>
+    <li>We reserve the right to blacklist individuals who fail to pay or ignore payment reminders and end up cancelling their registration. (Reservation without intend to pay)</li>
     <li>Legal ID/Passport need to be shown upon request by staff at boarding.</li>
   </ul>
   <h3 class="textLarge"><strong>Boat Rules</strong></h3>

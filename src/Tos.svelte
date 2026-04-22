@@ -11,7 +11,7 @@
     </li>
     <li>
       To become an attendee of the party you have to register yourself with the
-      online registration tool available on our website.
+      online registration tool available on our website, legally requiring you to pay. Cancellations will not always be honored.
     </li>
     <li>
       After registration your entry will be manually screened and approved or

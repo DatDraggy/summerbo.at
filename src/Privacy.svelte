@@ -83,23 +83,10 @@
     you to bring an ID/Passport to check. <br />
     The Date of Birth is used to make sure you are really the legal age of 18 on
     the day of the party. <br />
-    Password is stored hashed so we do not have access to the real password. For
-    more information regarding passwords, check chapter 1.2.1. <br />
+    We have a legitimate interest of maintaining a blocklist for individuals in extreme cases who fail to pay or ignore payment reminders and end up cancelling their registrations late. <br />
     Email is used for sending emails regarding the registration and important information
     about the party only. We do not share your email address or subscribe you to
     newsletters or useless mail.
-  </p>
-  <h3 class="textLarge"><strong>1.2.1</strong> Passwords</h3>
-  <p>
-    Passwords are hashed and stored in our database. To insure the safety of
-    your password, it's being hashed using SHA1 (storing uses a different
-    algorithm) and the first 5 characters of that hash are sent to
-    https://haveibeenpwned.com/. It then returns all leaked passwords starting
-    with those 5 characters which the regsystem compares with your hashed
-    password. If the password you try to use was leaked before, the system will
-    reject the password. We do that to encourage you to use safe passwords.
-    After the registration is submitted we do not share the hashed passwords
-    with any instance.
   </p>
   <h3 class="textLarge"><strong>1.3</strong> Payment information</h3>
   <p>
