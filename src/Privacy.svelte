@@ -83,7 +83,7 @@
     you to bring an ID/Passport to check. <br />
     The Date of Birth is used to make sure you are really the legal age of 18 on
     the day of the party. <br />
-    We have a legitimate interest of maintaining a blocklist for individuals in extreme cases who fail to pay or ignore payment reminders and end up cancelling their registrations late. <br />
+    We have a legitimate interest of maintaining a blocklist of 3 years for individuals in extreme cases who fail to pay or ignore payment reminders and end up cancelling their registrations late. <br />
     Email is used for sending emails regarding the registration and important information
     about the party only. We do not share your email address or subscribe you to
     newsletters or useless mail.
