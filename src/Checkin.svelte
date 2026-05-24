@@ -35,6 +35,10 @@
     // Sponsor gift confirmation
     let sponsorGiftHandedOut = false;
 
+    // Passport verification status
+    let passportNameVerified = false;
+    let passportDobVerified = false;
+
     // --- Debug Toggle ---
     let useNativeScanner = false;
 
@@ -168,7 +172,7 @@
         }
 
         try {
-            const response = await fetch(`https://api.summerbo.at/checkin?ticket=${ticket}${isMultiBoatDay ? '&boat=' + selectedBoat : ''}`, {
+            const response = await fetch(`https://api.summerbo.at/auth/checkin?ticket=${ticket}&party=${isMultiBoatDay ? 2 : 1}`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -178,7 +182,14 @@
                 throw new Error(errorData.message || `API Error: ${response.status}`);
             }
 
-            attendee = await response.json();
+            const data = await response.json();
+            if (isMultiBoatDay && data.boat !== selectedBoat) {
+                alert(`Attendee is assigned to a different boat! (Registered: Boat ${data.boat === 1 ? 'Tunes' : 'Talky'}, Selected: Boat ${selectedBoat === 1 ? 'Tunes' : 'Talky'})`);
+                resetScanner();
+                return;
+            }
+
+            attendee = data;
             showConfirmation = true;
 
         } catch (e: any) {
@@ -192,6 +203,11 @@
     async function confirmCheckin() {
         if (!attendee) return;
 
+        if (!passportNameVerified || !passportDobVerified) {
+            alert('Please verify the attendee passport details.');
+            return;
+        }
+
         if (attendee.isSponsor && !sponsorGiftHandedOut) {
             alert('Please confirm the sponsor gift was handed out.');
             return;
@@ -200,12 +216,13 @@
         isLoading = true;
         checkinError = null;
         try {
-            const response = await fetch('https://api.summerbo.at/checkin', {
+            const response = await fetch('https://api.summerbo.at/auth/checkin', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     id: attendee.id,
+                    party: isMultiBoatDay ? 2 : 1,
                     sponsor_gift_handed_out: sponsorGiftHandedOut
                 })
             });
@@ -243,6 +260,8 @@
         attendee = null;
         showConfirmation = false;
         sponsorGiftHandedOut = false;
+        passportNameVerified = false;
+        passportDobVerified = false;
         startScanner();
     }
 
@@ -367,24 +386,34 @@
             <h3>Confirm Check-in</h3>
 
             <div class="attendee-details">
-                <p><strong>Name:</strong> {attendee.firstname} {attendee.lastname}</p>
-                <p><strong>Date of Birth:</strong> {attendee.dob}</p>
-                <p><strong>Sponsor:</strong> {attendee.isSponsor ? 'Yes' : 'No'}</p>
+                <p><strong>Sponsor:</strong> {attendee.isSponsor ? '★ Yes ★' : 'No'}</p>
+                
+                <h4 style="margin: 1rem 0 0.5rem 0;">Passport Verification</h4>
+                <div style="background: #f0f4f8; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #d0e0f0;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem; margin-bottom: 0.5rem;">
+                        <input type="checkbox" bind:checked={passportNameVerified}>
+                        Verify Name: <strong style="color: #2b6cb0;">{attendee.firstname} {attendee.lastname}</strong>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem;">
+                        <input type="checkbox" bind:checked={passportDobVerified}>
+                        Verify Date of Birth: <strong style="color: #2b6cb0;">{attendee.dob}</strong>
+                    </label>
+                </div>
             </div>
 
-            <p>Are you sure you want to check this person in?</p>
-
             {#if attendee.isSponsor}
-                <div>
-                    <label>
+                <div style="margin-bottom: 1rem; background: #fffaf0; padding: 0.75rem; border-radius: 6px; border: 1px solid #feebc8;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem;">
                         <input type="checkbox" bind:checked={sponsorGiftHandedOut}>
-                        Sponsor gift was handed out
+                        <strong>Sponsor gift was handed out</strong>
                     </label>
                 </div>
             {/if}
 
+            <p style="margin-top: 1rem; font-weight: 500;">Are you sure you want to check this person in?</p>
+
             <div class="actions">
-                <button class="confirm-btn" on:click={confirmCheckin} disabled={isLoading || (attendee.isSponsor && !sponsorGiftHandedOut)}>
+                <button class="confirm-btn" on:click={confirmCheckin} disabled={isLoading || !passportNameVerified || !passportDobVerified || (attendee.isSponsor && !sponsorGiftHandedOut)}>
                     Confirm
                 </button>
                 <button class="cancel-btn" on:click={cancelCheckin} disabled={isLoading}>

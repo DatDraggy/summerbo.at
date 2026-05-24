@@ -65,7 +65,7 @@
         }
     }
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: Event) {
         isLoading = true;
         error = '';
         success = false;
