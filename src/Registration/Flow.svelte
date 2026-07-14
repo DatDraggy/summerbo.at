@@ -28,6 +28,8 @@
     let id: number | null = null;
     let nickname = '';
     let isFursuiter = false;
+    let hasBadge = false;
+    let isBadgeEnabled = false;
     let isVIP = false;
     let country = '';
     let list = true;
@@ -78,6 +80,7 @@
                     if (isRegistered) {
                         id = data.id;
                         isFursuiter = !!data.fursuiter;
+                        hasBadge = !!data.badge;
                         isVIP = !!data.sponsor;
                         country = data.country;
                         list = !!data.list;
@@ -98,6 +101,7 @@
             isRegistrationPossible = !!data.is_registration_possible;
             isWaitlistOpen = !!data.is_waitlist_open;
             isRegistrationOpen = !!data.is_registration_open;
+            isBadgeEnabled = !!data.is_badge_enabled;
             boatSlotsA = data.boat_slots_a;
             boatSlotsB = data.boat_slots_b;
         } catch (e: any) {
@@ -119,6 +123,7 @@
         party = 0;
         id = null;
         isFursuiter = false;
+        hasBadge = false;
         isVIP = false;
         country = '';
         list = true;
@@ -179,6 +184,7 @@
                     {/if}
 
                     <RegistrationForm party={party} id={id} isRegistered={isRegistered} nickname={nickname} isFursuiter={isFursuiter}
+                                      hasBadge={hasBadge} isBadgeEnabled={isBadgeEnabled}
                                       isVIP={isVIP} country={country} list={list} boat={boat} boatSlotsA={boatSlotsA} boatSlotsB={boatSlotsB} googleWalletUrl={googleWalletUrl} appleWalletUrl={appleWalletUrl} onUpdateStatus={handleStatusUpdate} />
                 {:else if isWaitlisted}
                     <p>

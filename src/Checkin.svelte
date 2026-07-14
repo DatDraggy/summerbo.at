@@ -4,8 +4,8 @@
 
     // UI state
     let scanner: Html5Qrcode | null = null;
+    let stopPromise: Promise<void> = Promise.resolve();
     let cameraError: string | null = null;
-    let scanResult: string | null = null;
     let checkinError: string | null = null;
     let checkinSuccess: string | null = null;
     let isLoading = false;
@@ -39,16 +39,6 @@
     let passportNameVerified = false;
     let passportDobVerified = false;
 
-    // --- Debug Toggle ---
-    let useNativeScanner = false;
-
-    function restartScanner() {
-        stopScanner();
-        setTimeout(() => {
-            startScanner();
-        }, 100);
-    }
-
     // --- Lifecycle ---
 
     onMount(() => {
@@ -61,11 +51,14 @@
 
     // --- QR Scanner Logic ---
 
-    function startScanner() {
+    async function startScanner() {
         if (!document.getElementById('qr-reader')) {
             setTimeout(startScanner, 100);
             return;
         }
+
+        // Fully release any previous camera session before starting a new one
+        await stopScanner();
 
         const localScanner = new Html5Qrcode('qr-reader');
         scanner = localScanner;
@@ -79,12 +72,6 @@
             ],
             disableCanvasStreams: false
         };
-
-        if (useNativeScanner) {
-            config.experimentalFeatures = {
-                useBarCodeDetectorIfSupported: true
-            };
-        }
 
         Html5Qrcode.getCameras().then(cameras => {
             if (cameras && cameras.length) {
@@ -141,15 +128,28 @@
         };
     }
 
-    function stopScanner() {
-        if (scanner && scanner.isScanning) {
-            scanner.stop().catch(err => console.error("Failed to stop scanner", err));
-        }
+    function stopScanner(): Promise<void> {
+        if (!scanner) return stopPromise;
+
+        const localScanner = scanner;
+        scanner = null;
+
+        stopPromise = (async () => {
+            try {
+                if (localScanner.isScanning) {
+                    await localScanner.stop();
+                }
+                localScanner.clear();
+            } catch (err) {
+                console.error("Failed to stop scanner", err);
+            }
+        })();
+
+        return stopPromise;
     }
 
     function onScanSuccess(decodedText: string, decodedResult: any) {
         if (isLoading) return;
-        scanResult = decodedText; // Captures the exact string read
         stopScanner();
         fetchAttendeeDetails(decodedText);
     }
@@ -159,6 +159,20 @@
     }
 
     // --- API Logic ---
+
+    // Venue connectivity can be flaky; abort hung requests so the UI recovers
+    // instead of getting stuck on the loading state forever.
+    const REQUEST_TIMEOUT_MS = 15000;
+
+    async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+        try {
+            return await fetch(url, { ...options, signal: controller.signal });
+        } finally {
+            clearTimeout(timer);
+        }
+    }
 
     async function fetchAttendeeDetails(ticket: string) {
         isLoading = true;
@@ -172,14 +186,14 @@
         }
 
         try {
-            const response = await fetch(`https://api.summerbo.at/auth/checkin?ticket=${ticket}&party=${isMultiBoatDay ? 2 : 1}`, {
+            const response = await fetchWithTimeout(`https://api.summerbo.at/auth/checkin?ticket=${ticket}&party=${isMultiBoatDay ? 2 : 1}`, {
                 method: 'GET',
                 credentials: 'include'
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || `API Error: ${response.status}`);
+                throw new Error(errorData.error || `API Error: ${response.status}`);
             }
 
             const data = await response.json();
@@ -193,7 +207,7 @@
             showConfirmation = true;
 
         } catch (e: any) {
-            checkinError = e.message;
+            checkinError = e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
             setTimeout(resetScanner, 3000);
         } finally {
             isLoading = false;
@@ -216,7 +230,7 @@
         isLoading = true;
         checkinError = null;
         try {
-            const response = await fetch('https://api.summerbo.at/auth/checkin', {
+            const response = await fetchWithTimeout('https://api.summerbo.at/auth/checkin', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -229,7 +243,7 @@
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || `API Error: ${response.status}`);
+                throw new Error(errorData.error || `API Error: ${response.status}`);
             }
 
             const result = await response.json();
@@ -239,7 +253,7 @@
             setTimeout(resetScanner, 2000);
 
         } catch (e: any) {
-            checkinError = e.message;
+            checkinError = e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
         } finally {
             isLoading = false;
         }
@@ -254,7 +268,6 @@
     }
 
     function resetScanner() {
-        scanResult = null;
         checkinError = null;
         checkinSuccess = null;
         attendee = null;
@@ -291,15 +304,6 @@
     .success {
         background-color: #d4edda;
         color: #155724;
-    }
-    .debug-data {
-        margin-bottom: 1rem;
-        padding: 0.75rem;
-        background-color: #e2e8f0;
-        border-left: 4px solid #4a5568;
-        border-radius: 4px;
-        font-family: monospace;
-        word-break: break-all;
     }
     .confirmation-dialog {
         margin-top: 1rem;
@@ -349,20 +353,6 @@
 <div class="container">
     <h2 class="text-headline">Attendee Check-in</h2>
 
-    <div class="debug-toggle" style="margin-bottom: 1rem; padding: 0.5rem; background: #f0f0f0; border-radius: 4px;">
-        <label>
-            <input type="checkbox" bind:checked={useNativeScanner} on:change={restartScanner}>
-            Use native scanner (experimental)
-        </label>
-    </div>
-
-    {#if scanResult}
-        <div class="debug-data">
-            <strong>Last Scanned Data:</strong><br>
-            {scanResult}
-        </div>
-    {/if}
-
     {#if cameraError}
         <div class="error">{cameraError}</div>
     {/if}
@@ -377,6 +367,20 @@
 
     {#if isLoading}
         <h2 class="text-headline-line">Loading...</h2>
+    {/if}
+
+    {#if isMultiBoatDay && !showConfirmation}
+        <div class="boat-selector">
+            <h3>Select Boat</h3>
+            <label>
+                <input type="radio" bind:group={selectedBoat} name="boat" value={1}>
+                Boat Tunes
+            </label>
+            <label>
+                <input type="radio" bind:group={selectedBoat} name="boat" value={2}>
+                Boat Talky
+            </label>
+        </div>
     {/if}
 
     <div id="qr-reader" style:display={showConfirmation || isLoading ? 'none' : 'block'}></div>
@@ -423,17 +427,4 @@
         </div>
     {/if}
 
-    {#if isMultiBoatDay && !showConfirmation}
-        <div class="boat-selector">
-            <h3>Select Boat</h3>
-            <label>
-                <input type="radio" bind:group={selectedBoat} name="boat" value={1}>
-                Boat Tunes
-            </label>
-            <label>
-                <input type="radio" bind:group={selectedBoat} name="boat" value={2}>
-                Boat Talky
-            </label>
-        </div>
-    {/if}
 </div>

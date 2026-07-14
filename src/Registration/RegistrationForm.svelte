@@ -5,6 +5,8 @@
     export let isRegistered: boolean;
     export let nickname: string;
     export let isFursuiter: boolean;
+    export let hasBadge: boolean = false;
+    export let isBadgeEnabled: boolean = false;
     export let isVIP: boolean;
     export let country: string;
     export let list: boolean;
@@ -84,6 +86,7 @@
                 body: JSON.stringify({
                     nickname: nickname,
                     fursuiter: isFursuiter,
+                    badge: hasBadge,
                     sponsor: isVIP,
                     country: country,
                     list: list,
@@ -204,6 +207,12 @@
             <input type="checkbox" name="fursuiter" id="fursuiter" class="input" bind:checked={isFursuiter}>
             <label for="fursuiter">I am a fursuiter</label>
         </div>
+        {#if isBadgeEnabled}
+            <div class="checkbox-group">
+                <input type="checkbox" name="badge" id="badge" class="input" bind:checked={hasBadge}>
+                <label for="badge">I want a physical convention badge</label>
+            </div>
+        {/if}
         {#if party === 1}
             <div class="checkbox-group VIP">
                 <input type="checkbox" name="sponsor" id="sponsor" class="input" bind:checked={isVIP}>
