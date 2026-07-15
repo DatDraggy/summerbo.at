@@ -15,17 +15,16 @@
     </li>
     <li>
       After registration your entry will be manually screened and approved or
-      denied. Payment information will follow later on via email.
+      denied. Payment information will follow later on via Eurofurence.
     </li>
     <li>
       Attendees need to be at least 18 years old on the day of the party. We
       check your ID or Passport so you need to present it at check-in time.
     </li>
     <li>
-      If you want to transfer your ticket, both persons are required to send an
-      email to <a href="mailto:registration@summerbo.at"
+      If you want to transfer your ticket, you need to send the Eurofurence registration ID and nickname to <a href="mailto:registration@summerbo.at"
         >registration@summerbo.at</a
-      > and express their desire to transfer the ticket. It is only valid after receiving
+      > and express the desire to transfer the ticket. It is only valid after receiving
       the confirmation from our registration team.
     </li>
     <li>
