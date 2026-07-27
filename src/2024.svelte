@@ -4,35 +4,35 @@
 <div class="text-content">
   <h2 class="text-headline">2024, Cyber Yacht</h2>
 
-  <p class="text-large">Elbe, Überseebrücke, Hamburg WIP</p>
+  <p class="text-large">Elbe, Überseebrücke, Hamburg</p>
   <p>
     After filling all available slots within 4 hours, we knew we had to do something.
     We were able to secure a deal for the MS Hamburg, our current, awesome, much bigger ship which everyone loved and allowed us to almost double the attendance.
   </p>
   <div class="image-gallery">
     <img
-      src="/img/2019/photo1-compressed.jpg"
-      alt="Fursuiters in a boat interior lit by colorful lights"
+      src="/img/2024/photo1-compressed.jpg"
+      alt="A fursuiter waving from the illuminated bridge of the ship at night"
     />
     <img
-      src="/img/2019/photo2-compressed.jpg"
-      alt="Fursuiters on the deck of a boat holding a sign which says 2019: Hot Summer Nights"
+      src="/img/2024/photo2-compressed.jpg"
+      alt="The crowd celebrating under the glowing pyramid light rig"
     />
     <img
-      src="/img/2019/photo3-compressed.jpg"
-      alt="Fursuiters socialising on the deck of a boat"
+      src="/img/2024/photo3-compressed.jpg"
+      alt="A group of fursuiters with glowing LED suits on the night-time deck"
     />
     <img
-      src="/img/2019/photo4-compressed.jpg"
-      alt="People dancing infront of a DJ booth, with a mirrored ceiling reflecting them"
+      src="/img/2024/photo4-compressed.jpg"
+      alt="Close-up of a fursuit head with neon LED accents in front of the harbor lights"
     />
     <img
-      src="/img/2019/photo5-compressed.jpg"
-      alt="Two fursuiters sit on the upper deck of the boat whilst others wait to board"
+      src="/img/2024/photo5-compressed.jpg"
+      alt="A fox fursuiter wearing chrome shutter shades"
     />
     <img
-      src="/img/2019/photo6-compressed.jpg"
-      alt="A partygoer poses in silent-disco headphones on their fursuit's head"
+      src="/img/2024/photo6-compressed.jpg"
+      alt="A tiger and a wolf fursuiter smiling into the camera at the night party"
     />
   </div>
 </div>

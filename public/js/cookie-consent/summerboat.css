@@ -1,0 +1,127 @@
+/* Summerbo.at cookie banner theme — prominent bottom-center card in brand colors.
+   Markup comes from cookie.js: .cc_banner-wrapper > .cc_container > (.cc_btn, .cc_message > .cc_more_info) */
+
+.cc_banner-wrapper {
+  z-index: 90010000;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* draws the eye to the bottom of the page without blocking interaction */
+  background: linear-gradient(to top, rgba(2, 44, 51, 0.55) 0%, rgba(2, 44, 51, 0) 30%);
+  pointer-events: none;
+}
+
+.cc_container {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-sizing: border-box;
+  width: min(560px, calc(100vw - 24px));
+  margin: 0 12px 16px;
+  padding: 1.5rem 1.75rem;
+  background: var(--color-primary, #022C33);
+  color: #fff;
+  font-family: var(--fontStack, 'Tide Sans'), sans-serif;
+  font-size: 1.05rem;
+  border: 2px solid var(--color-tertiary, #57E6D6);
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(87, 230, 214, 0.25);
+}
+
+.cc_container .cc_message {
+  order: 1;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.cc_container .cc_btn,
+.cc_container .cc_btn:visited {
+  order: 2;
+  display: block;
+  padding: 0.9rem 1.5rem;
+  background: var(--color-secondary, #FF6F61);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
+  box-shadow: 0 4px 14px rgba(255, 111, 97, 0.4);
+}
+
+.cc_container .cc_btn:hover,
+.cc_container .cc_btn:active {
+  background: #ff8478;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 111, 97, 0.55);
+}
+
+.cc_container .cc_more_info,
+.cc_container .cc_more_info:visited {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--color-tertiary, #57E6D6);
+  text-decoration: underline;
+  transition: color 150ms ease;
+}
+
+.cc_container .cc_more_info:hover,
+.cc_container .cc_more_info:active {
+  color: #fff;
+}
+
+/* decline link — deliberately subdued */
+.cc_container .cc_decline,
+.cc_container .cc_decline:visited {
+  order: 3;
+  align-self: center;
+  margin-top: -0.35rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: underline;
+  transition: color 150ms ease;
+}
+
+.cc_container .cc_decline:hover,
+.cc_container .cc_decline:active {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cc_container .cc_logo {
+  display: none;
+}
+
+@keyframes cc_slide_up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cc_container {
+  animation: cc_slide_up 0.5s ease-out both;
+}
+
+@media screen and (max-width: 500px) {
+  .cc_container {
+    padding: 1.15rem 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+@media print {
+  .cc_banner-wrapper,
+  .cc_container {
+    display: none;
+  }
+}

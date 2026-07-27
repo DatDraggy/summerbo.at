@@ -4,35 +4,35 @@
 <div class="text-content">
   <h2 class="text-headline">2025, Space Ship</h2>
 
-  <p class="text-large">Elbe, Überseebrücke, Hamburg WIP</p>
+  <p class="text-large">Elbe, Überseebrücke, Hamburg</p>
   <p>
     Even with our new great and grand MS Hamburg, we sold out way too quickly.
     So we thought, why not have another cruise? So Space Ship: Chill was born where we floated through the Speicherstadt and enjoyed the end of the con a little more calmly.
   </p>
   <div class="image-gallery">
     <img
-      src="/img/2019/photo1-compressed.jpg"
-      alt="Fursuiters in a boat interior lit by colorful lights"
+      src="/img/2025/photo1-compressed.jpg"
+      alt="The Summerboat at the pier in front of the Elbphilharmonie in Hamburg"
     />
     <img
-      src="/img/2019/photo2-compressed.jpg"
-      alt="Fursuiters on the deck of a boat holding a sign which says 2019: Hot Summer Nights"
+      src="/img/2025/photo2-compressed.jpg"
+      alt="The mascot plush sitting on top of the speaker stack at sunset on the Elbe"
     />
     <img
-      src="/img/2019/photo3-compressed.jpg"
-      alt="Fursuiters socialising on the deck of a boat"
+      src="/img/2025/photo3-compressed.jpg"
+      alt="View from the top deck over the party crowd while passing the container terminal at night"
     />
     <img
-      src="/img/2019/photo4-compressed.jpg"
-      alt="People dancing infront of a DJ booth, with a mirrored ceiling reflecting them"
+      src="/img/2025/photo4-compressed.jpg"
+      alt="A DJ playing while a fursuiter with glowing eyes dances next to them"
     />
     <img
-      src="/img/2019/photo5-compressed.jpg"
-      alt="Two fursuiters sit on the upper deck of the boat whilst others wait to board"
+      src="/img/2025/photo5-compressed.jpg"
+      alt="Fursuiters hugging and dancing on the crowded deck"
     />
     <img
-      src="/img/2019/photo6-compressed.jpg"
-      alt="A partygoer poses in silent-disco headphones on their fursuit's head"
+      src="/img/2025/photo6-compressed.jpg"
+      alt="A fursuiter stretching their paws towards the camera in the evening sun"
     />
   </div>
 </div>

@@ -1,3 +1,29 @@
+<script lang="ts">
+  let optedOut = false;
+
+  function refreshOptOutState() {
+    const paq = ((window as any)._paq = (window as any)._paq || []);
+    paq.push([
+      function (this: any) {
+        optedOut = this.isUserOptedOut();
+      },
+    ]);
+  }
+
+  function toggleOptOut() {
+    const paq = ((window as any)._paq = (window as any)._paq || []);
+    if (optedOut) {
+      paq.push(['forgetUserOptOut']);
+    } else {
+      paq.push(['forgetConsentGiven']);
+      paq.push(['optUserOut']);
+    }
+    refreshOptOutState();
+  }
+
+  refreshOptOutState();
+</script>
+
 <div class="textContent">
   <h2 id="privacy" class="text-headline"><strong>Privacy Policy</strong></h2>
   <p>Last updated: March 19, 2023</p>
@@ -42,9 +68,9 @@
     > to collect anonymized data about when and how often our website is accessed.
     This helps us to scale up to the needed infrastructure to prevent further "Laden"
     incidents on the day of the registration opening. Our matomo instance is completely
-    hosted by us, so the data stays with your Summerbo.at Team at all times. It is
-    also not possible to get any personally identifying information about individuals
-    on our website.
+    hosted by us, so the data stays with your Summerbo.at Team at all times. The
+    collected usage data is pseudonymous &mdash; IP addresses are anonymized before
+    storage and we do not use it to identify individual visitors.
   </p>
   <h3 class="textLarge">
     <strong>1.1.2.1</strong> What We Collect and Receive
@@ -66,11 +92,17 @@
     You can opt out of being tracked by our Matomo Analytics instance by
     enabling your browsers "DoNotTrack" setting or below:
   </p>
-  <iframe
-    title="Tracking Optout"
-    style="border: 0; height:160px; width: 350px;"
-    src="https://stats.summerbo.at/index.php?module=CoreAdminHome&amp;action=optOut&amp;language=en&amp;backgroundColor=&amp;fontColor=&amp;fontSize=&amp;fontFamily=Arial"
-  ></iframe>
+  <p>
+    <label>
+      <input type="checkbox" checked={!optedOut} on:change={toggleOptOut} />
+      {#if optedOut}
+        You are currently opted out of tracking. Check this box to opt back in.
+      {:else}
+        You are currently not opted out. Uncheck this box to opt out of
+        tracking.
+      {/if}
+    </label>
+  </p>
   <h3 class="textLarge"><strong>1.2</strong> Private information</h3>
   <p>
     We also request a few private details to make sure that during the party and

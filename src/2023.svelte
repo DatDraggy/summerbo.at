@@ -4,7 +4,7 @@
 <div class="text-content">
   <h2 class="text-headline">2023, Cursed Cruise</h2>
 
-  <p class="text-large">Elbe, Überseebrücke, Hamburg WIP</p>
+  <p class="text-large">Elbe, Überseebrücke, Hamburg</p>
   <p>
     With a rushed move to the CCH, financial hurdles arose, but we were dedicated to at least keep our party priced the same as previously and with the low amount of attendees due to the short term move to Hamburg,
     it wasn't sure that this will happen. Luckily, many Benefactors stepped in that made this years instance of Summerbo.at happen, and it was once again more amazing than the previous years!
@@ -12,28 +12,28 @@
   </p>
   <div class="image-gallery">
     <img
-      src="/img/2019/photo1-compressed.jpg"
-      alt="Fursuiters in a boat interior lit by colorful lights"
+      src="/img/2023/photo1-compressed.jpg"
+      alt="The DJ stage on the upper deck with the Elbphilharmonie in the background"
     />
     <img
-      src="/img/2019/photo2-compressed.jpg"
-      alt="Fursuiters on the deck of a boat holding a sign which says 2019: Hot Summer Nights"
+      src="/img/2023/photo2-compressed.jpg"
+      alt="Fursuiters and attendees on the open deck in the Hamburg harbor"
     />
     <img
-      src="/img/2019/photo3-compressed.jpg"
-      alt="Fursuiters socialising on the deck of a boat"
+      src="/img/2023/photo3-compressed.jpg"
+      alt="Three fursuiters posing arm in arm on deck"
     />
     <img
-      src="/img/2019/photo4-compressed.jpg"
-      alt="People dancing infront of a DJ booth, with a mirrored ceiling reflecting them"
+      src="/img/2023/photo4-compressed.jpg"
+      alt="A retriever fursuiter on deck with the Elbe behind them"
     />
     <img
-      src="/img/2019/photo5-compressed.jpg"
-      alt="Two fursuiters sit on the upper deck of the boat whilst others wait to board"
+      src="/img/2023/photo5-compressed.jpg"
+      alt="A fursuiter posing at the stern with the boat's wake behind them"
     />
     <img
-      src="/img/2019/photo6-compressed.jpg"
-      alt="A partygoer poses in silent-disco headphones on their fursuit's head"
+      src="/img/2023/photo6-compressed.jpg"
+      alt="A seagull fursuiter holding a plush pizza slice amongst the party crowd"
     />
   </div>
 </div>
