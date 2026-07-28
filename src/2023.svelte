@@ -14,26 +14,37 @@
     <img
       src="/img/2023/photo1-compressed.jpg"
       alt="The DJ stage on the upper deck with the Elbphilharmonie in the background"
+      decoding="async"
     />
     <img
       src="/img/2023/photo2-compressed.jpg"
       alt="Fursuiters and attendees on the open deck in the Hamburg harbor"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2023/photo3-compressed.jpg"
       alt="Three fursuiters posing arm in arm on deck"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2023/photo4-compressed.jpg"
       alt="A retriever fursuiter on deck with the Elbe behind them"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2023/photo5-compressed.jpg"
       alt="A fursuiter posing at the stern with the boat's wake behind them"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2023/photo6-compressed.jpg"
       alt="A seagull fursuiter holding a plush pizza slice amongst the party crowd"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </div>

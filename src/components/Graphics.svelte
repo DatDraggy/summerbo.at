@@ -21,7 +21,14 @@
     />
   </svg>
 {:else if type === "hero"}
-  <img src="/img/__PARTY_YEAR__/logo.png" width="319" alt="Summerbo.at __PARTY_SLOGAN__ Logo" />
+  <img
+    src="/img/__PARTY_YEAR__/logo.png"
+    width="319"
+    height="250"
+    fetchpriority="high"
+    decoding="async"
+    alt="Summerbo.at __PARTY_SLOGAN__ Logo"
+  />
 {/if}
 
 {#if type === "bsky"}

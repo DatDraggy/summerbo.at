@@ -13,26 +13,37 @@
     <img
       src="/img/2019/photo1-compressed.jpg"
       alt="Fursuiters in a boat interior lit by colorful lights"
+      decoding="async"
     />
     <img
       src="/img/2019/photo2-compressed.jpg"
       alt="Fursuiters on the deck of a boat holding a sign which says 2019: Hot Summer Nights"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2019/photo3-compressed.jpg"
       alt="Fursuiters socialising on the deck of a boat"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2019/photo4-compressed.jpg"
       alt="People dancing infront of a DJ booth, with a mirrored ceiling reflecting them"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2019/photo5-compressed.jpg"
       alt="Two fursuiters sit on the upper deck of the boat whilst others wait to board"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2019/photo6-compressed.jpg"
       alt="A partygoer poses in silent-disco headphones on their fursuit's head"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </div>

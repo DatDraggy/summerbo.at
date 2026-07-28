@@ -13,26 +13,37 @@
     <img
       src="/img/2024/photo1-compressed.jpg"
       alt="A fursuiter waving from the illuminated bridge of the ship at night"
+      decoding="async"
     />
     <img
       src="/img/2024/photo2-compressed.jpg"
       alt="The crowd celebrating under the glowing pyramid light rig"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2024/photo3-compressed.jpg"
       alt="A group of fursuiters with glowing LED suits on the night-time deck"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2024/photo4-compressed.jpg"
       alt="Close-up of a fursuit head with neon LED accents in front of the harbor lights"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2024/photo5-compressed.jpg"
       alt="A fox fursuiter wearing chrome shutter shades"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2024/photo6-compressed.jpg"
       alt="A tiger and a wolf fursuiter smiling into the camera at the night party"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </div>

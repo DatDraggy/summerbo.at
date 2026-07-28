@@ -13,26 +13,37 @@
     <img
       src="/img/2022/photo1-compressed.jpg"
       alt="Fursuiters and attendees mingling on the open deck while cruising through Berlin"
+      decoding="async"
     />
     <img
       src="/img/2022/photo2-compressed.jpg"
       alt="A fursuiter dancing in the party crowd under colorful ceiling lights"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2022/photo3-compressed.jpg"
       alt="A DJ mixing on the open deck with the river behind them"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2022/photo4-compressed.jpg"
       alt="A corgi fursuiter showing their paw pads in front of the boat at sunset"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2022/photo5-compressed.jpg"
       alt="A colorful fursuiter waving at the railing in the golden evening sun"
+      loading="lazy"
+      decoding="async"
     />
     <img
       src="/img/2022/photo6-compressed.jpg"
       alt="Two fursuiters hugging by the boat's railing"
+      loading="lazy"
+      decoding="async"
     />
   </div>
 </div>

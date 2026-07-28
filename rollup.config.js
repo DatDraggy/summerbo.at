@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 import { spawn } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -57,7 +58,7 @@ function serve() {
 export default {
 	input: 'src/main.ts',
 	output: {
-		sourcemap: true,
+		sourcemap: !production,
 		format: 'iife',
 		name: 'app',
 		file: 'public/build/bundle.js'
@@ -106,10 +107,13 @@ export default {
 		}),
 		commonjs(),
 		typescript({
-			sourceMap: true,
+			sourceMap: !production,
 			inlineSources: !production,
 			tsconfig: './tsconfig.json'
 		}),
+
+		// Minify the bundle for production builds
+		production && terser(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
