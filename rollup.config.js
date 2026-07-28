@@ -25,6 +25,34 @@ const getOrdinal = (n) => {
 	return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
+// Stylesheets that get inlined into index.html, in cascade order. They used to
+// be six render-blocking <link>s totalling ~18 KiB; inlining removes them from
+// the critical path entirely.
+const inlinedStyles = [
+	'public/minireset.css',
+	'public/fonts.css',
+	'public/registration.css',
+	'public/selector.css',
+	'public/global.css',
+	'public/build/bundle.css'
+];
+
+// Relative url()s in a stylesheet resolve against the stylesheet's own URL, but
+// once inlined they resolve against the document URL instead - which breaks on
+// nested routes like /archive/2025. Rewrite them to root-absolute.
+function absolutiseUrls(css) {
+	return css.replace(
+		/url\((\s*['"]?)(?!(?:['"]?(?:\/|data:|https?:|\/\/)))/g,
+		'url($1/'
+	);
+}
+
+function buildInlineCss() {
+	return inlinedStyles
+		.map((file) => absolutiseUrls(readFileSync(file, 'utf8')))
+		.join('\n');
+}
+
 const partyInfo = {
 	__PARTY_DATE__: `${getOrdinal(day)} ${month}`,
 	__PARTY_YEAR__: year.toString(),
@@ -74,6 +102,7 @@ export default {
 			buildStart() {
 				this.addWatchFile('src/index.html');
 				this.addWatchFile('src/manifest.json');
+				for (const style of inlinedStyles) this.addWatchFile(style);
 			},
 			writeBundle() {
 				const templates = ['src/index.html', 'src/manifest.json'];
@@ -81,6 +110,9 @@ export default {
 					let content = readFileSync(template, 'utf8');
 					for (const [key, value] of Object.entries(partyInfo)) {
 						content = content.replace(new RegExp(key, 'g'), value);
+					}
+					if (content.includes('__INLINE_CSS__')) {
+						content = content.replace('__INLINE_CSS__', buildInlineCss());
 					}
 					writeFileSync(template.replace('src/', 'public/'), content);
 				}
