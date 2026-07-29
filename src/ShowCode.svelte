@@ -4,9 +4,13 @@
     import { findGetParameter } from './helper/uri.js';
 
     let attendeeId: string | null = null;
+    let ticket: string | null = null;
 
     onMount(() => {
         attendeeId = findGetParameter('id');
+        // Check-in reads a bare number as a Eurofurence reg ID; the 's' prefix
+        // selects lookup by summerbo.at attendee ID instead.
+        ticket = attendeeId ? 's' + attendeeId : null;
     });
 </script>
 
@@ -27,14 +31,14 @@
 <div class="text-content">
     <h2 class="text-headline">Your Check-in Code</h2>
 
-    {#if attendeeId}
+    {#if ticket}
         <div class="container">
             <p>
                 Present this code to a staff member when boarding the boat.
                 Please have your legal ID/passport ready as well.
             </p>
             <div class="qr-wrapper">
-                <QrCode data={attendeeId} />
+                <QrCode data={ticket} />
             </div>
             <p>
                 Your Attendee ID: <strong>{attendeeId}</strong>

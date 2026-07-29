@@ -47,15 +47,16 @@
     let confirmValidationError: string | null = null;
     let validationErrorEl: HTMLElement | null = null;
 
-    // Inlined rather than extracted: `$:` only tracks variables read in the block
-    // itself, not ones read inside a function it calls.
-    $: missingChecks = (attendee ? [
-        !passportNameVerified && 'Name',
-        !passportDobVerified && 'Date of birth',
-        attendee.isSponsor && !sponsorGiftHandedOut && 'Sponsor gift handed out',
-    ].filter(Boolean) : []) as string[];
+    function missingChecks(): string[] {
+        if (!attendee) return [];
+        return [
+            !passportNameVerified && 'Name',
+            !passportDobVerified && 'Date of birth',
+            attendee.isSponsor && !sponsorGiftHandedOut && 'Sponsor gift handed out',
+        ].filter(Boolean) as string[];
+    }
 
-    $: if (missingChecks.length === 0) {
+    function clearValidation() {
         confirmValidationError = null;
     }
 
@@ -233,8 +234,9 @@
     async function confirmCheckin() {
         if (!attendee) return;
 
-        if (missingChecks.length > 0) {
-            confirmValidationError = 'Still to confirm: ' + missingChecks.join(', ') + '.';
+        const missing = missingChecks();
+        if (missing.length > 0) {
+            confirmValidationError = 'Still to confirm: ' + missing.join(', ') + '.';
             await tick();
             validationErrorEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
@@ -532,14 +534,16 @@
 
             <div class="checkbox-wrapper">
                 <div class="checkbox-group verified">
-                    <input type="checkbox" id="verify-name" bind:checked={passportNameVerified}>
+                    <input type="checkbox" id="verify-name" bind:checked={passportNameVerified}
+                           on:change={clearValidation}>
                     <label for="verify-name">
                         <span class="check-caption">Name</span>
                         <span class="check-value">{attendee.firstname} {attendee.lastname}</span>
                     </label>
                 </div>
                 <div class="checkbox-group verified">
-                    <input type="checkbox" id="verify-dob" bind:checked={passportDobVerified}>
+                    <input type="checkbox" id="verify-dob" bind:checked={passportDobVerified}
+                           on:change={clearValidation}>
                     <label for="verify-dob">
                         <span class="check-caption">Date of birth</span>
                         <span class="check-value">{attendee.dob}</span>
@@ -551,7 +555,8 @@
                 <h4 class="text-headline-line">Sponsor gift</h4>
                 <div class="checkbox-wrapper">
                     <div class="checkbox-group VIP">
-                        <input type="checkbox" id="sponsor-gift" bind:checked={sponsorGiftHandedOut}>
+                        <input type="checkbox" id="sponsor-gift" bind:checked={sponsorGiftHandedOut}
+                               on:change={clearValidation}>
                         <label for="sponsor-gift">
                             <span class="check-action">Gift was handed out</span>
                         </label>
