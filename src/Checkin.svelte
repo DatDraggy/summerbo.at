@@ -1,15 +1,17 @@
 <script lang="ts">
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount, onDestroy, tick } from 'svelte';
     import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
     // UI state
     let scanner: Html5Qrcode | null = null;
     let stopPromise: Promise<void> = Promise.resolve();
     let cameraError: string | null = null;
-    let checkinError: string | null = null;
-    let checkinSuccess: string | null = null;
     let isLoading = false;
     let showConfirmation = false;
+
+    // Outcome of the last scan. Stays on screen until staff acknowledge it, so a
+    // failed check-in can't be mistaken for a successful one.
+    let result: { ok: boolean; message: string; canRetry: boolean } | null = null;
 
     // Attendee data from API
     let attendee: {
@@ -29,8 +31,11 @@
             today.getMonth() === cruiseDate.getMonth() &&
             today.getDate() === cruiseDate.getDate();
     };
-    const isMultiBoatDay = getIsMultiBoatDay();
+    // Date-derived, but the debug panel can force it on for testing.
+    const isActualCruiseDay = getIsMultiBoatDay();
+    let isMultiBoatDay = isActualCruiseDay;
     let selectedBoat: number = 0;
+    const boatName = (n: number) => (n === 1 ? 'Tunes' : 'Talky');
 
     // Sponsor gift confirmation
     let sponsorGiftHandedOut = false;
@@ -38,6 +43,21 @@
     // Passport verification status
     let passportNameVerified = false;
     let passportDobVerified = false;
+
+    let confirmValidationError: string | null = null;
+    let validationErrorEl: HTMLElement | null = null;
+
+    // Inlined rather than extracted: `$:` only tracks variables read in the block
+    // itself, not ones read inside a function it calls.
+    $: missingChecks = (attendee ? [
+        !passportNameVerified && 'Name',
+        !passportDobVerified && 'Date of birth',
+        attendee.isSponsor && !sponsorGiftHandedOut && 'Sponsor gift handed out',
+    ].filter(Boolean) : []) as string[];
+
+    $: if (missingChecks.length === 0) {
+        confirmValidationError = null;
+    }
 
     // --- Lifecycle ---
 
@@ -149,7 +169,7 @@
     }
 
     function onScanSuccess(decodedText: string, decodedResult: any) {
-        if (isLoading) return;
+        if (isLoading || result) return;
         stopScanner();
         fetchAttendeeDetails(decodedText);
     }
@@ -160,8 +180,7 @@
 
     // --- API Logic ---
 
-    // Venue connectivity can be flaky; abort hung requests so the UI recovers
-    // instead of getting stuck on the loading state forever.
+    // Venue connectivity is flaky; abort hung requests so the UI can recover.
     const REQUEST_TIMEOUT_MS = 15000;
 
     async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
@@ -176,11 +195,9 @@
 
     async function fetchAttendeeDetails(ticket: string) {
         isLoading = true;
-        checkinError = null;
 
         if (isMultiBoatDay && selectedBoat === 0) {
-            checkinError = "Please select a boat before scanning.";
-            setTimeout(resetScanner, 3000);
+            finish(false, 'Select a boat before scanning.');
             isLoading = false;
             return;
         }
@@ -198,8 +215,8 @@
 
             const data = await response.json();
             if (isMultiBoatDay && data.boat !== selectedBoat) {
-                alert(`Attendee is assigned to a different boat! (Registered: Boat ${data.boat === 1 ? 'Tunes' : 'Talky'}, Selected: Boat ${selectedBoat === 1 ? 'Tunes' : 'Talky'})`);
-                resetScanner();
+                finish(false, `Wrong boat. This attendee is on Boat ${boatName(data.boat)}, `
+                    + `you have Boat ${boatName(selectedBoat)} selected.`);
                 return;
             }
 
@@ -207,8 +224,7 @@
             showConfirmation = true;
 
         } catch (e: any) {
-            checkinError = e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
-            setTimeout(resetScanner, 3000);
+            finish(false, errorMessage(e));
         } finally {
             isLoading = false;
         }
@@ -217,18 +233,15 @@
     async function confirmCheckin() {
         if (!attendee) return;
 
-        if (!passportNameVerified || !passportDobVerified) {
-            alert('Please verify the attendee passport details.');
+        if (missingChecks.length > 0) {
+            confirmValidationError = 'Still to confirm: ' + missingChecks.join(', ') + '.';
+            await tick();
+            validationErrorEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
 
-        if (attendee.isSponsor && !sponsorGiftHandedOut) {
-            alert('Please confirm the sponsor gift was handed out.');
-            return;
-        }
-
+        confirmValidationError = null;
         isLoading = true;
-        checkinError = null;
         try {
             const response = await fetchWithTimeout('https://api.summerbo.at/auth/checkin', {
                 method: 'POST',
@@ -246,17 +259,26 @@
                 throw new Error(errorData.error || `API Error: ${response.status}`);
             }
 
-            const result = await response.json();
-            checkinSuccess = `Successfully checked in ${attendee.firstname} ${attendee.lastname}.`;
-            showConfirmation = false;
+            finish(true, `${attendee.firstname} ${attendee.lastname} is checked in.`);
             attendee = null;
-            setTimeout(resetScanner, 2000);
 
         } catch (e: any) {
-            checkinError = e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
+            // attendee is kept so the write can be retried without rescanning.
+            finish(false, errorMessage(e), true);
         } finally {
             isLoading = false;
         }
+    }
+
+    function errorMessage(e: any): string {
+        return e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
+    }
+
+    // Parks the flow on a result screen. The scanner stays stopped until staff
+    // acknowledge it, so no outcome can scroll past unseen.
+    function finish(ok: boolean, message: string, canRetry = false) {
+        result = { ok, message, canRetry };
+        showConfirmation = false;
     }
 
     // --- UI Actions ---
@@ -267,9 +289,18 @@
         resetScanner();
     }
 
+    function acknowledgeResult() {
+        resetScanner();
+    }
+
+    function retryCheckin() {
+        result = null;
+        showConfirmation = true;
+    }
+
     function resetScanner() {
-        checkinError = null;
-        checkinSuccess = null;
+        result = null;
+        confirmValidationError = null;
         attendee = null;
         showConfirmation = false;
         sponsorGiftHandedOut = false;
@@ -278,75 +309,161 @@
         startScanner();
     }
 
+    // The party is baked into both API calls, so drop any scan in progress rather
+    // than let a party 1 lookup be confirmed as party 2.
+    function toggleCruiseOverride() {
+        isMultiBoatDay = !isMultiBoatDay;
+        selectedBoat = 0;
+        resetScanner();
+    }
+
 </script>
 
 <style>
+    /* .content already pads 1rem (mobile) / 3rem (desktop); don't double-pad. */
     .container {
-        max-width: 500px;
-        margin: 2rem auto;
-        padding: 1rem;
+        max-width: 32rem;
+        margin: 0 auto 4rem;
     }
+
     #qr-reader {
         width: 100%;
-        border: 1px solid #ccc;
+        border: 2px solid var(--color-tertiary);
         border-radius: 8px;
         overflow: hidden;
+        margin-bottom: 2rem;
     }
-    .error, .success {
-        margin-top: 1rem;
-        padding: 1rem;
+
+    .error-message {
+        padding: .75rem;
+        font-weight: 800;
+    }
+
+    /* Global .checkbox-group has no flex sizing, so the boats would cluster left. */
+    .checkbox-wrapper-horizontal .checkbox-group {
+        flex: 1;
+    }
+
+    .verify-card {
+        border: 2px solid var(--color-tertiary);
         border-radius: 8px;
-    }
-    .error {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-    .success {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .confirmation-dialog {
-        margin-top: 1rem;
-        padding: 1.5rem;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-    }
-    .confirmation-dialog h3 {
-        margin-top: 0;
-    }
-    .confirmation-dialog p {
-        font-size: 1.1rem;
-    }
-    .attendee-details {
-        background-color: #fff;
         padding: 1rem;
-        border-radius: 4px;
-        border: 1px solid #eee;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
+
+    .result-card {
+        border: 2px solid var(--color-secondary-dark);
+        border-radius: 8px;
+        background-color: #ffc8c8;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .result-card.ok {
+        border-color: #036000;
+        background-color: #8fff94;
+    }
+
+    .result-message {
+        margin-bottom: 1.5rem;
+        font-size: 1.125rem;
+        font-weight: 800;
+    }
+
+    /* .text-headline carries 2rem/4rem of bottom margin - too much inside a card. */
+    .verify-title {
+        margin-bottom: .5rem;
+    }
+
+    .ticket-badge {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        padding: .25rem .75rem;
+        border-radius: 2rem;
+        background-color: #f3f3f3;
+        font-size: .75rem;
+        line-height: 1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .125ch;
+    }
+
+    .ticket-badge.vip {
+        background-color: var(--color-gold);
+        color: var(--color-vip-text);
+    }
+
+    /* The global label assumes a single 1.125rem line; these hold two. */
+    .verify-card .checkbox-group label {
+        line-height: 1.2;
+        padding-top: .875rem;
+        padding-bottom: .875rem;
+    }
+
+    .verify-card .checkbox-wrapper {
+        margin-bottom: 1.5rem;
+    }
+
+    .check-caption {
+        display: block;
+        margin-bottom: .25rem;
+        font-size: .75rem;
+        line-height: 1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .125ch;
+    }
+
+    /* Read against a passport at arm's length. */
+    .check-value {
+        display: block;
+        font-size: 1.75rem;
+        line-height: 1.15;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .check-action {
+        display: block;
+        font-size: 1.125rem;
+        line-height: 1.2;
+        font-weight: 800;
+    }
+
+    .checkbox-group.verified input[type=checkbox]:checked + label {
+        background-color: var(--color-tertiary);
+    }
+
     .actions {
-        margin-top: 1rem;
         display: flex;
-        gap: 1rem;
+        flex-direction: column;
+        gap: .5rem;
     }
-    button {
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1rem;
+
+    /* Muted and dashed so it is never mistaken for part of the staff flow. */
+    .debug-panel {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 1rem;
     }
-    .confirm-btn {
-        background-color: #28a745;
-        color: white;
+
+    .debug-state {
+        margin-bottom: .75rem;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: darkgrey;
     }
-    .cancel-btn {
-        background-color: #dc3545;
-        color: white;
+
+    .debug-state .overridden {
+        display: block;
+        color: var(--color-secondary-dark);
+        font-weight: 800;
     }
-    .boat-selector {
-        margin-bottom: 1rem;
+
+    .debug-btn {
+        width: fit-content;
+        padding: .5rem 1rem;
+        font-size: .75rem;
     }
 </style>
 
@@ -354,76 +471,127 @@
     <h2 class="text-headline">Attendee Check-in</h2>
 
     {#if cameraError}
-        <div class="error">{cameraError}</div>
-    {/if}
-
-    {#if checkinError}
-        <div class="error">{checkinError}</div>
-    {/if}
-
-    {#if checkinSuccess}
-        <div class="success">{checkinSuccess}</div>
+        <div class="error-message" role="alert">{cameraError}</div>
     {/if}
 
     {#if isLoading}
-        <h2 class="text-headline-line">Loading...</h2>
+        <h2 class="text-headline-line">Loading&hellip;</h2>
     {/if}
 
-    {#if isMultiBoatDay && !showConfirmation}
-        <div class="boat-selector">
-            <h3>Select Boat</h3>
-            <label>
-                <input type="radio" bind:group={selectedBoat} name="boat" value={1}>
-                Boat Tunes
-            </label>
-            <label>
-                <input type="radio" bind:group={selectedBoat} name="boat" value={2}>
-                Boat Talky
-            </label>
+    {#if result}
+        <section class="result-card" class:ok={result.ok} role="alert">
+            <h3 class="text-headline verify-title">
+                {result.ok ? '✓ Checked in' : '✗ Not checked in'}
+            </h3>
+            <p class="result-message">{result.message}</p>
+            <div class="actions">
+                {#if result.canRetry}
+                    <button type="button" class="button button-primary"
+                            on:click={retryCheckin} disabled={isLoading}>
+                        Try again
+                    </button>
+                    <button type="button" class="button button-secondary"
+                            on:click={acknowledgeResult} disabled={isLoading}>
+                        Discard and scan next
+                    </button>
+                {:else}
+                    <button type="button" class="button button-primary"
+                            on:click={acknowledgeResult} disabled={isLoading}>
+                        Scan next
+                    </button>
+                {/if}
+            </div>
+        </section>
+    {/if}
+
+    {#if isMultiBoatDay && !showConfirmation && !result}
+        <h3 class="text-headline-line">Select Boat</h3>
+        <div class="checkbox-wrapper-horizontal">
+            <div class="checkbox-group">
+                <input type="radio" name="boat" id="boatTunes" value={1} bind:group={selectedBoat}>
+                <label for="boatTunes">Boat Tunes</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="radio" name="boat" id="boatTalky" value={2} bind:group={selectedBoat}>
+                <label for="boatTalky">Boat Talky</label>
+            </div>
         </div>
     {/if}
 
-    <div id="qr-reader" style:display={showConfirmation || isLoading ? 'none' : 'block'}></div>
+    <div id="qr-reader" style:display={showConfirmation || isLoading || result ? 'none' : 'block'}></div>
 
     {#if showConfirmation && attendee}
-        <div class="confirmation-dialog">
-            <h3>Confirm Check-in</h3>
+        <section class="verify-card">
+            <h3 class="text-headline verify-title">Confirm Check-in</h3>
 
-            <div class="attendee-details">
-                <p><strong>Sponsor:</strong> {attendee.isSponsor ? '★ Yes ★' : 'No'}</p>
-                
-                <h4 style="margin: 1rem 0 0.5rem 0;">Passport Verification</h4>
-                <div style="background: #f0f4f8; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #d0e0f0;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem; margin-bottom: 0.5rem;">
-                        <input type="checkbox" bind:checked={passportNameVerified}>
-                        Verify Name: <strong style="color: #2b6cb0;">{attendee.firstname} {attendee.lastname}</strong>
+            <span class="ticket-badge" class:vip={attendee.isSponsor}>
+                {attendee.isSponsor ? '★ VIP Sponsor' : 'Standard ticket'}
+            </span>
+
+            <h4 class="text-headline-line">Check against passport</h4>
+
+            <div class="checkbox-wrapper">
+                <div class="checkbox-group verified">
+                    <input type="checkbox" id="verify-name" bind:checked={passportNameVerified}>
+                    <label for="verify-name">
+                        <span class="check-caption">Name</span>
+                        <span class="check-value">{attendee.firstname} {attendee.lastname}</span>
                     </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem;">
-                        <input type="checkbox" bind:checked={passportDobVerified}>
-                        Verify Date of Birth: <strong style="color: #2b6cb0;">{attendee.dob}</strong>
+                </div>
+                <div class="checkbox-group verified">
+                    <input type="checkbox" id="verify-dob" bind:checked={passportDobVerified}>
+                    <label for="verify-dob">
+                        <span class="check-caption">Date of birth</span>
+                        <span class="check-value">{attendee.dob}</span>
                     </label>
                 </div>
             </div>
 
             {#if attendee.isSponsor}
-                <div style="margin-bottom: 1rem; background: #fffaf0; padding: 0.75rem; border-radius: 6px; border: 1px solid #feebc8;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 1.1rem;">
-                        <input type="checkbox" bind:checked={sponsorGiftHandedOut}>
-                        <strong>Sponsor gift was handed out</strong>
-                    </label>
+                <h4 class="text-headline-line">Sponsor gift</h4>
+                <div class="checkbox-wrapper">
+                    <div class="checkbox-group VIP">
+                        <input type="checkbox" id="sponsor-gift" bind:checked={sponsorGiftHandedOut}>
+                        <label for="sponsor-gift">
+                            <span class="check-action">Gift was handed out</span>
+                        </label>
+                    </div>
                 </div>
             {/if}
 
-            <p style="margin-top: 1rem; font-weight: 500;">Are you sure you want to check this person in?</p>
+            {#if confirmValidationError}
+                <div class="error-message" role="alert" bind:this={validationErrorEl}>
+                    {confirmValidationError}
+                </div>
+            {/if}
 
             <div class="actions">
-                <button class="confirm-btn" on:click={confirmCheckin} disabled={isLoading || !passportNameVerified || !passportDobVerified || (attendee.isSponsor && !sponsorGiftHandedOut)}>
-                    Confirm
+                <button type="button" class="button button-primary"
+                        on:click={confirmCheckin} disabled={isLoading}>
+                    Confirm Check-in
                 </button>
-                <button class="cancel-btn" on:click={cancelCheckin} disabled={isLoading}>
+                <button type="button" class="button button-secondary"
+                        on:click={cancelCheckin} disabled={isLoading}>
                     Cancel
                 </button>
             </div>
+        </section>
+    {/if}
+
+    {#if !showConfirmation && !result}
+        <div class="debug-panel">
+            <h4 class="text-headline-line">Debug</h4>
+            <p class="debug-state">
+                Scanning as <strong>party {isMultiBoatDay ? 2 : 1}</strong> &mdash;
+                {isMultiBoatDay ? 'Sunday cruise, two boats' : 'main party, single boat'}.
+                {#if isMultiBoatDay !== isActualCruiseDay}
+                    <span class="overridden">Overridden &mdash; today is not the cruise date.</span>
+                {/if}
+            </p>
+            <button type="button" class="button button-secondary debug-btn"
+                    on:click={toggleCruiseOverride}>
+                Switch to {isMultiBoatDay ? 'main party' : 'Sunday cruise'}
+            </button>
         </div>
     {/if}
 
