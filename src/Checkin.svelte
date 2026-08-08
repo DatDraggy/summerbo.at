@@ -22,6 +22,7 @@
 
     type SearchResult = {
         id: number;
+        nickname: string;
         firstname: string;
         lastname: string;
         dob: string;
@@ -367,7 +368,9 @@
 
     // Joined in script, not markup: Svelte trims whitespace at {#if} boundaries.
     function resultMeta(r: SearchResult): string {
-        const parts = [r.dob, 'EF ' + r.efregid];
+        const parts: string[] = [];
+        if (r.nickname) parts.push('“' + r.nickname + '”');
+        parts.push(r.dob, 'EF ' + r.efregid);
         if (r.boat === 1 || r.boat === 2) parts.push('Boat ' + boatName(r.boat));
         return parts.join(' · ');
     }
@@ -657,10 +660,10 @@
                     <!-- Not type=search: WebKit adds native searchfield chrome. -->
                     <input id="search-term" type="text" inputmode="search" enterkeyhint="search"
                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                           placeholder="Name, birthdate or EF reg ID"
+                           placeholder="Nickname, name, birthdate or EF reg ID"
                            bind:this={searchInputEl} bind:value={searchTerm}>
                 </div>
-                <p class="search-hint">Birthdate as <strong>YYYY-MM-DD</strong>. Names match partially.</p>
+                <p class="search-hint">Birthdate as <strong>YYYY-MM-DD</strong>. Names and nicknames match partially.</p>
                 <button type="submit" class="button button-primary" disabled={searchLoading}>
                     {searchLoading ? 'Searching…' : 'Search'}
                 </button>
@@ -766,7 +769,7 @@
             <h3 class="text-headline verify-title">Confirm Check-in</h3>
 
             <span class="ticket-badge" class:vip={attendee.isSponsor}>
-                {attendee.isSponsor ? '★ VIP Sponsor' : 'Standard ticket'}
+                {attendee.isSponsor ? 'VIP' : 'Standard ticket'}
             </span>
 
             <h4 class="text-headline-line">Check against passport</h4>
