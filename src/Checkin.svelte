@@ -343,6 +343,7 @@
     async function openSearch() {
         stopScanner();
         showSearch = true;
+        searchTerm = '';
         searchResults = null;
         searchError = null;
         searchTruncated = false;
@@ -362,6 +363,13 @@
 
     function onWindowKeydown(e: KeyboardEvent) {
         if (showSearch && e.key === 'Escape') closeSearch();
+    }
+
+    // Joined in script, not markup: Svelte trims whitespace at {#if} boundaries.
+    function resultMeta(r: SearchResult): string {
+        const parts = [r.dob, 'EF ' + r.efregid];
+        if (r.boat === 1 || r.boat === 2) parts.push('Boat ' + boatName(r.boat));
+        return parts.join(' · ');
     }
 
     function resultChip(r: SearchResult): string | null {
@@ -649,7 +657,7 @@
                     <!-- Not type=search: WebKit adds native searchfield chrome. -->
                     <input id="search-term" type="text" inputmode="search" enterkeyhint="search"
                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                           placeholder="Name, birthdate, EF reg ID or boat"
+                           placeholder="Name, birthdate or EF reg ID"
                            bind:this={searchInputEl} bind:value={searchTerm}>
                 </div>
                 <p class="search-hint">Birthdate as <strong>YYYY-MM-DD</strong>. Names match partially.</p>
@@ -676,9 +684,7 @@
                                             <span class="search-chip" class:vip={r.state === 'ok'}>{resultChip(r)}</span>
                                         {/if}
                                     </span>
-                                    <span class="search-result-meta">
-                                        {r.dob} &middot; EF {r.efregid}{#if r.boat === 1 || r.boat === 2} &middot; Boat {boatName(r.boat)}{/if}
-                                    </span>
+                                    <span class="search-result-meta">{resultMeta(r)}</span>
                                 </button>
                             </li>
                         {/each}
