@@ -1,19 +1,16 @@
 <script lang="ts">
     import { onMount, onDestroy, tick } from 'svelte';
     import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+    import Overlay from './components/Overlay.svelte';
 
-    // UI state
     let scanner: Html5Qrcode | null = null;
     let stopPromise: Promise<void> = Promise.resolve();
     let cameraError: string | null = null;
     let isLoading = false;
     let showConfirmation = false;
 
-    // Outcome of the last scan. Stays on screen until staff acknowledge it, so a
-    // failed check-in can't be mistaken for a successful one.
     let result: { ok: boolean; message: string; canRetry: boolean } | null = null;
 
-    // Attendee data from API
     let attendee: {
         id: number;
         firstname: string;
@@ -23,7 +20,25 @@
         boat: number;
     } | null = null;
 
-    // Multi-boat selection
+    type SearchResult = {
+        id: number;
+        firstname: string;
+        lastname: string;
+        dob: string;
+        efregid: number;
+        boat: number;
+        isSponsor: boolean;
+        state: 'ok' | 'not_billed' | 'unpaid' | 'checked_in';
+    };
+
+    let showSearch = false;
+    let searchTerm = '';
+    let searchResults: SearchResult[] | null = null;
+    let searchTruncated = false;
+    let searchError: string | null = null;
+    let searchLoading = false;
+    let searchInputEl: HTMLInputElement | null = null;
+
     const getIsMultiBoatDay = () => {
         const today = new Date();
         const cruiseDate = new Date('__CRUISE_DATE__');
@@ -31,16 +46,14 @@
             today.getMonth() === cruiseDate.getMonth() &&
             today.getDate() === cruiseDate.getDate();
     };
-    // Date-derived, but the debug panel can force it on for testing.
     const isActualCruiseDay = getIsMultiBoatDay();
     let isMultiBoatDay = isActualCruiseDay;
     let selectedBoat: number = 0;
-    const boatName = (n: number) => (n === 1 ? 'Tunes' : 'Talky');
+    // Party 1 carries boat 0, which must not fall through to a real name.
+    const boatName = (n: number) => (n === 1 ? 'Tunes' : n === 2 ? 'Talky' : 'unassigned');
 
-    // Sponsor gift confirmation
     let sponsorGiftHandedOut = false;
 
-    // Passport verification status
     let passportNameVerified = false;
     let passportDobVerified = false;
 
@@ -60,8 +73,6 @@
         confirmValidationError = null;
     }
 
-    // --- Lifecycle ---
-
     onMount(() => {
         startScanner();
     });
@@ -70,15 +81,12 @@
         stopScanner();
     });
 
-    // --- QR Scanner Logic ---
-
     async function startScanner() {
         if (!document.getElementById('qr-reader')) {
             setTimeout(startScanner, 100);
             return;
         }
 
-        // Fully release any previous camera session before starting a new one
         await stopScanner();
 
         const localScanner = new Html5Qrcode('qr-reader');
@@ -119,7 +127,6 @@
         });
     }
 
-    // --- The Inverted/Mirrored Workaround ---
     function applyInversionWorkaround() {
         const canvas = document.querySelector('#qr-reader canvas') as HTMLCanvasElement;
         if (!canvas) return;
@@ -170,7 +177,7 @@
     }
 
     function onScanSuccess(decodedText: string, decodedResult: any) {
-        if (isLoading || result) return;
+        if (isLoading || result || showSearch) return;
         stopScanner();
         fetchAttendeeDetails(decodedText);
     }
@@ -179,9 +186,6 @@
         // Ignored
     }
 
-    // --- API Logic ---
-
-    // Venue connectivity is flaky; abort hung requests so the UI can recover.
     const REQUEST_TIMEOUT_MS = 15000;
 
     async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
@@ -198,7 +202,7 @@
         isLoading = true;
 
         if (isMultiBoatDay && selectedBoat === 0) {
-            finish(false, 'Select a boat before scanning.');
+            finish(false, 'Select a boat first.');
             isLoading = false;
             return;
         }
@@ -210,8 +214,7 @@
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `API Error: ${response.status}`);
+                throw new Error(await readError(response));
             }
 
             const data = await response.json();
@@ -257,18 +260,59 @@
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `API Error: ${response.status}`);
+                throw new Error(await readError(response));
             }
 
             finish(true, `${attendee.firstname} ${attendee.lastname} is checked in.`);
             attendee = null;
 
         } catch (e: any) {
-            // attendee is kept so the write can be retried without rescanning.
             finish(false, errorMessage(e), true);
         } finally {
             isLoading = false;
+        }
+    }
+
+    async function runSearch() {
+        const term = searchTerm.trim();
+        if (term.length < 2) {
+            searchError = 'Enter at least 2 characters.';
+            return;
+        }
+
+        searchLoading = true;
+        searchError = null;
+        try {
+            const response = await fetchWithTimeout(`https://api.summerbo.at/auth/checkin/search?q=${encodeURIComponent(term)}&party=${isMultiBoatDay ? 2 : 1}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error(await readError(response));
+            }
+
+            const data = await response.json();
+            searchResults = data.results ?? [];
+            searchTruncated = data.truncated ?? false;
+            searchInputEl?.blur();
+
+        } catch (e: any) {
+            searchError = errorMessage(e);
+            searchResults = null;
+        } finally {
+            searchLoading = false;
+        }
+    }
+
+    // Router 404s are text/plain and PHP fatals are HTML, so response.json()
+    // can throw over the real status.
+    async function readError(response: Response): Promise<string> {
+        try {
+            const data = await response.json();
+            return data.error || `API Error: ${response.status}`;
+        } catch {
+            return `API Error: ${response.status}`;
         }
     }
 
@@ -276,14 +320,10 @@
         return e.name === 'AbortError' ? 'Request timed out. Please try again.' : e.message;
     }
 
-    // Parks the flow on a result screen. The scanner stays stopped until staff
-    // acknowledge it, so no outcome can scroll past unseen.
     function finish(ok: boolean, message: string, canRetry = false) {
         result = { ok, message, canRetry };
         showConfirmation = false;
     }
-
-    // --- UI Actions ---
 
     function cancelCheckin() {
         showConfirmation = false;
@@ -300,8 +340,40 @@
         showConfirmation = true;
     }
 
+    async function openSearch() {
+        stopScanner();
+        showSearch = true;
+        searchResults = null;
+        searchError = null;
+        searchTruncated = false;
+        await tick();
+        searchInputEl?.focus();
+    }
+
+    function closeSearch() {
+        showSearch = false;
+        startScanner();
+    }
+
+    function pickResult(r: SearchResult) {
+        showSearch = false;
+        fetchAttendeeDetails('s' + r.id);
+    }
+
+    function onWindowKeydown(e: KeyboardEvent) {
+        if (showSearch && e.key === 'Escape') closeSearch();
+    }
+
+    function resultChip(r: SearchResult): string | null {
+        if (r.state === 'checked_in') return 'Checked in';
+        if (r.state === 'unpaid') return 'Unpaid';
+        if (r.state === 'not_billed') return 'Not billed';
+        return r.isSponsor ? 'VIP' : null;
+    }
+
     function resetScanner() {
         result = null;
+        showSearch = false;
         confirmValidationError = null;
         attendee = null;
         showConfirmation = false;
@@ -311,8 +383,6 @@
         startScanner();
     }
 
-    // The party is baked into both API calls, so drop any scan in progress rather
-    // than let a party 1 lookup be confirmed as party 2.
     function toggleCruiseOverride() {
         isMultiBoatDay = !isMultiBoatDay;
         selectedBoat = 0;
@@ -322,7 +392,6 @@
 </script>
 
 <style>
-    /* .content already pads 1rem (mobile) / 3rem (desktop); don't double-pad. */
     .container {
         max-width: 32rem;
         margin: 0 auto 4rem;
@@ -341,7 +410,6 @@
         font-weight: 800;
     }
 
-    /* Global .checkbox-group has no flex sizing, so the boats would cluster left. */
     .checkbox-wrapper-horizontal .checkbox-group {
         flex: 1;
     }
@@ -372,7 +440,6 @@
         font-weight: 800;
     }
 
-    /* .text-headline carries 2rem/4rem of bottom margin - too much inside a card. */
     .verify-title {
         margin-bottom: .5rem;
     }
@@ -395,7 +462,6 @@
         color: var(--color-vip-text);
     }
 
-    /* The global label assumes a single 1.125rem line; these hold two. */
     .verify-card .checkbox-group label {
         line-height: 1.2;
         padding-top: .875rem;
@@ -416,7 +482,6 @@
         letter-spacing: .125ch;
     }
 
-    /* Read against a passport at arm's length. */
     .check-value {
         display: block;
         font-size: 1.75rem;
@@ -442,7 +507,109 @@
         gap: .5rem;
     }
 
-    /* Muted and dashed so it is never mistaken for part of the staff flow. */
+    .search-open {
+        margin-bottom: 2rem;
+    }
+
+    /* Overlay caps nothing; 85vh keeps a long list scrollable and the card
+       top below Overlay's white close button. */
+    .search-card {
+        width: min(28rem, calc(100vw - 2rem));
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: white;
+        color: black;
+    }
+
+    .search-form {
+        margin-bottom: 1rem;
+    }
+
+    .search-form .input-wrapper {
+        margin-bottom: .5rem;
+    }
+
+    .search-hint {
+        margin-bottom: 1rem;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: #555;
+    }
+
+    .search-empty {
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .search-results {
+        list-style: none;
+        margin: 0 0 1rem;
+        padding: 0;
+    }
+
+    .search-result {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        width: 100%;
+        margin-bottom: .5rem;
+        padding: .75rem 1rem;
+        border: 2px solid transparent;
+        border-radius: .5rem;
+        background-color: #f3f3f3;
+        color: black;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .search-result:focus {
+        border-color: var(--color-tertiary);
+    }
+
+    .search-result-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+    }
+
+    .search-result-name {
+        font-size: 1.125rem;
+        line-height: 1.2;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .search-chip {
+        flex: none;
+        padding: .25rem .5rem;
+        border-radius: 2rem;
+        background-color: #ddd;
+        color: #555;
+        font-size: .6875rem;
+        line-height: .875rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .125ch;
+    }
+
+    .search-chip.vip {
+        background-color: var(--color-gold);
+        color: var(--color-vip-text);
+    }
+
+    .search-result-meta {
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: #555;
+    }
+
+    .search-close {
+        margin-top: .5rem;
+    }
+
     .debug-panel {
         border: 2px dashed #ccc;
         border-radius: 8px;
@@ -468,6 +635,66 @@
         font-size: .75rem;
     }
 </style>
+
+<svelte:window on:keydown={onWindowKeydown} />
+
+{#if showSearch}
+    <Overlay onClose={closeSearch}>
+        <div class="search-card">
+            <h3 class="text-headline verify-title">Find attendee</h3>
+
+            <form class="search-form" on:submit|preventDefault={runSearch}>
+                <div class="input-wrapper">
+                    <label for="search-term"><span>Search</span></label>
+                    <!-- Not type=search: WebKit adds native searchfield chrome. -->
+                    <input id="search-term" type="text" inputmode="search" enterkeyhint="search"
+                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                           placeholder="Name, birthdate, EF reg ID or boat"
+                           bind:this={searchInputEl} bind:value={searchTerm}>
+                </div>
+                <p class="search-hint">Birthdate as <strong>YYYY-MM-DD</strong>. Names match partially.</p>
+                <button type="submit" class="button button-primary" disabled={searchLoading}>
+                    {searchLoading ? 'Searching…' : 'Search'}
+                </button>
+            </form>
+
+            {#if searchError}
+                <div class="error-message" role="alert">{searchError}</div>
+            {/if}
+
+            {#if searchResults}
+                {#if searchResults.length === 0}
+                    <p class="search-empty">No attendee matched.</p>
+                {:else}
+                    <ul class="search-results">
+                        {#each searchResults as r (r.id)}
+                            <li>
+                                <button type="button" class="search-result" on:click={() => pickResult(r)}>
+                                    <span class="search-result-top">
+                                        <span class="search-result-name">{r.firstname} {r.lastname}</span>
+                                        {#if resultChip(r)}
+                                            <span class="search-chip" class:vip={r.state === 'ok'}>{resultChip(r)}</span>
+                                        {/if}
+                                    </span>
+                                    <span class="search-result-meta">
+                                        {r.dob} &middot; EF {r.efregid}{#if r.boat === 1 || r.boat === 2} &middot; Boat {boatName(r.boat)}{/if}
+                                    </span>
+                                </button>
+                            </li>
+                        {/each}
+                    </ul>
+                    {#if searchTruncated}
+                        <p class="search-hint">Showing the first 25 matches &mdash; narrow your search.</p>
+                    {/if}
+                {/if}
+            {/if}
+
+            <button type="button" class="button button-secondary search-close" on:click={closeSearch}>
+                Close
+            </button>
+        </div>
+    </Overlay>
+{/if}
 
 <div class="container">
     <h2 class="text-headline">Attendee Check-in</h2>
@@ -506,7 +733,7 @@
         </section>
     {/if}
 
-    {#if isMultiBoatDay && !showConfirmation && !result}
+    {#if isMultiBoatDay && !showConfirmation && !result && !showSearch}
         <h3 class="text-headline-line">Select Boat</h3>
         <div class="checkbox-wrapper-horizontal">
             <div class="checkbox-group">
@@ -520,7 +747,13 @@
         </div>
     {/if}
 
-    <div id="qr-reader" style:display={showConfirmation || isLoading || result ? 'none' : 'block'}></div>
+    <div id="qr-reader" style:display={showConfirmation || isLoading || result || showSearch ? 'none' : 'block'}></div>
+
+    {#if !showConfirmation && !result && !isLoading && !showSearch}
+        <button type="button" class="button button-secondary search-open" on:click={openSearch}>
+            Can't scan? Search manually
+        </button>
+    {/if}
 
     {#if showConfirmation && attendee}
         <section class="verify-card">
@@ -583,7 +816,7 @@
         </section>
     {/if}
 
-    {#if !showConfirmation && !result}
+    {#if !showConfirmation && !result && !showSearch}
         <div class="debug-panel">
             <h4 class="text-headline-line">Debug</h4>
             <p class="debug-state">
