@@ -43,7 +43,7 @@
 
     async function handleLogout() {
         try {
-            const response = await fetch('https://api.summerbo.at/auth/logout', {
+            const response = await fetch('__API_BASE__/auth/logout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@
         }
 
         try {
-            const response = await fetch('https://api.summerbo.at/auth/register', {
+            const response = await fetch('__API_BASE__/auth/register', {
                 method: isRegistered ? 'PUT' : 'POST',
                 body: JSON.stringify({
                     nickname: nickname,
@@ -171,7 +171,7 @@
 {/if}
 
 {#if showQrModal}
-    <Overlay on:close={() => showQrModal = false}>
+    <Overlay onClose={() => showQrModal = false}>
         <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; color: black;">
             <h2 class="text-headline">Your Check-in Code</h2>
             <p>
@@ -180,7 +180,7 @@
             </p>
             {#if id}
                 <div style="margin: 1rem 0;">
-                    <QrCode data={id.toString()} />
+                    <QrCode data={'s' + id} />
                 </div>
                 <p style="margin-top: 1rem;">Attendee ID: <strong>{id}</strong></p>
             {/if}

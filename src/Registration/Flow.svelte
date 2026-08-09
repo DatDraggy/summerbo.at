@@ -57,7 +57,7 @@
         isLoading = true;
         try {
             const secret = findGetParameter('secret') ?? '';
-            const response = await fetch('https://api.summerbo.at/auth?secret=' + secret + '&party=' + party, {
+            const response = await fetch('__API_BASE__/auth?secret=' + secret + '&party=' + party, {
                 method: 'GET',
                 credentials: 'include',
             });

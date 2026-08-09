@@ -209,7 +209,7 @@
         }
 
         try {
-            const response = await fetchWithTimeout(`https://api.summerbo.at/auth/checkin?ticket=${ticket}&party=${isMultiBoatDay ? 2 : 1}`, {
+            const response = await fetchWithTimeout(`__API_BASE__/auth/checkin?ticket=${ticket}&party=${isMultiBoatDay ? 2 : 1}`, {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -249,7 +249,7 @@
         confirmValidationError = null;
         isLoading = true;
         try {
-            const response = await fetchWithTimeout('https://api.summerbo.at/auth/checkin', {
+            const response = await fetchWithTimeout('__API_BASE__/auth/checkin', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -284,7 +284,7 @@
         searchLoading = true;
         searchError = null;
         try {
-            const response = await fetchWithTimeout(`https://api.summerbo.at/auth/checkin/search?q=${encodeURIComponent(term)}&party=${isMultiBoatDay ? 2 : 1}`, {
+            const response = await fetchWithTimeout(`__API_BASE__/auth/checkin/search?q=${encodeURIComponent(term)}&party=${isMultiBoatDay ? 2 : 1}`, {
                 method: 'GET',
                 credentials: 'include'
             });

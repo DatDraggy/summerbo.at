@@ -28,7 +28,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('https://api.summerbo.at/attendees');
+      const response = await fetch('__API_BASE__/attendees');
       const data = await response.json();
       
       if (data && data.attendees && data.stats) {

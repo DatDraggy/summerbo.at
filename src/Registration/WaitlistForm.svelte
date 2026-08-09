@@ -17,7 +17,7 @@
             error = '';
 
             try {
-                const response = await fetch('https://api.summerbo.at/auth/waitlist', {
+                const response = await fetch('__API_BASE__/auth/waitlist', {
                     method: 'POST',
                     body: JSON.stringify({
                         email: email,
