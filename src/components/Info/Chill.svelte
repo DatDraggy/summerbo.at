@@ -23,7 +23,7 @@
 <p>
     Our boats offer two different experiences to choose from while happening at the same time:<br>
     <strong>Tunes</strong>: Live DJ music, vibe with friends, enjoy the scenery<br>
-    <strong>Talky</strong>: Background music, chat with friends, possibly guided harbour tour<br>
+    <strong>Talky</strong>: Guided tour, chat with friends<br>
     Boarding, departure and arrival are identical for both boats.
 </p>
 

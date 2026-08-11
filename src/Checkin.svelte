@@ -6,6 +6,9 @@
     let scanner: Html5Qrcode | null = null;
     let stopPromise: Promise<void> = Promise.resolve();
     let cameraError: string | null = null;
+    let cameras: Array<{ id: string; label: string }> = [];
+    let cameraIndex = -1;
+    let switchingCamera = false;
     let isLoading = false;
     let showConfirmation = false;
 
@@ -82,6 +85,49 @@
         stopScanner();
     });
 
+    const SCAN_CONFIG: any = {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        formatsToSupport: [
+            Html5QrcodeSupportedFormats.QR_CODE,
+            Html5QrcodeSupportedFormats.DATA_MATRIX
+        ],
+        disableCanvasStreams: false
+    };
+
+    // Device labels are localised and inconsistent ("camera2 0, facing back",
+    // "Rückkamera"), so let the browser resolve the rear camera itself and only
+    // fall back to matching labels.
+    function startSources(): Array<string | MediaTrackConstraints> {
+        const chosen = cameras[cameraIndex];
+        if (chosen) return [chosen.id];
+
+        const guessed = cameras.findIndex(c => /back|rear|environment/i.test(c.label));
+        return [
+            { facingMode: { exact: 'environment' } },
+            ...(guessed >= 0 ? [cameras[guessed].id] : []),
+            cameras[0].id
+        ];
+    }
+
+    function rememberActiveCamera(active: Html5Qrcode) {
+        if (cameras[cameraIndex]) return;
+
+        let deviceId: string | undefined;
+        try {
+            deviceId = active.getRunningTrackSettings().deviceId;
+        } catch {
+            deviceId = undefined;
+        }
+
+        const i = cameras.findIndex(c => c.id === deviceId);
+        cameraIndex = i >= 0 ? i : 0;
+    }
+
+    function cameraLabel(i: number): string {
+        return cameras[i]?.label || `Camera ${i + 1}`;
+    }
+
     async function startScanner() {
         if (!document.getElementById('qr-reader')) {
             setTimeout(startScanner, 100);
@@ -93,39 +139,59 @@
         const localScanner = new Html5Qrcode('qr-reader');
         scanner = localScanner;
 
-        const config: any = {
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            formatsToSupport: [
-                Html5QrcodeSupportedFormats.QR_CODE,
-                Html5QrcodeSupportedFormats.DATA_MATRIX
-            ],
-            disableCanvasStreams: false
-        };
-
-        Html5Qrcode.getCameras().then(cameras => {
-            if (cameras && cameras.length) {
-                const cameraId = cameras.find(c => c.label.toLowerCase().includes('back'))?.id || cameras[0].id;
-
-                localScanner.start(
-                    cameraId,
-                    config,
-                    onScanSuccess,
-                    onScanFailure
-                ).then(() => {
-                    setTimeout(applyInversionWorkaround, 200);
-                }).catch(err => {
-                    cameraError = `Unable to start scanner: ${err}`;
-                    console.error(cameraError);
-                });
-            } else {
-                cameraError = "No cameras found.";
+        if (cameras.length === 0) {
+            try {
+                cameras = await Html5Qrcode.getCameras();
+            } catch (err) {
+                cameraError = `Camera permission error: ${err}`;
                 console.error(cameraError);
+                return;
             }
-        }).catch(err => {
-            cameraError = `Camera permission error: ${err}`;
-            console.error(cameraError);
-        });
+
+            if (cameras.length === 0) {
+                cameraError = 'No cameras found.';
+                console.error(cameraError);
+                return;
+            }
+        }
+
+        let lastError: any = null;
+
+        for (const source of startSources()) {
+            if (scanner !== localScanner) return;
+
+            try {
+                await localScanner.start(source, SCAN_CONFIG, onScanSuccess, onScanFailure);
+                cameraError = null;
+                rememberActiveCamera(localScanner);
+                setTimeout(applyInversionWorkaround, 200);
+                return;
+            } catch (err) {
+                lastError = err;
+                console.error('Camera failed to start', source, err);
+            }
+        }
+
+        cameraError = `Unable to start scanner: ${lastError}`;
+    }
+
+    async function cycleCamera() {
+        if (switchingCamera || cameras.length < 2) return;
+
+        switchingCamera = true;
+        cameraIndex = (cameraIndex + 1) % cameras.length;
+        try {
+            await startScanner();
+        } finally {
+            switchingCamera = false;
+        }
+    }
+
+    function onPreviewKeydown(e: KeyboardEvent) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            cycleCamera();
+        }
     }
 
     function applyInversionWorkaround() {
@@ -178,7 +244,7 @@
     }
 
     function onScanSuccess(decodedText: string, decodedResult: any) {
-        if (isLoading || result || showSearch) return;
+        if (isLoading || result || showSearch || showConfirmation) return;
         stopScanner();
         fetchAttendeeDetails(decodedText);
     }
@@ -414,6 +480,21 @@
         border-radius: 8px;
         overflow: hidden;
         margin-bottom: 2rem;
+    }
+
+    #qr-reader.tappable {
+        cursor: pointer;
+    }
+
+    .camera-retry {
+        margin-bottom: 2rem;
+    }
+
+    .camera-hint {
+        margin-bottom: .5rem;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        color: #555;
     }
 
     .error-message {
@@ -710,6 +791,12 @@
 
     {#if cameraError}
         <div class="error-message" role="alert">{cameraError}</div>
+        {#if cameras.length > 1 && !showConfirmation && !result && !isLoading && !showSearch}
+            <button type="button" class="button button-secondary camera-retry"
+                    on:click={cycleCamera} disabled={switchingCamera}>
+                Try another camera
+            </button>
+        {/if}
     {/if}
 
     {#if isLoading}
@@ -756,7 +843,21 @@
         </div>
     {/if}
 
-    <div id="qr-reader" style:display={showConfirmation || isLoading || result || showSearch ? 'none' : 'block'}></div>
+    {#if cameras.length > 1 && cameraIndex >= 0 && !cameraError && !showConfirmation && !result && !isLoading && !showSearch}
+        <p class="camera-hint">
+            Camera {cameraIndex + 1} of {cameras.length} &mdash; {cameraLabel(cameraIndex)}.
+            Tap the preview to switch.
+        </p>
+    {/if}
+
+    <div id="qr-reader"
+         class:tappable={cameras.length > 1}
+         role="button"
+         tabindex="0"
+         aria-label={cameras.length > 1 ? 'Switch camera' : 'Camera preview'}
+         on:click={cycleCamera}
+         on:keydown={onPreviewKeydown}
+         style:display={showConfirmation || isLoading || result || showSearch ? 'none' : 'block'}></div>
 
     {#if !showConfirmation && !result && !isLoading && !showSearch}
         <button type="button" class="button button-secondary search-open" on:click={openSearch}>
