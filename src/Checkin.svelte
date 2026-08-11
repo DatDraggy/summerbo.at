@@ -6,6 +6,7 @@
     let scanner: Html5Qrcode | null = null;
     let stopPromise: Promise<void> = Promise.resolve();
     let cameraError: string | null = null;
+    let sessionExpired = false;
     let cameras: Array<{ id: string; label: string }> = [];
     let cameraIndex = -1;
     let switchingCamera = false;
@@ -78,8 +79,34 @@
     }
 
     onMount(() => {
+        verifySession();
         startScanner();
     });
+
+    async function verifySession() {
+        try {
+            const response = await fetchWithTimeout('__API_BASE__/auth/checkin', {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (response.status !== 401) return;
+        } catch {
+            return;
+        }
+
+        sessionExpired = true;
+        stopScanner();
+
+        // keepalive lets the logout survive the navigation on the next line.
+        fetch('__API_BASE__/auth/logout', {
+            method: 'POST',
+            credentials: 'include',
+            keepalive: true
+        }).catch(() => {});
+
+        window.location.href = '/register?unauth=1';
+    }
 
     onDestroy(() => {
         stopScanner();
@@ -95,9 +122,6 @@
         disableCanvasStreams: false
     };
 
-    // Device labels are localised and inconsistent ("camera2 0, facing back",
-    // "Rückkamera"), so let the browser resolve the rear camera itself and only
-    // fall back to matching labels.
     function startSources(): Array<string | MediaTrackConstraints> {
         const chosen = cameras[cameraIndex];
         if (chosen) return [chosen.id];
@@ -129,6 +153,8 @@
     }
 
     async function startScanner() {
+        if (sessionExpired) return;
+
         if (!document.getElementById('qr-reader')) {
             setTimeout(startScanner, 100);
             return;
@@ -158,7 +184,7 @@
         let lastError: any = null;
 
         for (const source of startSources()) {
-            if (scanner !== localScanner) return;
+            if (scanner !== localScanner || sessionExpired) return;
 
             try {
                 await localScanner.start(source, SCAN_CONFIG, onScanSuccess, onScanFailure);
@@ -486,6 +512,11 @@
         cursor: pointer;
     }
 
+    .session-notice {
+        font-size: 1.125rem;
+        font-weight: 800;
+    }
+
     .camera-retry {
         margin-bottom: 2rem;
     }
@@ -789,158 +820,164 @@
 <div class="container">
     <h2 class="text-headline">Attendee Check-in</h2>
 
-    {#if cameraError}
-        <div class="error-message" role="alert">{cameraError}</div>
-        {#if cameras.length > 1 && !showConfirmation && !result && !isLoading && !showSearch}
-            <button type="button" class="button button-secondary camera-retry"
-                    on:click={cycleCamera} disabled={switchingCamera}>
-                Try another camera
+    {#if sessionExpired}
+        <p class="session-notice">
+            Your check-in session is no longer valid. Taking you back to the login&hellip;
+        </p>
+    {:else}
+        {#if cameraError}
+            <div class="error-message" role="alert">{cameraError}</div>
+            {#if cameras.length > 1 && !showConfirmation && !result && !isLoading && !showSearch}
+                <button type="button" class="button button-secondary camera-retry"
+                        on:click={cycleCamera} disabled={switchingCamera}>
+                    Try another camera
+                </button>
+            {/if}
+        {/if}
+
+        {#if isLoading}
+            <h2 class="text-headline-line">Loading&hellip;</h2>
+        {/if}
+
+        {#if result}
+            <section class="result-card" class:ok={result.ok} role="alert">
+                <h3 class="text-headline verify-title">
+                    {result.ok ? '✓ Checked in' : '✗ Not checked in'}
+                </h3>
+                <p class="result-message">{result.message}</p>
+                <div class="actions">
+                    {#if result.canRetry}
+                        <button type="button" class="button button-primary"
+                                on:click={retryCheckin} disabled={isLoading}>
+                            Try again
+                        </button>
+                        <button type="button" class="button button-secondary"
+                                on:click={acknowledgeResult} disabled={isLoading}>
+                            Discard and scan next
+                        </button>
+                    {:else}
+                        <button type="button" class="button button-primary"
+                                on:click={acknowledgeResult} disabled={isLoading}>
+                            Scan next
+                        </button>
+                    {/if}
+                </div>
+            </section>
+        {/if}
+
+        {#if isMultiBoatDay && !showConfirmation && !result && !showSearch}
+            <h3 class="text-headline-line">Select Boat</h3>
+            <div class="checkbox-wrapper-horizontal">
+                <div class="checkbox-group">
+                    <input type="radio" name="boat" id="boatTunes" value={1} bind:group={selectedBoat}>
+                    <label for="boatTunes">Boat Tunes</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="radio" name="boat" id="boatTalky" value={2} bind:group={selectedBoat}>
+                    <label for="boatTalky">Boat Talky</label>
+                </div>
+            </div>
+        {/if}
+
+        {#if cameras.length > 1 && cameraIndex >= 0 && !cameraError && !showConfirmation && !result && !isLoading && !showSearch}
+            <p class="camera-hint">
+                Camera {cameraIndex + 1} of {cameras.length} &mdash; {cameraLabel(cameraIndex)}.
+                Tap the preview to switch.
+            </p>
+        {/if}
+
+        <div id="qr-reader"
+             class:tappable={cameras.length > 1}
+             role="button"
+             tabindex="0"
+             aria-label={cameras.length > 1 ? 'Switch camera' : 'Camera preview'}
+             on:click={cycleCamera}
+             on:keydown={onPreviewKeydown}
+             style:display={showConfirmation || isLoading || result || showSearch ? 'none' : 'block'}></div>
+
+        {#if !showConfirmation && !result && !isLoading && !showSearch}
+            <button type="button" class="button button-secondary search-open" on:click={openSearch}>
+                Can't scan? Search manually
             </button>
         {/if}
-    {/if}
 
-    {#if isLoading}
-        <h2 class="text-headline-line">Loading&hellip;</h2>
-    {/if}
+        {#if showConfirmation && attendee}
+            <section class="verify-card">
+                <h3 class="text-headline verify-title">Confirm Check-in</h3>
 
-    {#if result}
-        <section class="result-card" class:ok={result.ok} role="alert">
-            <h3 class="text-headline verify-title">
-                {result.ok ? '✓ Checked in' : '✗ Not checked in'}
-            </h3>
-            <p class="result-message">{result.message}</p>
-            <div class="actions">
-                {#if result.canRetry}
-                    <button type="button" class="button button-primary"
-                            on:click={retryCheckin} disabled={isLoading}>
-                        Try again
-                    </button>
-                    <button type="button" class="button button-secondary"
-                            on:click={acknowledgeResult} disabled={isLoading}>
-                        Discard and scan next
-                    </button>
-                {:else}
-                    <button type="button" class="button button-primary"
-                            on:click={acknowledgeResult} disabled={isLoading}>
-                        Scan next
-                    </button>
-                {/if}
-            </div>
-        </section>
-    {/if}
+                <span class="ticket-badge" class:vip={attendee.isSponsor}>
+                    {attendee.isSponsor ? 'VIP' : 'Standard ticket'}
+                </span>
 
-    {#if isMultiBoatDay && !showConfirmation && !result && !showSearch}
-        <h3 class="text-headline-line">Select Boat</h3>
-        <div class="checkbox-wrapper-horizontal">
-            <div class="checkbox-group">
-                <input type="radio" name="boat" id="boatTunes" value={1} bind:group={selectedBoat}>
-                <label for="boatTunes">Boat Tunes</label>
-            </div>
-            <div class="checkbox-group">
-                <input type="radio" name="boat" id="boatTalky" value={2} bind:group={selectedBoat}>
-                <label for="boatTalky">Boat Talky</label>
-            </div>
-        </div>
-    {/if}
+                <h4 class="text-headline-line">Check against passport</h4>
 
-    {#if cameras.length > 1 && cameraIndex >= 0 && !cameraError && !showConfirmation && !result && !isLoading && !showSearch}
-        <p class="camera-hint">
-            Camera {cameraIndex + 1} of {cameras.length} &mdash; {cameraLabel(cameraIndex)}.
-            Tap the preview to switch.
-        </p>
-    {/if}
-
-    <div id="qr-reader"
-         class:tappable={cameras.length > 1}
-         role="button"
-         tabindex="0"
-         aria-label={cameras.length > 1 ? 'Switch camera' : 'Camera preview'}
-         on:click={cycleCamera}
-         on:keydown={onPreviewKeydown}
-         style:display={showConfirmation || isLoading || result || showSearch ? 'none' : 'block'}></div>
-
-    {#if !showConfirmation && !result && !isLoading && !showSearch}
-        <button type="button" class="button button-secondary search-open" on:click={openSearch}>
-            Can't scan? Search manually
-        </button>
-    {/if}
-
-    {#if showConfirmation && attendee}
-        <section class="verify-card">
-            <h3 class="text-headline verify-title">Confirm Check-in</h3>
-
-            <span class="ticket-badge" class:vip={attendee.isSponsor}>
-                {attendee.isSponsor ? 'VIP' : 'Standard ticket'}
-            </span>
-
-            <h4 class="text-headline-line">Check against passport</h4>
-
-            <div class="checkbox-wrapper">
-                <div class="checkbox-group verified">
-                    <input type="checkbox" id="verify-name" bind:checked={passportNameVerified}
-                           on:change={clearValidation}>
-                    <label for="verify-name">
-                        <span class="check-caption">Name</span>
-                        <span class="check-value">{attendee.firstname} {attendee.lastname}</span>
-                    </label>
-                </div>
-                <div class="checkbox-group verified">
-                    <input type="checkbox" id="verify-dob" bind:checked={passportDobVerified}
-                           on:change={clearValidation}>
-                    <label for="verify-dob">
-                        <span class="check-caption">Date of birth</span>
-                        <span class="check-value">{attendee.dob}</span>
-                    </label>
-                </div>
-            </div>
-
-            {#if attendee.isSponsor}
-                <h4 class="text-headline-line">Sponsor gift</h4>
                 <div class="checkbox-wrapper">
-                    <div class="checkbox-group VIP">
-                        <input type="checkbox" id="sponsor-gift" bind:checked={sponsorGiftHandedOut}
+                    <div class="checkbox-group verified">
+                        <input type="checkbox" id="verify-name" bind:checked={passportNameVerified}
                                on:change={clearValidation}>
-                        <label for="sponsor-gift">
-                            <span class="check-action">Gift was handed out</span>
+                        <label for="verify-name">
+                            <span class="check-caption">Name</span>
+                            <span class="check-value">{attendee.firstname} {attendee.lastname}</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-group verified">
+                        <input type="checkbox" id="verify-dob" bind:checked={passportDobVerified}
+                               on:change={clearValidation}>
+                        <label for="verify-dob">
+                            <span class="check-caption">Date of birth</span>
+                            <span class="check-value">{attendee.dob}</span>
                         </label>
                     </div>
                 </div>
-            {/if}
 
-            {#if confirmValidationError}
-                <div class="error-message" role="alert" bind:this={validationErrorEl}>
-                    {confirmValidationError}
+                {#if attendee.isSponsor}
+                    <h4 class="text-headline-line">Sponsor gift</h4>
+                    <div class="checkbox-wrapper">
+                        <div class="checkbox-group VIP">
+                            <input type="checkbox" id="sponsor-gift" bind:checked={sponsorGiftHandedOut}
+                                   on:change={clearValidation}>
+                            <label for="sponsor-gift">
+                                <span class="check-action">Gift was handed out</span>
+                            </label>
+                        </div>
+                    </div>
+                {/if}
+
+                {#if confirmValidationError}
+                    <div class="error-message" role="alert" bind:this={validationErrorEl}>
+                        {confirmValidationError}
+                    </div>
+                {/if}
+
+                <div class="actions">
+                    <button type="button" class="button button-primary"
+                            on:click={confirmCheckin} disabled={isLoading}>
+                        Confirm Check-in
+                    </button>
+                    <button type="button" class="button button-secondary"
+                            on:click={cancelCheckin} disabled={isLoading}>
+                        Cancel
+                    </button>
                 </div>
-            {/if}
+            </section>
+        {/if}
 
-            <div class="actions">
-                <button type="button" class="button button-primary"
-                        on:click={confirmCheckin} disabled={isLoading}>
-                    Confirm Check-in
-                </button>
-                <button type="button" class="button button-secondary"
-                        on:click={cancelCheckin} disabled={isLoading}>
-                    Cancel
+        {#if !showConfirmation && !result && !showSearch}
+            <div class="debug-panel">
+                <h4 class="text-headline-line">Debug</h4>
+                <p class="debug-state">
+                    Scanning as <strong>party {isMultiBoatDay ? 2 : 1}</strong> &mdash;
+                    {isMultiBoatDay ? 'Sunday cruise, two boats' : 'main party, single boat'}.
+                    {#if isMultiBoatDay !== isActualCruiseDay}
+                        <span class="overridden">Overridden &mdash; today is not the cruise date.</span>
+                    {/if}
+                </p>
+                <button type="button" class="button button-secondary debug-btn"
+                        on:click={toggleCruiseOverride}>
+                    Switch to {isMultiBoatDay ? 'main party' : 'Sunday cruise'}
                 </button>
             </div>
-        </section>
-    {/if}
-
-    {#if !showConfirmation && !result && !showSearch}
-        <div class="debug-panel">
-            <h4 class="text-headline-line">Debug</h4>
-            <p class="debug-state">
-                Scanning as <strong>party {isMultiBoatDay ? 2 : 1}</strong> &mdash;
-                {isMultiBoatDay ? 'Sunday cruise, two boats' : 'main party, single boat'}.
-                {#if isMultiBoatDay !== isActualCruiseDay}
-                    <span class="overridden">Overridden &mdash; today is not the cruise date.</span>
-                {/if}
-            </p>
-            <button type="button" class="button button-secondary debug-btn"
-                    on:click={toggleCruiseOverride}>
-                Switch to {isMultiBoatDay ? 'main party' : 'Sunday cruise'}
-            </button>
-        </div>
+        {/if}
     {/if}
 
 </div>
