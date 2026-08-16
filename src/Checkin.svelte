@@ -112,15 +112,19 @@
         stopScanner();
     });
 
-    const SCAN_CONFIG: any = {
-        fps: 10,
-        qrbox: { width: 250, height: 250 },
-        formatsToSupport: [
-            Html5QrcodeSupportedFormats.QR_CODE,
-            Html5QrcodeSupportedFormats.DATA_MATRIX
-        ],
-        disableCanvasStreams: false
-    };
+    // Fresh per start: html5-qrcode clamps config.qrbox in place, so a shared one
+    // measured while the preview is hidden sticks at 0 and fails every later start.
+    function scanConfig(): any {
+        return {
+            fps: 10,
+            qrbox: { width: 250, height: 250 },
+            formatsToSupport: [
+                Html5QrcodeSupportedFormats.QR_CODE,
+                Html5QrcodeSupportedFormats.DATA_MATRIX
+            ],
+            disableCanvasStreams: false
+        };
+    }
 
     function startSources(): Array<string | MediaTrackConstraints> {
         const chosen = cameras[cameraIndex];
@@ -187,7 +191,7 @@
             if (scanner !== localScanner || sessionExpired) return;
 
             try {
-                await localScanner.start(source, SCAN_CONFIG, onScanSuccess, onScanFailure);
+                await localScanner.start(source, scanConfig(), onScanSuccess, onScanFailure);
                 cameraError = null;
                 rememberActiveCamera(localScanner);
                 setTimeout(applyInversionWorkaround, 200);
