@@ -19,9 +19,13 @@
         undo: { kind: 'pickup' | 'return'; key: string } | null;
     };
 
-    type Confirm =
-        | { kind: 'clear' }
-        | { kind: 'remove'; loan: Loan };
+    // Every state change that is not a plain handout asks first, through here.
+    type Confirm = {
+        title: string;
+        body: string;
+        confirmLabel: string;
+        run: () => void;
+    };
 
     // No login, no API: the list lives in this browser so handouts survive no signal.
     const STORAGE_KEY = 'summerboat:headsets:v1';
@@ -215,14 +219,32 @@
         result = null;
     }
 
-    function undoResult() {
+    function askUndo() {
         const undo = result?.undo;
-        result = null;
+        const id = result?.id ?? 'this badge';
         if (!undo) return;
 
+        confirmAction = undo.kind === 'pickup'
+            ? {
+                title: 'Undo the handout?',
+                body: `This deletes the log entry for ${id}, so use it for a mis-scan only. `
+                    + 'A headset that was really handed out should be scanned back in instead.',
+                confirmLabel: 'Delete the entry',
+                run: () => applyUndo(undo)
+            }
+            : {
+                title: 'Undo the return?',
+                body: `${id} goes back to being out, as if the headset had never come back.`,
+                confirmLabel: 'Put it back out',
+                run: () => applyUndo(undo)
+            };
+    }
+
+    function applyUndo(undo: { kind: 'pickup' | 'return'; key: string }) {
         if (undo.kind === 'pickup') loans = loans.filter(l => l.key !== undo.key);
         else loans = loans.map(l => (l.key === undo.key ? { ...l, returnedAt: null } : l));
 
+        result = null;
         save();
     }
 
@@ -252,19 +274,40 @@
         handleCode(id);
     }
 
-    function markReturnedFromList(loan: Loan) {
+    function askMarkReturned(loan: Loan) {
         if (loan.returnedAt) return;
 
-        loans = loans.map(l => (l.key === loan.key ? { ...l, returnedAt: new Date().toISOString() } : l));
+        confirmAction = {
+            title: 'Received back headset?',
+            body: `${loan.id}, picked up ${stamp(loan.pickedUpAt)} — `
+                + `out for ${humanDuration(loan.pickedUpAt, new Date().toISOString())}.`,
+            confirmLabel: 'Yes, headset is back',
+            run: () => markReturned(loan.key)
+        };
+    }
+
+    function markReturned(key: string) {
+        const current = loans.find(l => l.key === key);
+        if (!current || current.returnedAt) return;
+
+        loans = loans.map(l => (l.key === key ? { ...l, returnedAt: new Date().toISOString() } : l));
         save();
     }
 
-    function askRemove(loan: Loan) {
-        confirmAction = { kind: 'remove', loan };
+    function askClear() {
+        confirmAction = {
+            title: 'Clear the list?',
+            body: clearWarning(),
+            confirmLabel: 'Delete everything',
+            run: clearAll
+        };
     }
 
-    function askClear() {
-        confirmAction = { kind: 'clear' };
+    function clearAll() {
+        loans = [];
+        pendingReturn = null;
+        result = null;
+        save();
     }
 
     function cancelConfirm() {
@@ -274,18 +317,7 @@
     function runConfirm() {
         if (!confirmAction) return;
 
-        if (confirmAction.kind === 'clear') {
-            loans = [];
-            pendingReturn = null;
-            result = null;
-        } else {
-            const key = confirmAction.loan.key;
-            loans = loans.filter(l => l.key !== key);
-            if (pendingReturn?.key === key) pendingReturn = null;
-            if (result?.undo?.key === key) result = { ...result, undo: null };
-        }
-
-        save();
+        confirmAction.run();
         confirmAction = null;
     }
 
@@ -633,20 +665,12 @@
 {#if confirmAction}
     <Overlay onClose={cancelConfirm}>
         <div class="confirm-card">
-            {#if confirmAction.kind === 'clear'}
-                <h3 class="text-headline verify-title">Clear the list?</h3>
-                <p class="confirm-text">{clearWarning()}</p>
-            {:else}
-                <h3 class="text-headline verify-title">Remove this entry?</h3>
-                <p class="confirm-text">
-                    <strong>{confirmAction.loan.id}</strong>, picked up {stamp(confirmAction.loan.pickedUpAt)}.
-                    Removing it drops it from the list and the export.
-                </p>
-            {/if}
+            <h3 class="text-headline verify-title">{confirmAction.title}</h3>
+            <p class="confirm-text">{confirmAction.body}</p>
 
             <div class="actions">
                 <button type="button" class="button button-primary" on:click={runConfirm}>
-                    {confirmAction.kind === 'clear' ? 'Delete everything' : 'Remove entry'}
+                    {confirmAction.confirmLabel}
                 </button>
                 <button type="button" class="button button-secondary" on:click={cancelConfirm}>
                     Cancel
@@ -741,7 +765,7 @@
                     Scan next
                 </button>
                 {#if result.undo}
-                    <button type="button" class="button button-secondary" on:click={undoResult}>
+                    <button type="button" class="button button-secondary" on:click={askUndo}>
                         {result.undo.kind === 'pickup' ? 'Undo handout' : 'Undo return'}
                     </button>
                 {/if}
@@ -805,17 +829,14 @@
                             </span>
                         </div>
                         <div class="loan-meta">{loanMeta(loan)}</div>
-                        <div class="loan-actions">
-                            {#if !loan.returnedAt}
+                        {#if !loan.returnedAt}
+                            <div class="loan-actions">
                                 <button type="button" class="loan-btn"
-                                        on:click={() => markReturnedFromList(loan)}>
+                                        on:click={() => askMarkReturned(loan)}>
                                     Mark returned
                                 </button>
-                            {/if}
-                            <button type="button" class="loan-btn" on:click={() => askRemove(loan)}>
-                                Remove
-                            </button>
-                        </div>
+                            </div>
+                        {/if}
                     </li>
                 {/each}
             </ul>
